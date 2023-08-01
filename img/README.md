@@ -1,1 +1,1 @@
-This folder contains images for the paper.
+Images for the paper.

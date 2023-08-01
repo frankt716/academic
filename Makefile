@@ -1,12 +1,9 @@
-.PHONY: all paper.pdf setup clean
+.PHONY: all paper.pdf clean
 
 all: paper.pdf
 
 paper.pdf: paper.tex
 	latexmk -synctex=1 -pdf -shell-escape paper.tex
-
-setup:
-	ln -s ../cites/all.bib all.bib
 
 CLEANABLES := $(shell find . \( -name '*.aux'\
 	                         -o -name '\#*\#'\

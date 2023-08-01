@@ -1,0 +1,15 @@
+% https://q.uiver.app/#q=WzAsNSxbMiwyLCJGKFxcVG0pIl0sWzIsNCwiRihcXFR5KSJdLFs0LDQsIlxcVHkiXSxbNCwyLCJcXFRtIl0sWzAsMCwiXFxHYW1tYSJdLFswLDEsIkYoZikiLDJdLFsxLDIsIlxcUGkiLDJdLFszLDIsImYiXSxbNCwxLCIoQSxCKSIsMix7ImN1cnZlIjoyfV0sWzQsMywiZyIsMCx7ImN1cnZlIjotMn1dLFswLDMsIlxcbGFtYmRhIl0sWzQsMCwiKEEsXFx3aWRldGlsZGV7Z30pIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\[\begin{tikzcd}
+	\Gamma \\
+	\\
+	&& {F(\Tm)} && \Tm \\
+	\\
+	&& {F(\Ty)} && \Ty
+	\arrow["{F(f)}"', from=3-3, to=5-3]
+	\arrow["\Pi"', from=5-3, to=5-5]
+	\arrow["f", from=3-5, to=5-5]
+	\arrow["{(A,B)}"', curve={height=12pt}, from=1-1, to=5-3]
+	\arrow["g", curve={height=-12pt}, from=1-1, to=3-5]
+	\arrow["\lambda", from=3-3, to=3-5]
+	\arrow["{(A,\widetilde{g})}"{description}, dashed, from=1-1, to=3-3]
+\end{tikzcd}\]

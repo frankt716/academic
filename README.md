@@ -1,4 +1,4 @@
-This repo was forked from [https://github.com/mikeshulman/basictex](mikeshulman/basictex).
+This repo was forked from [mikeshulman/basictex](https://github.com/mikeshulman/basictex).
 
 This repo contains
 * decls.tex: the basic LaTeX macros that I use in all my papers

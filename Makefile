@@ -1,4 +1,6 @@
-.PHONY: all paper.pdf clean
+.PHONY: all paper.pdf clean update
+
+TEMPLATEDECLS=../basictex/decls.tex
 
 all: paper.pdf
 
@@ -32,3 +34,9 @@ clean:
 			echo "Removing $$f";\
 			rm $$f;\
 	done
+
+update:
+	@echo
+	@echo "Updating decls.tex in basictex"
+	cp ./decls.tex $(TEMPLATEDECLS)
+	@echo "Pushing updates to github"

@@ -1,4 +1,6 @@
-.PHONY: all paper.pdf clean
+.PHONY: all paper.pdf clean update
+
+TEMPLATEPATH=../basictex/
 
 all: paper.pdf
 
@@ -32,3 +34,11 @@ clean:
 			echo "Removing $$f";\
 			rm $$f;\
 	done
+
+update:
+	@echo
+	@echo "Updating decls.tex in basictex"
+	cp ./decls.tex $(TEMPLATEPATH)decls.tex
+	@echo "Pushing changes to github"
+	@echo
+	cd $(TEMPLATEPATH) && git add ./decls.tex && git commit -m "Edited decls.tex" && git push origin master

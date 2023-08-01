@@ -9,7 +9,7 @@ setup:
 	ln -s ../cites/all.bib all.bib
 
 CLEANABLES := $(shell find . \( -name '*.aux'\
-                             -o -name '\#*\#'\
+	                         -o -name '\#*\#'\
 			     			 -o -name '*.log'\
 			     			 -o -name '*.bbl'\
                              -o -name '*.out'\
@@ -28,7 +28,7 @@ CLEANABLES := $(shell find . \( -name '*.aux'\
                              -o -name '*.lof'\
 							 -o -name '*.brf'\
 							 -o -name '*.diagnose'\
-							 -o -name '*.kaux' \) -type f -not -path "./.git/*")
+							 -o -name '*.kaux' \) -type f -not -path "./.git/*" -not -path "./papers/*")
 
 clean:
 	@for f in $(CLEANABLES); do \

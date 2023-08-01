@@ -1,6 +1,6 @@
 .PHONY: all paper.pdf clean update
 
-TEMPLATEDECLS=../basictex/decls.tex
+TEMPLATEPATH=../basictex/
 
 all: paper.pdf
 
@@ -38,5 +38,7 @@ clean:
 update:
 	@echo
 	@echo "Updating decls.tex in basictex"
-	cp ./decls.tex $(TEMPLATEDECLS)
-	@echo "Pushing updates to github"
+	cp ./decls.tex $(TEMPLATEPATH)decls.tex
+	@echo "Pushing changes to github"
+	@echo
+	cd $(TEMPLATEPATH) && git add ./decls.tex && git commit -m "Edited decls.tex" && git push origin master

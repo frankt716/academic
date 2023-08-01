@@ -6,10 +6,12 @@ This repo contains
 * slides.tex: a similar sample file for making beamer slides
 * all.bib: a symlink to `../cites/all.bib`
 * Makefile: used to compile, clean, and setup the repo
-You can run 
+You can run
 
-	make update
-
+```
+make update
+```
+	
 to automatically update the `decls.tex` in the template.
 
 I maintain my bibtex database in a separate repo.

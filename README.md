@@ -8,7 +8,8 @@ This repo contains
 
 I maintain my bibtex database in a separate repo. 
 After cloning the repo to your local machine, run
-```make setup```
-It creates a symlink to ../cites/all.bib so that when I add new references I only have to do it once and then all projects can see them. 
-This is hardcoded so for this to work, you need to maintain a folder named `cites` just one-level above the root directory of this project, 
-and the symlink will be named `all.bib`.
+
+	make setup
+
+It creates a symlink to `../cites/all.bib` named `all.bib` so that when I add new references I only have to do it once and then all projects can see them. 
+This is hardcoded so for this to work, you need to maintain a folder named `cites` just one-level above the root directory of this project.

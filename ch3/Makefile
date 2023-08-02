@@ -1,9 +1,12 @@
-.PHONY: all clean
+.PHONY: all 4.pdf 5.pdf clean
 
-all: 4.pdf
+all: 4.pdf 5.pdf
 
 4.pdf: 4.tex
 	latexmk -synctex=1 -pdf -shell-escape 4.tex
+
+5.pdf: 5.tex
+	latexmk -synctex=1 -pdf -shell-escape 5.tex
 
 CLEANABLES := $(shell find . \( -name '*.aux'\
 	                         -o -name '\#*\#'\

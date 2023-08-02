@@ -62,6 +62,17 @@ Complete and cocompleteness of $\mathsf{Set}$ and of $\mathsf{Top}$ implies the 
   Thus, it suffices to show that $c/\iC$ has an initial object, and it does: $\id_{c}$.
 \end{proof}
 
+The categories $\mathsf{Cat}$ and $\mathsf{CAT}$ are complete and cocomplete.
+The proof is deferred to a later section.
+
+\begin{rmk}
+  For any set-valued functor $F : \iC \to \mathsf{Set}$, the pullback along $U : \mathsf{Set}_{*} \to \mathsf{Set}$ in $\mathsf{CAT}$ consists of $c \in \iC$ and $(X, x) \in \mathsf{Set}_{*}$
+  as objects so that $Fc = X$; morphisms are pairs $f : c \to d$ and $g : (X, x) \to (X', x')$ so that $Ff = Ug$.
+  The objects of this category encode the objects in $\int F$, i.e., an object $c \in C$ and an element $x \in Fc$.
+  The morphisms encode the morphisms of $\int F$, i.e., a morphism $f : c \to d$ such that $Ff(x) = Ug(x) = x'$.
+  \input{img/img5-1}
+\end{rmk}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

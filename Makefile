@@ -1,14 +1,9 @@
-.PHONY: all ch3 ch3-clean clean update
+.PHONY: all clean update
 
 TEMPLATEPATH=../basictex/
 
-all: ch3
-
-ch3:
-	cd ch3 && make
-
-ch3-clean:
-	@cd ch3 && make clean
+all: paper.tex
+	latexmk -synctex=1 -pdf -shell-escape paper.tex
 
 clean:
 	@rm -rf \

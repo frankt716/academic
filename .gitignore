@@ -283,6 +283,7 @@ TSWLatexianTemp*
 # auto folder when using emacs and auctex
 ./auto/*
 *.el
+*.tex~
 
 # expex forward references with \gathertags
 *-tags.tex

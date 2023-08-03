@@ -8,30 +8,26 @@ all: 4.pdf 5.pdf
 5.pdf: 5.tex
 	latexmk -synctex=1 -pdf -shell-escape 5.tex
 
-CLEANABLES := $(shell find . \( -name '*.aux'\
-	                         -o -name '\#*\#'\
-			     			 -o -name '*.log'\
-			     			 -o -name '*.bbl'\
-                             -o -name '*.out'\
-                             -o -name '*~'\
-                             -o -name '*.pdf'\
-                             -o -name '*.dvi'\
-                             -o -name '*.synctex.gz'\
-                             -o -name '*.blg'\
-                             -o -name '*.toc'\
-                             -o -name '*.lot'\
-			     			 -o -name '*.fls'\
-			     			 -o -name '*.rip'\
-			     			 -o -name '*.fdb_latexmk'\
-			     			 -o -name '*.xcp'\
-			     			 -o -name '*.xoj'\
-                             -o -name '*.lof'\
-							 -o -name '*.brf'\
-							 -o -name '*.diagnose'\
-							 -o -name '*.kaux' \) -type f -not -path "./.git/*" -not -path "./papers/*")
-
 clean:
-	@for f in $(CLEANABLES); do \
-			echo "Removing $$f";\
-			rm $$f;\
-	done
+	@rm -rf \
+	  *.aux \
+	  \#*\# \
+	  *.log \
+	  *.bbl \
+	  *.out \
+	  *~ \
+	  *.pdf \
+	  *.dvi \
+	  *.synctex.gz \
+	  *.blg \
+	  *.toc \
+	  *.lot \
+	  *.fls \
+	  *.rip \
+	  *.fdb_latexmk \
+	  *.xcp \
+	  *.xoj \
+	  *.lof \
+	  *.brf \
+	  *.diagnose \
+	  *.kaux

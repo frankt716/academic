@@ -1,0 +1,16 @@
+% https://q.uiver.app/#q=WzAsNSxbMiw0LCJYIl0sWzQsMiwiWCJdLFs0LDQsIlkiXSxbMCwwLCJSIFxcdGltZXNfe1h9IFIiXSxbMiwyLCJSIl0sWzAsMiwiZiIsMl0sWzEsMiwiZiJdLFszLDAsInMgXFxjaXJjIFxcc3RpbCIsMix7ImN1cnZlIjoyfV0sWzMsMSwidCBcXGNpcmMgXFx0dGlsIiwwLHsiY3VydmUiOi0yfV0sWzQsMCwicyIsMl0sWzQsMSwidCJdLFs0LDIsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFszLDQsIlxcdGF1IiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\[\begin{tikzcd}
+	{R \times_{X} R} \\
+	\\
+	&& R && X \\
+	\\
+	&& X && Y
+	\arrow["f"', from=5-3, to=5-5]
+	\arrow["f", from=3-5, to=5-5]
+	\arrow["{s \circ \stil}"', curve={height=12pt}, from=1-1, to=5-3]
+	\arrow["{t \circ \ttil}", curve={height=-12pt}, from=1-1, to=3-5]
+	\arrow["s"', from=3-3, to=5-3]
+	\arrow["t", from=3-3, to=3-5]
+	\arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=3-3, to=5-5]
+	\arrow["\tau"{description}, dashed, from=1-1, to=3-3]
+\end{tikzcd}\]

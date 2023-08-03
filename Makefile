@@ -10,7 +10,7 @@ ch3:
 ch3-clean:
 	@cd ch3 && make clean
 
-clean: ch3-clean
+clean:
 	@rm -rf \
 	  *.aux \
 	  \#*\# \
@@ -32,7 +32,8 @@ clean: ch3-clean
 	  *.lof \
 	  *.brf \
 	  *.diagnose \
-	  *.kaux
+	  *.kaux \
+	  .\#*.tex
 
 update:
 	@echo

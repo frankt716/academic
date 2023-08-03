@@ -30,4 +30,5 @@ clean:
 	  *.lof \
 	  *.brf \
 	  *.diagnose \
-	  *.kaux
+	  *.kaux \
+	  .\#*.tex

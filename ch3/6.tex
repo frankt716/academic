@@ -33,8 +33,29 @@ There is seldom a reason to choose one over the other.
   For $\id_{D} : D \to D$, the composite $\id_{D} \circ \lambda = \lambda$ determines a unique map $\lim_{J}D \to \lim_{J}D$ factoring through each leg of the limit cone.
   Clearly, $\id_{\lim_{J}D}: \lim_{J}D \to \lim_{J}D$ satisfies this property.
   Thus, $\lim_{J}(\id_{D}) = \id_{\lim_{J}D}$.
-  
+
+  For any $\alpha : D \to E$ and $\beta : E \to F$, the composite $\lambda \circ (\beta \circ \alpha)$ determines a map $\lim_{J}(\beta \circ \alpha) : \lim_{J}D \to \lim_{J}F$.
+  By associativity, $\lambda \circ (\beta \circ \alpha) = (\lambda \circ \beta) \circ \alpha$.
+  The latter determines the composite $\lim_{J}(\beta) \circ \lim_{J}(\alpha)$, factoring through the same limit cone.
+  Thus, by uniqueness $\lim_{J}(\beta \circ \alpha) = \lim_{J}(\beta) \circ \lim_{J}(\alpha)$.
 \end{proof}
+
+\begin{eg}
+  Let $\iC$ be a category with binary products.
+  For any triple of objects $X, Y, Z$, there is a natural isomorphism between $(X \times Y) \times Z$ and $X \times (Y \times Z)$.
+\end{eg}
+\begin{proof}
+  Let $\iJ$ be the discrete 3-object category.
+  Both $(X \times Y) \times Z$ and $X \times (Y \times Z)$ are limits of the diagram $D : \iJ \to \iC$ mapping the 3 objects in $\iJ$ to $X, Y, Z$ respectively.
+  Let $L : \iC^{\iJ} \to \iC$ be given by the left associative choice, and $R : \iC^{\iJ} \to \iC$ be given by the right one.
+  For a diagram $D : \iJ \to \iC$, the limits $L(D)$ and $R(D)$ are isomorphic.
+  In particular, there is a unique isomorphism that commutes with the legs of the limit cones.
+  Choose these isomorphisms to be the components of the natural isomorphism.
+  Naturality is evident due to uniqueness.
+  For any collection of isomorphisms, the naturality condition demands that the isomorphisms satisfy the universal property of limits.
+  Thus, uniqueness follows.
+\end{proof}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

@@ -47,13 +47,27 @@ There is seldom a reason to choose one over the other.
 \begin{proof}
   Let $\iJ$ be the discrete 3-object category.
   Both $(X \times Y) \times Z$ and $X \times (Y \times Z)$ are limits of the diagram $D : \iJ \to \iC$ mapping the 3 objects in $\iJ$ to $X, Y, Z$ respectively.
-  Let $L : \iC^{\iJ} \to \iC$ be given by the left associative choice, and $R : \iC^{\iJ} \to \iC$ be given by the right one.
-  For a diagram $D : \iJ \to \iC$, the limits $L(D)$ and $R(D)$ are isomorphic.
+  Let $L : \iC^{\iJ} \to \iC$ be given by the left-associative choice, and $R : \iC^{\iJ} \to \iC$ be given by the right one.
+  
+  For a diagram $D : \iJ \to \iC$, the legs of the limit cones are implemented by composing the binary product projections indicated as follows: \input{img/img6-1} \input{img/img6-2}
+
+  We name the projections of the left-associative product $\lambda$ and the right-associative product $\rho$.
+  
   In particular, there is a unique isomorphism that commutes with the legs of the limit cones.
+  \input{img/img6-3}
   Choose these isomorphisms to be the components of the natural isomorphism.
-  Naturality is evident due to uniqueness.
-  For any collection of isomorphisms, the naturality condition demands that the isomorphisms satisfy the universal property of limits.
-  Thus, uniqueness follows.
+
+  A natural transformation between diagrams $D, E : \iJ \to \iC$ consists of three morphisms $f,g,h$ without further restrictions.
+  Thus, $L(f,g,h)$ is given by \input{img/img6-4}
+  and $R(f,g,h)$ is given similarly.
+
+  Naturality demands
+  \[
+    \langle f \circ \rho_{X}, g \circ \rho_{Y}, h \circ \rho_{Z} \rangle \circ \langle \lambda_{X}, \lambda_{Y}, \lambda_{Z} \rangle
+    =
+    \langle \lambda_{X'}, \lambda_{Y'}, \lambda_{Z'} \rangle \circ \langle f \circ \lambda_{X}, g \circ \lambda_{Y}, h \circ \lambda_{Z} \rangle
+  \]
+  This is satisfied since both composites factor into the following cone: \input{img/img6-5} \input{img/img6-6}
 \end{proof}
 
 \bibliographystyle{alpha}

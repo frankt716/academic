@@ -1,12 +1,15 @@
-.PHONY: all 4.pdf 5.pdf clean
+.PHONY: all 4.pdf 5.pdf 6.pdf clean
 
-all: 4.pdf 5.pdf
+all: 4.pdf 5.pdf 6.pdf
 
 4.pdf: 4.tex
 	latexmk -synctex=1 -pdf -shell-escape 4.tex
 
 5.pdf: 5.tex
 	latexmk -synctex=1 -pdf -shell-escape 5.tex
+
+6.pdf: 6.tex
+	latexmk -synctex=1 -pdf -shell-escape 6.tex
 
 clean:
 	@rm -rf \

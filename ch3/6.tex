@@ -10,9 +10,31 @@
 
 \section{Introduction}
 \label{sec:introduction}
+The goal of this section is to show that natural isomorphisms between diagrams induce naturally defined isomorphisms between their limits and colimits, whenever they exist.
+To this end, we establish the functoriality of limits and colimits.
 
+Note that functoriality is not the same as canonicity: given a diagram $D : \iJ \to \iC$, there may be many objects in $\iC$ that satisfy the universal property of limit.
+There is seldom a reason to choose one over the other.
 
+\begin{thm}
+  If $\iC$ has all $\iJ$-shaped limits, then a choice of a limit for each diagram determines the action on objects of a functor $\lim_{\iJ} : \iC^{\iJ} \to \iC$.
+\end{thm}
+\begin{proof}
+  The action on objects has already been defined.
+  It remains to define the action on morphisms and verify functoriality.
+  Given a natural transformation $\alpha : D \to E$, the composite
+  \[
+    \lim_{J}D \overset{\lambda}{\to} D \overset{\alpha}{\to} E
+  \]
+  is a cone over $E$.
+  Thus, by the universal property of limit, there is a unique map $\lim_{J}D \to \lim_{J}E$ that factors through each leg of the limit cone.
+  We define the action on morphisms by such unique maps.
 
+  For $\id_{D} : D \to D$, the composite $\id_{D} \circ \lambda = \lambda$ determines a unique map $\lim_{J}D \to \lim_{J}D$ factoring through each leg of the limit cone.
+  Clearly, $\id_{\lim_{J}D}: \lim_{J}D \to \lim_{J}D$ satisfies this property.
+  Thus, $\lim_{J}(\id_{D}) = \id_{\lim_{J}D}$.
+  
+\end{proof}
 \bibliographystyle{alpha}
 \bibliography{all}
 

@@ -1,15 +1,20 @@
-.PHONY: all 4.pdf 5.pdf 6.pdf clean
+.PHONY: all 3.pdf 4.pdf 5.pdf 6.pdf clean
 
-all: 4.pdf 5.pdf 6.pdf
+MAKE=latexmk -synctex=1 -pdf -shell-escape
+
+all: 3.pdf 4.pdf 5.pdf 6.pdf
+
+3.pdf: 3.tex
+	$(MAKE) 3.tex
 
 4.pdf: 4.tex
-	latexmk -synctex=1 -pdf -shell-escape 4.tex
+	$(MAKE) 4.tex
 
 5.pdf: 5.tex
-	latexmk -synctex=1 -pdf -shell-escape 5.tex
+	$(MAKE) 5.tex
 
 6.pdf: 6.tex
-	latexmk -synctex=1 -pdf -shell-escape 6.tex
+	$(MAKE) 6.tex
 
 clean:
 	@rm -rf \

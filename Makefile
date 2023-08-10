@@ -10,7 +10,7 @@ ch3:
 ch3-clean:
 	@cd ch3 && make clean
 
-clean:
+clean: ch3-clean
 	@rm -rf \
 	  *.aux \
 	  \#*\# \

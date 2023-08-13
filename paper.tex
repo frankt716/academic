@@ -16,7 +16,7 @@ Basically, a fibration is a categorical structure of \emph{indexing} and \emph{s
   Let $p : \iE \to \iB$ be a functor and $I$ be an object in the base category $\iB$.
   The \emph{fiber category} $\iE_{I} = p\inv(I)$ over $I$ consists of
   \begin{center}
-    \begin{tabularx}{\linewidth}{lX}
+    \begin{tabularx}{\linewidth}{rX}
       \textbf{objects} & an object $X \in \iE_{I}$ is an object in $X \in \iE$ so that $pX = I$.\\
       \textbf{morphisms} & a morphism $f : X \to Y$ in $\iE_{I}$ is a \emph{vertical} morphism $f : X \to Y$ in $\iE_{I}$.
                            That is, $pf = \id_{I}$.
@@ -101,6 +101,19 @@ The process we have described thus far turns a cloven fibration into an indexed 
 
 \begin{defn}
   The \emph{Grothendieck construction} goes in the opposite direction, turning an indexed category into a cloven fibration.
+  
+  Let $* : \iB\op \to \mathsf{Cat}$ be an indexed category.
+  The \emph{Grothendieck completion} $\int*$ is a category consisting of
+  \begin{center}
+    \begin{tabularx}{\linewidth}{rX}
+      \textbf{objects} & an object $(I, X)$ consists of $I \in \iB$ and $X \in \iE_{I} = I^{*}$\\
+      \textbf{morphisms} & a morphism $(I, X) \to (J, Y)$ consists of a morphism $u : I \to J$ in $\iB$ and $f : X \to u^{*}(Y)$ in $\iE_{I}$.
+    \end{tabularx}
+  \end{center}
+  The identity $(I, X) \to (I, X)$ consists of $\id_{I} : I \to I$ and the isomorphism $\eta_{I,X} : X \iso (\id_{I})^{*}(X)$.
+  For any two composable morphisms $(u, f) : (I, X) \to (J, Y)$ and $(v, g) : (J, Y) \to (K, Z)$, the composition is given by $(v \circ u, \mu_{u,v,Z} \circ u^{*}(g) \circ f)$.
+
+  The coherence conditions of $\eta$ and $\mu$ ensure that identities and compositions satisfy unitality and associativity.
 \end{defn}
 
 \bibliographystyle{alpha}

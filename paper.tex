@@ -62,10 +62,46 @@ There is an assignment $* : \iB\op \to \mathsf{Cat}$, mapping objects in the bas
 However, this assignment is not functorial.
 For any pair of composable morphisms $u, v$ in the base category $\iB$, $u^{*} \circ v^{*}$ is in general not equal to $(v \circ u)^{*}$ on the nose.
 Rather, they are naturally isomorphic: for any $k \in \iE_{K}$, both $\ubar(k) \circ \ubar(u^{*}(k))$ and $\overline{v \circ u}(k)$ are Cartesian over $v \circ u$.
-Thus, $v^{*}(u^{*}(k)) \iso (v \circ u)^{*}(k)$, which assembles into a natural isomorphism $v^{*} \circ u^{*} \iso (v \circ u)^{*}$.
+Thus, $v^{*}(u^{*}(k)) \iso (v \circ u)^{*}(k)$, which assembles into a natural isomorphism $u^{*} \circ v^{*} \iso (v \circ u)^{*}$.
 \begin{mathpar}
   \input{img/cloven02} \and \input{img/cloven03}
 \end{mathpar}
+
+Similarly, for any $i \in \iE_{I}$, the identity $\id_{i} : i \to i$ is Cartesian over the identity $\id_{I} : I \to I$.
+The cleavage yields another Cartesian morphism in $\iE$.
+Thus, $\id_{\iE_{I}}(i) \iso (\id_{I})^{*}(i)$, which assembles into a natural isomorphism $\id_{\iE_{I}} \iso (\id_{I})^{*}$.
+\input{img/cloven04}
+
+To summarize, the assignment $* : \iB\op \to \mathsf{Cat}$ has the following natural isomorphisms:
+\begin{mathpar}
+  \eta_{I} : \id_{\iE_{I}} \iso (\id_{I})^{*}
+  \and
+  \mu_{u,v} : u^{*} \circ v^{*} \iso (v \circ u)^{*}
+\end{mathpar}
+
+\begin{defn}
+  A \emph{split} fibration is a cloven fibration in which all components of $\eta_{I}$ and $\mu_{u,v}$ are identities.
+  The cleavage involved is often called a \emph{splitting}.
+\end{defn}
+
+The natural isomorphisms given above satisfy additional coherence conditions:
+\begin{mathpar}
+  \begin{array}{cl}
+    \input{img/pseudo01} & \text{for } I \overset{u}{\to} J\\
+    \input{img/pseudo02} & \text{for } I \overset{u}{\to} J \overset{v}{\to} K \overset{w}{\to} L
+  \end{array}
+\end{mathpar}
+The data of the assignment $* : \iB\op \to \mathsf{Cat}$ together with witnesses of the coherence conditions assemble into a \emph{pseudofunctor}.
+
+\begin{defn}
+  An \emph{indexed category} is a pseudofunctor $* : \iB\op \to \mathsf{Cat}$.
+\end{defn}
+
+The process we have described thus far turns a cloven fibration into an indexed category.
+
+\begin{defn}
+  The \emph{Grothendieck construction} goes in the opposite direction, turning an indexed category into a cloven fibration.
+\end{defn}
 
 \bibliographystyle{alpha}
 \bibliography{all}

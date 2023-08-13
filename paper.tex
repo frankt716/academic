@@ -10,8 +10,62 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
+Basically, a fibration is a categorical structure of \emph{indexing} and \emph{substitution}.
 
+\begin{defn}
+  Let $p : \iE \to \iB$ be a functor and $I$ be an object in the base category $\iB$.
+  The \emph{fiber category} $\iE_{I} = p\inv(I)$ over $I$ consists of
+  \begin{center}
+    \begin{tabularx}{\linewidth}{lX}
+      \textbf{objects} & an object $X \in \iE_{I}$ is an object in $X \in \iE$ so that $pX = I$.\\
+      \textbf{morphisms} & a morphism $f : X \to Y$ in $\iE_{I}$ is a \emph{vertical} morphism $f : X \to Y$ in $\iE_{I}$.
+                           That is, $pf = \id_{I}$.
+    \end{tabularx}
+  \end{center}
+\end{defn}
+
+\begin{defn}
+  Let $p : \iE \to \iB$ be a functor.
+  A morphism $f : X \to Y$ in $\iE$ is \emph{Cartesian} if for any $g : Z \to Y$ in $\iE$, any filling of the cospan $pf : pX \to pY$ and $pg : pZ \to pY$ has a unique lift that fills the cospan in $\iE$.
+  \input{img/cartesian01}
+  
+  A morphism $f : X \to Y$ is said to be \emph{Cartesian over} a morphism $u : I \to J$ in $\iB$ if $f$ is Cartesian and $pf = u$.
+\end{defn}
+
+\begin{defn}
+  A fibration $p : \iE \to \iB$ is a functor so that for any $Y \in \iE$ and any morphism $u : I \to pY$ in $\iB$, there is a Cartesian morphism $f : X \to Y$ over $u$.
+  \input{img/fibration01}
+
+  $f$ is often called the \emph{terminal} or \emph{Cartesian} lifting of $u$.
+  Indeed, the use of the definite article ``the'' is justified since Cartesian liftings are unique up to isomorphism (in the slice category).
+\end{defn}
+
+\begin{defn}
+  A \emph{cloven} fibration $p : \iE \to \iB$ is a fibration equipped with a \emph{cleavage}, i.e., a choice of Cartesian liftings.
+\end{defn}
+
+Given a cloven fibration $p : \iE \to \iB$, every morphism $u : I \to J$ in $\iB$ induces a functor $u^{*} : \iE_{J} \to \iE_{I}$, which is often called a \emph{substitution functor}.
+
+For $u : I \to pY$ in the base category $\iB$, the cleavage determines a Cartesian lifting $\ubar(Y) : X \to Y$.
+The domain $X$ of the Cartesian lift $\ubar(X)$ is an object in $\iE_{J}$.
+This determines the action on objects.
+
+For $f : A \to B$ in $\iE_{J}$, the composite $f \circ \ubar(A)$ is also a Cartesian morphism over $u$.
+The projected cospan in $\iB$ can be filled with the identity, which lifts to a unique morphism $u^{*}(A) \to u^{*}(B)$ in $\iE$.
+This determines the action on morphisms; uniqueness guarantees that this assignment is functorial.
+\input{img/cloven01}
+
+There is an assignment $* : \iB\op \to \mathsf{Cat}$, mapping objects in the base category to its fiber category and morphisms in the base category to its substitution functor.
+\begin{mathpar}
+  I \mapsto \iE_{I} \and u \mapsto u^{*}
+\end{mathpar}
+However, this assignment is not functorial.
+For any pair of composable morphisms $u, v$ in the base category $\iB$, $u^{*} \circ v^{*}$ is in general not equal to $(v \circ u)^{*}$ on the nose.
+Rather, they are naturally isomorphic: for any $k \in \iE_{K}$, both $\ubar(k) \circ \ubar(u^{*}(k))$ and $\overline{v \circ u}(k)$ are Cartesian over $v \circ u$.
+Thus, $v^{*}(u^{*}(k)) \iso (v \circ u)^{*}(k)$, which assembles into a natural isomorphism $v^{*} \circ u^{*} \iso (v \circ u)^{*}$.
+\begin{mathpar}
+  \input{img/cloven02} \and \input{img/cloven03}
+\end{mathpar}
 
 \bibliographystyle{alpha}
 \bibliography{all}

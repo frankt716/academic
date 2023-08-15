@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{Syntax and Semantics of Dependent Types}
+\title{Categorical Semantics of Dependent Types}
 \author{Frank Tsai}
 \date{\today}
 % \thanks{}
@@ -22,16 +22,37 @@
 
 \section{Introduction}
 \label{sec:introduction}
-This is my personal note for \cite{hofmann:ssdts} and \cite{awodey:natmodels}.
-Categorical semantics of type theory provides abstract semantics for which a concrete mathematical model can be identified.
-To develop categorical semantics, substitutions are treated as a primitive operation, rather than an inductive defined one on the pre-syntax.
-Further, variables are presented as combinators for substitutions.
-Additional axioms will be imposed so that substitutions work as expected.
-By treating substitutions abstractly, any concrete implementation of substitution satisfying the axioms can model the abstract one.
+This is my personal note for \cite{hofmann:ssdts}, \cite{awodey:natmodels}, and \cite{coraglia:context-judgment-deduction}.
+The goal of this note is to survey some existing approaches to categorical semantics in the literature, and hopefully explore the differences and unity in them.
 
-One may ask ``what additional axioms are reasonable?''
-This is the tension between abstractions and implementations.
-Abstractions allow us to summarize past analytic experiences, while concrete implementations mean that the abstractions are not merely fantasies.
+Categorical semantics provides a framework for semantic investigation of dependent types.
+A concrete mathematical model can be identified from an abstract one constructed in the categorical framework.
+
+The notion of type theory itself is informal.
+However, most would probably agree that a dependent type theory is (informally) a formal system dealing with \emph{types} and \emph{terms} in \emph{contexts}, and consisting of the following data:
+\begin{itemize}
+\item Syntax: a collection of glyphs that make up the atoms of the language.
+  These are things such as $\Gamma, A$ or $a : A$.
+\item Judgments: sentences that bind together atomic data from the syntax.
+  These sentences are intended to describe the status of the given atomic data or how they are related.
+  For example,
+  \begin{mathpar}
+    \vdash \Gamma \ctxt \and \Gamma \vdash A \type \and \Gamma \vdash a : A
+  \end{mathpar}
+  can be informally read as ``$\Gamma$ is a context'', ``$A$ is a type in context $\Gamma$'', and ``$a$ has type $A$ in context $\Gamma$'', respectively.
+\item Rules: a mapping from judgments to judgments.
+  The intention of rules is to specify when a new judgment can be made given that some other judgments have already been made.
+  For example,
+  \begin{mathpar}
+    \inferrule
+    { \Gamma \vdash a : A \\ \Gamma.A \vdash B \type }
+    { \Gamma \vdash B[a] \type }
+  \end{mathpar}
+\end{itemize}
+
+Recall that the goal of categorical semantics is to provide an abstract framework.
+To this end, certain structures are postulated to avoid distracting ourselves from the task at hand.
+As a result, certain complex operations, such as substitution, that one encounters when working with a particular presentation of type theory become primitive ones.
 
 \section{Dependent Type Theory}
 \label{sec:dependent-type-theory}
@@ -440,93 +461,31 @@ Finally, the last equation states that function application is stable under subs
   \end{mathpar}
 \end{proof}
 
-\section{Grothendieck Fibrations}
-A fibration is a categorical structure that captures \emph{indexing} and \emph{substitution}.
-
-\begin{defn}[Fiber category]
-  Let $p : \iE \to \iB$ be a functor.
-  For an object $I \in \iB$, the \emph{fiber} or \emph{fiber category} $E_{I} = p^{-1}(I)$ over $I$ is the category with
-  \begin{center}
-    \begin{tabular}{ll}
-      \textbf{objects} & $X \in \iE$ with $pX = I$.\\
-      \textbf{morphisms} & \emph{vertical} morphism.
-                           That is, $f : X \to Y$ in $\iE$ for which $pf = \id_{I}$.
-    \end{tabular}
-  \end{center}
-\end{defn}
-
-\begin{defn}[Cartesian morphisms]
-  Let $p : \iE \to \iB$ be a functor.
-  A morphism $f : X \to Y$ in the total category $\iE$ is \emph{Cartesian} if for any $g : Z \to Y$ in $\iE$, any morphism $h : pZ \to pX$ in the base category such that $pf \circ h = pg$ has a unique lift $\htil : Z \to X$ in $\iE$ such that $f \circ \htil = g$.
-  \input{img/fibration01}
-\end{defn}
-
-\begin{defn}[Fibration]
-  The functor $p : \iE \to \iB$ is a \emph{fibration} if for every $Y \in \iE$ and $u : I \to pY$, there is a Cartesian morphism $f : X \to Y$ in $\iE$ above $u$.
-  Sometimes a fibration will be called a \emph{fibered category}.
-  We often say that a Cartesian morphism $f : X \to Y$ above $u : I \to pY$ is a \emph{terminal} or \emph{Cartesian} lifting of $u$.
-\end{defn}
-A fibration $p : \iE \to \iB$ is discrete if every fiber category $\iE_{I}$ is discrete (a set).
-
-\begin{thm}
-  Let $p : \iE \to \iB$ be a fibration.
-  Given a choice of Cartesian liftings, a map $u : I \to J$ in the base category $\iB$ determines a functor $u^{*} : \iE_{J} \to \iE_{I}$.
-\end{thm}
-\begin{proof}
-  For $X \in \iE_{J}$, we have that $pX = J$.
-  A choice of the Cartesian lifting of $u$ then determines a Cartesian map $\ubar(X) : \bullet \to X$ whose domain must be in $\iE_{I}$. This determines the action on objections.
-
-  For each $f : X \to Y$ in $\iE_{J}$, since $f$ is a vertical morphism in $\iE$, the composite $f \circ \ubar(X) : u^{*}(X) \to Y$ is above $u$.
-  The projection of these maps under $p$ determines a cospan that can be filled with the identity map.
-  Cartesianness then guarantees a unique lifting $u^{*}(X) \to u^{*}(Y)$.
-  \input{img/fibration02}
-
-  Uniqueness guarantees functoriality.
-\end{proof}
-
-Given a fibration equipped with a cleavage, two composable morphisms $I \overset{u}{\to} J \overset{v}{\to} K$ in the base category $\iB$, the two resulting functors $u^{*} \circ v^{*}$ and $(v \circ u)^{*}$ are in general not equal-on-the-nose but naturally isomorphic.
-
-The isomorphism arises because any two Cartesian lifts are isomorphic.
-The identity map $\id : I \to I$ also gives rise to two isomorphic Cartesian lifts $\id : X \to X$ and $\id^{*}(X)$.
-
-In certain cases, these isomorphisms are identities.
-
-\begin{defn}[Cloven fibration]
-  A \emph{cloven} fibration is a fibration equipped with a choice of Cartesian liftings.
-  That is, it comes equipped with a \emph{cleavage}.
-\end{defn}
-
-\begin{defn}[Split fibration]
-  A \emph{split} fibration is a cloven fibration for which the induced substitutions functors are such that the canonical natural transformations are identities.
-  The cleavage involved is often called a \emph{splitting}.
-\end{defn}
-
 \section{Judgmental Theory}
 \label{sec:judgmental-theory}
 \begin{defn}
-  A \emph{pre-judgmental theory} consists of the following data:
+  A \emph{judgmental theory} consists of the following structures:
   \begin{itemize}
   \item a category $\iC$ of contexts and substitutions with a terminal object $\diamond$;
   \item a set $\cJ$ of judgment classifiers $f : \dF \to \iC$ for the judgment $\dF$;
   \item a set $\cR$ of rules $\lambda : \dF \to \dG$;
   \item a set $\cP$ of policies induced by the rules and the judgments.
   \end{itemize}
-\end{defn}
-A classifier is (op)substitutional if it is a Grothendieck (op)fibration.
-
-\begin{defn}
-  A \emph{judgmental theory} is a pre-judgmental theory such that
+  And the following coherence conditions are satisfied:
   \begin{itemize}
-  \item rules and policies are closed under composition;
-  \item the judgments are precisely the rules whose codomain is $\iC$;
-  \item rules are policies are closed under finite limits, $\#$-liftings, and whiskering.
+  \item $\cR$ and $\cP$ are closed under composition;
+  \item the judgments are precisely those rules whose codomain is $\iC$;
+  \item $\cR$ and $\cP$ are closed under finite limits, $\#$-liftings, and whiskering.
   \end{itemize}
 \end{defn}
+
+For $\Gamma \in \iC$ and $A \in \dF$, we write $\Gamma \vdash A~\dF$ if $f(A) = \Gamma$.
+A classifier is (op)substitutional if it is a Grothendieck (op)fibration.
 
 Both the slice and the coslice over an object $\Gamma$ can be obtained by pulling back the universal discrete opfibration $\textsf{Set}_{*} \to \textsf{Set}$ along the (co)representable functor.
 Thus, the coslice is a discrete Grothendieck opfibration, while the slice is a discrete Grothendieck fibration.
 
-The fibered Yoneda Lemma then states that for any fibration $f : \dF \to \iC$, every element in the fiber of $f$ over $\Gamma$ determines a fibration $\iC/\Gamma \to \dF$.
+The fibered Yoneda Lemma then states that for any fibration $f : \dF \to \iC$, every object in the fiber of $f$ over $\Gamma$ determines a fibration $\iC/\Gamma \to \dF$.
 
 \begin{defn}
   A (pre)judgmental theory has axioms if the initial fibration over $\iC$ is a judgment.
@@ -539,6 +498,38 @@ The fibered Yoneda Lemma then states that for any fibration $f : \dF \to \iC$, e
   \item for all fibrations $\dF \in \cR$ and for all $F \in f\inv(\Gamma)$, the corresponding arrow $F : \iC/\Gamma \to \dF$ is a rule.
   \end{itemize}
 \end{defn}
+
+\begin{defn}
+  A dependent type theory is a substitutional judgmental theory generated by
+  \input{img/jddt01}
+\end{defn}
+
+The functor $\Sigma : \Tm \to \Ty$ interprets typing.
+Let $\Gamma \vdash a~\Tm$, we have a context $\Gamma = \util(a) = u\Sigma(a) \in \iC$.
+Since $a$ lies above $u\Sigma(a)$ wrt $\util$ and $\util = u\Sigma$, it follows that $\Sigma(a)$ lies above $u\Sigma(a)$ wrt $u$.
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash a~\Tm }
+  { \Gamma \vdash \Sigma(a)~\Ty }
+  \and
+  \inferrule
+  { \Gamma \vdash a : A }
+  { \Gamma \vdash A \type }
+\end{mathpar}
+
+The functor $\Delta : \Ty \to \Tm$ interprets context extension.
+Given an object $\Gamma \vdash A~\Ty$, $\util\Delta(A) \in \iC$ is a context.
+Evidently, the object $\Delta(A) \in \Tm$ lives in the fiber over $\util\Delta(A)$.
+Thus, we have $\util\Delta(A) \vdash \Delta(A)~\Tm$.
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash A~\Ty }
+  { \util\Delta(A) \vdash \Delta(A)~\Tm }
+  \and
+  \inferrule
+  { \Gamma \vdash A~\mathsf{type} }
+  { \Gamma.A \vdash q_{A} : A[\delta_{A}] }
+\end{mathpar}
 
 \bibliographystyle{alpha}
 \bibliography{all}

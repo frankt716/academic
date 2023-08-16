@@ -23,7 +23,7 @@
 \section{Introduction}
 \label{sec:introduction}
 This is my personal note for \cite{hofmann:ssdts}, \cite{awodey:natmodels}, and \cite{coraglia:context-judgment-deduction}.
-The goal of this note is to survey some existing approaches to categorical semantics in the literature, and hopefully explore the differences and unity in them.
+The goal of this note is to survey some existing approaches to categorical semantics in the literature, and hopefully explore the differences between and unity in them.
 
 Categorical semantics provides a framework for semantic investigation of dependent types.
 A concrete mathematical model can be identified from an abstract one constructed in the categorical framework.
@@ -333,7 +333,7 @@ To interpret various type formers and term formers, CwFs and natural models need
       (\lambda_{A,B}b)[\sigma] = \lambda_{A[\sigma],B[\sigma_{A}]}b[\sigma_{A}]
     \]
   \item A morphism $\app_{A,B} : \Gamma.A.(\Pi_{A}B) \to \Gamma.A.B$ such that \input{img/img20} and \input{img/img25} commute.
-    And for any morphism $\sigma : \Delta \to \Gamma$, \todo
+    And for any morphism $\sigma : \Delta \to \Gamma$,
     \[
       \app_{A,B} \circ \sigma_{A_{(\Pi_{A}B)[\sigma_{A}]}} = \sigma_{A_{B}} \circ \app_{A[\sigma],B[\sigma_{A}]}
     \]
@@ -436,12 +436,11 @@ Finally, the last equation states that function application is stable under subs
   Additionally, $\lambda \circ (A, b) = \lambda_{A}b$.
   By uniqueness, $\Gamma.A \vdash b = \widetilde{\lambda_{A}b} : B$, yielding the desired equation: $\Gamma \vdash (\lambda_{A}b)(a) = b[a] : B[a]$.
 
-  Finally, the $\eta$-law is also satisfied. \todo
+  Finally, the $\eta$-law is also satisfied.
   The premise says that there is a unique map $(A, \gtil) \maps \Gamma \to F(\Tm)$.
   \input{img/img14}
   By definition, $(g[p_{A}])(q_{A}) = \widetilde{g[p_{A}]}[q_{A}] = \widetilde{g[p_{A}]} \circ (1, q_{A})$.
 
-  \todo
   The type and term constructors $\Pi$, $\lambda$, and $\blank(\blank)$ also respect substitutions $\sigma \maps \Delta \to \Gamma$.
   Consider the formation rule,
   \begin{mathpar}

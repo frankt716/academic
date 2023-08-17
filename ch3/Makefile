@@ -1,8 +1,8 @@
-.PHONY: all 3.pdf 4.pdf 5.pdf 6.pdf clean
+.PHONY: all 3.pdf 4.pdf 5.pdf 6.pdf 7.pdf 8.pdf clean
 
 MAKE=latexmk -synctex=1 -pdf -shell-escape
 
-all: 3.pdf 4.pdf 5.pdf 6.pdf
+all: 3.pdf 4.pdf 5.pdf 6.pdf 7.pdf 8.pdf
 
 3.pdf: 3.tex
 	$(MAKE) 3.tex
@@ -15,6 +15,12 @@ all: 3.pdf 4.pdf 5.pdf 6.pdf
 
 6.pdf: 6.tex
 	$(MAKE) 6.tex
+
+7.pdf: 7.tex
+	$(MAKE) 7.tex
+
+8.pdf: 8.tex
+	$(MAKE) 8.tex
 
 clean:
 	@rm -rf \

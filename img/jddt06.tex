@@ -1,0 +1,18 @@
+% https://q.uiver.app/#q=WzAsNixbMCwzLCJcXFRtIl0sWzQsMywiXFxpQyJdLFsyLDIsIlxcVG0iXSxbNCwxLCJcXFR5Il0sWzAsMSwiXFxUbS5cXFNpZ21hXFxEZWx0YVxcVHkiXSxbMiwwLCJcXFRtIFxcdGltZXMgXFxUeSJdLFswLDIsIlxcaWQiXSxbMiwxLCJcXHV0aWwiXSxbMCwxLCJcXHV0aWxcXERlbHRhXFxTaWdtYSIsMl0sWzMsMSwidSJdLFs0LDNdLFs0LDBdLFs1LDJdLFs1LDNdLFs0LDUsInVeeyp9XFxpZCIsMCx7ImNvbG91ciI6WzAsNjAsNjBdLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19LFswLDYwLDYwLDFdXSxbMiw4LCJcXGV0YSciLDAseyJjdXJ2ZSI6LTIsInNob3J0ZW4iOnsidGFyZ2V0IjoyMH19XSxbNSwxMCwidV57Kn1cXGV0YSciLDAseyJjdXJ2ZSI6LTIsInNob3J0ZW4iOnsidGFyZ2V0IjoyMH0sImNvbG91ciI6WzAsNjAsNjBdLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19LFswLDYwLDYwLDFdXV0=
+\[\begin{tikzcd}
+	&& {\Tm \times \Ty} \\
+	{\Tm.\Sigma\Delta\Ty} &&&& \Ty \\
+	&& \Tm \\
+	\Tm &&&& \iC
+	\arrow["\id", from=4-1, to=3-3]
+	\arrow["\util", from=3-3, to=4-5]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "\util\Delta\Sigma"', from=4-1, to=4-5]
+	\arrow["u", from=2-5, to=4-5]
+	\arrow[""{name=1, anchor=center, inner sep=0}, from=2-1, to=2-5]
+	\arrow[from=2-1, to=4-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-3, to=2-5]
+	\arrow["{u^{*}\id}", color={rgb,255:red,214;green,92;blue,92}, dashed, from=2-1, to=1-3]
+	\arrow["{\eta'}", curve={height=-12pt}, shorten >=4pt, Rightarrow, from=3-3, to=0]
+	\arrow["{u^{*}\eta'}", color={rgb,255:red,214;green,92;blue,92}, curve={height=-12pt}, shorten >=4pt, Rightarrow, dashed, from=1-3, to=1]
+\end{tikzcd}\]

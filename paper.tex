@@ -240,6 +240,48 @@ In dependent type theory, types in a context can mention variables declared prio
 The operation $\blank[p_{A}]$ ``up-shifts'' the variables so that the newly added type $A$ mentions the same variables as the already existing type $A$.
 \input{img/img18}
 
+\subsection{Supporting Type Formers}
+\label{sec:cwf-supporting-type-formers}
+
+\subsubsection{$\Pi$-Types}
+\label{sec:cwf-pi-types}
+
+\begin{defn}
+  A CwF supports intensional $\Pi$-types if the following data are given
+  \begin{itemize}
+  \item An operator $\Pi : \Ty(\Gamma) \times \Ty(\Gamma.A) \to \Ty(\Gamma)$ such that for any $\sigma : \Delta \to \Gamma$
+    \[
+      \left(\prod_{A}B\right)[\sigma] = \prod_{A[\sigma]}B[\sigma_{A}]
+    \]
+  \item An operator $\lambda_{A,B} : \Tm(\Gamma.A)_{B} \to \Tm(\Gamma)_{\prod_{A}B}$ such that for any $\sigma : \Delta \to \Gamma$
+    \[
+      (\lambda_{A,B}b)[\sigma] = \lambda_{A[\sigma],B[\sigma_{A}]}b[\sigma_{A}]
+    \]
+  \item A morphism $\app_{A,B} : \Gamma.A.(\Pi_{A}B) \to \Gamma.A.B$ such that \input{img/img20} and \input{img/img25} commute.
+    And for any morphism $\sigma : \Delta \to \Gamma$,
+    \[
+      \app_{A,B} \circ \sigma_{A_{(\Pi_{A}B)[\sigma_{A}]}} = \sigma_{A_{B}} \circ \app_{A[\sigma],B[\sigma_{A}]}
+    \]
+  \end{itemize}
+\end{defn}
+The morphism $\app_{A,B}$ is rather mysterious.
+To unravel what it means, observe that a term $\Gamma \vdash t : B[a]$ can be obtained from the variable $\Gamma.A.B \vdash q_{B} : B[p_{B}]$ with a suitable substitution.
+
+In the elimination rule, two terms $\Gamma \vdash a : A$ and $\Gamma \vdash f : \prod_{A}B$ are given.
+The idea is to take $t$ as the application of $f$ to $a$.
+The universal property of context extension gives a morphism $(a, f) : \Gamma \to \Gamma.A.(\Pi_{A}B)$.
+The first equation yields \input{img/img24}
+Thus, there is a term $\Gamma \vdash q_{B}[\app_{A,B} \circ (a,f)] : B[a]$.
+
+Next to validate the $\beta$-rule, the equation $\Gamma \vdash q_{B}[\app_{A,B} \circ (a,\lambda_{A,B}b)] = b[a] : B[a]$ must hold for any $\Gamma.A \vdash b : B$.
+The second equation states that $\app_{A,B} \circ (a,\lambda_{A,B}b)$ is precisely $(a,b[a])$, and $q_{B}[a,b[a]] = b[a]$ follows from the universal property of context extension.
+
+Finally, the last equation states that function application is stable under substitution.
+
+\begin{defn}
+  A CwF supports extensional $\Pi$-types if it supports intensional $\Pi$-types, and whenever $b \in \Tm(\Gamma.A)_{B}$ and $f \in \Tm(\Gamma)_{\Pi_{A}B}$ and $\app_{A,B} \circ f = b$, then $f = \lambda_{A,B}b$.
+\end{defn}
+
 \section{Natural Model}
 \label{sec:natural-model}
 \begin{defn}[Natural models]
@@ -337,47 +379,11 @@ By waving a magic wand, every natural model $f : \Tm \to \Ty$ has an associated 
   { \Gamma \vdash A \type \\ \Gamma.A \vdash b : B }
 \end{mathpar}
 
-\section{Type Formers}
-\label{sec:type-formers}
+\subsection{Supporting Type Formers}
+\label{sec:nm-supporting-type-formers}
 
-To interpret various type formers and term formers, CwFs and natural models need to be equipped with additional operations.
-
-\subsection{$\Pi$-Types}
-\begin{defn}
-  A CwF supports intensional $\Pi$-types if the following data are given
-  \begin{itemize}
-  \item An operator $\Pi : \Ty(\Gamma) \times \Ty(\Gamma.A) \to \Ty(\Gamma)$ such that for any $\sigma : \Delta \to \Gamma$
-    \[
-      \left(\prod_{A}B\right)[\sigma] = \prod_{A[\sigma]}B[\sigma_{A}]
-    \]
-  \item An operator $\lambda_{A,B} : \Tm(\Gamma.A)_{B} \to \Tm(\Gamma)_{\prod_{A}B}$ such that for any $\sigma : \Delta \to \Gamma$
-    \[
-      (\lambda_{A,B}b)[\sigma] = \lambda_{A[\sigma],B[\sigma_{A}]}b[\sigma_{A}]
-    \]
-  \item A morphism $\app_{A,B} : \Gamma.A.(\Pi_{A}B) \to \Gamma.A.B$ such that \input{img/img20} and \input{img/img25} commute.
-    And for any morphism $\sigma : \Delta \to \Gamma$,
-    \[
-      \app_{A,B} \circ \sigma_{A_{(\Pi_{A}B)[\sigma_{A}]}} = \sigma_{A_{B}} \circ \app_{A[\sigma],B[\sigma_{A}]}
-    \]
-  \end{itemize}
-\end{defn}
-The morphism $\app_{A,B}$ is rather mysterious.
-To unravel what it means, observe that a term $\Gamma \vdash t : B[a]$ can be obtained from the variable $\Gamma.A.B \vdash q_{B} : B[p_{B}]$ with a suitable substitution.
-
-In the elimination rule, two terms $\Gamma \vdash a : A$ and $\Gamma \vdash f : \prod_{A}B$ are given.
-The idea is to take $t$ as the application of $f$ to $a$.
-The universal property of context extension gives a morphism $(a, f) : \Gamma \to \Gamma.A.(\Pi_{A}B)$.
-The first equation yields \input{img/img24}
-Thus, there is a term $\Gamma \vdash q_{B}[\app_{A,B} \circ (a,f)] : B[a]$.
-
-Next to validate the $\beta$-rule, the equation $\Gamma \vdash q_{B}[\app_{A,B} \circ (a,\lambda_{A,B}b)] = b[a] : B[a]$ must hold for any $\Gamma.A \vdash b : B$.
-The second equation states that $\app_{A,B} \circ (a,\lambda_{A,B}b)$ is precisely $(a,b[a])$, and $q_{B}[a,b[a]] = b[a]$ follows from the universal property of context extension.
-
-Finally, the last equation states that function application is stable under substitution.
-
-\begin{defn}
-  A CwF supports extensional $\Pi$-types if it supports intensional $\Pi$-types, and whenever $b \in \Tm(\Gamma.A)_{B}$ and $f \in \Tm(\Gamma)_{\Pi_{A}B}$ and $\app_{A,B} \circ f = b$, then $f = \lambda_{A,B}b$.
-\end{defn}
+\subsubsection{$\Pi$-Types}
+\label{sec:nm-pi-types}
 
 \begin{thm}
   Let $F(X) = \sum_{A : \Ty}X^{A}$ be the polynomial functor associated to a natural model $f : \Tm \to \Ty$.
@@ -485,26 +491,39 @@ Finally, the last equation states that function application is stable under subs
 \section{Judgmental Theory}
 \label{sec:judgmental-theory}
 \begin{defn}
-  A \emph{judgmental theory} consists of the following structures:
+  A \emph{prejudgmental theory} consists of the following data:
   \begin{itemize}
-  \item a category $\iC$ of contexts and substitutions with a terminal object $\diamond$;
-  \item a set $\cJ$ of judgment classifiers $f : \dF \to \iC$ for the judgment $\dF$;
-  \item a set $\cR$ of rules $\lambda : \dF \to \dG$;
-  \item a set $\cP$ of policies induced by the rules and the judgments.
+  \item a category $\iC$ with a terminal object $\diamond$;
+  \item a set $\cJ$ of functors $f : \dF \to \iC$;
+  \item a set $\cR$ of functors $\lambda : \dF \to \dG$;
+  \item a set $\cP$ of 2-cells;
   \end{itemize}
-  And the following coherence conditions are satisfied:
+\end{defn}
+
+\paragraph{\textbf{Terminology}}
+\begin{itemize}
+\item The objects of the category $\iC$ are called contexts and the morphisms are substitutions.
+  The terminal object is called the empty context.
+\item An element $f : \dF \to \iC$ of $\cJ$ is a \emph{classifier for the judgment} $\dF$.
+  The boundary between a judgment and a judgment classifier is often blurred.
+\item A \emph{rule} is an element $\lambda$ of $\cR$.
+\item A \emph{policy} is an element $\lambda^{\#}$ of $\cP$.
+\end{itemize}
+
+\begin{defn}
+  A \emph{judgmental theory} is a prejudgmental theory such that the following coherence conditions are satisfied:
   \begin{itemize}
   \item $\cR$ and $\cP$ are closed under composition;
   \item the judgments are precisely those rules whose codomain is $\iC$;
   \item $\cR$ and $\cP$ are closed under finite limits, $\#$-liftings, and whiskering.
   \end{itemize}
+  A classifier is said to be \emph{(op)substitutional} if it is a Grothendieck (op)fibration.
 \end{defn}
 
-For $\Gamma \in \iC$ and $A \in \dF$, we write $\Gamma \vdash A~\dF$ if $f(A) = \Gamma$.
-A classifier is (op)substitutional if it is a Grothendieck (op)fibration.
-
-Both the slice and the coslice over an object $\Gamma$ can be obtained by pulling back the universal discrete opfibration $\textsf{Set}_{*} \to \textsf{Set}$ along the (co)representable functor.
-Thus, the coslice is a discrete Grothendieck opfibration, while the slice is a discrete Grothendieck fibration.
+\begin{rmk}
+  Both the slice and the coslice over an object $\Gamma \in \iC$ can be obtained by pulling back the universal discrete opfibration $\textsf{Set}_{*} \to \textsf{Set}$ along the (co)representable functor.
+  Thus, the coslice is a discrete Grothendieck opfibration, while the slice is a discrete Grothendieck fibration.
+\end{rmk}
 
 \begin{defn}
   A (pre)judgmental theory has axioms if the initial fibration over $\iC$ is a judgment.
@@ -525,30 +544,35 @@ Recall that a dependent type theory consists of syntax, judgments, and rules.
 Given a judgmental theory, the corresponding judgmental calculus provides these data.
 \begin{itemize}
 \item Syntax: a letter $\Gamma$ for each context in $\iC$, and a letter $F$ for each object in a judgment classifier $\dF$.
-\item Judgments: There are two main kinds of judgment for each classifier $\dF \in \cJ$.
+\item Judgments: there are two main kinds of judgment for each classifier $\dG \in \cJ$.
   \begin{itemize}
-  \item The first kind of judgment acknowledges an $\dF$-empirical evidence and clarifies the status of a object.
-    For $f : \dF \to \iC$, we write
+  \item The first kind of judgment acknowledges a piece of $\dG$-empirical evidence and clarifies the status of an object.
+    For $g : \dG \to \iC$, we write
     \[
-      \Gamma \vdash F~\dF(f)
+      \Gamma \vdash G~\dG(g)
     \]
-    for an object in the fiber category $\dF_{\Gamma}$.
-    This can be understood as, for example, ``$F$ is fluorescent given $\Gamma$''.
+    for an object in the fiber category $\dG_{\Gamma}$.
+    This can be understood as, for example, ``$G$ is green given $\Gamma$''.
   \item The second kind of judgment is an identity checker.
-    For two identical objects $F, F' \in \dF_{\Gamma}$, we write
+    For two equal objects $G, G' \in \dG_{\Gamma}$, we write
     \[
-      \Gamma \vdash F =_{\dF(f)} F'
+      \Gamma \vdash G =_{\dG(g)} G'
     \]
-    This can be understood as ``$F$ and $F'$ are indistinguishable by fluorescence given $\Gamma$''.
+    This can be understood as ``$G$ and $G'$ are indistinguishable by green given $\Gamma$''.
   \end{itemize}
 \end{itemize}
 
 \subsection{Nested Judgments}
 \label{sec:nested-judgments}
 
-Given $\Gamma \vdash H~\dH(g\lambda)$ and $g\lambda(H) \vdash F~\dF(f)$, $H$ and $F$ form a cone over the span $g\lambda$ and $f$.
+Often, we find ourselves in a situation where we need to classify a pair of judgments that are related in some way.
+For example, in the identity formation rule the premise is a pair of judgments, $\Gamma \vdash a : A$ and $\Gamma \vdash b : B$, under the same context.
+A discussion of identity types is deferred to a later section. 
+
+Say, we wish to classify the pair of judgments: $\Gamma \vdash H~\dH(g\lambda)$ and $g\lambda(H) \vdash F~\dF(f)$.
+Note that $H$ and $F$ form a cone over the cospan $g\lambda$ and $f$.
 \input{img/nested01}
-Thus,
+Thus, by the universal property of pullbacks there is a one-to-one correspondence
 \begin{mathpar}
   \mprset{
     fraction={===}
@@ -557,7 +581,25 @@ Thus,
   { \Gamma \vdash H.\lambda F~\dH.\lambda\dF }
   { \Gamma \vdash H~\dH \\ g\lambda(H) \vdash F~\dF }
 \end{mathpar}
-The nested judgment classifier $\dH.\lambda\dF$ classifies a pair of judgments of the form $\Gamma \vdash H~\dH$ and $g\lambda(H) \vdash F~\dF$.
+That is, the nested judgment classifier $\dH.\lambda\dF$ classifies a pair of judgments of the form $\Gamma \vdash H~\dH$ and $g\lambda(H) \vdash F~\dF$.
+
+\subsection{Rules}
+\label{sec:jt-rules}
+
+Given a rule $\lambda : \dF \to \dG$ and $\Gamma \vdash F~\dF$, then one has $g\lambda(F) \vdash \lambda(F)~\dG$.
+\begin{mathpar}
+  \input{img/jt-rules01} \and (\lambda)\,\inferrule{ \Gamma \vdash F~\dF }{ g\lambda(F) \vdash \lambda(F)~\dG }
+\end{mathpar}
+
+\subsection{Substitutionality}
+\label{sec:jt-substitutionality}
+
+For a substitutional judgmental theory, 
+
+\subsection{Policies}
+\label{sec:jt-policies}
+
+
 
 \subsection{$\#$-Lifting}
 \label{sec:sharp-lifting}
@@ -577,7 +619,7 @@ Then $\lambda$ and $\lambda^{\#}$ can be lifted to complete the triangle above.
   Since $\cR^{*}$ is a fibration, maps completing the triangle downstairs lift to maps completing the triangle upstairs.
 \end{proof}
 
-\subsection{Dependent Type Theory in Judgmental Theory}
+\section{Dependent Type Theory in Judgmental Theory}
 \label{sec:dependent-type-theory-in-judgmental-theory}
 
 \begin{defn}
@@ -707,3 +749,5 @@ The last judgment is classified by pulling back $\Sigma$ along the composite $\P
 \bibliography{all}
 
 \end{document}
+
+% LocalWords:  prejudgmental

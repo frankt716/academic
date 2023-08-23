@@ -28,8 +28,14 @@ The goal of this note is to survey some existing approaches to categorical seman
 Categorical semantics provides a framework for semantic investigation of dependent types.
 A concrete mathematical model can be identified from an abstract one constructed in the categorical framework.
 
+To develop categorical semantics, certain structures are postulated to avoid distracting ourselves from the task at hand.
+As a result, certain complex operations, such as substitution, that one encounters when working with a particular presentation of type theory become primitive ones.
+
+\section{Dependent Type Theory}
+\label{sec:dependent-type-theory}
+
 The notion of type theory itself is informal.
-However, most would probably agree that a dependent type theory is (informally) a formal system dealing with \emph{types} and \emph{terms} in \emph{contexts}, and consisting of the following data:
+However, most would probably agree that a dependent type theory is (informally) a formal system dealing with \emph{types} and \emph{terms} in a \emph{context}, and consisting of the following data:
 \begin{itemize}
 \item Syntax: a collection of glyphs that make up the atoms of the language.
   These are things such as $\Gamma, A$ or $a : A$.
@@ -37,68 +43,67 @@ However, most would probably agree that a dependent type theory is (informally) 
   These sentences are intended to describe the status of the given atomic data or how they are related.
   For example,
   \begin{mathpar}
-    \vdash \Gamma \ctxt \and \Gamma \vdash A \type \and \Gamma \vdash a : A
+    \vdash \Gamma \ctxt \and \Gamma \vdash A \type \and \Gamma \vdash a : A \and \Gamma \vdash A = B \type \and \Gamma \vdash a = b : A
   \end{mathpar}
-  can be informally read as ``$\Gamma$ is a context'', ``$A$ is a type in context $\Gamma$'', and ``$a$ has type $A$ in context $\Gamma$'', respectively.
+  can be informally read as ``$\Gamma$ is a context'', ``$A$ is a type in context $\Gamma$'', ``$a$ has type $A$ in context $\Gamma$'', ``$A$ and $B$ are definitionally equal types in context $\Gamma$'', and ``$a$ and $b$ are definitionally equal terms of type $A$ in context $\Gamma$'', respectively.
 \item Rules: a mapping from judgments to judgments.
   The intention of rules is to specify when a new judgment can be made given that some other judgments have already been made.
   For example,
   \begin{mathpar}
-    \inferrule
+    \inferrule*[left=(dTy)]
     { \Gamma \vdash a : A \\ \Gamma.A \vdash B \type }
     { \Gamma \vdash B[a] \type }
   \end{mathpar}
 \end{itemize}
 
-Recall that the goal of categorical semantics is to provide an abstract framework.
-To this end, certain structures are postulated to avoid distracting ourselves from the task at hand.
-As a result, certain complex operations, such as substitution, that one encounters when working with a particular presentation of type theory become primitive ones.
+Contexts play an important role in dependent type theory.
+They can be thought of as the content of a \emph{where} clause in English.
+For example, ``$\mathrm{Vec}(x)$ is a type where $x$ is a natural number.''
+Then the rule (\textsc{dTy}) yields a new type, say $\mathrm{Vec}(7)$, by substituting $7$ for $x$.
 
-\section{Dependent Type Theory}
-\label{sec:dependent-type-theory}
-A type theory is a \emph{formal} theory with the following 6 basic forms of judgments.
+Most type theories that we will discuss feature the following rules regarding contexts and variables.
 \begin{mathpar}
-  \Gamma \ctxt
-  \and
-  \Gamma = \Delta \ctxt
-  \and
-  A \type
-  \and
-  A = B \type
-  \and
-  a : A
-  \and
-  a = b : A
-\end{mathpar}
-The last 4 judgments can be made under a valid context, e.g., $\Gamma \vdash A \type$.
-The context roughly corresponds to the content of a \emph{where} clause in English.
-For example, we may say ``$\mathrm{Vec}(x)$ is a type where $x$ is a natural number.''
-The \emph{inference rules} specify when a judgment can be derived given others.
-For example,
-\begin{mathpar}
-  \inferrule
+  \inferrule*[left=(Empty)]
   { }
   { \diamond \ctxt }
   \and
-  \inferrule
+  \inferrule*[left=(Ctx-Extend)]
   { \Gamma \ctxt \\ \Gamma \vdash A \type }
   { \Gamma, x : A \ctxt }
   \and
-  \inferrule
+  \inferrule*[left=(Var)]
   { \Gamma, x : A \ctxt }
   { \Gamma, x : A \vdash x : A }
 \end{mathpar}
-These rules together with some conversion rules specify the structure of dependent type theory.
-Type formers and term formers can be added.
-Some quintessential examples are $\Pi$-types, $\Sigma$-types, $\Id$-types, and universes.
+These rules should be natural to computer scientists especially the last rule, which states that the variable $x$ has type $A$ when it has been declared to have type $A$.
+
+\subsection{Type Formers}
+\label{sec:type-formers}
+
+Type theories can be extended with new types and new terms.
+The general scheme for adding new types and new terms is to specify:
+\begin{itemize}
+\item Formation rules: how to form a new type of this kind.
+  For example, given a type $B$ in context $\Gamma.A$, we can form a function type $A \to B$.
+\item Introduction rules: how to form a new term of that type.
+  For example, given a term $b$ of type $B$ in context $\Gamma.A$, we can form an element of type $A \to B$ via $\lambda$-abstraction: $\lambda_{A}B$.
+\item Elimination rules: how to use an element of that type.
+  For example, given a dependent function $f$ of type $A \to B$ and a term $a$ of type $A$, we can form an element of type $B$ via function application: $f(a)$.
+\item Computation rules ($\beta$-rules): how elimination rules act on introduction rules.
+  For example, $(\lambda_{A}b)(a)$ is definitionally equal to $b[a]$.
+\item Extensionality principle ($\eta$-rules): how introduction rules act on elimination rules.
+  For example, a function $f$ is definitionally equal to $\lambda_{A}(f~x)$.
+\end{itemize}
+
+Some quintessential examples of type formers are $\Pi$-types, $\Sigma$-types, $\Id$-types, and universes.
 \begin{mathpar}
   \inferrule*
-  { \Gamma \vdash A \type \\ \Gamma, x : A \vdash B \type }
-  { \Gamma \vdash \prod_{x : A}B \type }
+  { \Gamma \vdash A \type \\ \Gamma.A \vdash B \type }
+  { \Gamma \vdash \prod_{A}B \type }
   \and
   \inferrule*
-  { \Gamma \vdash A \type \\ \Gamma, x : A \vdash B \type }
-  { \Gamma \vdash \sum_{x : A}B \type }
+  { \Gamma \vdash A \type \\ \Gamma.A \vdash B \type }
+  { \Gamma \vdash \sum_{A}B \type }
   \and
   \inferrule*
   { \Gamma \vdash a : A \\ \Gamma \vdash b : A }
@@ -107,13 +112,30 @@ Some quintessential examples are $\Pi$-types, $\Sigma$-types, $\Id$-types, and u
   \inferrule*
   { }
   { \Gamma \vdash \cU \type }
-  \and
-  \inferrule*
-  { \Gamma \vdash t : \cU }
-  { \Gamma \vdash \El(t) \type }
 \end{mathpar}
 
-In a model of type theory, inference rules are combinators that take the interpretations of the premises as inputs and produce the interpretation of the conclusion as an output.
+\subsection{Examples of Type Theories}
+\label{sec:examples-of-type-theories}
+
+In this section, we record a number of type theories.
+
+\subsubsection{Martin-L\"{o}f Type Theory}
+\label{sec:martin-lof-type-theory}
+
+Martin-L\"{o}f Type Theory is a collective name for dependent type theories that include several type formers mentioned in \cref{sec:type-formers}, but not a universe closed under impredicative quantification.
+
+\subsubsection{The Logical Framework}
+\label{sec:logical-framework}
+
+Martin-L\"{o}f's logical framework is a type theory with $\Pi$-types and a universe.
+Its intended use is to define theories as extensions of the LF by constants and equations.
+The LF can also be used to encode the syntax of other logical systems, e.g., predicate logic and modal logic.
+
+\subsubsection{The Calculus of Construction}
+\label{sec:calculus-of-construction}
+
+The calculus of construction (CoC) is a type theory with $\Pi$-types and a universe $\mathsf{Prop}$ closed under impredicative quantification.
+Datatypes defined within $\mathsf{Prop}$ lack induction principles.
 
 \section{Substitution}
 \label{sec:substitution}

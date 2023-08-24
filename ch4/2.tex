@@ -10,8 +10,58 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+Recall that an adjunction consists of
+\begin{itemize}
+\item $F,G : \iC \toot \iD$;
+\item $\iD(Fc, d) \iso \iC(c, Gd)$ natural in both $c$ and $d$.
+\end{itemize}
+
+Fix $c$, the isomorphism $\iD(Fc, \blank) \iso \iC(c, G\blank)$ implies that $Fc$ represents the functor $\iC(c, G\blank) : \iD \to \mathsf{Set}$.
+Then by the Yoneda Lemma, this isomorphism determines a map $\eta_{c} : c \to GFc$, the transpose of $1_{Fc}$.
+Naturality in $c$ then implies that $\eta_{c}$ assembles into a natural transformation $\eta : \id_{\iC} \to GF$, called the \emph{unit} of the adjunction.
+
+Similarly, fix $d$, the isomorphism $\iC(\blank, Gd) \iso \iD(F\blank, d)$ implies that $Gd$ represents the functor $\iD(F\blank, d) : \iC\op \to \mathsf{Set}$.
+The isomorphism then determines a map $\epsilon_{d} : FGd \to d$, which assembles into a natural transformation $\epsilon : FG \to \id_{\iC}$ called the \emph{counit} of the adjunction.
+
+\begin{lem}
+  $\eta$ is natural in $c$.
+\end{lem}
+\begin{proof}
+  To show that the left-hand square commutes, it suffices to show the right-hand square commutes, which is evident.
+  \begin{mathpar}
+  \input{img/2-unit01} \leftrightsquigarrow \input{img/2-unit02}
+\end{mathpar}
+\end{proof}
+
+The Yoneda Lemma also tells us how to compute the transpose of an arbitrary map $f : Fc \to d$.
+$f^{\dag}$ is given by $\iC(c, Gf)(\eta_{c}) = Gf \circ \eta_{c}$.
+Similarly, the transpose $g^{\dag}$ of an arbitrary map $g : c \to Gd$ is given by $\iD(Fg, d)(\epsilon_{d}) = \epsilon_{d} \circ Fg$.
+
+We've shown that every adjunction has a unit and a counit.
+Conversely, suppose that we are given two natural transformations $\eta : \id_{\iC} \to GF$ and $\epsilon : FG \to \id_{\iD}$.
+When does this pair of natural transformations define the unit and the counit of an adjunction?
+Recall that $\eta_{c} : c \to GFc$ is supposed to be the transpose of $\id_{Fc}$.
+Thus, it's necessary that $\epsilon_{Fc} \circ F\eta_{c} = \id_{Fc}$.
+Similarly, $\epsilon_{d} : FG \to d$ is supposed to be the transpose of $\id_{Gd}$.
+Thus, $G\epsilon_{d} \circ \eta_{Gc} = \id_{Gd}$.
+
+\begin{lem}
+  Given a pair of functors $F,G : \iC \toot \iD$, the following data are equivalent:
+  \begin{itemize}
+  \item $\iD(Fc, d) \iso \iC(c, Gd)$ natural in both $c$ and $d$.
+  \item A pair of natural transformations $\eta : \id_{\iC} \to GF$ and $\epsilon : FG \to \id_{\iD}$ satisfying the \emph{triangle identities}:
+    \begin{mathpar}
+      \input{img/2-triangle01} \and \input{img/2-triangle02}
+    \end{mathpar}
+  \end{itemize}
+\end{lem}
+\begin{proof}
+  ($1 \implies 2$): This follows immediately by how transposes are computed.
+
+  ($2 \implies 1$): Define the transpose by either $Gf \circ \eta_{c}$ or $\epsilon_{d} \circ Fg$ depending on where the map lives.
+  The triangle identities guarantee the transpose operations to be mutual inverses.
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

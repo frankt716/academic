@@ -63,6 +63,37 @@ Thus, $G\epsilon_{d} \circ \eta_{Gc} = \id_{Gd}$.
   The triangle identities guarantee the transpose operations to be mutual inverses.
 \end{proof}
 
+\begin{cor}
+  Let $A$ and $B$ be posets and $F : A \to B$ and $G : B \to A$ form a Galois connection with $F \dashv G$, then $F$ and $G$ satisfy the following fixed point formulas:
+  \begin{mathpar}
+    FGF = F \and GFG = G
+  \end{mathpar}
+\end{cor}
+\begin{proof}
+  Immediate from the triangle identities.
+\end{proof}
+
+\begin{eg}
+  Let $f : A \to B$ be a function.
+  The direct-image $f_{*} : PA \to PB$ and the inverse-image $f\inv : PB \to PA$ form a Galois connection with $f_{*} \dashv f\inv$.
+  Thus, for any $X \subseteq A$ and $Y \subseteq B$
+  \begin{mathpar}
+    f_{*}(X) = f_{*}(f\inv(f_{*}(A))) \and f\inv(Y) = f\inv(f_{*}(f\inv(Y)))
+  \end{mathpar}
+\end{eg}
+
+\begin{defn}
+  A \emph{morphism of adjunctions} from $F \dashv G$ to $F' \dashv G'$ consists of a pair of functors
+  \input{img/2-adj-morphism01}
+  such that the square with left adjoints and the square with right adjoints commute and one of the following equivalent conditions is satisfied:
+  \begin{itemize}
+  \item $H\eta = \eta'H$.
+  \item $K\epsilon = \epsilon'K$.
+  \item The following diagram commutes for all $c \in \iC$ and $d \in \iD$.
+    \input{img/2-adj-morphism02}
+  \end{itemize}
+\end{defn}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

@@ -674,6 +674,21 @@ The following lemma shows that $\Delta(A)$ has the expected type.
   This follows immediately from the construction of $\delta_{A}$ as $\epsilon_{A} : \Sigma\Delta(A) \to A$ is precisely the sought-after morphism.
 \end{proof}
 
+The classifier $\Ty.\Delta\Ty$ given by the pullback
+\input{img/jddt04}
+classifies a pair of judgments of the form $\Gamma \vdash A~\Ty$ and $\util\Delta(A) \vdash B~\Ty$.
+The map $u.\util\Delta$ projects out $\Gamma \vdash A~\Ty$, which ends up landing in $\Gamma.A$ after traveling along $\util\Delta$.
+Alternatively, one can travel along $u$ directly without visiting the middleman $\Tm$, ending up in $\Gamma$.
+These two paths are related by a policy $\delta'$ obtained by whiskering the following diagram.
+\input{img/jdtt01}
+Henceforth, we let $v = u \circ u.\util\Delta$.
+Then
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash U.\Delta U~\Ty.\Delta\Ty }
+  { \Gamma.A \vdash U.\Delta U(\delta'_{U.\Delta U})~\Ty.\Delta\Ty }
+\end{mathpar}
+
 \subsection{Type Dependency}
 \label{sec:type-dependency}
 

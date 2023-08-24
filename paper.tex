@@ -594,7 +594,11 @@ Given a rule $\lambda : \dF \to \dG$ and $\Gamma \vdash F~\dF$, then one has $g\
 \subsection{Substitutionality}
 \label{sec:jt-substitutionality}
 
-For a substitutional judgmental theory, 
+In a substitutional judgmental theory, the corresponding functor of an object $\Gamma \vdash F~\dF$ is a rule indicated as follows.
+Thus, for any substitution $\sigma : \Delta \to \Gamma$ in $\iC$, one has $\Delta \vdash F(\sigma)~\dF$.
+\begin{mathpar}
+  \input{img/jt-subst01} \and (F)\,\inferrule{ \Delta \vdash \sigma~\iC/\Gamma }{ \Delta \vdash F(\sigma)~\dF }
+\end{mathpar}
 
 \subsection{Policies}
 \label{sec:jt-policies}

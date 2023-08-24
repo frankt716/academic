@@ -1,15 +1,18 @@
-% https://q.uiver.app/#q=WzAsNSxbMiwzLCJcXGRHIl0sWzQsMiwiXFxkWCJdLFs0LDAsIlxcZEgiXSxbMCwyLCJcXGRGIl0sWzIsMSwiXFxkR1xcY1Jeeyp9LlxcY1JcXGRIIl0sWzAsMSwiXFxjUiIsMl0sWzIsMSwiXFxjUl57Kn0iXSxbMywwLCJcXGxhbWJkYSIsMl0sWzMsMSwiXFxjUiIsMCx7ImxhYmVsX3Bvc2l0aW9uIjo2MH1dLFs0LDJdLFs0LDBdLFs0LDEsIiIsMCx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFswLDgsIlxcbGFtYmRhXntcXCN9IiwwLHsiY3VydmUiOi0xLCJzaG9ydGVuIjp7InRhcmdldCI6MjB9fV1d
+% https://q.uiver.app/#q=WzAsNixbMiw1LCJcXGRHIl0sWzQsMywiXFxkWCJdLFs0LDAsIlxcZEgiXSxbMCwzLCJcXGRGIl0sWzIsMiwiXFxkR1xcY1Jeeyp9LlxcY1JcXGRIIixbMjQwLDYwLDYwLDFdXSxbMCwwLCJcXGRGXFxjUl57Kn0uXFxjUlxcZEgiLFszMDAsNjAsNjAsMV1dLFswLDEsIlxcY1IiLDJdLFszLDAsIlxcbGFtYmRhIiwyXSxbMywxLCJcXGNSIiwwLHsibGFiZWxfcG9zaXRpb24iOjYwfV0sWzIsMSwiXFxjUl57Kn0iXSxbNCwyLCIiLDAseyJjb2xvdXIiOlsyNDAsNjAsNjBdfV0sWzQsMCwiIiwwLHsiY29sb3VyIjpbMjQwLDYwLDYwXX1dLFs1LDMsIiIsMCx7ImNvbG91ciI6WzMwMCw2MCw2MF19XSxbNSwyLCIiLDAseyJjb2xvdXIiOlszMDAsNjAsNjBdfV0sWzAsOCwiXFxsYW1iZGFee1xcI30iLDAseyJjdXJ2ZSI6LTIsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjoxMH19XV0=
 \[\begin{tikzcd}
-	&&&& \dH \\
-	&& {\dG\cR^{*}.\cR\dH} \\
+	\textcolor{rgb,255:red,214;green,92;blue,214}{\dF\cR^{*}.\cR\dH} &&&& \dH \\
+	\\
+	&& \textcolor{rgb,255:red,92;green,92;blue,214}{\dG\cR^{*}.\cR\dH} \\
 	\dF &&&& \dX \\
+	\\
 	&& \dG
-	\arrow["\cR"', from=4-3, to=3-5]
-	\arrow["{\cR^{*}}", from=1-5, to=3-5]
-	\arrow["\lambda"', from=3-1, to=4-3]
-	\arrow[""{name=0, anchor=center, inner sep=0}, "\cR"{pos=0.6}, from=3-1, to=3-5]
-	\arrow[from=2-3, to=1-5]
-	\arrow[from=2-3, to=4-3]
-	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=45}, draw=none, from=2-3, to=3-5]
-	\arrow["{\lambda^{\#}}", curve={height=-6pt}, shorten >=3pt, Rightarrow, from=4-3, to=0]
+	\arrow["\cR"', from=6-3, to=4-5]
+	\arrow["\lambda"', from=4-1, to=6-3]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "\cR"{pos=0.6}, from=4-1, to=4-5]
+	\arrow["{\cR^{*}}", from=1-5, to=4-5]
+	\arrow[color={rgb,255:red,92;green,92;blue,214}, from=3-3, to=1-5]
+	\arrow[color={rgb,255:red,92;green,92;blue,214}, from=3-3, to=6-3]
+	\arrow[color={rgb,255:red,214;green,92;blue,214}, from=1-1, to=4-1]
+	\arrow[color={rgb,255:red,214;green,92;blue,214}, from=1-1, to=1-5]
+	\arrow["{\lambda^{\#}}", curve={height=-12pt}, shorten <=4pt, shorten >=4pt, Rightarrow, from=6-3, to=0]
 \end{tikzcd}\]

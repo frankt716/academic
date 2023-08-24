@@ -603,25 +603,27 @@ Thus, for any substitution $\sigma : \Delta \to \Gamma$ in $\iC$, one has $\Delt
 \subsection{Policies}
 \label{sec:jt-policies}
 
-
+Suppose that we are given a substitutional judgmental theory with
+\input{img/jt-policy01}
+Then for any $\Gamma \vdash F~\dF$, there is a substitution $\lambda^{\#}_{F} : g\lambda(F) \to \Gamma$.
+Thus,
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash F~\dF }
+  { g\lambda(F) \vdash F(\lambda^{\#}_{F})~\dF }
+\end{mathpar}
 
 \subsection{$\#$-Lifting}
 \label{sec:sharp-lifting}
 
-Let $\lambda^{\#}$ be a policy and $\cR^{*}$ be a rule which happens to be a fibration as depicted as follows.
+Let $\lambda^{\#}$ be a policy and $\cR^{*}$ be a rule which happens to be a fibration depicted as follows.
 \input{img/sharp-lifting01}
 
-There are two ways we can pullback along $\cR^{*}$.
-There first way is depicted as follows
+We can pull back two maps along $\cR^{*}$.
 \input{img/sharp-lifting02}
-and the second way is depicted as follows.
-\input{img/sharp-lifting03}
+
 Then $\lambda$ and $\lambda^{\#}$ can be lifted to complete the triangle above.
 \input{img/sharp-lifting04}
-
-\begin{proof}[Proof sketch]
-  Since $\cR^{*}$ is a fibration, maps completing the triangle downstairs lift to maps completing the triangle upstairs.
-\end{proof}
 
 \section{Dependent Type Theory in Judgmental Theory}
 \label{sec:dependent-type-theory-in-judgmental-theory}
@@ -644,7 +646,7 @@ whose components $\delta_{A}$ are given by $u(\epsilon_{A})$.
 \begin{proof}
   The Cartesian lift of $\delta_{A} : u(\Sigma\Delta(A)) \to u(A)$ is a morphism $\widetilde{\delta_{A}} : A(\delta_{A}) \to A$.
   It is then sufficient to show that the Cartesian lift of $\delta_{A}$ is a map $f : \Sigma\Delta(A) \to A$.
-  This is follows immediately from the construction of $\delta_{A}$ as there is a morphism $\epsilon_{A} : \Sigma\Delta(A) \to A$, and $u(\epsilon_{A}) = \delta_{A}$.
+  This follows immediately from the construction of $\delta_{A}$ as $\epsilon_{A} : \Sigma\Delta(A) \to A$ is precisely the sought-after morphism.
 \end{proof}
 
 The functor $\Sigma : \Tm \to \Ty$ interprets typing.

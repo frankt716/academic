@@ -1,39 +1,45 @@
-.PHONY: all ch3 ch3-clean clean update
+.PHONY: all ch3 ch4 ch3-clean ch4-clean clean update
 
 TEMPLATEPATH=../basictex/
 
-all: ch3
+all: ch3 ch4
 
 ch3:
 	cd ch3 && make
 
+ch4:
+	cd ch4 && make
+
 ch3-clean:
 	@cd ch3 && make clean
 
-clean: ch3-clean
+ch4-clean:
+	@cd ch4 && make clean
+
+clean: ch3-clean ch4-clean
 	@rm -rf \
-	  *.aux \
-	  \#*\# \
-	  *.log \
-	  *.bbl \
-	  *.out \
-	  *~ \
-	  *.pdf \
-	  *.dvi \
-	  *.synctex.gz \
-	  *.blg \
-	  *.toc \
-	  *.lot \
-	  *.fls \
-	  *.rip \
-	  *.fdb_latexmk \
-	  *.xcp \
-	  *.xoj \
-	  *.lof \
-	  *.brf \
-	  *.diagnose \
-	  *.kaux \
-	  .\#*.tex
+	*.aux \
+	\#*\# \
+	*.log \
+	*.bbl \
+	*.out \
+	*~ \
+	*.pdf \
+	*.dvi \
+	*.synctex.gz \
+	*.blg \
+	*.toc \
+	*.lot \
+	*.fls \
+	*.rip \
+	*.fdb_latexmk \
+	*.xcp \
+	*.xoj \
+	*.lof \
+	*.brf \
+	*.diagnose \
+	*.kaux \
+	.\#*.tex
 
 update:
 	@echo

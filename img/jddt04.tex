@@ -1,11 +1,21 @@
-% https://q.uiver.app/#q=WzAsNSxbMCwyLCJcXFR5Il0sWzEsMiwiXFxUbSJdLFsyLDIsIlxcaUMiXSxbMiwwLCJcXFR5Il0sWzAsMCwiXFxUeS5cXERlbHRhXFxUeSJdLFszLDIsInUiXSxbMCwxLCJcXERlbHRhIiwyXSxbMSwyLCJcXHV0aWwiLDJdLFs0LDAsInUuXFx1dGlsXFxEZWx0YSIsMl0sWzQsMywiXFx1dGlsXFxEZWx0YS51Il1d
+% https://q.uiver.app/#q=WzAsMTAsWzIsNCwiXFxUeSJdLFszLDQsIlxcVG0iXSxbNCw0LCJcXGlDIl0sWzQsMiwiXFxUeSJdLFsyLDIsIlxcVHkuXFxEZWx0YVxcVHkiXSxbMCw0LCJcXFRtIl0sWzAsMiwiXFxUbS5cXFNpZ21hXFxEZWx0YVxcVHkiXSxbNCwwLCJcXFRtIl0sWzIsMCwiXFxUeS5cXERlbHRhXFxUeSJdLFswLDAsIlxcVG0uXFxTaWdtYVxcRGVsdGFcXFRtIl0sWzAsMSwiXFxEZWx0YSIsMl0sWzEsMiwiXFx1dGlsIiwyXSxbMywyLCJ1Il0sWzQsMF0sWzQsM10sWzUsMCwiXFxTaWdtYSIsMl0sWzYsNV0sWzYsNF0sWzcsMywiXFxTaWdtYSJdLFs4LDRdLFs4LDddLFs5LDhdLFs5LDZdXQ==
 \[\begin{tikzcd}
-	{\Ty.\Delta\Ty} && \Ty \\
+	{\Tm.\Sigma\Delta\Tm} && {\Ty.\Delta\Ty} && \Tm \\
 	\\
-	\Ty & \Tm & \iC
-	\arrow["u", from=1-3, to=3-3]
-	\arrow["\Delta"', from=3-1, to=3-2]
-	\arrow["\util"', from=3-2, to=3-3]
-	\arrow["{u.\util\Delta}"', from=1-1, to=3-1]
-	\arrow["{\util\Delta.u}", from=1-1, to=1-3]
+	{\Tm.\Sigma\Delta\Ty} && {\Ty.\Delta\Ty} && \Ty \\
+	\\
+	\Tm && \Ty & \Tm & \iC
+	\arrow["\Delta"', from=5-3, to=5-4]
+	\arrow["\util"', from=5-4, to=5-5]
+	\arrow["u", from=3-5, to=5-5]
+	\arrow[from=3-3, to=5-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow["\Sigma"', from=5-1, to=5-3]
+	\arrow[from=3-1, to=5-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow["\Sigma", from=1-5, to=3-5]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-3, to=1-5]
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-1, to=3-1]
 \end{tikzcd}\]

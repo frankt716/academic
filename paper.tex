@@ -701,18 +701,34 @@ First, we need to classify the premises.
 Then for $\Gamma \vdash a : A$ and $\Gamma.A \vdash B \type$, we have $\Gamma.A \vdash (a, B)~\Tm.\Sigma\Delta\Ty$.
 
 Let $\eta' = \util\eta$.
-Then each component $\eta'_{a} : \Gamma \to \Gamma.A$ is a substitution, which corresponds to the substitution that substitutes $a$.
+Then each component $\eta'_{a} : \Gamma \to \Gamma.A$ is a substitution, corresponding to the substitution $\blank[a]$.
 \input{img/etaprime01}
 
 This triangle can be lifted to a triangle involving the classifier $\Tm.\Sigma\Delta\Ty$.
 \input{img/jddt06}
 
-Traveling along $u^{*}\id$ yields $\Gamma.A \vdash u^{*}\id(a,B)~\Tm \times \Ty$.
+A pair of judgments $\Gamma \vdash a : A$ and $\Gamma.A \vdash B \type$ corresponds uniquely to an object $(a, B) \in \Tm.\Sigma\Delta\Ty$.
+Traversing along $\util\Delta\Sigma.u$ projects out $B \in \Ty$, which lives in the fiber over $\Gamma.A$.
+Thus, the object $(a, B)$ as a whole lives in the fiber over $\Gamma.A$, yielding
+\begin{mathpar}
+  \inferrule
+  { \Gamma.A \vdash (a,B)~\Tm.\Sigma\Delta\Ty }
+  { \Gamma.A \vdash (a,B)(u^{*}\eta')~\Tm.\Sigma\Delta\Ty(u \circ \util\Delta\Sigma.u) }
+\end{mathpar}
 We want the object to live in the fiber over $\Gamma$ instead of $\Gamma.A$.
 This can be done by adjusting the policy as follows.
 \input{img/jddt07}
+Thus, one has
+\begin{mathpar}
+  \inferrule
+  { \Gamma.A \vdash (a,B)~\Tm.\Sigma\Delta\Ty }
+  { \Gamma \vdash (a,B[a])~\Tm.\Sigma\Delta\Ty(v) }
+\end{mathpar}
 
-\subsection{JDDT $\Pi$-Types}
+\subsection{Supporting Type Formers}
+\label{sec:jdtt-supporting-type-formers}
+
+\subsection{$\Pi$-Types}
 \label{sec:jddt-pi-types}
 
 Having $\Pi$-types means to implement the following rules:

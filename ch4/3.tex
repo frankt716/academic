@@ -36,6 +36,24 @@ Mutual right adjoints between preorders are called \emph{antitone Galois connect
   These two functors are mutual right adjoints and are called the \emph{Galois connection between syntax and semantics}, i.e, $\cM \subseteq \mathrm{truein}(A)$ if and only if $\cM \vDash A$.
 \end{eg}
 
+Now, we explore adjoint functors is multiple variables.
+First, we need to prove a useful theorem.
+
+\begin{thm}
+  Consider a functor $F : A \to B$ so that for each $b \in \iB$ there is an object $Gb \in \iA$ together with an isomorphism
+  \[
+    \iB(Fa,b) \iso \iA(a, Gb)
+  \]
+  natural in $a \in \iA$.
+  Then there is a unique way to extend the assignment $G : \ob\iB \to \ob\iA$ to a functor $G : \iB \to \iA$ so that the family of isomorphisms is also natural in $b \in \iB$.
+
+  In other words, if the functor
+  \[
+    \iB(F\blank, b) : \iA\op \to \mathsf{Set}
+  \]
+  admits a representation for all $b \in \iB$ then the data assembles into a right adjoint $F \dashv G$.
+\end{thm}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

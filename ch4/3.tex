@@ -10,8 +10,31 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+\begin{defn}
+  By dualizing the domains of a pair of adjoint functors, one obtains a pair of contravariant functors $F : \iC\op \to \iD$ and $G : \iD\op \to \iC$.
+  These are said to be
+  \begin{itemize}
+  \item \emph{mutually left adjoint} when $\iD(Fc, d) \iso \iC(Gd, c)$ natural in both variables;
+  \item \emph{mutually right adjoint} when $\iD(d, Fc) \iso \iC(c, Gd)$ natural in both variables. 
+  \end{itemize}
+\end{defn}
+
+Mutual right adjoints between preorders are called \emph{antitone Galois connection}.
+
+\begin{eg}
+  Let $\mathrm{Axiom}_{\sigma}$ be a set of axioms, i.e., sentences in a fixed first-order language whose signature $\sigma$ specifies a list of function, constant, and relation symbols to be used with the standard logical symbols.
+
+  Let $\mathrm{Struct}_{\sigma}$ be a set of $\sigma$-structures, i.e., sets with interpretations of the given function, constant, and relation symbols.
+  For example, the language of natural numbers consists of a constant symbol ``0'', a binary function symbol ``+'', and a binary relation symbol ``$\leq$'' with some axioms.
+  A structure for this language consists of a specified constant to interpret ``0'', a binary function to interpret ``+'', and a binary relation to interpret ``$\leq$''.
+
+  Given a set of $\sigma$-structures $\cM$ and a set of axioms $A$, we write $\cM \vDash A$ if each of the axioms in $A$ is satisfied by each of the $\sigma$-structures in $\cM$.
+
+  There are two contravariant functors $\mathrm{truein} : P(\mathrm{Axiom}_{\sigma})\op \to P(\mathrm{Struct}_{\sigma})$ and $\mathrm{satisfying} : P(\mathrm{Struct}_{\sigma})\op \to P(\mathrm{Axiom}_{\sigma})$ sending a set of axioms to a set of $\sigma$-structures, called \emph{models}, satisfying those axioms and sending a set of $\sigma$-structures to a set of axioms that they satisfy.
+
+  These two functors are mutual right adjoints and are called the \emph{Galois connection between syntax and semantics}, i.e, $\cM \subseteq \mathrm{truein}(A)$ if and only if $\cM \vDash A$.
+\end{eg}
 
 \bibliographystyle{alpha}
 \bibliography{all}

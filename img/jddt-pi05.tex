@@ -1,0 +1,27 @@
+% https://q.uiver.app/#q=WzAsMTEsWzQsNCwiXFxUeS5cXERlbHRhXFxUeSJdLFsyLDQsIlxcVG0uXFxTaWdtYVxcRGVsdGFcXFR5Il0sWzQsMiwiXFxUeS5cXERlbHRhXFxUbSJdLFsyLDIsIlxcVG0uXFxTaWdtYVxcRGVsdGFcXFRtIl0sWzYsMiwiXFxUbSJdLFs2LDQsIlxcVHkiXSxbMCwwLCIoXFxUbS5cXFNpZ21hXFxEZWx0YVxcVHkpXFxTaWdtYS5cXFBpJ1xcVG0iXSxbNSwzLCJcXFRtXFx0aW1lc1xcVG0iXSxbNiw1LCJcXFRtIl0sWzQsNiwiXFxUeVxcdGltZXNcXFR5Il0sWzUsNywiXFxUeSJdLFsxLDBdLFsyLDBdLFszLDFdLFszLDJdLFswLDUsIlxcUGkiLDJdLFsyLDQsIlxcbGFtYmRhIl0sWzQsNSwiXFxTaWdtYSJdLFs2LDEsIiIsMCx7ImN1cnZlIjozfV0sWzYsNCwiIiwwLHsiY3VydmUiOi01fV0sWzYsMywiXFx6ZXRhIiwyLHsib2Zmc2V0IjoyfV0sWzMsNiwiXFx0aGV0YSIsMix7Im9mZnNldCI6Mn1dLFszLDcsIlxcdXRpbF57Kn1cXGlkIiwyLHsibGFiZWxfcG9zaXRpb24iOjMwfV0sWzcsOF0sWzEsOSwidV57Kn1cXGlkIiwyXSxbOSwxMF0sWzgsMTAsIlxcU2lnbWEiXV0=
+\[\begin{tikzcd}
+	{(\Tm.\Sigma\Delta\Ty)\Sigma.\Pi'\Tm} \\
+	\\
+	&& {\Tm.\Sigma\Delta\Tm} && {\Ty.\Delta\Tm} && \Tm \\
+	&&&&& \Tm\times\Tm \\
+	&& {\Tm.\Sigma\Delta\Ty} && {\Ty.\Delta\Ty} && \Ty \\
+	&&&&&& \Tm \\
+	&&&& \Ty\times\Ty \\
+	&&&&& \Ty
+	\arrow[from=5-3, to=5-5]
+	\arrow[from=3-5, to=5-5]
+	\arrow[from=3-3, to=5-3]
+	\arrow[from=3-3, to=3-5]
+	\arrow["\Pi"', from=5-5, to=5-7]
+	\arrow["\lambda", from=3-5, to=3-7]
+	\arrow["\Sigma", from=3-7, to=5-7]
+	\arrow[curve={height=18pt}, from=1-1, to=5-3]
+	\arrow[curve={height=-30pt}, from=1-1, to=3-7]
+	\arrow["\zeta"', shift right=2, from=1-1, to=3-3]
+	\arrow["\theta"', shift right=2, from=3-3, to=1-1]
+	\arrow["{\util^{*}\id}"'{pos=0.3}, from=3-3, to=4-6]
+	\arrow[from=4-6, to=6-7]
+	\arrow["{u^{*}\id}"', from=5-3, to=7-5]
+	\arrow[from=7-5, to=8-6]
+	\arrow["\Sigma", from=6-7, to=8-6]
+\end{tikzcd}\]

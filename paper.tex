@@ -674,11 +674,14 @@ The following lemma shows that $\Delta(A)$ has the expected type.
   This follows immediately from the construction of $\delta_{A}$ as $\epsilon_{A} : \Sigma\Delta(A) \to A$ is precisely the sought-after morphism.
 \end{proof}
 
+The counit $\epsilon$ encodes the data of those substitutions $\delta_{A} : \Gamma.A \to \Gamma$, while the unit $\eta$ encodes the data of those substitutions $\blank[a] : \Gamma \to \Gamma.A$.
+The triangle equalities then imply that these substitutions have the expected universal property.
+
 The classifier $\Ty.\Delta\Ty$ given by the pullback
 \input{img/jddt05}
 classifies a pair of judgments of the form $\Gamma \vdash A~\Ty$ and $\util\Delta(A) \vdash B~\Ty$.
-The map $u.\util\Delta$ projects out $\Gamma \vdash A~\Ty$, which ends up landing in $\Gamma.A$ after traveling along $\util\Delta$.
-Alternatively, one can travel along $u$ directly without visiting the middleman $\Tm$, ending up in $\Gamma$.
+The map $u.\util\Delta$ projects out an object $A \in \Ty$, fibered over $\Gamma.A$ with respect to $\util\Delta$.
+Alternatively, the same object lives in the fiber over $\Gamma$ with respect to $u$.
 These two paths are related by a policy $\delta'$ obtained by whiskering the following diagram.
 \input{img/jdtt01}
 Henceforth, we let $v = u \circ u.\util\Delta$.
@@ -713,7 +716,7 @@ Thus, the object $(a, B)$ as a whole lives in the fiber over $\Gamma.A$, yieldin
 \begin{mathpar}
   \inferrule
   { \Gamma.A \vdash (a,B)~\Tm.\Sigma\Delta\Ty }
-  { \Gamma.A \vdash (a,B)(u^{*}\eta')~\Tm.\Sigma\Delta\Ty(u \circ \util\Delta\Sigma.u) }
+  { \Gamma.A \vdash (a,B[a])~\Tm.\Sigma\Delta\Ty(u \circ \util\Delta\Sigma.u) }
 \end{mathpar}
 We want the object to live in the fiber over $\Gamma$ instead of $\Gamma.A$.
 This can be done by adjusting the policy as follows.
@@ -722,7 +725,10 @@ Thus, one has
 \begin{mathpar}
   \inferrule
   { \Gamma.A \vdash (a,B)~\Tm.\Sigma\Delta\Ty }
-  { \Gamma \vdash (a,B[a])~\Tm.\Sigma\Delta\Ty(v) }
+  { \inferrule
+    { \Gamma \vdash (a,B[a])~\Tm.\Sigma\Delta\Ty(v) }
+    { \Gamma \vdash a~\Tm \\ \Gamma \vdash B[a]~\Ty }
+  }
 \end{mathpar}
 
 \subsection{Supporting Type Formers}
@@ -750,21 +756,68 @@ Having $\Pi$-types means to implement the following rules:
   { \Gamma \vdash (\lambda_{A}b)(a) = b[a] : B[a] }
 \end{mathpar}
 
-The classifiers for the premises of the formation and the introduction rules are constructed as indicated below.
-\input{img/jddt-pi01}
-
 A dependent type theory has $\Pi$-types if the following is a commutative diagram.
 \input{img/jddt-pi02}
 
-The formation rule is precisely $\Pi$ and the introduction rule is precisely $\lambda$.
-For the other rules, we need to classify
-\begin{mathpar}
-  \Gamma \vdash A \type \and \Gamma.A \vdash B \type \and \Gamma \vdash a : A \and \Gamma \vdash f : \Pi_{A}B
-\end{mathpar}
-It is clear that $\Tm.\Sigma\Delta\Ty$ classifies the first three.
-The last judgment is classified by pulling back $\Sigma$ along the composite $\Pi' = \Pi \circ \pi$.
+Both the formation and introduction rules are immediate.
 
+\begin{itemize}
+\item (Formation): Given $\Gamma \vdash A~\Ty$ and $\Gamma.A \vdash B~\Ty$, we have the following:
+  \begin{mathpar}
+    \inferrule
+    { \Gamma \vdash A~\Ty \\ \Gamma.A \vdash B~\Ty }
+    { \inferrule
+      { \Gamma.A \vdash (A, B)~\Ty.\Delta\Ty }
+      { \Gamma \vdash \Pi_{A}B~\Ty }
+    }
+  \end{mathpar}
+\item (Introduction): Given $\Gamma \vdash A~\Ty$ and $\Gamma.A \vdash b~\Tm$, we have the following:
+  \begin{mathpar}
+    \inferrule
+    { \Gamma \vdash A~\Ty \\ \Gamma.A \vdash b~\Tm }
+    {
+      \inferrule
+      { \Gamma.A \vdash (A,b)~\Ty.\Delta\Tm }
+      { \Gamma \vdash \lambda_{A}b~\Tm }
+    }
+  \end{mathpar}
+\end{itemize}
+
+The classifier $\Tm.\Sigma\Delta\Ty$ classifies judgments of the form $\Gamma \vdash A \type$, $\Gamma.A \vdash B \type$, and $\Gamma \vdash a : A$.
+\input{img/jddt-pi01}
+
+By pasting the top-left corner into the $\Pi$-type diagram, one obtains the following pullback
 \input{img/jddt-pi03}
+
+Let $\Pi'$ be the map obtained by composing $\Pi$ with the projection map $\Tm.\Sigma\Delta\Ty \to \Ty.\Delta\Ty$.
+Then we have yet another pullback over the same cospan.
+The classifier $(\Tm.\Sigma\Delta\Ty)\Sigma.\Pi'\Tm$ classifies an additional judgment $\Gamma \vdash f : \Pi_{A}B$.
+\input{img/jddt-pi04}
+
+Then
+
+\input{img/jddt-pi05}
+
+Let $\widetilde{\gamma} = \pi \circ \util^{*}\id$ where $\pi$ is the projection $\Tm \times \Tm \to \Tm$.
+
+\begin{itemize}
+\item (Elimination): $\widetilde{\gamma} \circ \zeta$ is the elimination rule.
+  \begin{mathpar}
+    (\zeta)\,\inferrule
+    { \Gamma \vdash f : \Pi_{A}B \\ \Gamma \vdash a : A }
+    {
+      \inferrule*[Left=($\util^{*}\id$)]
+      { \Gamma \vdash (a, f_{B})~(\Tm.\Sigma\Delta\Ty)\Sigma.\Pi'\Tm }
+      {
+        \inferrule*[Left=($\pi$)]
+        { \Gamma \vdash (a, f_{B}[a])~\Tm \times \Tm }
+        { \Gamma \vdash f_{B}[a]~\Tm }
+      }
+    }
+  \end{mathpar}
+  We take $f(a) := f_{B}[a]$.
+  Commutativity ensures that $f_{B}[a]$ has the expected type: $B[a]$.
+\end{itemize}
 
 \bibliographystyle{alpha}
 \bibliography{all}

@@ -799,6 +799,9 @@ Then
 \input{img/jddt-pi05}
 
 Let $\widetilde{\gamma} = \pi \circ \util^{*}\id$ where $\pi$ is the projection $\Tm \times \Tm \to \Tm$.
+Note that introduction can be computed via a detour
+
+\input{img/jddt-pi06}
 
 \begin{itemize}
 \item (Elimination): $\widetilde{\gamma} \circ \zeta$ is the elimination rule.
@@ -807,7 +810,7 @@ Let $\widetilde{\gamma} = \pi \circ \util^{*}\id$ where $\pi$ is the projection 
     { \Gamma \vdash f : \Pi_{A}B \\ \Gamma \vdash a : A }
     {
       \inferrule*[Left=($\util^{*}\id$)]
-      { \Gamma \vdash (a, f_{B})~(\Tm.\Sigma\Delta\Ty)\Sigma.\Pi'\Tm }
+      { \Gamma.A \vdash (a, f_{B})~\Tm.\Sigma\Delta\Tm }
       {
         \inferrule*[Left=($\pi$)]
         { \Gamma \vdash (a, f_{B}[a])~\Tm \times \Tm }
@@ -817,7 +820,27 @@ Let $\widetilde{\gamma} = \pi \circ \util^{*}\id$ where $\pi$ is the projection 
   \end{mathpar}
   We take $f(a) := f_{B}[a]$.
   Commutativity ensures that $f_{B}[a]$ has the expected type: $B[a]$.
+\item (Computation): Equality judgments can be classified with equalizers.
+  \input{img/jddt-pi-comp}
+  Clearly, in this case, the equalizer is $\Tm.\Sigma\Delta\Tm$ and $e$ is $\id$.
+  Thus,
+  \begin{mathpar}
+    \inferrule
+    { \Gamma \vdash a : A \\ \Gamma.A \vdash b : B }
+    { \Gamma \vdash f(a) = b[a]~\Tm }
+  \end{mathpar}
 \end{itemize}
+
+This presentation of $\Pi$-types validates yet another rule called \emph{\eta-rule}.
+The equalizer
+\input{img/jddt-pi-eta}
+where $e$ is clearly the identity.
+Thus,
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash f : \Pi_{A}B }
+  { \Gamma \vdash f = \lambda_{A}f(a)~\Tm }
+\end{mathpar}
 
 \bibliographystyle{alpha}
 \bibliography{all}

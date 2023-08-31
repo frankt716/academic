@@ -83,7 +83,20 @@ This result can be extended to functors in multiple variables.
 \begin{proof}
   It remains to define the action on morphisms.
   To this end, let $f : (a, c) \to (a', c')$ be a morphism in $\iA\op \times \iC$, which consists of $f_{1} : a \to a'$ in $\iA\op$ and $f_{2} : c \to c'$ in $\iB$.
-  We wish to define a morphism $G_{a}c \to G_{a'}c'$
+
+  The composite
+  \[
+    \iB(b, G(a,c)) \iso \iC(F(a,b),c) \overset{F(f_{1},b)^{*}}{\to} \iC(F(a',b),c) \iso \iB(b, G(a',c))
+  \]
+  assembles into $\iB(\blank, G(a,c)) \to \iB(\blank, G(a', c))$, defining $G(\blank, c) : \iA\op \to \iB$.
+  Similarly, the composite
+  \[
+    \iB(b, G(a,c)) \iso \iC(F(a,b), c) \overset{f_{2_{*}}}{\to} \iC(F(a,b), c') \iso \iB(b, G(a,c'))
+  \]
+  defines $G(a, \blank) : \iC \to \iB$.
+
+  These data defines a unique $G : \iA\op \times \iC \to \iB$.
+  Naturality in $b$ and $c$ follows from the fact that $F(a, \blank) \dashv G_{a}$, while naturality in $a$ follows from the construction.
 \end{proof}
 
 \bibliographystyle{alpha}

@@ -96,8 +96,23 @@ This result can be extended to functors in multiple variables.
   defines $G(a, \blank) : \iC \to \iB$.
 
   These data defines a unique $G : \iA\op \times \iC \to \iB$.
-  Naturality in $b$ and $c$ follows from the fact that $F(a, \blank) \dashv G_{a}$, while naturality in $a$ follows from the construction.
+  Naturality in $b$ and $c$ follows from the fact that $F(a, \blank) \dashv G_{a}$, while naturality in $a$ follows from the construction with the Yoneda Lemma.
 \end{proof}
+
+\begin{lem}
+  Continuing the previous lemma, if, furthermore, for each $b \in \iB$, the induced functor $F(\blank, b) : \iA \to \iC$ admits a right adjoint $H_{b} : \iC \to \iA$, then
+  \begin{enumerate}
+  \item There is a unique bifunctor $H : \iB\op \times \iC \to \iA$ defined so that $H(b, c) = H_{b}c$ and the isomorphisms $\iC(F(a,b),c) \iso \iB(b, G(a,c)) \iso \iA(a, H(b,c))$ are natural in all three variables.
+  \item In this case, for each $c \in \iC$, the functors $G(\blank, c) : \iA\op \to \iB$ and $H(\blank, c) : \iB\op \to \iA$ are mutual right adjoints.
+  \end{enumerate}
+\end{lem}
+
+When $F : \iC \times \iC \to \iC$ defines some sort of monoidal product, its pointwise defined right adjoints, $G$ and $H$, are called its left and right closures, respectively.
+When these are isomorphic, the bifunctor $F$ is said to be \emph{closed}.
+
+\begin{defn}
+  A \emph{Cartesian closed category} $\iC$ is a category with finite products in which the product bifunctor $\times : \iC \times \iC \to \iC$ is closed.
+\end{defn}
 
 \bibliographystyle{alpha}
 \bibliography{all}

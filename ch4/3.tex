@@ -12,15 +12,22 @@
 \label{sec:introduction}
 
 \begin{defn}
-  By dualizing the domains of a pair of adjoint functors, one obtains a pair of contravariant functors $F : \iC\op \to \iD$ and $G : \iD\op \to \iC$.
-  These are said to be
+  By dualizing either $\iC$ or $\iD$ in an adjunction, one obtains
+  \input{img/3-dual}
   \begin{itemize}
-  \item \emph{mutually left adjoint} when $\iD(Fc, d) \iso \iC(Gd, c)$ natural in both variables;
-  \item \emph{mutually right adjoint} when $\iD(d, Fc) \iso \iC(c, Gd)$ natural in both variables. 
+  \item \emph{mutually left adjoint} when $\iD(F\op c, d) \iso \iC(G\op d, c)$ natural in both variables;
+  \item \emph{mutually right adjoint} when $\iD(d, F\op c) \iso \iC(c, G\op d)$ natural in both variables. 
   \end{itemize}
 \end{defn}
 
 Mutual right adjoints between preorders are called \emph{antitone Galois connection}.
+
+By dualizing unit or counit, we have the following result:
+
+\begin{lem}
+  A mutual left adjunction consists of a pair of contravariant functors $F : C\op \to D$ and $G : D\op \to C$ and a pair of natural transformations $\eta : GF \to \id$ and $\epsilon : FG \to \id$ such that $F\eta = \epsilon F$ and $\eta G = G\epsilon$.
+  Dually, a mutual right adjunction consists of $\eta : \id \to GF$ and $\epsilon : \id \to FG$ such that $F\eta = \epsilon F$ and $\eta G = G\epsilon$.
+\end{lem}
 
 \begin{eg}
   Let $\mathrm{Axiom}_{\sigma}$ be a set of axioms, i.e., sentences in a fixed first-order language whose signature $\sigma$ specifies a list of function, constant, and relation symbols to be used with the standard logical symbols.
@@ -53,6 +60,31 @@ First, we need to prove a useful theorem.
   \]
   admits a representation for all $b \in \iB$ then the data assembles into a right adjoint $F \dashv G$.
 \end{thm}
+
+\begin{proof}
+  For $f : b \to b'$, the composite
+  \[
+    \iA(a, Gb) \iso \iB(Fa, b) \overset{f_{*}}{\to} \iB(Fa, b') \iso \iA(a, Gb')
+  \]
+  assembles into a natural transformation $\iA(\blank, Gb) \to \iA(\blank, Gb')$ since the isomorphism is natural in $a$.
+  This uniquely determines the action of $G$ on morphisms by the Yoneda Lemma, yielding
+  \[
+    \iB(Fa, b) \iso \iA(a, Gb)
+  \]
+  natural in both variables.
+\end{proof}
+
+This result can be extended to functors in multiple variables.
+
+\begin{lem}
+  Suppose that $F : \iA \times \iB \to \iC$ is a bifunctor so that for each $a \in \iA$, the induced functor $F(a, \blank) : \iB \to \iC$ admits a right adjoint $G_{a} : \iC \to \iB$.
+  Then, these right adjoints assemble into a unique bifunctor $G : \iA\op \times \iC \to \iB$, defined so that $G(a,c) = G_{a}c$ and so that the isomorphisms $\iC(F(a,b),c) \iso \iB(b, G(a,c))$ is natural in all three variables.
+\end{lem}
+\begin{proof}
+  It remains to define the action on morphisms.
+  To this end, let $f : (a, c) \to (a', c')$ be a morphism in $\iA\op \times \iC$, which consists of $f_{1} : a \to a'$ in $\iA\op$ and $f_{2} : c \to c'$ in $\iB$.
+  We wish to define a morphism $G_{a}c \to G_{a'}c'$
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

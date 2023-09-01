@@ -562,27 +562,6 @@ Given a judgmental theory, the corresponding judgmental calculus provides these 
   \end{itemize}
 \end{itemize}
 
-\subsection{Nested Judgments}
-\label{sec:nested-judgments}
-
-Often, we find ourselves in a situation where we need to classify a pair of judgments that are related in some way.
-For example, in the identity formation rule the premise is a pair of judgments, $\Gamma \vdash a : A$ and $\Gamma \vdash b : B$, under the same context.
-A discussion of identity types is deferred to a later section. 
-
-Say, we wish to classify the pair of judgments: $\Gamma \vdash H~\dH(g\lambda)$ and $g\lambda(H) \vdash F~\dF(f)$.
-Note that $H$ and $F$ form a cone over the cospan $g\lambda$ and $f$.
-\input{img/nested01}
-Thus, by the universal property of pullbacks there is a one-to-one correspondence
-\begin{mathpar}
-  \mprset{
-    fraction={===}
-  }
-  \inferrule
-  { \Gamma \vdash H.\lambda F~\dH.\lambda\dF }
-  { \Gamma \vdash H~\dH \\ g\lambda(H) \vdash F~\dF }
-\end{mathpar}
-That is, the nested judgment classifier $\dH.\lambda\dF$ classifies a pair of judgments of the form $\Gamma \vdash H~\dH$ and $g\lambda(H) \vdash F~\dF$.
-
 \subsection{Rules}
 \label{sec:jt-rules}
 
@@ -611,6 +590,47 @@ Thus,
   \inferrule
   { \Gamma \vdash F~\dF }
   { g\lambda(F) \vdash F(\lambda^{\#}_{F})~\dF }
+\end{mathpar}
+
+\subsection{Nested Judgments}
+\label{sec:nested-judgments}
+
+Often, we find ourselves in a situation where we need to classify a pair of judgments that are related in some way.
+For example, in the identity formation rule the premise is a pair of judgments, $\Gamma \vdash a : A$ and $\Gamma \vdash b : B$, under the same context.
+A discussion of identity types is deferred to a later section. 
+
+\subsubsection{Pullbacks}
+\label{sec:jt-pullbacks}
+
+Say, we wish to classify the pair of judgments: $\Gamma \vdash H~\dH(g\lambda)$ and $g\lambda(H) \vdash F~\dF(f)$.
+Note that $H$ and $F$ form a cone over the cospan $g\lambda$ and $f$.
+\input{img/nested01}
+Thus, by the universal property of pullbacks there is a one-to-one correspondence
+\begin{mathpar}
+  \mprset{
+    fraction={===}
+  }
+  \inferrule
+  { \Gamma \vdash H.\lambda F~\dH.\lambda\dF }
+  { \Gamma \vdash H~\dH \\ g\lambda(H) \vdash F~\dF }
+\end{mathpar}
+That is, the nested judgment classifier $\dH.\lambda\dF$ classifies a pair of judgments of the form $\Gamma \vdash H~\dH$ and $g\lambda(H) \vdash F~\dF$.
+
+\subsubsection{Equalizers}
+\label{sec:jt-equalizers}
+
+\input{img/jt-equalizer01}
+
+An object $\Gamma \vdash F~\dE(\lambda,\lambda')$ corresponds uniquely to an object $eF \in \dF$ that equalizes $\lambda$ and $\lambda'$.
+Note that since $e$ is an mono, we write $eF$ simply as $F$.
+
+\begin{mathpar}
+  \mprset{
+    fraction={===}
+  }
+  \inferrule
+  { \Gamma \vdash F~\dE(\lambda,\lambda') }
+  { \Gamma \vdash F~\dF \\ \Gamma \vdash \lambda F =_{\dG} \lambda' F }
 \end{mathpar}
 
 \subsection{$\#$-Lifting}
@@ -839,8 +859,13 @@ Thus,
 \begin{mathpar}
   \inferrule
   { \Gamma \vdash f : \Pi_{A}B }
-  { \Gamma \vdash f = \lambda_{A}f(a)~\Tm }
+  { \Gamma \vdash f = \lambda_{A}f_{B}~\Tm }
 \end{mathpar}
+
+\subsection{Extensional $\Id$-Types}
+\label{sec:jt-extensional-id-types}
+
+\input{img/jt-id01}
 
 \bibliographystyle{alpha}
 \bibliography{all}

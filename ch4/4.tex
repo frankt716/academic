@@ -10,8 +10,57 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+This section introduces a syntactic proof technique for adjoint functors, and compares this method to Yoneda-style proofs.
+
+\begin{lem}
+  If $F \dashv G$ and $F' \dashv G$, then $F \iso F'$ and there is a unique $\theta : F \iso F'$ commuting with the units and counits of the adjunction.
+  \begin{mathpar}
+    \input{img/4-01} \and \input{img/4-02}
+  \end{mathpar}
+\end{lem}
+\begin{proof}
+  To define a natural transformation $\theta : F \to F'$, we use the following fact
+  \input{img/4-03}
+  defining $\theta$ to be the transpose of $\eta'$.
+  That is,
+  \input{img/4-04}
+  Exchanging the role of $F$ and $F'$, we define $\theta' : F' \to F$ as follows
+  \input{img/4-05}
+
+  To show that $\theta'\theta = \id_{F}$, it suffices to show that $(\theta'\theta)^{\dag} = \eta$.
+  \input{img/4-06}
+  By naturality in $\eta$,
+  \input{img/4-07}
+  By the triangle equality,
+  \input{img/4-08}
+  By naturality in $\eta'$,
+  \input{img/4-09}
+  Finally, the triangle equality yields
+  \input{img/4-10}
+
+  For the converse direction, we need to show that $\theta\theta' = \id_{F'}$.
+  It is sufficient to show that $(\theta\theta')^{\dag} = \eta'$.
+  \input{img/4-11}
+  By naturality in $\eta'$,
+  \input{img/4-12}
+  By the triangle equality,
+  \input{img/4-13}
+  By naturality in $\eta$,
+  \input{img/4-14}
+  Finally, the triangle equality yields
+  \input{img/4-15}
+  Note that the fact that the diagram
+  \input{img/4-13}
+  reduces to $\eta$ means that the left-hand diagram in the statement commute.
+  Furthermore, the left-hand diagram says that the transpose of $\theta$ along $F \dashv G$ is $\eta'$, which is precisely the definition of $\theta$, proving uniqueness.
+  It remains to verify the right-hand diagram commutes.
+  \input{img/4-16}
+  By naturality in $\epsilon'$,
+  \input{img/4-17}
+  And by the triangle equality,
+  \input{img/4-18}
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

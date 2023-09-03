@@ -865,7 +865,32 @@ Thus,
 \subsection{Extensional $\Id$-Types}
 \label{sec:jt-extensional-id-types}
 
+\begin{mathpar}
+  \inferrule
+  { \Gamma \vdash a : A \\ \Gamma \vdash b : A }
+  { \Gamma \vdash \Id_{A}(a,b) \type }
+  \and
+  \inferrule
+  { \Gamma \vdash a : A }
+  { \Gamma \vdash \mathrm{refl}~a : \Id_{A}(a,a) }
+  \and
+  \inferrule
+  { \Gamma \vdash c : \Id_{A}(a,b) }
+  { \Gamma \vdash a = b : A }
+\end{mathpar}
+
 \input{img/jt-id01}
+
+The formation and introduction rules are immediate.
+For the elimination rule, we need to classify the judgment $\Gamma \vdash c : \Id_{A}(a,b)$, which can be achieved by pulling back $\Sigma$ along $\Id$.
+
+\input{img/jt-id02}
+
+The object $\Gamma \vdash a = b : A$ corresponds uniquely an object of $\dE(\pi_{1},\pi_{2})$, where $\pi_{1}$ and $\pi_{2}$ are the projections out of $\Tm \times \Tm$.
+Clearly, $\mathrm{diag}$ equalizes $\pi_{1}$ and $\pi_{2}$.
+Thus, by the universal property there is a unique map $\varphi : \Tm \to \dE(\pi_{1},\pi_{2})$.
+
+\input{img/jt-id03}
 
 \bibliographystyle{alpha}
 \bibliography{all}

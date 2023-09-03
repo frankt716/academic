@@ -1,0 +1,14 @@
+% https://q.uiver.app/#q=WzAsNSxbMSwxLCJcXFRtIl0sWzMsMSwiXFxUbSJdLFsxLDMsIlxcVG0gXFx0aW1lcyBcXFRtIl0sWzMsMywiXFxUeSJdLFswLDAsIlxcVG0gXFx0aW1lcyBcXFRtLlxcVG0iXSxbMCwxLCJcXG1hdGhybXtyZWZsfSJdLFsyLDMsIlxcSWQiLDJdLFswLDIsIlxcbWF0aHJte2RpYWd9IiwyXSxbMSwzLCJcXFNpZ21hIl0sWzQsMSwiXFxwaSIsMCx7ImN1cnZlIjotMn1dLFs0LDIsIlxccGkiLDIseyJjdXJ2ZSI6Mn1dLFs0LDAsIiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{\Tm \times \Tm.\Tm} \\
+	& \Tm && \Tm \\
+	\\
+	& {\Tm \times \Tm} && \Ty
+	\arrow["{\mathrm{refl}}", from=2-2, to=2-4]
+	\arrow["\Id"', from=4-2, to=4-4]
+	\arrow["{\mathrm{diag}}"', from=2-2, to=4-2]
+	\arrow["\Sigma", from=2-4, to=4-4]
+	\arrow["\pi", curve={height=-12pt}, from=1-1, to=2-4]
+	\arrow["\pi"', curve={height=12pt}, from=1-1, to=4-2]
+	\arrow[dashed, from=1-1, to=2-2]
+\end{tikzcd}\]

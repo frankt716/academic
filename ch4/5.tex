@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{}
+\title{Adjunctions, limits, and colimits}
 \author{Frank Tsai}
 \date{\today}
 %\thanks{}
@@ -10,8 +10,105 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+\begin{lem}
+  A category $\iC$ admits all limits of diagrams indexed by a small category $\iJ$ if and only if the constant diagram functor $\Delta : \iC \to \iC^{\iJ}$ admits a right adjoint, and admits all colimits of $\iJ$-indexed diagrams if and only if $\Delta$ admits a left adjoint:
+  \input{img/5-01}
+\end{lem}
+\begin{proof}
+  By definition, a limit of a diagram $D : \iJ \to \iC$ is an object $\lim D$ in $\iC$ that represents the functor $\iC^{\iJ}(\Delta\blank,D)$.
+  That is,
+  \[
+    \iC(c,\lim D) \iso \iC^{\iJ}(\Delta c,D)
+  \]
+  natural in $c$.
+  If for all $D$, $\lim D$ exists, then these isomorphisms assemble into an adjunction.
+  Similarly, a colimit of a diagram $D$ is an object $\colim D$ in $\iC$ that represents the functor $\iC^{\iJ}(D,\Delta\blank)$.
+  \[
+    \iC(\colim D, c) \iso \iC^{\iJ}(D,\Delta c)
+  \]
+  natural in $c$.
+  Thus, if $\colim D$ exists for all $D$, then this assembles into an adjunction.
+\end{proof}
+
+Given that the value of a right adjoint is characterized by a contravariant representable functor, it's expected that it interacts well with limits.
+
+\begin{lem}
+  Right adjoints preserve limits.
+\end{lem}
+\begin{proof}
+  Suppose $F \dashv G : \iC \to \iD$ and let $K : \iJ \to \iD$ be a diagram.
+  Suppose that $\lambda : \lim K \to K$, we wish to show that $G\lambda : G\lim K \to GK$ defines a limit cone.
+  Recall that $F \dashv G$ defines an adjunction $F_{*} \dashv G_{*} : \iC^{\iJ} \to \iD^{\iJ}$ given by post-composition.
+  Thus,
+  \[
+    \iC^{\iJ}(\Delta c, GK) \iso \iD^{\iJ}(F\Delta c,K) \iso \iD^{\iJ}(\Delta F c, K)
+  \]
+  That is, cones over $GK$ with submit $c$ correspond uniquely to natural transformations $\Delta Fc \to K$.
+  Thus,
+  \[
+    \iD^{\iJ}(\Delta Fc, K) \iso \iD(Fc,\lim K) \iso \iC(c,G\lim K)
+  \]
+  Thus,
+  \[
+    \iC^{\iJ}(\Delta c, GK) \iso \iC(c,G\lim K) \iso \iC(c, \lim GK)
+  \]
+  The limit cone is then given by evaluating the identity $\id_{G\lim K} \in \iC(G\lim K, G\lim K)$ across the isomorphism, yielding $G\lambda : G\lim K \to GK$.
+\end{proof}
+
+Dually,
+
+\begin{lem}
+  Left adjoints preserve colimits.
+\end{lem}
+
+\begin{cor}
+  Recall that for any function $f : A \to B$, one has
+  \input{img/5-02}
+  Thus, $f_{*}$ preserves unions, $f\inv$ preserves both intersections and unions, and $f_{!}$ preserves intersections.
+\end{cor}
+
+In a Cartesian closed category where $A \times \blank \dashv (\blank)^{A}$, one immediately has
+\begin{mathpar}
+  A \times (B + C) \iso A \times B + A \times C \and (B \times C)^{A} \iso B^{A} \times C^{A} \and C^{A + B} \iso C^{A} \times C^{B}
+\end{mathpar}
+
+\begin{cor}
+  The free group on the set $X + Y$ is the free product of the free groups on $X$ and $Y$.
+\end{cor}
+
+Note that the free product of two groups is actually a coproduct.
+
+\begin{defn}
+  A functor is \emph{right exact} if it preserves finite colimits and \emph{left exact} if it preserves finite limits.
+\end{defn}
+
+\begin{defn}
+  A \emph{reflective subcategory} of a category $\iC$ is a full subcategory $\iD$ so that the inclusion functor admits a left adjoint, called the \emph{reflector} or \emph{localization}.
+  \input{img/5-03}
+\end{defn}
+
+\begin{lem}
+  Given an adjunction,
+  \input{img/5-04}
+  with counit $\epsilon : FG \to \id_{\iD}$.
+  Then:
+  \begin{enumerate}
+  \item $G$ is faithful if and only if each component of $\epsilon$ is an epimorphism.
+  \item $G$ is full if and only if each component of $\epsilon$ is a split monomorphism.
+  \item $G$ is fully faithful if and only if each component of $\epsilon$ is an isomorphism.
+  \end{enumerate}
+  Dually,
+  \begin{enumerate}
+  \item $F$ is faithful if and only if each component of $\eta$ is an monomorphism.
+  \item $F$ is full if and only if each component of $\eta$ is a split epimorphism.
+  \item $F$ is fully faithful if and only if each component $\eta$ is an isomorphism.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  $G$ is faithful if and only if $G$ defines an injection $\iD(x,y) \to \iC(Gx,Gy)$ if and only if $(\epsilon_{x})^{*}$ is an injection if and only if $\epsilon_{x}$ is an epimorphism.
+  \input{img/5-05}
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

@@ -90,7 +90,7 @@ This section introduces a syntactic proof technique for adjoint functors, and co
   \end{mathpar}
   can be promoted to an adjoint equivalence.
 \end{lem}
-\begin{proof}
+\begin{proof}[Proof by formal category theory]
   The composite
   \input{img/4-21}
   is an isomorphism but $\gamma\inv$ is not necessarily the identity.
@@ -106,6 +106,29 @@ This section introduces a syntactic proof technique for adjoint functors, and co
   Note that the following diagram commutes
   \input{img/4-23}
   proving that $\epsilon'F \circ F\eta$ is an idempotent.
+\end{proof}
+
+\begin{proof}[Proof by Yoneda]
+  The data of an adjunction is equivalent to a bijection
+  \input{img/4-24}
+  $G$ defines a bijection since it is fully faithful.
+  $(\eta_{c})_{*}$ is a bijection because $\eta_{c}$ is an isomorphism.
+  This defines an adjunction whose unit is $\eta$.
+\end{proof}
+
+\begin{lem}
+  Given an adjunction $F \dashv G$, post-composition with $F$ and $G$ defines a pair of adjoint functors
+  \input{img/4-25}
+  for any small category $\iJ$, and pre-composition with $F$ and $G$ defines a pair of adjoint functors
+  \input{img/4-26}
+  for any locally-small category $\iE$.
+\end{lem}
+\begin{proof}
+  A reasonable choice of unit and counit has component $\eta_{*_{K}} = \eta K$, and $\epsilon_{*_{K}} = \epsilon K$.
+  Simple diagram chase then reveals that $\eta_{*}$ and $\epsilon_{*}$ satisfy the triangle identities.
+
+  For pre-composition, note that adjunction can be defined internally in the 2-category $\mathsf{CAT}$: an adjunction consists of a pair of objects, a pair of 1-morphisms, and a pair of 2-morphisms satisfying the triangle identities.
+  Any 2-functor, such as $\iE^{\blank} : \mathsf{Cat}\op \to \mathsf{CAT}$, preserves adjunctions.
 \end{proof}
 
 \bibliographystyle{alpha}

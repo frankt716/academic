@@ -19,7 +19,7 @@ This section introduces a syntactic proof technique for adjoint functors, and co
     \input{img/4-01} \and \input{img/4-02}
   \end{mathpar}
 \end{lem}
-\begin{proof}
+\begin{proof}[Proof by formal category theory]
   To define a natural transformation $\theta : F \to F'$, we use the following fact
   \input{img/4-03}
   defining $\theta$ to be the transpose of $\eta'$.
@@ -60,6 +60,52 @@ This section introduces a syntactic proof technique for adjoint functors, and co
   \input{img/4-17}
   And by the triangle equality,
   \input{img/4-18}
+\end{proof}
+
+\begin{proof}[Proof by Yoneda Lemma]
+  By hypothesis,
+  \[
+    \iD(F'c,d) \iso \iC(c,Gd) \iso \iD(Fc,d)
+  \]
+  Thus, $\iD(F'\blank,\blank) \iso \iD(F\blank,\blank)$.
+  By the Yoneda Lemma, this isomorphism corresponds uniquely to an isomorphism $\theta : F \iso F'$ whose component $\theta_{c}$ is defined by the image of $1_{F'c}$ under the isomorphism.
+  The isomorphism carries $1_{F'c}$ to $\eta'_{c}$, then to the transpose of $\eta'_{c}$ along $F \dashv G$, yielding $\theta_{c} = \epsilon F'c \circ F\eta'_{c}$.
+\end{proof}
+
+\begin{lem}
+  Given $F \dashv G$ and $F' \dashv G'$, $F'F \dashv GG'$.
+  \input{img/4-19}
+\end{lem}
+\begin{proof}
+  \[
+    \iE(F'Fc,e) \iso \iD(Fc,G'e) \iso \iC(c,GG'e)
+  \]
+  The first isomorphism is given by $F' \dashv G'$ and the second isomorphism is given by $F \dashv G$.
+\end{proof}
+
+\begin{lem}
+  Any equivalence
+  \begin{mathpar}
+    \input{img/4-20} \and \eta : \id_{\iC} \iso GF \and \epsilon : FG \iso \id_{\iD}
+  \end{mathpar}
+  can be promoted to an adjoint equivalence.
+\end{lem}
+\begin{proof}
+  The composite
+  \input{img/4-21}
+  is an isomorphism but $\gamma\inv$ is not necessarily the identity.
+  This can be remedied by adjusting $\eta$ or $\epsilon$.
+  Naturality in $\eta$ suggests that the missing arrow should be $GF\gamma\inv$.
+  \input{img/4-22}
+  Define $\epsilon' = \epsilon \circ F\gamma\inv$.
+  For the other triangle identity, we need to show that $\epsilon'F \circ F\eta = \id_{F}$.
+  This is tricky to show directly.
+  Instead, we can show that it's an idempotent.
+  Then we can use the fact that every idempotent isomorphism is the identity to conclude what we want.
+
+  Note that the following diagram commutes
+  \input{img/4-23}
+  proving that $\epsilon'F \circ F\eta$ is an idempotent.
 \end{proof}
 
 \bibliographystyle{alpha}

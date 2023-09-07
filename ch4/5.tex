@@ -106,8 +106,58 @@ Note that the free product of two groups is actually a coproduct.
   \end{enumerate}
 \end{lem}
 \begin{proof}
-  $G$ is faithful if and only if $G$ defines an injection $\iD(x,y) \to \iC(Gx,Gy)$ if and only if $(\epsilon_{x})^{*}$ is an injection if and only if $\epsilon_{x}$ is an epimorphism.
+  By definition, $G$ is faithful if and only if $G$ defines an injection $\iD(x,y) \to \iC(Gx,Gy)$ for any $x$ and $y$.
+  Composition with the isomorphism $\iC(Gx,Gy) \iso \iD(FGx,y)$ yields the injection $(\epsilon_{x})^{*}$, which is equivalent to saying that $\epsilon_{x}$ is an epimorphism.
   \input{img/5-05}
+  Clearly, if $(\epsilon_{x})^{*}$ is an injection, then $G$ must be an injection by composing $(\epsilon_{x})^{*}$ with the inverse of the isomorphism.
+
+  Similarly, $G$ is full if and only if $(\epsilon_{x})^{*}$ is a surjection, which is equivalent to saying that $\epsilon_{x}$ is a split monomorphism.
+  Thus, $G$ is fully faithful if and only if every component of $\epsilon$ is an epi split monomorphism.
+  In other words, every component of $\epsilon$ is an isomorphism.
+
+  Dually, $F$ is faithful if and only if $(\eta_{y})_{*}$ is an injection if and only if $\eta_{y}$ is a monomorphism; $F$ is full if and only if $(\eta_{y})_{*}$ is a surjection if and only if $\eta_{y}$ is a split epimorphism.
+  \input{img/5-06}
+\end{proof}
+
+The following result explains why reflective subcategories are interesting:
+\begin{lem}
+  If $\iD \into \iC$ is a reflective subcategory, then:
+  \begin{itemize}
+  \item The inclusion $\iD \into \iC$ creates all limits that $\iC$ admits.
+  \item $\iD$ has all colimits that $\iC$ admits, formed by applying the reflector to the colimit in $\iC$.
+  \end{itemize}
+\end{lem}
+The proof of the first statement is deferred to a later section.
+\begin{proof}
+  Write $\iota : \iD \into \iC$ for the inclusion functor right adjoint to the localization $L$.
+  Consider a diagram $F : \iJ \to \iD$.
+  Let $\lambda : \iota F \to c$ be a limit cone in $\iC$.
+  Our goal is to find a limit cone $\lambda' : F \to Lc$ in $\iD$.
+  Left adjoints preserve colimits, yielding a limit cone $L\lambda : L\iota F \to Lc$ in $\iD$.
+  Since the inclusion functor $\iota$ is fully faithful, the counit $\epsilon$ is an isomorphism.
+  Composing with the isomorphism $\epsilon F : L\iota F \iso F$ yields the desired limit cone $\lambda' : F \iso L\iota F \to Lc$.
+\end{proof}
+
+\begin{lem}
+  Consider the reflective subcategory inclusion $\iD \into \iC$ with reflector $L : \iC \to \iD$.
+  \begin{itemize}
+  \item $\eta L = L\eta$, and these natural transformations are isomorphisms.
+  \item An object $c \in \iC$ is in the \emph{essential image} of the inclusion $\iD \into \iC$, meaning that it is isomorphic to an object in the subcategory $\iD$, if and only if $\eta_{c}$ is an isomorphism.
+  \end{itemize}
+\end{lem}
+\begin{proof}
+  The triangle identities imply that the diagram
+  \input{img/5-07}
+  commutes.
+  In particular, since the inclusion is fully faithful, $\epsilon$ is an isomorphism.
+  Thus, $\eta L = L\eta$ and they are isomorphisms: they are the inverse of $\epsilon L$.
+
+  Clearly, if $\eta_{c} : c \to Lc$ is an isomorphism, then $c$ is in the essential image of the inclusion.
+  Conversely, if $c$ is in the essential image of the inclusion, i.e., $c \iso d$ for some $d$.
+  Then $c \iso L d$.
+  By naturality,
+  \input{img/5-08}
+  $\eta_{c}$ is an isomorphism.
 \end{proof}
 
 \bibliographystyle{alpha}

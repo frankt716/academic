@@ -1,0 +1,10 @@
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJ1XnsqfSBcXGNpcmMgdl57Kn0gXFxjaXJjIHdeeyp9Il0sWzIsMCwidV57Kn0gXFxjaXJjICh3IFxcY2lyYyB2KV57Kn0iXSxbMCwyLCIodiBcXGNpcmMgdSleeyp9IFxcY2lyYyB3XnsqfSJdLFsyLDIsIih3IFxcY2lyYyB2IFxcY2lyYyB1KV57Kn0iXSxbMCwxLCJ1XnsqfVxcbXVfe3Ysd30iXSxbMCwyLCJcXG11X3t1LHZ9d157Kn0iLDJdLFsxLDMsIlxcbXVfe3UsIHcgXFxjaXJjIHZ9Il0sWzIsMywiXFxtdV97diBcXGNpcmMgdSwgd30iLDJdXQ==
+\[\begin{tikzcd}
+	{u^{*} \circ v^{*} \circ w^{*}} && {u^{*} \circ (w \circ v)^{*}} \\
+	\\
+	{(v \circ u)^{*} \circ w^{*}} && {(w \circ v \circ u)^{*}}
+	\arrow["{u^{*}\mu_{v,w}}", from=1-1, to=1-3]
+	\arrow["{\mu_{u,v}w^{*}}"', from=1-1, to=3-1]
+	\arrow["{\mu_{u, w \circ v}}", from=1-3, to=3-3]
+	\arrow["{\mu_{v \circ u, w}}"', from=3-1, to=3-3]
+\end{tikzcd}\]

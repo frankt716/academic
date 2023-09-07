@@ -1,0 +1,76 @@
+\documentclass{amsart}
+\input{decls}
+\title{Functoriality of Limits and Colimits}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\label{sec:introduction}
+The goal of this section is to show that natural isomorphisms between diagrams induce naturally defined isomorphisms between their limits and colimits, whenever they exist.
+To this end, we establish the functoriality of limits and colimits.
+
+Note that functoriality is not the same as canonicity: given a diagram $D : \iJ \to \iC$, there may be many objects in $\iC$ that satisfy the universal property of limit.
+There is seldom a reason to choose one over the other.
+
+\begin{thm}
+  If $\iC$ has all $\iJ$-shaped limits, then a choice of a limit for each diagram determines the action on objects of a functor $\lim_{\iJ} : \iC^{\iJ} \to \iC$.
+\end{thm}
+\begin{proof}
+  The action on objects has already been defined.
+  It remains to define the action on morphisms and verify functoriality.
+  Given a natural transformation $\alpha : D \to E$, the composite
+  \[
+    \lim_{J}D \overset{\lambda}{\to} D \overset{\alpha}{\to} E
+  \]
+  is a cone over $E$.
+  Thus, by the universal property of limit, there is a unique map $\lim_{J}D \to \lim_{J}E$ that factors through each leg of the limit cone.
+  We define the action on morphisms by such unique maps.
+
+  For $\id_{D} : D \to D$, the composite $\id_{D} \circ \lambda = \lambda$ determines a unique map $\lim_{J}D \to \lim_{J}D$ factoring through each leg of the limit cone.
+  Clearly, $\id_{\lim_{J}D}: \lim_{J}D \to \lim_{J}D$ satisfies this property.
+  Thus, $\lim_{J}(\id_{D}) = \id_{\lim_{J}D}$.
+
+  For any $\alpha : D \to E$ and $\beta : E \to F$, the composite $\lambda \circ (\beta \circ \alpha)$ determines a map $\lim_{J}(\beta \circ \alpha) : \lim_{J}D \to \lim_{J}F$.
+  By associativity, $\lambda \circ (\beta \circ \alpha) = (\lambda \circ \beta) \circ \alpha$.
+  The latter determines the composite $\lim_{J}(\beta) \circ \lim_{J}(\alpha)$, factoring through the same limit cone.
+  Thus, by uniqueness $\lim_{J}(\beta \circ \alpha) = \lim_{J}(\beta) \circ \lim_{J}(\alpha)$.
+\end{proof}
+
+\begin{eg}
+  Let $\iC$ be a category with binary products.
+  For any triple of objects $X, Y, Z$, there is a natural isomorphism between $(X \times Y) \times Z$ and $X \times (Y \times Z)$.
+\end{eg}
+\begin{proof}
+  Let $\iJ$ be the discrete 3-object category.
+  Both $(X \times Y) \times Z$ and $X \times (Y \times Z)$ are limits of the diagram $D : \iJ \to \iC$ mapping the 3 objects in $\iJ$ to $X, Y, Z$ respectively.
+  Let $L : \iC^{\iJ} \to \iC$ be given by the left-associative choice, and $R : \iC^{\iJ} \to \iC$ be given by the right one.
+  
+  For a diagram $D : \iJ \to \iC$, the legs of the limit cones are implemented by composing the binary product projections indicated as follows: \input{img/img6-1} \input{img/img6-2}
+
+  We name the projections of the left-associative product $\lambda$ and the right-associative product $\rho$.
+  
+  In particular, there is a unique isomorphism that commutes with the legs of the limit cones.
+  \input{img/img6-3}
+  Choose these isomorphisms to be the components of the natural isomorphism.
+
+  A natural transformation between diagrams $D, E : \iJ \to \iC$ consists of three morphisms $f,g,h$ without further restrictions.
+  Thus, $L(f,g,h)$ is given by \input{img/img6-4}
+  and $R(f,g,h)$ is given similarly.
+
+  Naturality demands
+  \[
+    \langle f \circ \rho_{X}, g \circ \rho_{Y}, h \circ \rho_{Z} \rangle \circ \langle \lambda_{X}, \lambda_{Y}, \lambda_{Z} \rangle
+    =
+    \langle \lambda_{X'}, \lambda_{Y'}, \lambda_{Z'} \rangle \circ \langle f \circ \lambda_{X}, g \circ \lambda_{Y}, h \circ \lambda_{Z} \rangle
+  \]
+  This is satisfied since both composites factor into the following cone: \input{img/img6-5} \input{img/img6-6}
+\end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{all}
+
+\end{document}

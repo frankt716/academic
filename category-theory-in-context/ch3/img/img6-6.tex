@@ -1,0 +1,16 @@
+% https://q.uiver.app/#q=WzAsNixbMiwwLCIoWCBcXHRpbWVzIFkpIFxcdGltZXMgWiJdLFsyLDEsIlggXFx0aW1lcyAoWSBcXHRpbWVzIFopIl0sWzIsMiwiWCcgXFx0aW1lcyAoWScgXFx0aW1lcyBaJykiXSxbMCw0LCJYJyJdLFsyLDQsIlknIl0sWzQsNCwiWiciXSxbMCwxLCJcXGxhbmdsZSBcXGxhbWJkYV97WH0sIFxcbGFtYmRhX3tZfSwgXFxsYW1iZGFfe1p9IFxccmFuZ2xlIiwwLHsiY29sb3VyIjpbMCw2MCw2MF19LFswLDYwLDYwLDFdXSxbMSwyLCJcXGxhbmdsZSBmIFxcY2lyYyBcXHJob197WH0sIGcgXFxjaXJjIFxccmhvX3tZfSwgaCBcXGNpcmMgXFxyaG9fe1p9IFxccmFuZ2xlIiwwLHsiY29sb3VyIjpbMCw2MCw2MF19LFswLDYwLDYwLDFdXSxbMiwzLCJcXHJob197WH0iLDJdLFsyLDQsIlxccmhvX3tYfSIsMV0sWzIsNSwiXFxyaG9fe1h9Il0sWzAsMywiZiBcXGNpcmMgXFxsYW1iZGFfe1h9IiwyLHsiY3VydmUiOjN9XSxbMCw0LCJnIFxcY2lyYyBcXGxhbWJkYV97WX0iLDIseyJjdXJ2ZSI6NX1dLFswLDUsImggXFxjaXJjIFxcbGFtYmRhX3tafSIsMCx7ImxhYmVsX3Bvc2l0aW9uIjozMCwiY3VydmUiOi0zfV1d
+\[\begin{tikzcd}
+	&& {(X \times Y) \times Z} \\
+	&& {X \times (Y \times Z)} \\
+	&& {X' \times (Y' \times Z')} \\
+	\\
+	{X'} && {Y'} && {Z'}
+	\arrow["{\langle \lambda_{X}, \lambda_{Y}, \lambda_{Z} \rangle}", color={rgb,255:red,214;green,92;blue,92}, from=1-3, to=2-3]
+	\arrow["{\langle f \circ \rho_{X}, g \circ \rho_{Y}, h \circ \rho_{Z} \rangle}", color={rgb,255:red,214;green,92;blue,92}, from=2-3, to=3-3]
+	\arrow["{\rho_{X'}}"', from=3-3, to=5-1]
+	\arrow["{\rho_{Y'}}"{description}, from=3-3, to=5-3]
+	\arrow["{\rho_{Z'}}", from=3-3, to=5-5]
+	\arrow["{f \circ \lambda_{X}}"', curve={height=18pt}, from=1-3, to=5-1]
+	\arrow["{g \circ \lambda_{Y}}"', curve={height=30pt}, from=1-3, to=5-3]
+	\arrow["{h \circ \lambda_{Z}}"{pos=0.3}, curve={height=-18pt}, from=1-3, to=5-5]
+\end{tikzcd}\]

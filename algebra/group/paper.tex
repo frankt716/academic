@@ -1,0 +1,92 @@
+\documentclass{amsart}
+\input{decls}
+\title{Groups}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Definition of Group}
+\label{sec:definition-of-group}
+
+\begin{defn}
+  A \emph{group} consists of the following data:
+  \begin{enumerate}
+  \item a set $G$;
+  \item an \emph{identity element} $e \in G$;
+  \item a \emph{group multiplication} $\cdot : G \times G \to G$;
+  \item a \emph{group inverse} $(\blank)\inv : G \to G$
+  \end{enumerate}
+  such that
+  \begin{enumerate}
+  \item group multiplication is associative;
+  \item $a\inv \cdot a = e = a \cdot a\inv$ for all $a \in G$.
+  \end{enumerate}
+\end{defn}
+The group axioms can be stated in terms of commutative diagrams.
+
+\begin{mathpar}
+  \input{img/01}\and
+  \input{img/02}
+\end{mathpar}
+
+\begin{eg}[Symmetry Groups]
+\end{eg}
+
+\begin{eg}[Dihedral Groups]
+\end{eg}
+
+\section{Order}
+\label{sec:order}
+
+\begin{defn}
+  An element $g$ of a group $G$ has \emph{finite order} if $g^{n} = e$ for some positive integer $n$.
+  In this case, the \emph{order}, denoted $|g|$, of $g$ is the smallest such $n$.
+  We write $|g| = \oo$ if $g$ does not have finite order.
+\end{defn}
+
+\section{Group Homomorphisms}
+\label{sec:group-homomorphisms}
+
+\begin{defn}
+  A \emph{group homomorphism} from $(G,m_{G})$ to $(H,m_{H})$ is a function $\varphi : G \to H$ that preserves group multiplication.
+  That is, the diagram commutes in $\mathsf{Set}$:
+  \input{img/03}
+\end{defn}
+
+\begin{lem}
+  Groups and their homomorphisms assemble into a category $\mathsf{Grp}$.
+\end{lem}
+
+\begin{lem}
+  Trivial groups are both initial and terminal in $\mathsf{Grp}$.
+\end{lem}
+\begin{proof}
+  It's clear that trivial groups are terminal in $\mathsf{Grp}$ since for any set $G$, the unique function from $G$ in to a singleton set is vacuously a group homomorphism.
+  Dually, since group homomorphisms preserve group identity, there's a unique group homomorphism from a singleton set to $G$.
+\end{proof}
+
+Thus, trivial groups are \emph{zero objects} of $\mathsf{Grp}$.
+This implies that $\mathsf{Grp}(G,H)$ is nonempty for any group $G$ and $H$ since one always has
+\input{img/04}
+Concretely, this homomorphism maps every element of $G$ to the identity of $H$.
+
+\section{Products}
+\label{sec:products}
+
+Since the forgetful functor $U : \mathsf{Grp} \to \mathsf{Set}$ is representable by the group $\dZ$, the underlying sets of products in $\mathsf{Grp}$ are themselves products in $\mathsf{Set}$.
+Thus, products in $\mathsf{Grp}$ are formed by giving group structures to products in $\mathsf{Set}$.
+
+\begin{defn}
+  Let $G$ and $H$ be groups, the \emph{direct product} $G \times H$ is the group formed by equipping the product of the underlying sets of $G$ and $H$ with the group structure
+\begin{align}
+  \cdot &: ((g,h),(g',h')) \mapsto (gg',hh')\\
+  (\blank)\inv &: (g,h) \mapsto (g\inv,h\inv)
+\end{align}
+That is, the group operations are defined componentwise.
+\end{defn}
+
+
+\end{document}

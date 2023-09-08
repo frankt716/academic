@@ -53,9 +53,12 @@ The group axioms can be stated in terms of commutative diagrams.
 
 \begin{defn}
   A \emph{group homomorphism} from $(G,m_{G})$ to $(H,m_{H})$ is a function $\varphi : G \to H$ that preserves group multiplication.
-  That is, the diagram commutes in $\mathsf{Set}$:
-  \input{img/03}
 \end{defn}
+This can be express in term of a commutative diagram in $\mathsf{Set}$:
+  \begin{equation}
+    \label{eq:group-homomorphism}
+    \input{img/03}
+  \end{equation}
 
 \begin{lem}
   Let $\varphi : G \to H$ be a group homomorphism, and let $g \in G$ be an element of finite order.
@@ -156,7 +159,11 @@ commutes.
 In this case, the construction $j_{1}$ is more efficient because $j_{2}$ can be recovered from $j_{1}$ via $\varphi$.
 
 The most efficient construction is one such that every construction can be uniquely recovered:
-\input{img/07}
+\begin{equation}
+  \label{eq:free-group}
+  \input{img/07}
+\end{equation}
+
 That is,
 \[
   \mathsf{Grp}(F(A),G) \iso \mathsf{Set}(A,U(G))
@@ -168,10 +175,7 @@ Let $[w]$ and $[w']$ be elements of $F(A)$, group multiplication is defined as $
 The inverse replaces each letter in a word with its inverse.
 
 The construction $\eta$ maps each element $a \in A$ to the singleton word $[a] \in F(A)$.
-Commutativity of diagram forces us to define $\varphi([a]) = f(a)$ for any $a \in A$.
-Moreover, the diagram
-\input{img/08}
-forces us to define $\varphi([w]) = f(w_{1}) \cdot \cdots \cdot f(w_{n})$.
+\eqref{eq:free-group} forces us to define $\varphi([a]) = f(a)$ for any $a \in A$, while \eqref{eq:group-homomorphism} forces us to define $\varphi([w]) = f(w_{1}) \cdot \cdots \cdot f(w_{n})$.
 
-When $A$ is a singleton, then we see that $F(A) \iso \dZ$, i.e., the free group on one generator is a cyclic group.
+
 \end{document}

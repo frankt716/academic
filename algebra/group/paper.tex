@@ -45,6 +45,7 @@ The group axioms can be stated in terms of commutative diagrams.
   An element $g$ of a group $G$ has \emph{finite order} if $g^{n} = e$ for some positive integer $n$.
   In this case, the \emph{order}, denoted $|g|$, of $g$ is the smallest such $n$.
   We write $|g| = \oo$ if $g$ does not have finite order.
+  The order $|G|$ of a group $G$ is the cardinality of its underlying set.
 \end{defn}
 
 \section{Group Homomorphisms}
@@ -55,6 +56,19 @@ The group axioms can be stated in terms of commutative diagrams.
   That is, the diagram commutes in $\mathsf{Set}$:
   \input{img/03}
 \end{defn}
+
+\begin{lem}
+  Let $\varphi : G \to H$ be a group homomorphism, and let $g \in G$ be an element of finite order.
+  Then $|\varphi(g)|$ divides $|g|$.
+\end{lem}
+\begin{proof}
+  Suppose that $|g| = n$, then $g^{n} = e$.
+  Thus,
+  \[
+    (\varphi(g))^{n} = \varphi(g^{n}) = \varphi(e) = e
+  \]
+  Thus, $n$ is a multiple of $|\varphi(g)|$.
+\end{proof}
 
 \begin{lem}
   Groups and their homomorphisms assemble into a category $\mathsf{Grp}$.
@@ -72,6 +86,28 @@ Thus, trivial groups are \emph{zero objects} of $\mathsf{Grp}$.
 This implies that $\mathsf{Grp}(G,H)$ is nonempty for any group $G$ and $H$ since one always has
 \input{img/04}
 Concretely, this homomorphism maps every element of $G$ to the identity of $H$.
+
+\begin{defn}
+  An isomorphism of groups is a group homomorphism $\varphi : G \to H$ whose inverse is also a group homomorphism.
+  This means that the underlying function of any group homomorphism is automatically a bijection.
+\end{defn}
+In fact the converse also holds.
+
+\begin{lem}
+  $\varphi : G \to H$ is a group isomorphism if and only if $\varphi$ is a bijection.
+\end{lem}
+\begin{proof}
+  Let $\varphi : G \to H$ be a bijective group homomorphism, we need to show that $\varphi\inv : H \to G$ is a group homomorphism.
+  That is, we need to show that the diagram
+  \input{img/05}
+  commutes.
+  Since $\varphi$ is a bijection, it is monic.
+  Thus, it suffices to show that $\varphi m_{G} (\varphi\inv \times \varphi\inv) = \varphi \varphi\inv m_{H} = m_{H}$.
+  This is immediate.
+  \[
+    \varphi m_{G}(\varphi\inv \times \varphi\inv) = m_{H}(\varphi \times \varphi) (\varphi\inv \times \varphi\inv) = m_{H}
+  \]
+\end{proof}
 
 \section{Products}
 \label{sec:products}
@@ -100,5 +136,42 @@ The coproduct of two groups $G * H$ is called the \emph{free product} of $G$ and
 \label{sec:abelian-groups}
 
 The category $\mathsf{Ab}$ of abelian groups also has zero objects, but products coincide with coproducts.
+The (co)product $G \times H$ of two abelian group is called the \emph{direct sum}, denoted $G \oplus H$, of $G$ and $H$.
 
+\section{Cyclic Groups}
+\label{sec:cyclic-groups}
+
+\begin{defn}
+  A group $G$ is \emph{cyclic} if it is isomorphic to $\dZ$ or to $\dZ/n\dZ$ for some $n$.
+\end{defn}
+
+\section{Free Groups}
+\label{sec:free-groups}
+
+Given a set $A$, how do we construct a group that contains $A$ in the most efficient way?
+A construction is a set-theoretic function $j : A \to G$ mapping each element of $A$ to a corresponding group element of $G$.
+Then, given two constructions $j_{1} : A \to G_{1}$ and $j_{2} : A \to G_{2}$, we can compare them by asking for a group homomorphism such that the diagram
+\input{img/06}
+commutes.
+In this case, the construction $j_{1}$ is more efficient because $j_{2}$ can be recovered from $j_{1}$ via $\varphi$.
+
+The most efficient construction is one such that every construction can be uniquely recovered:
+\input{img/07}
+That is,
+\[
+  \mathsf{Grp}(F(A),G) \iso \mathsf{Set}(A,U(G))
+\]
+Concretely, the underlying set of $F(A)$ is the quotient of all formal words whose letters are $a$ and $a\inv$ for each $a \in A$.
+Words are quotient by the congruence that $a\inv a = \epsilon = a a\inv$ for all $a \in A$.
+
+Let $[w]$ and $[w']$ be elements of $F(A)$, group multiplication is defined as $[w \cdot w']$, i.e., the concatenation of $w$ and $w'$ modulo the congruence.
+The inverse replaces each letter in a word with its inverse.
+
+The construction $\eta$ maps each element $a \in A$ to the singleton word $[a] \in F(A)$.
+Commutativity of diagram forces us to define $\varphi([a]) = f(a)$ for any $a \in A$.
+Moreover, the diagram
+\input{img/08}
+forces us to define $\varphi([w]) = f(w_{1}) \cdot \cdots \cdot f(w_{n})$.
+
+When $A$ is a singleton, then we see that $F(A) \iso \dZ$, i.e., the free group on one generator is a cyclic group.
 \end{document}

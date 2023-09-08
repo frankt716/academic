@@ -8,8 +8,8 @@
 \maketitle
 \tableofcontents
 
-\section{Definition of Group}
-\label{sec:definition-of-group}
+\section{Definition of Groups}
+\label{sec:definition-of-groups}
 
 \begin{defn}
   A \emph{group} consists of the following data:
@@ -177,5 +177,45 @@ The inverse replaces each letter in a word with its inverse.
 The construction $\eta$ maps each element $a \in A$ to the singleton word $[a] \in F(A)$.
 \eqref{eq:free-group} forces us to define $\varphi([a]) = f(a)$ for any $a \in A$, while \eqref{eq:group-homomorphism} forces us to define $\varphi([w]) = f(w_{1}) \cdot \cdots \cdot f(w_{n})$.
 
+\section{Free Abelian Groups}
+\label{sec:free-abelian-groups}
+
+Similarly, we can ask how to construct an abelian group that contains a set $A$ in the most efficient way.
+For finite sets $A = \{1,\ldots,n\}$, we take $F(A) = \dZ^{\oplus n}$, i.e., the product of $\dZ$ with itself $n$ times.
+\begin{equation}
+  \label{eq:free-abelian-group}
+  \input{img/08}
+\end{equation}
+The set is endowed with the evident group structure, defined componentwise.
+$\eta(i) = (0,\ldots,\underbrace{1}_{i\text{-th}},\ldots,0)$.
+Thus, \eqref{eq:free-abelian-group} demands that $\varphi(0,\ldots,\underbrace{1}_{i\text{-th}},\ldots,0) = f(i)$, while \eqref{eq:group-homomorphism} demands $\varphi(a,b,\ldots,z) = f(a) + f(b) + \cdots + f(z)$.
+
+One may recognize that $\eta(i)$ is the $i$-th standard basis vector of an $n$-dimensional vectorspace.
+
+In general, let $A$ be any set.
+The set $\dZ^{A}$ admits a natural abelian group structure.
+Define
+\[
+  \dZ^{\oplus A} = \{\alpha : A \to \dZ \mid \alpha(a) \neq 0 \,\text{for finitely many}\, a \in A\}
+\]
+Restricting the group operation of $\dZ^{A}$ yields an abelian group structure on $\dZ^{\oplus A}$.
+\input{img/09}
+Analogously, $\eta(a)$ is the function $\delta_{a} : A \to \dZ$ defined by
+\[
+  \delta_{a}(x) =
+  \begin{dcases*}
+    1 & if $x = a$\\
+    0 & otherwise
+  \end{dcases*}
+\]
+Thus, $\varphi(\delta_{a}) = f(a)$.
+Any element in $\dZ^{\oplus A}$ can be written as a finite formal sum
+\[
+  \delta = \sum_{a \in A}m_{a}\delta_{a}, \qquad m_{a} \neq 0~\text{for finitely many}~a \in A
+\]
+Thus, $\varphi$ can be uniquely extended to every $\delta \in \dZ^{\oplus A}$.
+\[
+  \varphi(\delta) = \sum_{a \in A}m_{a}f(a), \qquad m_{a} \neq 0~\text{for finitely many}~a \in A
+\]
 
 \end{document}

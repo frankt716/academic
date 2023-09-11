@@ -175,6 +175,18 @@ There is a categorical presentation of this notion.
   A homomorphism of $\cT$-models is a natural transformation.
 \end{defn}
 
+Given an algebraic theory $\cT$, we get a presentation $\cT_{1}$ of this theory by choosing $\cT(T^{n}, T^{1})$ as the $n$-ary operations.
+For each $t \in \cT(T^{n}, T^{1})$, we define terms inductively by
+\begin{itemize}
+\item variables $x_{i}$ are projections $\pi_{i} : T^{n} \to T^{1}$;
+\item if $f \in \cT(T^{m},T^{1})$ and $t_{1} : T^{n_{1}} \to T^{1},\ldots,t_{m} : T^{n_{m}} \to T^{1}$, then $f(t_{1},\ldots,t_{m})$ is the composition $f \circ (t_{1},\ldots,t_{m})$.
+\end{itemize}
+
+\begin{lem}
+  Let $\cT$ be an algebraic theory and consider the corresponding presentation $\cT_{1}$ of the algebraic theory.
+  The categories of models for $\cT$ and $\cT_{1}$ are equivalent.
+\end{lem}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

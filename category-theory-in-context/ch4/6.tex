@@ -10,10 +10,41 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
+Consider the inclusion functor $\mathsf{Ring} \into \mathsf{Rng}$.
+The left adjoint ought to be the ``most efficient way'' to attach a multiplicative unit to a rng $R$.
+In other words, for any possible way $f$ to adjoin a multiplicative unit to $R$, we want $\eta$ to uniquely factor into this construction.
+\input{img/6-01}
+Namely, we want
+\[
+  \mathsf{Ring}(R^{*}, S) \iso \mathsf{Rng}(R, S)
+\]
+Note that the inclusion functor is often omitted.
+This amounts to finding a representation $R^{*}$ for the functor $\mathsf{Rng}(R,\blank)$.
+A representation for this functor defines an initial object in $\int\mathsf{Rng}(R,\blank)$.
+This category is isomorphic to the comma category $R \dn \mathsf{Ring}$.
+If we can find a unital ring $R^{*}$ and a ring homomorphism $\eta : R \to R^{*}$ that is initial in $R \dn \mathsf{Ring}$, then the optimization problem is solved.
 
+\begin{lem}
+  A functor $U : \iA \to \iS$ admits a left adjoint if and only if $s \dn U$ has an initial object for all $s \in \iS$.
+\end{lem}
+\begin{proof}
+  The ``if'' direction: suppose that $U : \iA \to \iS$ admits a left adjoint $F : \iS \to \iA$.
+  Then for each $s \in \iS$, the component $\eta_{s} : s \to UFs$ is an initial object in $s \dn U$.
+  This is immediate by the following defining diagram:
+  \input{img/6-02}
 
-\bibliographystyle{alpha}
-\bibliography{all}
+  Conversely, suppose that $s \dn U$ has an initial object, which is suggestively denoted as $(Fs \in \iA, \eta_{s} : s \to UFs)$ for all $s \in \iS$.
+  This define a function $F : \ob\iS \to \ob\iA$, which can be extended to a functor.
+  For $f : s \to s'$, we define $Ff$ to be the unique morphism $Fs \to Fs'$ given by the initiality of $(Fs \in \iA, \eta_{s} : s \to UFs)$.
+  This data assembles into a natural transformation $\eta : \id_{\iS} \to UF$.
+  We then define a natural transformation $\varphi : \iA(F\blank,\blank) \to \iS(\blank,U\blank)$ by
+  \input{img/6-03}
+  Initiality provides existence and uniqueness of maps $UFs \to Ua$.
+  Existence proves surjectivity, while uniqueness proves injectivity.
+  Thus $\varphi_{s,a}(g)$ is a bijection, proving that
+  \[
+    \iA(Fs,a) \iso \iS(s,Ua)
+  \]
+\end{proof}
 
 \end{document}

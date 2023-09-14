@@ -8,184 +8,167 @@
 \maketitle
 \tableofcontents
 
-\newcommand{\gmult}{\hat{+}}
-\newcommand{\ginv}{\hat{-}}
-\newcommand{\gid}{\hat{0}}
 \newcommand{\interp}[1]{\llbracket #1 \rrbracket}
 
-\section{Introduction}
-\label{sec:introduction}
+\section{Universal Algebra}
+\label{sec:universal-algebra}
 
-The theory of groups, rings, modules, etc, fits into a nice framework.
-This is my personal note for \cite{borceaux:handbook-2}.
+The theory of groups $\cG$ can be described by specifying
+\begin{enumerate}
+\item a denumerable set of variables $x, y, z, \ldots$;
+\item three formal symbols $+, -, 0$.
+\end{enumerate}
 
-\section{The Theory of Groups}
-\label{sec:the-theory-of-groups}
-
-The theory of groups can be described by giving
-\begin{itemize}
-\item A denumerable set of variables $x, y, z, \ldots$.
-\item Three formal symbols $+, -, 0$.
-\end{itemize}
-
-The terms of the theory of groups are defined inductively as follows:
-\begin{itemize}
-\item all variables are terms.
+The terms of the theory of groups are defined inductively:
+\begin{enumerate}
+\item variables are terms;
+\item $0$ is a term;
+\item if $t$ is a term, then $-t$ is a term;
 \item if $t_{1}$ and $t_{2}$ are terms, then $t_{1} + t_{2}$ is a term.
-\item if $t$ is a term, then $-t$ is a term.
-\item $0$ is a term.
-\end{itemize}
+\end{enumerate}
 
 The axioms of the theory of groups are the following:
-\begin{itemize}
+\begin{enumerate}
 \item $x + (y + z) = (x + y) + z$
 \item $x + 0 = x$
 \item $0 + x = x$
 \item $x + (-x) = 0$
 \item $(-x) + x = 0$
-\end{itemize}
+\end{enumerate}
 
 \begin{defn}
-  A \emph{model} of this formal theory of groups consists of
-  \begin{itemize}
+  A \emph{premodel} of the theory of groups $\cG$ consists of
+  \begin{enumerate}
   \item a set $G$;
-  \item a function $\gmult : G \times G \to G$;
-  \item a function $\ginv : G \to G$;
-  \item an element $\gid \in G$.
-  \end{itemize}
-  The terms are interpreted recursively:
-  \begin{itemize}
-  \item the interpretation of a variable is any element of $G$;
-  \item $\interp{x + y} = \interp{x} \gmult \interp{y}$;
-  \item $\interp{-x} = \ginv \interp{x}$;
-  \item $\interp{0} = \gid$.
-  \end{itemize}
+  \item an element $\hat{0} \in G$;
+  \item a unary function $\hat{-} : G \to G$;
+  \item a binary function $\hat{+} : G \times G \to G$.
+  \end{enumerate}
 \end{defn}
 
-The data $(G,\gmult,\ginv,\gid)$ constitute a model of the theory of groups when for any possible interpretation of variables, the interpretations of those group axioms hold.
-
-\section{Universal Algebra}
-\label{sec:universal-algebra}
+Given a premodel $(G, \hat{0}, \hat{-}, \hat{+})$, terms are interpreted recursively in this premodel:
+\begin{enumerate}
+\item $\interp{x}$ is any element of $G$;
+\item $\interp{0}$ is $\hat{0}$;
+\item $\interp{-t}$ is $\hat{-}\interp{t}$;
+\item $\interp{t_{1} + t_{2}}$ is $\interp{t_{1}} \hat{+} \interp{t_{2}}$.
+\end{enumerate}
 
 \begin{defn}
-  A \emph{presentation} of an algebraic theory is a theory with equality specified by
-  \begin{itemize}
-  \item a denumerable set of variables $x, y, z, \ldots$;
-  \item for each $n \in \dN$, a denumerable set $\cO_{n}$ of $n$-ary function symbols: $f, g, h,\ldots$;
-  \item a set of axioms
-  \end{itemize}
-  The terms of the theory are defined inductively:
-  \begin{itemize}
-  \item each variable is a term;
+  A premodel $(G, \hat{0}, \hat{-}, \hat{+})$ constitutes a \emph{model} of $\cG$ if for every interpretation of variables, every axiom is satisfied, i.e.,
+  \begin{enumerate}
+  \item $\interp{x} \hat{+} (\interp{y} \hat{+} \interp{z}) = (\interp{x} \hat{+} \interp{y}) \hat{+} \interp{z}$
+  \item $\interp{x} \hat{+} \hat{0} = \interp{x}$
+  \item $\hat{0} \hat{+} \interp{x} = \interp{x}$
+  \item $\interp{x} \hat{+} (\hat{-}\interp{x}) = \hat{0}$
+  \item $(\hat{-}\interp{x}) \hat{+} \interp{x} = \hat{0}$
+  \end{enumerate}
+\end{defn}
+
+We can repeat this process for rings, $R$-modules, monoids, etc.
+In general, algebraic theories fit in the following formal framework:
+
+\begin{defn}
+  A \emph{presentation} $\dP$ of an algebraic theory $\cT$ is a theory with equality specified by
+  \begin{enumerate}
+  \item a denumerable set of variables: $x, y, z, \ldots$;
+  \item for each $n \in \dN$, a set $\cO_{n}$ of $n$-ary function symbols;
+  \item a set of axioms.
+  \end{enumerate}
+  Axioms are equalities between terms; terms are defined inductively as follows:
+  \begin{enumerate}
+  \item variables are terms;
   \item if $f$ is an $n$-ary function symbol and $t_{1},\ldots,t_{n}$ are terms, then $f(t_{1},\ldots,t_{n})$ is a term.
-  \end{itemize}
-  An axiom is an equality between terms.
+  \end{enumerate}
+  A nullary function symbol is also called a \emph{constant}.
 \end{defn}
 
 \begin{defn}
-  Let $\cT$ be a presentation of an algebraic theory.
-  A \emph{model} of $\cT$ consists of
-  \begin{itemize}
+  Let $\dP$ be a presentation of an algebraic theory.
+  A \emph{premodel} of $\dP$ consists of
+  \begin{enumerate}
   \item a set $M$;
-  \item for each $f \in \cO_{n}$, a function $\hat{f} : M^{n} \to M$.
-  \end{itemize}
-  The terms of $\cT$ are interpreted recursively:
-  \begin{itemize}
-  \item the interpretation of a variable is any element of $M$;
-  \item $\interp{f(t_{1},\ldots,t_{n})} = \hat{f}(\interp{t_{1}},\ldots,\interp{t_{n}})$.
-  \end{itemize}
+  \item a function $\hat{f} : M^{n} \to M$ for each $n$-ary function symbol $f$.
+  \end{enumerate}
 \end{defn}
 
+Given a premodel, terms are interpreted recursively:
+\begin{enumerate}
+\item $\interp{x}$ is any element of $M$;
+\item $\interp{f(t_{1},\ldots,t_{n})} = \hat{f}(\interp{t_{1}},\ldots,\interp{t_{n}})$.
+\end{enumerate}
+
 \begin{defn}
-  Let $L$ and $M$ be models of a presentation $\cT$.
-  A $\cT$-homomorphism $\varphi : L \to M$ is a function $\varphi : L \to M$ such that
+  Let $\sL$ and $\sM$ be models of a presentation $\dP$.
+  A $\dP$-homomorphism is a function $\varphi : L \to M$ so that
   \[
-    \varphi(\hat{f}(x_{1},\ldots,x_{n})) = \hat{f}(\varphi(x_{1}),\ldots,\varphi(x_{n}))
+    \varphi(\hat{f}_{\sL}(a_{1},\ldots,a_{n})) = \hat{f}_{\sM}(\varphi(a_{1}),\ldots,\varphi(a_{n}))
   \]
-  for any function symbol $f$ and elements $x_{1},\ldots,x_{n} \in L$.
-  Note that $\hat{f}$ on the left-hand side is a function $\hat{f} : L^{n} \to L$, while $\hat{f}$ on the right-hand side is a function $\hat{f} : M^{n} \to M$.
+  for any function symbol $f$ of $\dP$ and any elements $a_{1},\ldots,a_{n}$ of $L$.
 \end{defn}
 
 \begin{lem}
-  Let $\cT$ be a presentation of an algebraic theory.
-  The models of $\cT$ and their homomorphisms constitute a category.
+  Let $\dP$ be a presentation of an algebraic theory.
+  The models of $\dP$ and their homomorphisms constitute a category.
 \end{lem}
 
-There is a categorical presentation of this notion.
-
-\begin{defn}
-  Let $\cT$ be a presentation of an algebraic theory.
-  We define a congruence relation $\sim$ on the set of terms as follows:
-  \begin{mathpar}
-    \inferrule
-    { s = t }
-    { s \sim t }\and
-    \inferrule
-    { s \sim t }
-    { s[t_{1},\ldots,t_{n}/x_{1},\ldots,x_{n}] \sim t[t_{1},\ldots,t_{n}/x_{1},\ldots,x_{n}] }\and
-    \inferrule
-    { t_{1} \sim s_{1} \\ \cdots \\ t_{n} \sim s_{n} }
-    { f(t_{1},\ldots,t_{n}) \sim f(s_{1},\ldots,s_{n}) }
-  \end{mathpar}
-\end{defn}
-
-\begin{lem}
-  Let $\cT$ be a presentation of an algebraic theory.
-  Let $T_{n}$ be the set of terms containing only the variables $x_{1},\ldots,x_{n}$.
-  Define $F_{n}$ to be the quotient of $T_{n}$ by the congruence $\sim$.
-  Then $F_{n}$ has the structure of a $\cT$-model.
-\end{lem}
-\begin{proof}
-  For each function symbol $f$ in $\cT$, the function $\hat{f} : F_{n}^{m} \to F_{n}$ is defined by
-  the last rule defining $\sim$.
-  The first two rules ensures that this interpretation satisfies all axioms regardless of how variables are interpreted.
-\end{proof}
-
-\begin{lem}
-  Let $\cT$ be a presentation of an algebraic theory.
-  In the category $\mathsf{Mod}_{\cT}$, $F_{n}$ is the $n$-th copower of $F_{1}$.
-\end{lem}
-\begin{proof}
-  Let $F_{1}^{(i)}$ be the set of equivalence classes of terms involving just the variable $x_{i}$.
-  This yields a $\cT$-model isomorphic to $F_{1}$.
-  The obvious injections $\iota_{i} : F_{1}^{(i)} \to F_{n}$ form a colimit cone with nadir $F_{n}$.
-\end{proof}
-
-\begin{lem}
-  Let $\cT$ be a presentation of an algebraic theory.
-  The model $F_{n}$ is the free model on $n$ generators.
-\end{lem}
-\begin{proof}
-  
-\end{proof}
-
-\begin{lem}
-  Let $\cT$ be a presentation of an algebraic theory.
-  Write $\sF$ for the full subcategory of $\mathsf{Mod}_{\cT}$ spanned by the free models $F_{n}$ on finitely many generators.
-  The dual category $\sF\op$ has finite products and $\mathsf{Mod}_{\cT}$ is equivalent to the category of product-preserving functors from $\sF\op$ to $\mathsf{Set}$, and natural transformations between them.
-\end{lem}
-
-\section{A Categorical Approach to Universal Algebra}
-\label{sec:a-categorical-approach-to-universal-algebra}
+\section{Lawvere Theory}
+\label{sec:lawvere-theory}
 
 \begin{defn}
   An algebraic theory $\cT$ is a category with a denumerable set of objects $\{T^{0}, T^{1}, T^{2}, \ldots\}$.
-  Each object $T^{n}$ is the $n$-th power of the object $T^{1}$.
-  A model of $\cT$ is a finite-product-preserving functor $F : \cT \to \mathsf{Set}$.
-  A homomorphism of $\cT$-models is a natural transformation.
+  Each object $T^{n}$ is the $n$-th power of $T^{1}$.
+
+  A model of $\cT$ is a finite-product-preserving functor $F : \cT \to \mathsf{Set}$, and a homomorphism of $\cT$-models is a natural transformation.
 \end{defn}
 
-Given an algebraic theory $\cT$, we get a presentation $\cT_{1}$ of this theory by choosing $\cT(T^{n}, T^{1})$ as the $n$-ary operations.
-For each $t \in \cT(T^{n}, T^{1})$, we define terms inductively by
-\begin{itemize}
-\item variables $x_{i}$ are projections $\pi_{i} : T^{n} \to T^{1}$;
-\item if $f \in \cT(T^{m},T^{1})$ and $t_{1} : T^{n_{1}} \to T^{1},\ldots,t_{m} : T^{n_{m}} \to T^{1}$, then $f(t_{1},\ldots,t_{m})$ is the composition $f \circ (t_{1},\ldots,t_{m})$.
-\end{itemize}
+$\cT$-models and their homomorphisms form a category, which we call $\mathsf{Mod}_{\cT}$.
 
 \begin{lem}
-  Let $\cT$ be an algebraic theory and consider the corresponding presentation $\cT_{1}$ of the algebraic theory.
-  The categories of models for $\cT$ and $\cT_{1}$ are equivalent.
+  Let $\cT$ be an algebraic theory.
+  If $\alpha : F \to G$ is a morphism in $\mathsf{Mod}_{\cT}$, then the diagram
+  \input{img/01}
+  commutes and the isomorphisms are the canonical ones.
 \end{lem}
+\begin{proof}
+  By naturality,
+  \[
+    G(\pi_{i}) \circ \alpha_{T^{n}} = \alpha_{T} \circ F(\pi_{i})
+  \]
+  for any projection $\pi_{i} : T^{n} \to T$.
+  The isomorphisms are uniquely determined by the projections $F(\pi_{i})$ and $G(\pi_{i})$.
+\end{proof}
+
+A presentation $\dT$ of the algebraic theory $\cT$ consists of
+\begin{enumerate}
+\item for each $n \in \dN$, a variable $x^{n}_{i}$ for the projection $\pi_{i} \in \cT(T^{n},T^{1})$;
+\item for each $n \in \dN$, a function symbol $f^{n}$ for each $f^{n} \in \cT(T^{n},T^{1})$.
+\end{enumerate}
+Terms are defined inductively as
+\begin{enumerate}
+\item variables are terms;
+\item if $f^{n}$ is an $n$-ary function symbol and $t_{1},\ldots,t_{n}$ are terms, then $f^{n}(t_{1},\ldots,t_{n})$ is a term.
+  This term corresponds to the composite $f^{n} \circ (\beta_{1},\ldots,\beta_{n})$, where $\beta_{1},\ldots,\beta_{n}$ correspond to $t_{1},\ldots,t_{n}$.
+\end{enumerate}
+In this presentation, a term $t$ corresponds to a morphism $T^{n} \to T^{1}$.
+
+\section{Limits and Colimits in Algebraic Categories}
+\label{sec:limits-and-colimits-in-algebraic-categories}
+
+
+\section{Algebraic Functors}
+\label{sec:algebraic-functors}
+
+\section{Freely Generated Models}
+\label{sec:freely-generated-models}
+
+\section{Characterization of Algebraic Categories}
+\label{sec:characterization-of-algebraic-categories}
+
+\section{Tensor Products of Theories}
+\label{sec:tensor-products-of-theories}
+
+
 
 \bibliographystyle{alpha}
 \bibliography{all}

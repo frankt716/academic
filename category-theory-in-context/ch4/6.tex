@@ -24,7 +24,7 @@ A representation for this functor defines an initial object in $\int\mathsf{Rng}
 This category is isomorphic to the comma category $R \dn \mathsf{Ring}$.
 If we can find a unital ring $R^{*}$ and a ring homomorphism $\eta : R \to R^{*}$ that is initial in $R \dn \mathsf{Ring}$, then the optimization problem is solved.
 
-\begin{lem}
+\begin{lem}\label{lem:left-adjoint-initial}
   A functor $U : \iA \to \iS$ admits a left adjoint if and only if $s \dn U$ has an initial object for all $s \in \iS$.
 \end{lem}
 \begin{proof}
@@ -45,6 +45,142 @@ If we can find a unital ring $R^{*}$ and a ring homomorphism $\eta : R \to R^{*}
   \[
     \iA(Fs,a) \iso \iS(s,Ua)
   \]
+\end{proof}
+
+Recall that the canonical forgetful functor $\Pi : s \dn U \to \iA$
+\begin{enumerate}
+\item strictly creates all limits that $\iA$ admits and that $\iS(s, U\blank)$ preserves;
+\item strictly creates all connected colimits that $\iA$ admits.
+\end{enumerate}
+Thus,
+\begin{lem}\label{lem:forgetful-create}
+  For any functor $U : \iA \to \iS$ and object $s \in \iS$, the associated forgetful functor $\Pi : s \dn U \to \iA$ strictly creates the limit of any diagram whose limit exists in $\iA$ and is preserved by $U$.
+  In particular, if $\iA$ is complete and $U$ is continuous, then $s \dn U$ is complete.
+\end{lem}
+\begin{proof}
+  It suffices to show that those limits that $U$ preserves are precisely those that $\iS(s,U\blank)$ preserves.
+  Since $U(\lim G) \iso \lim UG$, by the Yoneda Lemma,
+  \[
+    \iS(s, U(\lim G)) \iso \iS(s, \lim UG)
+  \]
+  Since represented functors preserve limits, we have
+  \[
+    \iS(s, \lim UG) \iso \lim \iS(s, UG)
+  \]
+  Now suppose that $\iA$ is complete and $U$ is continuous, then $U$ preserves any small limit that exists in $\iA$.
+  Then $\Pi : s \dn U \to \iA$ strictly creates any limit in $\iA$, proving that $s \dn U$ is complete.
+\end{proof}
+
+Recall that an initial object in $s \dn U$ is the limit of the identity functor $\id_{s \dn U}$.
+By \cref{lem:forgetful-create}, $s \dn U$ has an initial object if and only if $\Pi : s \dn U \to \iA$ has a limit.
+However, even if $\iA$ is complete and $U$ is continuous, $\Pi : s \dn U \to \iA$ does not necessarily have a limit since $s \dn U$ is in general large.
+
+The general adjoint functor theorem identifies a condition for which this large limit can be reduced to a small one.
+
+\begin{lem}\label{lem:joint-initial}
+  If $\iC$ is complete, locally small, and has a jointly weakly initial set of objects $\Phi$, then $\iC$ has an initial object.
+\end{lem}
+\begin{proof}
+  Consider the inclusion functor from the full subcategory spanned by objects of $\Phi$ into $\iC$.
+  Since $\Phi$ is a set and $\iC$ is locally small, the subcategory spanned by $\Phi$ has a set worth of morphisms, i.e., it is small.
+  Thus, the inclusion functor defines a small diagram.
+  And since $\iC$ is complete, this diagram has a limit in $\iC$ with limit cone $(\kappa_{k} : \ell \to k)_{k \in \Phi}$.
+  
+  Now for any object $c \in \iC$,
+  \begin{enumerate}
+  \item if $c \in \Phi$, then choose $\kappa_{c} : \ell \to c$;
+  \item otherwise, there is some $k \in \Phi$ and a morphism $f : k \to c$.
+    Then choose $f \circ \kappa_{k} : \ell \to c$.
+  \end{enumerate}
+  This proves that $\ell$ is weakly initial.
+  To show that $\ell$ is initial, it suffices to show that $\ell$ defines a limit cone $\lambda : \ell \to \id_{\iC}$ of the identity functor $\id_{\iC}$.
+  First, for any $f : c \to c'$ in $\iC$, one can pull back $h_{c'}$ along $f \circ h_{c}$.
+  This yields an object $p \in \iC$.
+  Then there is some $k'' \in \Phi$ and a morphism $k'' \to p$.
+  Composing this morphism with the legs of the pullback yields two morphisms $k'' \to k$ and $k'' \to k'$ living in the full subcategory spanned by $\Phi$.
+  Since $\ell$ defines a cone over the inclusion functor.
+  The top triangles commute.
+  \input{img/6-04}
+  This proves that $\ell$ defines a cone over $\id_{\iC}$.
+  To prove that it is the limit cone, it suffices to show that $\lambda_{\ell}$ is the identity since, in this case, it guarantees a unique morphism into $\ell$.
+  \input{img/6-05}
+  The cone condition demands that the triangle commutes:
+  \input{img/6-06}
+  Thus, $\lambda_{\ell}$ must be $\id_{\ell}$.
+\end{proof}
+
+Here's a list of what we know so far
+\begin{enumerate}
+\item \cref{lem:left-adjoint-initial}: a functor $U : \iA \to \iS$ admits a left adjoint if and only if $s \dn U$ has an initial object for all $s \in \iS$.
+\item \cref{lem:forgetful-create}: for any functor $U : \iA \to \iS$, if $\iA$ is complete and $U$ is continuous, then $s \dn U$ is complete for all $s \in \iS$.
+\item \cref{lem:joint-initial}: if $s \dn U$ is complete, locally small, and has a jointly weakly initial set of objects, then $s \dn U$ has an initial object.
+\end{enumerate}
+
+\begin{thm}[General Adjoint Functor Theorem]
+  Let $U : \iA \to \iS$ be a continuous functor whose domain is locally small and complete.
+  Suppose that $U$ satisfies the following \emph{solution set condition}:
+  \begin{itemize}
+  \item for every $s \in \iS$ there exists a set of morphisms $\Phi_{s} = \{f_{i} : s \to Ua_{i}\}$ so that any $f : s \to Ua$ factors through some $f_{i} \in \Phi_{s}$ along a morphism $a_{i} \to a$ in $\iA$.
+  \end{itemize}
+  Then $U$ admits a left adjoint.
+\end{thm}
+\begin{proof}
+  Since $\iA$ is complete and $U$ is continuous, by \cref{lem:forgetful-create}, $s \dn U$ is complete for all $s \in \iS$.
+  Because $\iA$ is locally small, $s \dn U$ is locally small as well.
+  The solution set condition says that for each $s \in \iS$, $s \dn U$ has a jointly weakly initial set of objects.
+  Thus, by \cref{lem:joint-initial}, $s \dn U$ has an initial object.
+  \cref{lem:left-adjoint-initial} concludes the proof.
+\end{proof}
+
+\begin{defn}
+  A \emph{generating set} for a category $\iC$ is a set $\Phi$ of objects that can distinguish between distinct parallel morphisms.
+  Given $f,g : x \toto y$, if $f \neq g$ then there is some $h : c \to x$ with $c \in \Phi$ so that $fh \neq gh$.
+  A \emph{cogenerating set} in $\iC$ is a generating set in $\iC\op$.
+\end{defn}
+
+\begin{defn}
+  A \emph{subobject} of an object $c \in \iC$ is a monomorphism $c' \mono c$.
+  Isomorphic subobjects are typically identified.
+\end{defn}
+
+\begin{defn}
+  The \emph{intersection} of a family of subobjects of $c$ is the limit of the diagram of monomorphisms with codomain $c$.
+\end{defn}
+In the poset of sets ordered by inclusion, the intersection of a family of sets is the largest set contained in each set of the family.
+
+\begin{lem}\label{lem:cogen-initial}
+  Suppose $\iC$ is locally small, complete, has a small cogenerating set $\Phi$, and has the property that every collection of subobjects has an intersection.
+  Then $\iC$ has an initial object.
+\end{lem}
+\begin{proof}
+  Let $p = \Pi_{k \in \Phi}k$ be the product of objects in the cogenerating set $\Phi$.
+  Let $i$ be the intersection of the subobjects of $p$.
+
+  Since $\iC$ is locally small and complete, the power $k^{\iC(c,k)}$ exists for each $c \in \iC$.
+  And since there's only a set worth of cogenerating objects, the product
+  \[
+    \prod_{k\in\Phi}k^{\iC(c,k)}
+  \]
+  exists.
+  For each $c \in \iC$, the canonical map from $c$ to this product corresponds to a family $\{c \to k^{\iC(c,k)}\}_{k\in\Phi}$ of morphisms, each of which corresponds to a set of morphisms $c \mono k$.
+  Thus, the canonical map is a monomorphism
+  \[
+    c \mono \prod_{k\in\Phi}k^{\iC(c,k)}
+  \]
+  For each $k \in \Phi$, there a morphism
+  \[
+    k \to k^{\iC(c,k)}
+  \]
+  which picks out the identity map $\id_{k}$ for each component of the power.
+  The product over $\Phi$ yields
+  \[
+    \Pi_{k\in\Phi}k \to \Pi_{k\in\Phi}k^{\iC(c,k)}
+  \]
+  Then the pullback
+  \input{img/6-07}
+  yields a subobject $p_{c} \mono \Pi_{k\in\Phi}k$ and a map that can be composed $i \to p_{c} \to c$.
+  This proves that $i$ is weakly initial.
+  For any other morphism $i \to c$, the equalizer defines a subobject $i' \mono p$ with $i' \mono i$, since $i$ is the intersection of all subobjects of $p$, the equalizer must be the identity, proving that $i$ is initial.
 \end{proof}
 
 \end{document}

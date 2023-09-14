@@ -183,4 +183,82 @@ In the poset of sets ordered by inclusion, the intersection of a family of sets 
   For any other morphism $i \to c$, the equalizer defines a subobject $i' \mono p$ with $i' \mono i$, since $i$ is the intersection of all subobjects of $p$, the equalizer must be the identity, proving that $i$ is initial.
 \end{proof}
 
+\begin{thm}[Special Adjoint Functor Theorem]
+  Let $U : \iA \to \iS$ be a continuous functor whose domain is complete and whose domain and codomain are locally small.
+  If $\iA$ has a small cogenerating set and every collection of subobjects of a fixed object in $\iA$ admits an intersection, then $U$ admits a left adjoint.
+\end{thm}
+\begin{proof}
+  Since monomorphisms are preserved, reflected, and strictly created by $\Pi : s \dn U \to \iA$, $s \dn U$ has intersections.
+  Let $\Phi$ be a cogenerating set of $\iA$.
+  Then
+  \[
+    \Phi' = \{s \to Ua \mid a \in \Phi\}
+  \]
+  is cogenerating for $s \dn U$.
+  Since $\iS$ is locally small, $\Phi'$ is a set.
+  Thus, $s \dn U$ has an initial object, proving that $U$ admits a left adjoint.
+\end{proof}
+
+\begin{cor}
+  Suppose $\iC$ is locally small, complete, has small cogenerating set, and has the property that every collection of subobjects of a fixed object has an intersection.
+  Then $\iC$ is also cocomplete.
+\end{cor}
+\begin{proof}
+  For any small indexing category $\iJ$, the diagonal functor $\Delta : \iC \to \iC^{\iJ}$ is continuous.
+  Since $\iC$ is locally small and $\iJ$ is small, $\iC^{\iJ}$ is locally small.
+  Then by the special adjoint functor theorem, $\Delta$ admits a left adjoint.
+  Thus, $\iC$ has all small colimits.
+\end{proof}
+
+\begin{cor}
+  Suppose $\iC$ is locally small, complete, has small cogenerating set, and has the property that every collection of subobjects of a fixed object has an intersection.
+  Then any continuous functor $F : \iC \to \mathsf{Set}$ is representable.
+\end{cor}
+\begin{proof}
+  By the special adjoint functor theorem, $F$ admits a left adjoint $L : \mathsf{Set} \to \iC$.
+  Then
+  \[
+    \iC(L(\star),\blank) \iso \mathsf{Set}(\star,F\blank) \iso F
+  \]
+\end{proof}
+
+\begin{thm}[Freyd's Representability Theorem]
+  Let $F : \iC \to \mathsf{Set}$ be a continuous functor and suppose that $\iC$ is complete and locally small.
+  If $F$ satisfies the solution set condition:
+  \begin{quote}
+    there exists a set $\Phi$ of objects of $\iC$ so that for any $c \in \iC$ and any element $x \in Fc$, there exists an $s \in \Phi$, an element $y \in Fs$, and a morphism $f : s \to c$ so that $Ff(y) = x$
+  \end{quote}
+  then $F$ is representable.
+\end{thm}
+\begin{proof}
+  The solution set condition defines a weakly initial set in $\star \dn F \iso \int F$.
+  This category is complete, and so it has an initial object, which defines a representation for $F$.
+\end{proof}
+
+\begin{defn}
+  Let $\kappa$ be a regular cardinal.
+  A locally small category $\iC$ is \emph{locally $\kappa$-representable} if it is cocomplete and if it has a set of objects $S$ so that
+  \begin{enumerate}
+  \item every object in $\iC$ can be written as a colimit of a diagram valued in the subcategory spanned by the objects in $S$.
+  \item for each object $s \in \iS$, the functor $\iC(s, \blank) : \iC \to \mathsf{Set}$ preserves $\kappa$-filtered colimits.
+  \end{enumerate}
+\end{defn}
+
+\begin{defn}
+  A functor between $\kappa$-presentable categories is \emph{accessible} if it preserves $\kappa$-filtered colimits.
+\end{defn}
+
+\begin{thm}
+  A functor $F : \iC \to \iD$ between locally presentable categories
+  \begin{enumerate}
+  \item admits a right adjoint if and only if it is cocontinuous;
+  \item admits a left adjoint if and only if it is continuous and accessible.
+  \end{enumerate}
+\end{thm}
+
+\begin{lem}
+  Suppose $\iC$ is a locally small category with coproducts.
+  A functor $F : \iC \to \mathsf{Set}$ is representable if and only if it admits a left adjoint.
+\end{lem}
+
 \end{document}

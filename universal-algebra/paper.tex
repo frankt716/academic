@@ -138,7 +138,7 @@ In particular, an $n$-ary operation $f : T^{n} \to T^{1}$ is mapped to the funct
   A \emph{$\cT$-homomorphism} is a natural transformation between two $\cT$-models.
 \end{defn}
 
-Naturality and \cref{lem:T-homomorphism} then ensures that this matches the usual notion of homomorphism.
+Naturality and \cref{lem:T-homomorphism} then ensures that this agrees with the usual notion of homomorphism.
 \input{img/02}
 
 \begin{lem}\label{lem:T-homomorphism}
@@ -156,13 +156,13 @@ Naturality and \cref{lem:T-homomorphism} then ensures that this matches the usua
   The projections $F(\pi_{i})$ and $G(\pi_{i})$ assemble into the isomorphisms, proving that the diagram commutes.
 \end{proof}
 
+$\cT$-models and their homomorphisms form a category $\mathsf{Mod}_{\cT}$.
+There is an evident forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ that evaluates a model $F$ at the generic object $T^{1}$.
+In effect, this produces the underlying set of the model.
+
 \begin{lem}
   Let $\cT$ be an algebraic theory.
-  Consider the functor
-  \[
-    U : \mathsf{Mod}_{\cT} \to \mathsf{Set}
-  \]
-  of evaluation at $T^{1}$.
+  Consider the forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$.
   \begin{enumerate}
   \item $U$ is representable by $\cT(T^{1}, \blank)$;
   \item $U$ is faithful;
@@ -186,6 +186,13 @@ Naturality and \cref{lem:T-homomorphism} then ensures that this matches the usua
                                        &\iso \mathsf{Set}(\{1,\ldots,n\}, F(T^{1}))\\
                                        &\iso \mathsf{Set}(\{1,\ldots,n\}, U(F))
   \end{align}
+
+  Suppose that $U\alpha = \alpha_{T^{1}} : F(T^{1}) \to G(T^{1})$ is an isomorphism.
+  Then by \cref{lem:T-homomorphism}, $\alpha_{T^{n}}$ is an isomorphism.
+  Thus, $\alpha$ is an isomorphism.
+
+  Now suppose that $U\alpha = \alpha_{T^{1}} = \beta_{T^{1}} = U\beta$.
+  Since every component of $\alpha$ and $\beta$ are determined by $\alpha_{T^{1}}$ and $\beta_{T^{1}}$, respectively, $\alpha = \beta$.
 \end{proof}
 
 \begin{lem}
@@ -220,6 +227,53 @@ Naturality and \cref{lem:T-homomorphism} then ensures that this matches the usua
 
 \section{Algebraic Functors}
 \label{sec:algebraic-functors}
+
+\begin{defn}
+  Let $\cR$ and $\cT$ be algebraic theories.
+  A morphism of algebraic theory is a functor $F : \cR \to \cT$ with preserves finite products and maps $R^{n}$ to $T^{n}$.
+\end{defn}
+
+\begin{lem}
+  The theory of sets is initial in the category of algebraic theory.
+\end{lem}
+\begin{proof}
+  The algebraic theory of sets $\cS$ is equivalent to the dual of the category of finite sets.
+  Thus, in $\cS$ the only $n$-ary operations are the projections.
+  Then for any algebraic theory $\cT$, the evident finite-product preserving and identity on object functor $F : \cS \to \cT$ is unique.
+\end{proof}
+
+\begin{cor}\label{cor:forgetful-functor-is-precomposition}
+  Let $\cT$ be an algebraic theory and $\cS$ be the theory of sets.
+  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ is the precomposition with the unique morphism of algebraic theories $\sigma : \cS \to \cT$.
+\end{cor}
+\begin{proof}
+  Let $G : \cT \to \mathsf{Set}$ be a $\cT$-model.
+  Then $G \circ \sigma$ is an $\cS$-model since the composite of finite-product-preserving functors is finite-product-preserving.
+  The underlying set of this model is $G \circ \sigma(S^{1}) = G(T^{1}) = UG$.
+\end{proof}
+
+\begin{defn}
+  Let $F : \cR \to \cT$ be a morphism of algebraic theories.
+  The precomposition with $F$
+  \begin{align}
+    F^{*} &: \mathsf{Mod}_{\cT} \to \mathsf{Mod}_{\cR}\\
+    F^{*} &: G \mapsto G \circ F
+  \end{align}
+  is called an \emph{algebraic functor}.
+\end{defn}
+
+\begin{thm}\label{thm:algebraic-functor-has-left-adjoint}
+  Every algebraic functor has a left adjoint.
+\end{thm}
+
+\begin{cor}
+  Let $\cT$ be an algebraic theory.
+  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ has a left adjoint.
+\end{cor}
+\begin{proof}
+  By \cref{cor:forgetful-functor-is-precomposition}, $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ is an algebraic functor.
+  Then by \cref{thm:algebraic-functor-has-left-adjoint}, $U$ has a left adjoint.
+\end{proof}
 
 \section{Freely Generated Models}
 \label{sec:freely-generated-models}

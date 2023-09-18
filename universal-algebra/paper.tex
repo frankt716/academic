@@ -118,13 +118,30 @@ Given a premodel, terms are interpreted recursively:
 \begin{defn}
   An algebraic theory $\cT$ is a category with a denumerable set of objects $\{T^{0}, T^{1}, T^{2}, \ldots\}$.
   Each object $T^{n}$ is the $n$-th power of $T^{1}$.
-
-  A model of $\cT$ is a finite-product-preserving functor $F : \cT \to \mathsf{Set}$, and a homomorphism of $\cT$-models is a natural transformation.
+  The object $T^{1}$ is known as the \emph{generic object} of the algebraic theory $\cT$.
+  The set $\cT(T^{n},T^{1})$ contains all the definable $n$-ary operations for $\cT$.
 \end{defn}
 
-$\cT$-models and their homomorphisms form a category, which we call $\mathsf{Mod}_{\cT}$.
+Instead of explicitly choosing specific $n$-ary operations, such as group multiplication, for an algebraic theory, Lawvere theory considers \emph{all} definable operations.
+Axioms are then expressed as compositions of morphisms.
 
-\begin{lem}
+\begin{defn}
+  Let $\cT$ be an algebraic theory.
+  A \emph{model} of $\cT$ is a finite-product-preserving functor $F : \cT \to \mathsf{Set}$.
+\end{defn}
+
+Such a functor $F$ carries the generic object to the set $F(T^{1})$ and $T^{n}$ to the Cartesian product $F(T^{n}) \iso (F(T))^{n}$.
+A morphism $g : T^{m} \to T^{n}$ is mapped to a function $F(g) : (F(T^{1}))^{m} \iso F(T^{m}) \to F(T^{n}) \iso (F(T^{1}))^{n}$.
+In particular, an $n$-ary operation $f : T^{n} \to T^{1}$ is mapped to the function $F(f) : (F(T^{1}))^{n} \iso F(T^{n}) \to F(T^{1})$.
+
+\begin{defn}
+  A \emph{$\cT$-homomorphism} is a natural transformation between two $\cT$-models.
+\end{defn}
+
+Naturality and \cref{lem:T-homomorphism} then ensures that this matches the usual notion of homomorphism.
+\input{img/02}
+
+\begin{lem}\label{lem:T-homomorphism}
   Let $\cT$ be an algebraic theory.
   If $\alpha : F \to G$ is a morphism in $\mathsf{Mod}_{\cT}$, then the diagram
   \input{img/01}
@@ -136,25 +153,70 @@ $\cT$-models and their homomorphisms form a category, which we call $\mathsf{Mod
     G(\pi_{i}) \circ \alpha_{T^{n}} = \alpha_{T} \circ F(\pi_{i})
   \]
   for any projection $\pi_{i} : T^{n} \to T$.
-  The isomorphisms are uniquely determined by the projections $F(\pi_{i})$ and $G(\pi_{i})$.
+  The projections $F(\pi_{i})$ and $G(\pi_{i})$ assemble into the isomorphisms, proving that the diagram commutes.
 \end{proof}
 
-A presentation $\dT$ of the algebraic theory $\cT$ consists of
-\begin{enumerate}
-\item for each $n \in \dN$, a variable $x^{n}_{i}$ for the projection $\pi_{i} \in \cT(T^{n},T^{1})$;
-\item for each $n \in \dN$, a function symbol $f^{n}$ for each $f^{n} \in \cT(T^{n},T^{1})$.
-\end{enumerate}
-Terms are defined inductively as
-\begin{enumerate}
-\item variables are terms;
-\item if $f^{n}$ is an $n$-ary function symbol and $t_{1},\ldots,t_{n}$ are terms, then $f^{n}(t_{1},\ldots,t_{n})$ is a term.
-  This term corresponds to the composite $f^{n} \circ (\beta_{1},\ldots,\beta_{n})$, where $\beta_{1},\ldots,\beta_{n}$ correspond to $t_{1},\ldots,t_{n}$.
-\end{enumerate}
-In this presentation, a term $t$ corresponds to a morphism $T^{n} \to T^{1}$.
+\begin{lem}
+  Let $\cT$ be an algebraic theory.
+  Consider the functor
+  \[
+    U : \mathsf{Mod}_{\cT} \to \mathsf{Set}
+  \]
+  of evaluation at $T^{1}$.
+  \begin{enumerate}
+  \item $U$ is representable by $\cT(T^{1}, \blank)$;
+  \item $U$ is faithful;
+  \item $U$ reflects isomorphisms;
+  \item each finite set with $n$ elements admits $\cT(T^{n}, \blank)$ as a reflection along $U$;
+  \item $\cT(T^{1}, \blank)$ is a dense generator for $\mathsf{Mod}_{\cT}$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  Since $\cT(T^{1},\blank)$ is continuous, it is a model of $\cT$.
+  By the Yoneda Lemma,
+  \[
+    \mathsf{Nat}(\cT(T^{1}, \blank), F) \iso F(T^{1}) \iso U(F)
+  \]
+  Thus, $\cT(T^{1},\blank)$ is a representing object for $U$.
+
+  For each finite set $\{1,\ldots,n\}$, one has
+  \begin{align}
+    \mathsf{Nat}(\cT(T^{n},\blank), F) &\iso F(T^{n})\\
+                                       &\iso (F(T^{1}))^{n}\\
+                                       &\iso \mathsf{Set}(\{1,\ldots,n\}, F(T^{1}))\\
+                                       &\iso \mathsf{Set}(\{1,\ldots,n\}, U(F))
+  \end{align}
+\end{proof}
+
+\begin{lem}
+  Let $\cT$ be an algebraic theory and consider the corresponding presentation $\dT_{1}$ of this algebraic theory.
+  The categories of models for $\cT$ and $\dT_{1}$ are equivalent and the functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ maps a $\dT_{1}$ model to its underlying set.
+\end{lem}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}
 
+\begin{lem}
+  Let $\cT$ be an algebraic theory.
+  The category $\mathsf{Mod}_{\cT}$ is complete and limits are computed pointwise.
+  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ preserves and reflects limits.
+\end{lem}
+
+\begin{lem}
+  Let $\cT$ be an algebraic theory.
+  The category $\mathsf{Mod}_{\cT}$ has filtered colimits and these are computed pointwise.
+  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ preserves and reflects filtered colimits.
+\end{lem}
+
+\begin{lem}
+  Let $\cT$ be an algebraic theory.
+  In $\mathsf{\cT}$, finite limits commute with filtered colimits.
+\end{lem}
+
+\begin{lem}
+  Let $\cT$ be an algebraic theory.
+  $\mathsf{Mod}_{\cT}$ is complete and cocomplete because it is reflective in the category $\mathsf{Set}^{\cT}$.
+\end{lem}
 
 \section{Algebraic Functors}
 \label{sec:algebraic-functors}

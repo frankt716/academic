@@ -93,14 +93,25 @@
   \end{enumerate}
 \end{lem}
 \begin{proof}
-  Let $L$ be the reflector of $\iC$.
-  Then, $\eta L = L\eta$ and these are isomorphisms.
+  (i) $\imp$ (ii): Since the diagram
+  \input{img/1-05}
+  commutes, $T\eta = \eta T = \mu\inv$.
 
-  (i) $\imp$ (ii): 
+  (ii) $\imp$ (iii): By naturality, $\eta_{Ts} \circ \mu_{s} = T\mu_{s} \circ \eta_{T^{2}s}$.
+  And since $T\eta = \eta T$, the following diagram commutes.
+  \input{img/1-06}
+  In particular, the top and bottom composites are the identity by the triangle identities of monads.
 
-  (ii) $\imp$ (iii):
+  Suppose that $\mu_{s}f = \mu_{s}g$.
+  Then, $\eta_{Ts}\mu_{s}f = \eta_{Ts}\mu_{s}g$.
+  Since the composite is the identity, we have that $f = g$.
 
-  (iii) $\imp$ (i):
+  (iii) $\imp$ (i): Any component of the multiplication has the property
+  \[
+    \mu_{s}T\eta_{s} = \id_{Ts}
+  \]
+  Thus, $\mu_{s}$ is a split epimorphism.
+  Sine $\mu_{s}$ is a monic split epimorphism, it is an isomorphism.
 \end{proof}
 
 \bibliographystyle{alpha}

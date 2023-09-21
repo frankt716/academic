@@ -133,6 +133,41 @@ And homomorphisms are maps that are compatible with the algebraic structure.
   \input{img/2-10}
 \end{proof}
 
+\begin{defn}
+  Let $\iC$ be a category with a monad $(T, \eta, \mu)$.
+  The \emph{Kleisli category} $\iC_{T}$ is defined so that
+  \begin{enumerate}
+  \item its objects are the objects of $\iC$, and
+  \item a morphism from $c$ to $c'$ in $\iC_{T}$, depicted as $c \rightsquigarrow c'$, is a morphism $c \to Tc'$ in $\iC$.
+  \item The unit $\eta_{c} : c \to Tc$ defines the identity of $C_{T}$, and
+  \item the composition of $f : c \rightsquigarrow c'$ and $g : c' \rightsquigarrow c''$ is defined to be
+    \input{img/2-11}
+  \end{enumerate}
+\end{defn}
+For any $f : c \rightsquigarrow c'$, the composition $\id_{c'} \circ f$ is
+\input{img/2-12}
+and the composition $f \circ \id_{c}$ is $\mu_{c'} \circ Tf \circ \eta_{c}$.
+By naturality in $\eta$, this composition is $\mu_{c'} \circ \eta_{Tc'} \circ f = f$.
+
+For any three composite triple $f : a \rightsquigarrow b$, $g : b \rightsquigarrow c$, and $h : c \rightsquigarrow d$.
+The left-associative composition is
+\[
+  \mu_{d} \circ Th \circ \mu_{c} \circ Tg \circ f
+\]
+while the right-associative composition is
+\begin{align}
+  \mu_{d} \circ T\mu_{d} \circ T^{2}h \circ Tg \circ f &= \mu_{d} \circ \mu_{Td} \circ T^{2}h \circ Tg \circ f\\
+                                   &= \mu_{d} \circ Th \circ \mu_{c} \circ Tg \circ f
+\end{align}
+The first equation follows from the monad laws and the second follows from naturality in $\mu$.
+
+\begin{eg}
+  Objects in the Kleisli category for the maybe monad are sets.
+  A morphism $c \rightsquigarrow d$ is a partial function $c \to d_{+}$.
+  Compositions are compositions of partial functions.
+  Thus, the Kleisli category is the category $\mathsf{Set}^{\partial}$ of sets and partial functions.
+\end{eg}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

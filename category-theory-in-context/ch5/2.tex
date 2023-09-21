@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{}
+\title{Adjunctions from Monads}
 \author{Frank Tsai}
 \date{\today}
 %\thanks{}
@@ -10,8 +10,128 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
+This section makes the intuition that a monad on $\iC$ is a syntactic encoding of some algebraic structure on $\iC$.
 
+\begin{defn}
+  An \emph{affine space} is a non-empty set $A$ in which affine linear combinations can be evaluated.
+\end{defn}
+Let $\mathrm{Aff}_{k}(A)$ be the set of finite formal linear combinations
+\[
+  \sum_{i=1}^{n}\lambda_{i}\mathbf{a}_{i}
+\]
+where $\sum_{i=1}^{n}\lambda_{i} = 1$.
+
+To say that ``these can be evaluated'' means that there is an evaluation function
+\[
+  \mathrm{ev}_{A} : \mathrm{Aff}_{k}(A) \to A
+\]
+A reasonable evaluation function has to satisfy the following axioms
+\begin{mathpar}
+  \input{img/2-01}\and
+
+  \input{img/2-02}
+\end{mathpar}
+
+The first condition says that the singleton sum $1 \cdot \mathbf{a}$ evaluates to $\mathbf{a}$.
+There are two reasonable ways to evaluate a nested expression:
+\[
+  \lambda_{1} \cdot (\mu_{11}\mathbf{a}_{11} + \cdots + \mu_{1n}\mathbf{a}_{1n}) + \cdots + \lambda_{m} \cdot (\mu_{m1}\mathbf{a}_{m1} + \cdots + \mu_{mk}\mathbf{a}_{mk})
+\]
+First, we can distribute $\lambda_{i}$'s into those sub-expressions
+\[
+  (\lambda_{1}\mu_{11}\mathbf{a}_{11} + \cdots + \lambda_{1}\mu_{1n}\mathbf{a}_{1n}) + \cdots + (\lambda_{m}\mu_{m1}\mathbf{a}_{m1} + \cdots + \lambda_{m}\mu_{mk}\mathbf{a}_{mk})
+\]
+And then evaluate this expression.
+
+Alternatively, we can evaluate each individual expression in the parentheses.
+\[
+  \lambda_{1} \cdot \mathbf{a}_{1} + \cdots + \lambda_{m} \cdot \mathbf{a}_{m}
+\]
+And then evaluate this expression.
+The second condition says that these two evaluation orders coincide.
+
+\begin{defn}
+  An \emph{affine space} is an \emph{algebra} for the affine linear combination monad $\mathrm{Aff}_{k}(\blank) : \mathsf{Set} \to \mathsf{Set}$.
+\end{defn}
+
+\begin{defn}
+  Let $\iC$ be a category with a monad $(T, \eta, \mu)$.
+  The \emph{Eilenberg-Moore category} for $T$ or the \emph{category of $T$-algebras} is the category $C^{T}$ whose:
+  \begin{enumerate}
+  \item objects are pairs $(c \in \iC, \mathrm{ev}_{c} : Tc \to c)$ so that the diagrams
+    \begin{mathpar}
+      \input{img/2-03}\and
+
+      \input{img/2-04}
+    \end{mathpar}
+    commute in $\iC$.
+  \item morphisms are $T$-algebra \emph{homomorphisms}: morphisms $f : c \to c'$ in $\iC$ so that the diagram
+    \input{img/2-05}
+    commutes in $\iC$.
+  \end{enumerate}
+\end{defn}
+
+An algebra consists of a generic object and an interpretation (evaluation) map.
+And homomorphisms are maps that are compatible with the algebraic structure.
+
+\begin{eg}
+  An algebra for the free pointed set monad consists of a set $A$ and a function $a : A_{+} \to A$ such that the two diagrams commute.
+  The triangle forces $a$ to restrict to the identity function on the $A$ component.
+  A morphism $f : (A, a) \to (B, b)$ is a function $f : A \to B$ so that
+  \input{img/2-06}
+  commutes.
+  This forces $f(a) = b \circ f_{+}(a) = b$.
+  In other words, the morphisms are base-point preserving functions.
+  Thus, the category of algebras is isomorphic to the category $\mathsf{Set}_{*}$.
+\end{eg}
+
+\begin{lem}
+  For any monad $(T, \eta, \mu)$ on $\iC$, there is an adjunction
+  \input{img/2-07}
+  whose induced monad is $(T, \eta, \mu)$.
+\end{lem}
+\begin{proof}
+  The functor $U^{T}$ is the evident forgetful functor that forgets the evaluation map and maps a $T$-homomorphism to its underlying morphism.
+
+  The free functor $F^{T}$ maps an object $c$ to the \emph{free $T$-algebra}
+  \[
+    F^{T}(c) := (Tc \in \iC, \mu_{c} : T^{2}c \to Tc)
+  \]
+  And a morphism $f : c \to c'$ to the \emph{free $T$-homomorphism}
+  \[
+    F^{T}(f) := Tf
+  \]
+  Functoriality of $F^{T}$ is inherited from that of $T$.
+  Note that by construction, $U^{T}F^{T} = T$.
+
+  The unit of the adjunction is just $\eta$, while the components of the counit $\epsilon_{(c,a)} : (Tc, \mu_{c}) \to (c,a)$ are $T$-homomorphisms.
+  The requirement that
+  \input{img/2-08}
+  commutes means that $a$ is a $T$-homomorphism.
+  And we take $\epsilon_{(c,a)} := a$.
+  Note that $U^{T}\epsilon F^{T}c = U^{T}\epsilon_{(c,\mu_{c})} = U^{T}\mu_{c} = \mu_{c}$.
+  It remains to check the triangle identities.
+
+  For any algebra $(c, a)$, one has
+  \begin{align}
+    U^{T}\epsilon_{(c,a)} \circ \eta_{U^{T}(c,a)}  &= U^{T}a \circ \eta_{c}\\
+                                     &= a \circ \eta_{c}\\
+                                     &= \id_{c}
+  \end{align}
+  The last equation follows from the commuting triangle that a given evaluation map satisfies.
+  This proves the first triangle identity
+  \input{img/2-09}
+
+  Now for any object $c \in \iC$, one has
+  \begin{align}
+    \epsilon_{F^{T}c} \circ F^{T}\eta_{c} &= \epsilon_{(Tc, \mu_{c})} \circ T\eta_{c}\\
+                            &= \mu_{c} \circ T\eta_{c}\\
+                            &= \id_{Tc}
+  \end{align}
+  The last equation follows from the monad laws.
+  This proves the second triangle identity
+  \input{img/2-10}
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

@@ -335,9 +335,24 @@ This imposes certain constraints on the equivalence relation $\sim$.
     a \sim b &\imp \forall g \in G, ag \sim bg\\
     a \sim b &\imp \forall g \in G, ga \sim gb
   \end{align}
+  When these conditions hold, we say that $\sim$ is \emph{compatible} with the group structure of $G$.
 \end{lem}
 
-When these conditions hold, we say that $\sim$ is \emph{compatible} with the group structure of $G$.
+Given any subgroup $H$ of $G$, the subgroup $H$ induces two equivalence relations
+\begin{mathpar}
+  G/\sim_{L} = \{ aH \mid a \in G \}\and
+
+  G/\sim_{R} = \{ Ha \mid a \in G \}
+\end{mathpar}
+
+These relations can be characterized as follows
+\begin{lem}
+  For any $a, b \in G$,
+  \begin{align}
+    a \sim_{L} b &\iff ab\inv \in H\\
+    a \sim_{R} b &\iff ab\inv \in H\\
+  \end{align}
+\end{lem}
 
 \begin{defn}[Normal Subgroups]
   A subgroup $N$ of a group $G$ is \emph{normal} if for all $g \in G$ and $n \in N$,
@@ -347,7 +362,25 @@ When these conditions hold, we say that $\sim$ is \emph{compatible} with the gro
 \end{defn}
 
 \begin{lem}
+  A subgroup $H$ of a group $G$ is normal if and only if $gH = Hg$ for all $g \in G$.
+\end{lem}
+
+\begin{cor}
+  $\sim_{L}$ and $\sim_{R}$ agree if and only if $H$ is a normal subgroup.
+\end{cor}
+
+\begin{lem}
   If $\varphi : G \to G'$ is a group homomorphism, then $\ker{\varphi}$ is a normal subgroup of $G$.
+\end{lem}
+\begin{proof}
+  $\ker{\varphi} = \{g \in G \mid \varphi(g) = e_{G'}\}$.
+  For any $g \in G$ and $k \in \ker{\varphi}$, one has $\varphi(gkg\inv) = \varphi(g)e_{G'}\varphi(g)\inv = e_{G'}$.
+  Thus, $gkg\inv \in \ker{\varphi}$.
+\end{proof}
+
+
+\begin{lem}
+  Every normal subgroup is the kernel of some group homomorphism.
 \end{lem}
 
 \end{document}

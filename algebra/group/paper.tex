@@ -343,7 +343,7 @@ Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
   a \sim_{R} b &\iff Ha = Hb \iff ab\inv \in H
 \end{align}
 
-\begin{lem}
+\begin{lem}\label{lem:agree-group-struct}
   If $\sim_{L}$ and $\sim_{R}$ agree, then $\sim_{L}$ (or $\sim_{R}$) is compatible with the group structure of $G$.
 \end{lem}
 \begin{proof}
@@ -359,7 +359,7 @@ Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
   (i) is similar.
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{lem:agree-normal}
   $\sim_{L}$ and $\sim_{R}$ agree if and only if for any $g \in G$ and $h \in H$,
   \[
     ghg\inv \in H
@@ -367,8 +367,38 @@ Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
   Subgroups for which this condition is satisfied are said to be \emph{normal}.
 \end{lem}
 \begin{proof}
-  
+  ``If'': Suppose that the two relations agree.
+  Then for any $a,b \in G$,
+  \[
+    ab\inv \in H \iff a\inv b \in H
+  \]
+  Choose $a = gh$ and $b = g\inv$.
+  It suffices to show $(gh)\inv g \in H$, but this is evident since
+  \[
+    (gh)\inv g = h\inv g\inv g = h\inv \in H
+  \]
+
+  ``Only if'': Now suppose that $ghg\inv \in H$ for any $g \in G$ and $h \in H$.
+  We need to show that $ab\inv \in H \iff a\inv b \in H$ for all $a, b \in G$.
+  Suppose that $ab\inv \in H$.
+  Then its inverse $ba\inv \in H$.
+  Then,
+  \[
+    a\inv(ba\inv)a = a\inv b \in H
+  \]
+  Similarly, if $a\inv b \in H$ then $b\inv a \in H$.
+  Thus,
+  \[
+    a(b\inv a)a\inv = ab\inv \in H
+  \]
 \end{proof}
+
+\cref{lem:agree-group-struct,lem:agree-normal} show that every normal subgroup $N$ of $G$ induces an equivalence relation that is compatible with the group structure of $G$.
+
+\begin{defn}
+  Let $H$ be a normal subgroup of $G$.
+  The \emph{quotient group of $G$ modulo $H$}, denoted $G/H$, is the group $G/\sim$, where $\sim$ is induced by $H$.
+\end{defn}
 
 \begin{lem}
   If $\varphi : G \to G'$ is a group homomorphism, then $\ker{\varphi}$ is a normal subgroup of $G$.

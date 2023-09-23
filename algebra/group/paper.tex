@@ -318,13 +318,12 @@ and $e$ is the inclusion map.
 \label{sec:quotient-groups}
 
 Recall that we can quotient a set $S$ by an equivalence relation $\sim$, yielding a quotient map $S \epi S/\sim$.
-We may attempt to define a quotient group $G/\sim$ by equipping the quotient set $G/\sim$ with a group structure.
-To equip $G/\sim$ with a group structure, the condition that $\pi : G \to G/\sim$ is a group homomorphism demands
+To construct the quotient group of $G$ by some equivalence relation $\sim$, we equip the quotient set $G/\sim$ with a group structure, and demand that the quotient map $\pi : G \epi G/\sim$ is a group homomorphism.
+
+The requirement that the quotient map $\pi : G \epi G/\sim$ is a group homomorphism places certain constraints on the equivalence relation: the group structure $\bullet$ must satisfy:
 \[
   [a] \bullet [b] = \pi(a) \bullet \pi(b) = \pi(a \cdot b) = [a \cdot b]
 \]
-This imposes certain constraints on the equivalence relation $\sim$.
-
 \begin{lem}
   The operation
   \[
@@ -338,36 +337,38 @@ This imposes certain constraints on the equivalence relation $\sim$.
   When these conditions hold, we say that $\sim$ is \emph{compatible} with the group structure of $G$.
 \end{lem}
 
-Given any subgroup $H$ of $G$, the subgroup $H$ induces two equivalence relations
-\begin{mathpar}
-  G/\sim_{L} = \{ aH \mid a \in G \}\and
+Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
+\begin{align}
+  a \sim_{L} b &\iff aH = bH \iff a\inv b \in H\\
+  a \sim_{R} b &\iff Ha = Hb \iff ab\inv \in H
+\end{align}
 
-  G/\sim_{R} = \{ Ha \mid a \in G \}
-\end{mathpar}
-
-These relations can be characterized as follows
 \begin{lem}
-  For any $a, b \in G$,
-  \begin{align}
-    a \sim_{L} b &\iff ab\inv \in H\\
-    a \sim_{R} b &\iff ab\inv \in H\\
-  \end{align}
+  If $\sim_{L}$ and $\sim_{R}$ agree, then $\sim_{L}$ (or $\sim_{R}$) is compatible with the group structure of $G$.
 \end{lem}
+\begin{proof}
+  Suppose that the two relations agree.
+  Further, suppose that $a \sim_{L} b$ and let any $g \in G$ be given.
+  We must show that
+  \begin{enumerate}
+  \item $ag \sim_{L} bg$, which amounts to showing $(ag)\inv bg \in H$ or $ag(bg)\inv \in H$;
+  \item $ga \sim_{L} gb$, which amounts to showing $(ga)\inv gb \in H$.
+  \end{enumerate}
+  Since $a\inv b \in H$, $g\inv a\inv gb = a\inv g\inv gb = a\inv b \in H$.
+  This shows (ii).
+  (i) is similar.
+\end{proof}
 
-\begin{defn}[Normal Subgroups]
-  A subgroup $N$ of a group $G$ is \emph{normal} if for all $g \in G$ and $n \in N$,
+\begin{lem}
+  $\sim_{L}$ and $\sim_{R}$ agree if and only if for any $g \in G$ and $h \in H$,
   \[
-    gng\inv \in N
+    ghg\inv \in H
   \]
-\end{defn}
-
-\begin{lem}
-  A subgroup $H$ of a group $G$ is normal if and only if $gH = Hg$ for all $g \in G$.
+  Subgroups for which this condition is satisfied are said to be \emph{normal}.
 \end{lem}
-
-\begin{cor}
-  $\sim_{L}$ and $\sim_{R}$ agree if and only if $H$ is a normal subgroup.
-\end{cor}
+\begin{proof}
+  
+\end{proof}
 
 \begin{lem}
   If $\varphi : G \to G'$ is a group homomorphism, then $\ker{\varphi}$ is a normal subgroup of $G$.

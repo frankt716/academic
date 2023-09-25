@@ -74,11 +74,6 @@ However, not all monic epimorphisms in $\mathsf{Top}$ are isomorphisms.
   If $f$ and $g$ agree for every point in $A \cap B$, the $f$ and $g$ determine a continuous function $h : X \to Y$.
 \end{lem}
 
-\section{Interior and Closure}
-\label{sec:interior-and-closure}
-
-
-
 \section{Basis for a Topology}
 \label{sec:basis-for-a-topology}
 
@@ -205,6 +200,31 @@ Second, for any two finite intersections $S_{1}$ and $S_{2}$ of elements of $\cS
   Topology is closed under finite intersection.
   Thus, $f\inv(B)$ is an open set of $X$.
   By \cref{lem:basis-continuous}, $f$ is continuous.
+\end{proof}
+
+\section{Interior and Closure}
+\label{sec:interior-and-closure}
+
+Given a topological space $X$, $X$ the poset $PX$ admits a closure operator $C$ and a kernel operator $K$.
+The closure operator maps a subset $A \subseteq S$ to the smallest closed set containing $A$, while the kernel operator maps $A$ to the largest open set contained in $A$.
+
+\begin{lem}
+  Let $A$ be a subset of a topological space $X$.
+  \begin{enumerate}
+  \item $x \in C(A)$ if and only if every neighborhood $U_{x}$ intersects $A$.
+  \item Suppose that $\cB$ is a basis for the topology of $X$, then $x \in C(A)$ if and only if every basis element $B$ containing $x$ intersects $A$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  (i): Let $x \notin C(A)$.
+  Then $x$ is in the complement of $C(A)$, which is an open set not intersecting $A$.
+  Conversely, if $U_{x}$ is an open set not intersecting $A$, then its complement is a closed set containing $A$.
+  Since $C(A) \subseteq X \setminus U_{x}$, $C(A)$ cannot contain $x$.
+
+  (ii): By (i), it suffices to prove that every neighborhood $U_{x}$ intersects $A$ if and only if every basis element $B$ containing $x$ intersects $A$.
+  The ``if'' direction is trivial because every basis element is open.
+  Conversely, if every basis element $B$ containing $x$ intersects $A$, then any open set $U$ contains a basis that contains $x$.
+  Thus, $U$ intersects $A$.
 \end{proof}
 
 \section{Subspace Topology}

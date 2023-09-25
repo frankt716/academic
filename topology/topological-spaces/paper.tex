@@ -74,6 +74,11 @@ However, not all monic epimorphisms in $\mathsf{Top}$ are isomorphisms.
   If $f$ and $g$ agree for every point in $A \cap B$, the $f$ and $g$ determine a continuous function $h : X \to Y$.
 \end{lem}
 
+\section{Interior and Closure}
+\label{sec:interior-and-closure}
+
+
+
 \section{Basis for a Topology}
 \label{sec:basis-for-a-topology}
 
@@ -202,6 +207,33 @@ Second, for any two finite intersections $S_{1}$ and $S_{2}$ of elements of $\cS
   By \cref{lem:basis-continuous}, $f$ is continuous.
 \end{proof}
 
+\section{Subspace Topology}
+\label{sec:subspace-topology}
+
+Given a topological space $X$ and a subset $A \subseteq X$.
+We wish to topologize $A$ so that the inclusion function $\iota : A \into X$ is continuous.
+This is always possible because we can always pick the discrete topology.
+However, we want the ``most efficient'' topology.
+
+\begin{defn}
+  Given a topological space $X$ and a subset $A \subseteq X$.
+  The \emph{subspace topology} is given by the subbasis
+  \[
+    S = \{\iota\inv(U) \mid U\,\text{is open in}\,X\}
+  \]
+\end{defn}
+
+\begin{lem}
+  Given a topological space $(X, \cT)$ and a subset $A \subseteq X$.
+  Let $\cS$ be the subspace topology.
+  For any topology $\cT'$ so that the inclusion $\iota : (A, \cT') \to (X, \cT)$ is continuous, the identity function $\id : A \to A$ is continuous.
+  \input{img/01}
+\end{lem}
+\begin{proof}
+  It suffices to verify that $\id\inv(\iota\inv(U)) = \iota\inv(U)$ is open for all $U \in \cT$, but this is immediate since $\cT'$ makes the inclusion map $\iota$ continuous.
+\end{proof}
+Note that the identity function going the other direction $\id : (A, \cT') \to (A, \cS)$ is not necessarily continuous.
+
 \section{Product Topology}
 \label{sec:product-topology}
 
@@ -217,5 +249,24 @@ Concretely, this construction can be described in terms of subbasis.
   \]
   Note that this is the coarsest topology for which the projection maps are continuous.
 \end{defn}
+
+\section{Quotient Topology}
+\label{sec:quotient-topology}
+
+Given a topological space $X$ and an equivalence relation $\sim$ on $X$.
+Once can construct the quotient set $X/\sim$ and there is a canonical quotient map $\pi : X \to X/\sim$.
+The goal is to equip $X/\sim$ with a topology for which the quotient map $\pi$ is continuous.
+
+Unlike \cref{sec:subspace-topology,sec:product-topology}, the set that we want to topologize is the codomain of $\pi$.
+Thus, a trivial solution is to equip $X/\sim$ with the indiscrete topology.
+Now, the ``most efficient'' solution is the finest topology for which $\pi$ is continuous.
+This leads to the following definition: the quotient space of $X$ by $\sim$ is given by the topology where $U$ is open whenever $\pi\inv(U)$ is open.
+
+This admits a simple description.
+A subset $U \subseteq X/\sim$ is a collection of equivalence classes, and $\pi\inv(U)$ is just the union of the equivalence classes in $U$.
+Thus, an open set of $X/\sim$ is a collection of equivalence classes whose union is open in $X$.
+
+\section{Metric Topology}
+\label{sec:metric-topology}
 
 \end{document}

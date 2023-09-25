@@ -40,6 +40,40 @@
   If $\cT \subseteq \cT'$ we say that $\cT'$ is \emph{finer} than $\cT$, and dually that $\cT$ is \emph{coarser} than $\cT'$.
 \end{defn}
 
+\begin{defn}
+  Given a topological space $X$, open sets containing a point $x \in X$ are given a more descriptive name.
+  A \emph{neighborhood} of $x$ is an open set $U$ containing $x$.
+\end{defn}
+
+Note that every point $x \in X$ has at lease one neighborhood because the entire set $X$ itself is open.
+
+\section{Continuous Functions}
+\label{sec:continuous-functions}
+
+\begin{defn}
+  Let $(X,\cT)$ and $(Y,\cT')$ be topological spaces.
+  A \emph{continuous} function $f : (X,\cT) \to (Y,\cT')$ is a function $f : X \to Y$ such that for all $U \in \cT'$, $f\inv(U) \in \cT$.
+\end{defn}
+One can check that topological spaces and continuous functions assemble into a category.
+
+\begin{lem}
+  Topological spaces and continuous functions assemble into a category $\mathsf{Top}$.
+\end{lem}
+
+Since the forgetful functor $U$ is faithful, it reflects monomorphisms and epimorphisms.
+Thus, every continuous function whose underlying function is bijective is both a monomorphism and an epimorphism.
+However, not all monic epimorphisms in $\mathsf{Top}$ are isomorphisms.
+
+\begin{defn}
+  A homeomorphism $f : X \to Y$ is a bijection so that both $f$ and $f\inv$ are continuous.
+\end{defn}
+
+\begin{lem}[Pasting Lemma]
+  Let $X = A \cup B$, where $A$ and $B$ are closed in $X$.
+  Let $f : A \to Y$ and $g : B \to Y$ be continuous.
+  If $f$ and $g$ agree for every point in $A \cap B$, the $f$ and $g$ determine a continuous function $h : X \to Y$.
+\end{lem}
+
 \section{Basis for a Topology}
 \label{sec:basis-for-a-topology}
 
@@ -132,15 +166,6 @@ To verify that $\cT$ is a topology, it suffices to verify that the collection of
 First, for any $x \in X$, there is some $S \in \cS$ that contains $x$ since the union of all $S \in \cS$ is $X$.
 Second, for any two finite intersections $S_{1}$ and $S_{2}$ of elements of $\cS$ and any $x \in S_{1} \cap S_{2}$, the intersection itself is a finite intersection of elements of $\cS$ that contains $\cS$.
 
-\section{Continuous Functions}
-\label{sec:continuous-functions}
-
-\begin{defn}
-  Let $(X,\cT)$ and $(Y,\cT')$ be topological spaces.
-  A \emph{continuous} function $f : (X,\cT) \to (Y,\cT')$ is a function $f : X \to Y$ such that for all $U \in \cT'$, $f\inv(U) \in \cT$.
-\end{defn}
-One can check that topological spaces and continuous functions assemble into a category.
-
 \begin{lem}\label{lem:basis-continuous}
   Let $\cB$ be a basis for a topology on $Y$.
   A function $f : X \to Y$ is continuous if and only if $f\inv(B)$ is open for all basis element $B \in \cB$.
@@ -176,5 +201,21 @@ One can check that topological spaces and continuous functions assemble into a c
   Thus, $f\inv(B)$ is an open set of $X$.
   By \cref{lem:basis-continuous}, $f$ is continuous.
 \end{proof}
+
+\section{Product Topology}
+\label{sec:product-topology}
+
+Any product in $\mathsf{Top}$ is necessarily a product in $\mathsf{Set}$.
+Thus, one way to construct products in $\mathsf{Top}$ is to topologize the product of a given family of underlying sets.
+Concretely, this construction can be described in terms of subbasis.
+
+\begin{defn}
+  Let $\{X_{i}\}_{i \in I}$ be an indexed family of topological spaces.
+  The \emph{product topology} is given by the following subbasis
+  \[
+    S_{i} = \{\pi_{i}\inv(U_{i}) \mid U_{i}\,\text{is open in}\,X_{i}\}
+  \]
+  Note that this is the coarsest topology for which the projection maps are continuous.
+\end{defn}
 
 \end{document}

@@ -85,7 +85,7 @@ And homomorphisms are maps that are compatible with the algebraic structure.
   Thus, the category of algebras is isomorphic to the category $\mathsf{Set}_{*}$.
 \end{eg}
 
-\begin{lem}
+\begin{lem}\label{lem:monad-to-adjunction-eilenberg}
   For any monad $(T, \eta, \mu)$ on $\iC$, there is an adjunction
   \input{img/2-07}
   whose induced monad is $(T, \eta, \mu)$.
@@ -167,6 +167,93 @@ The first equation follows from the monad laws and the second follows from natur
   Compositions are compositions of partial functions.
   Thus, the Kleisli category is the category $\mathsf{Set}^{\partial}$ of sets and partial functions.
 \end{eg}
+
+\begin{lem}\label{lem:monad-to-adjunction-kleisli}
+  For any monad $(T, \eta, \mu)$ acting on a category $\iC$, there is an adjunction $F_{T},U_{T}: C \toot C_{T}$ whose induced monad is $(T, \eta, \mu)$.
+\end{lem}
+\begin{proof}
+  The functor $F_{T}$ is identity on object and its action on morphisms is defined by
+  \input{img/2-13}
+  This definition is functorial since
+  \begin{enumerate}
+  \item $F_{T}(\id_{c}) = T\id_{c} \circ \eta_{c} = \eta_{c}$, which is the identity on $c$ in the Kleisli category.
+  \item $F_{T}(f \circ g) = T(f \circ g) \circ \eta_{c} = Tf \circ Tg \circ \eta_{c}$ and
+    \begin{align}
+      F_{T}(f) \circ F_{T}(g) &= \mu_{e} \circ T(Tf \circ \eta_{d}) \circ Tg \circ \eta_{c}\\
+                          &= \mu_{e} \circ T(\eta_{e} \circ f) \circ Tg \circ \eta_{c}\\
+                          &= Tf \circ Tg \circ \eta_{c},
+    \end{align}
+  \end{enumerate}
+
+  Since we want $U_{T}F_{T} = T$, this forces us to define the action on objects of $U_{T}$ by $c \mapsto Tc$, and the action on morphisms by $f \mapsto \mu_{d} \circ Tf$.
+  This definition is functorial since
+  \begin{enumerate}
+  \item $U_{T}(\id_{c}) = \mu_{c} \circ T\eta_{c} = \id_{Tc}$.
+  \item $U_{T}(f \circ g) = U_{T}(\mu_{e} \circ Tf \circ g) = \mu_{e} \circ T\mu_{e} \circ T^{2}f \circ Tg$ and
+    \begin{align}
+      U_{T}f \circ U_{T}g &= \mu_{e} \circ Tf \circ \mu_{d} \circ Tg\\
+                      &= \mu_{e} \circ \mu_{Te} \circ T^{2}f \circ Tg\\
+                      &= \mu_{e} \circ T\mu_{e} \circ T^{2}f \circ Tg
+    \end{align}
+  \end{enumerate}
+  Note that
+  \[
+    \iC_{T}(F_{T}c,d) \iso \iC_{T}(c,d) \iso \iC(c,Td) \iso \iC(c,U_{T}d)
+  \]
+  natural in both variables.
+  Thus, $F_{T} \adj U_{T}$.
+  In particular, the unit of the adjunction is precisely $\eta$ because the isomorphism $\iC_{T}(F_{T}c,F_{T}c) \iso \iC(c,U_{T}F_{T}c)$ identifies the identity $\id_{F_{T}c} = \id_{c}$ with $\eta_{c}$.
+  And the identity $\id_{U_{T}d} = \id_{Td} : Td \to Td$ is identified with $\epsilon$ for which $U_{T}\epsilon F_{T}c = U_{T}\epsilon_{c} = \mu_{c} \circ T(\id_{c}) = \mu_{c}$.
+\end{proof}
+
+\cref{lem:monad-to-adjunction-eilenberg,lem:monad-to-adjunction-kleisli} implies that every monad can be split into two adjunctions, one between the Eilenberg-Moore category and the other between the Kleisli category.
+In fact, these two splits are universal in certain sense introduced below:
+
+\begin{defn}
+  Given a monad $(T,\eta,\mu)$ on $\iC$, the category $\mathsf{Adj}_{T}$ consists of
+  \begin{enumerate}
+  \item objects: fully specified adjunctions $F,U : \iC \toot \iD$.
+  \item morphisms: adjoint morphisms
+    \input{img/2-14}
+  \end{enumerate}
+\end{defn}
+
+\begin{lem}
+  The Kleisli category $C_{T}$ is initial in $\mathsf{Adj}_{T}$ and the Eilenberg-Moore category $C^{T}$ is terminal.
+\end{lem}
+\begin{proof}
+  Let $J : \iC_{T} \to \iD$ and $K : \iD \to \iC^{T}$ be adjoin morphisms.
+  Since $JF_{T} = F$, we are forced to define the action on objects of $J$ by $Jc = Fc$.
+  $J$ has to carry the transpose of a morphism $c \to U_{T}d$ to its transpose in $\iD$.
+  The isomorphism
+  \[
+    \iC_{T}(c,d) \iso \iC(c,U_{T}d)
+  \]
+  states that those transposes are precisely those morphisms $c \rightsquigarrow d$.
+  Thus, for $f : c \rightsquigarrow d$, we are forced to define $Jf = \epsilon_{Fd} \circ Ff$.
+  This shows that there is a unique adjoin morphism $\iC_{T} \to D$.
+
+  To define a functor $K : \iD \to \iC^{T}$ so that $U = U^{T}K$, we need to find an appropriate structure map $\gamma : TUd \to Ud$.
+  Note that for any algebra $(c,\gamma)$, $\epsilon^{T}_{(c,\gamma)} = \gamma$ is a $T$-homomorphism $\gamma : F^{T}c \to (c,\gamma)$ whose transpose along $F^{T} \adj U^{T}$ is $\id_{c} : c \to U^{T}(c,\gamma) = c$.
+  Suppose that $\gamma : F^{T}Ud \to (Ud, \gamma)$ is the transpose of the identity $\id_{Ud}$.
+  Then since $K$ preserves transposes, $\gamma = K\epsilon_{d}$.
+  Then since $U\epsilon_{d} = U^{T}K\epsilon_{d} = U^{T}\gamma$, $\gamma = U\epsilon_{d}$.
+  This suggests that $Kd = (Ud, U\epsilon_{d})$.
+  And we are forced to define $Kf = Uf$, which is indeed a $T$-homomorphism.
+\end{proof}
+
+\begin{lem}\label{lem:canonical-map}
+  Let $(T, \eta, \mu)$ be a monad on $\iC$, the canonical functor $K : C_{T} \to C^{T}$ is fully faithful and its image consists of the free $T$-algebras.
+\end{lem}
+\begin{proof}
+  The isomorphism transports along $K$ to yield an isomorphism $\iC(c,Td) \iso \iC^{T}((Tc,\mu_{c}),(Td,\mu_{d}))$.
+  \input{img/2-15}
+  In particular, $K = F^{T}U_{T}$.
+  Thus, $K$ is a bijection.
+\end{proof}
+
+\cref{lem:canonical-map} tells us that the Kleisli and Eilenberg-Moore categories are equivalent precisely when every algebra (up to isomorphism) is free.
+For example, all vector spaces are free modules.
 
 \bibliographystyle{alpha}
 \bibliography{all}

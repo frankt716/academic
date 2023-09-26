@@ -1,0 +1,13 @@
+% https://q.uiver.app/#q=WzAsMyxbMiwyLCJcXGlDIl0sWzAsMCwiXFxpRCJdLFs0LDAsIlxcaUQnIl0sWzEsMiwiSyJdLFswLDEsIkYiLDAseyJvZmZzZXQiOi0yfV0sWzEsMCwiVSIsMCx7Im9mZnNldCI6LTJ9XSxbMCwyLCJGJyIsMCx7Im9mZnNldCI6LTJ9XSxbMiwwLCJVJyIsMCx7Im9mZnNldCI6LTJ9XSxbNCw1LCIiLDIseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dLFs2LDcsIiIsMCx7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
+\[\begin{tikzcd}
+	\iD &&&& {\iD'} \\
+	\\
+	&& \iC
+	\arrow["K", from=1-1, to=1-5]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "F", shift left=2, from=3-3, to=1-1]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "U", shift left=2, from=1-1, to=3-3]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "{F'}", shift left=2, from=3-3, to=1-5]
+	\arrow[""{name=3, anchor=center, inner sep=0}, "{U'}", shift left=2, from=1-5, to=3-3]
+	\arrow["\dashv"{anchor=center, rotate=45}, draw=none, from=0, to=1]
+	\arrow["\dashv"{anchor=center, rotate=-45}, draw=none, from=2, to=3]
+\end{tikzcd}\]

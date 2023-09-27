@@ -262,6 +262,18 @@ In effect, this produces the underlying set of the model.
   Let $\cT$ be an algebraic theory and consider the corresponding presentation $\dT_{1}$ of this algebraic theory.
   The categories of models for $\cT$ and $\dT_{1}$ are equivalent and the functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ maps a $\dT_{1}$ model to its underlying set.
 \end{lem}
+\begin{proof}
+  Let $F : \cT \to \mathsf{Set}$ be a $\cT$-model.
+  We show that $F$ yields a model of $\dT_{1}$.
+  To this end, we need to choose an underlying set and a function for each function symbol.
+  We make these choices as follows:
+  \begin{enumerate}
+  \item Underlying set: $F(T^{1})$.
+  \item Functions: for each $f \in \cT(T^{n},T^{1})$, choose
+    \input{img/03}
+  \end{enumerate}
+  
+\end{proof}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}

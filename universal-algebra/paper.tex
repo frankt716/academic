@@ -272,7 +272,17 @@ In effect, this produces the underlying set of the model.
   \item Functions: for each $f \in \cT(T^{n},T^{1})$, choose
     \input{img/03}
   \end{enumerate}
-  
+  By functoriality,
+  \begin{enumerate}
+  \item $F(\id_{T^{1}}) = \id_{F(T^{1})}$;
+  \item $F(f \circ g) = F(f) \circ F(g)$.
+  \end{enumerate}
+  Thus, the required axioms
+  \begin{enumerate}
+  \item $\id_{T^{1}}(x) = x$;
+  \item $f(g_{1},\ldots,g_{n}) = fg(x_{1},\ldots,x_{n})$
+  \end{enumerate}
+  hold.
 \end{proof}
 
 \section{Limits and Colimits in Algebraic Categories}

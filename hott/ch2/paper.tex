@@ -99,6 +99,19 @@ Thus, there is a function
   \end{enumerate}
 \end{proof}
 
+\begin{lem}
+  \[
+    \transport^{A \times B}(p,x) =_{A(w) \times B(w)} (\transport^{A}(p,\pi_{1}(x)), \transport^{B}(p,\pi_{2}(x)))
+  \]
+\end{lem}
+\begin{proof}
+  By path induction on $p$, we may assume $p$ is reflexivity, then it suffices to show
+  \[
+    x = (\pi_{1}x,\pi_{2}x)
+  \]
+  but this is just the propositional uniqueness principle.
+\end{proof}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

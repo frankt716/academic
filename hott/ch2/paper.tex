@@ -1,0 +1,105 @@
+\documentclass{amsart}
+\input{decls}
+\title{Homotopy Type Theory}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Homotopies and Equivalences}
+\label{sec:homotopies-and-equivalences}
+\begin{defn}\label{def:quasi-inverse}
+  For a function $f : A \to B$, a \emph{quasi-inverse} of $f$ is a triple $(g, \alpha, \beta)$ consisting of a function $g : B \to A$ and homotopies $\alpha : f \circ g \sim \id_{B}$ and $\beta : g \circ f \sim \id_{A}$.
+  The type of quasi-inverse of $f$ is defined as
+  \[
+    \qinv(f) := \sum_{g : B \to A}(f \circ g \sim \id_{B}) \times (g \circ f \sim \id_{A})
+  \]
+\end{defn}
+
+\begin{lem}
+  For any $p : x =_{A} y$ and any family $P : A \to \cU$, the function
+  \[
+    \transport^{P}(p,\blank) : P(x) \to P(y)
+  \]
+  is a quasi-inverse.
+\end{lem}
+\begin{proof}
+  Take $\transport^{P}(p\inv,\blank) : P(y) \to P(x)$.
+  It remains to provide the homotopies.
+  Both homotopies follow immediately by path induction on $p$.
+\end{proof}
+
+\cref{def:quasi-inverse} is not the right notion of equivalence between types because it has nontrivial high dimensional structures.
+The right notion of inverse should have the following properties:
+\begin{enumerate}
+\item for any $f : A \to B$, there is a function $\qinv(f) \to \isequiv(f)$;
+\item and there is also a function $\isequiv(f) \to \qinv(f)$;
+\item moreover, $\isequiv(f)$ is a proposition.
+\end{enumerate}
+
+\begin{defn}
+  Let $f : A \to B$ be a function.
+  The type of equivalence $\isequiv(f)$ is defined as
+  \[
+    \isequiv(f) := \left(\sum_{g : B \to A}f \circ g \sim \id_{B}\right) \times \left(\sum_{h : B \to A}h \circ f \sim \id_{A}\right)
+  \]
+\end{defn}
+
+\begin{lem}
+  $\isequiv(f)$ satisfies all three conditions.
+\end{lem}
+\begin{proof}
+  Given $(g,\alpha,\beta) : \qinv(f)$, we have $((g,\alpha),(g,\beta)) : \isequiv(f)$.
+  This defines the sought after function.
+  Similarly, given $((g,\alpha),(h,\beta)) : \isequiv(f)$, define $\gamma : g \sim h$ by
+  \[
+    g \sim g \circ f \circ h \sim h
+  \]
+  and $\beta' : g \circ f \sim \id_{A}$ by $\beta \circ \gamma(\beta) : g \circ f \sim h \circ f \sim \id_{A}$.
+  Then $(g,\alpha,\beta') : \qinv(f)$.
+
+  Condition (iii) is deferred to a later section.
+\end{proof}
+
+\begin{defn}
+  Given two types $A, B : \cU$, the type of equivalences from $A$ to $B$ is defined as
+  \[
+    (A \eqv B) := \sum_{f : A \to B}\isequiv(f)
+  \]
+\end{defn}
+Unsurprisingly, $\eqv$ is an equivalence relation.
+
+\section{Cartesian Products}
+\label{sec:cartesian-products}
+
+Given $p : x =_{A \times B} y$, functoriality of $\pi_{1}$ and $\pi_{2}$ yields two paths of type $\pi_{1}(x) =_{A} \pi_{1}(y)$ and $\pi_{2}(x) =_{B} \pi_{2}(y)$.
+Thus, there is a function
+\begin{equation}\label{eqn:cartesian-product-paths}
+  (x =_{A \times B} y) \to (\pi_{1}(x) =_{A} \pi_{1}(y)) \times (\pi_{2}(x) =_{B} \pi_{2}(y))
+\end{equation}
+
+\begin{lem}
+  The function in \eqref{eqn:cartesian-product-paths} is an equivalence.
+\end{lem}
+\begin{proof}
+  It suffices to show that \eqref{eqn:cartesian-product-paths} is a quasi-inverse.
+  We need to find a function
+  \[
+    (\pi_{1}(x) =_{A} \pi_{1}(y)) \times (\pi_{2}(x) =_{B} \pi_{2}(y)) \to (x =_{A \times B} y)
+  \]
+  Given $p : \pi_{1}(x) =_{A} \pi_{1}(y)$ and $q : \pi_{2}(x) =_{B} \pi_{2}(y)$, by path induction, we may assume $p$ is $\refl_{\pi_{1}(x)}$ and $q$ is $\refl_{\pi_{2}(x)}$.
+  Then the result follows by $\refl$.
+
+  The two homotopies are also easy:
+  \begin{enumerate}
+  \item $\alpha : \refl_{x} \mapsto (\refl_{\pi_{1}(x)},\refl_{\pi_{2}(x)}) \mapsto \refl_{x}$;
+  \item $\beta : (\refl_{\pi_{1}(x)},\refl_{\pi_{2}(x)}) \mapsto \refl_{x} \mapsto (\refl_{\pi_{1}(x)},\refl_{\pi_{2}(x)})$.
+  \end{enumerate}
+\end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{all}
+
+\end{document}

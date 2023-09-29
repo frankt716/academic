@@ -38,13 +38,22 @@ The ring multiplication coincides with the ring addition and the two identities 
   Such a ring is called a \emph{zero-ring}.
 \end{defn}
 
+\section{Ring Homomorphisms}
+\label{sec:ring-homomorphisms}
+
+
+\section{Zero Divisors and Units}
+\label{sec:zero-divisors-and-units}
+
+
+
 \begin{defn}
-  An element $a$ in a ring $R$ is a \emph{left-zero divisor} if there is an element $b \ne 0$ in $R$ for which $ab = 0$, and is a \emph{right-zero divisor} if $ba = 0$.
+  An element $a$ in a ring $R$ is a \emph{left zero divisor} if there is an element $b \ne 0$ in $R$ for which $ab = 0$, and is a \emph{right zero divisor} if $ba = 0$.
 \end{defn}
 
 \begin{lem}\label{lem:zero-divisor-characterization}
   Let $R$ be a ring.
-  An element $a \in R$ is not a left- (resp., right-) zero divisor if and only if left (resp., right) multiplication by $a$ is an injection.
+  An element $a \in R$ is not a left (resp., right) zero divisor if and only if left (resp., right) multiplication by $a$ is an injection.
 \end{lem}
 \begin{proof}
   Suppose that $a \in R$ is not a left-zero divisor and that $ab = ac$.
@@ -74,7 +83,7 @@ These commutative rings have a special name:
   An element $u$ of a ring $R$ is a \emph{left (resp., right) unit} if there is some $v \in R$ such that $uv = 1$ (resp., $vu = 1$).
 \end{defn}
 
-\begin{lem}
+\begin{lem}\label{lem:unit-characterization}
   Let $R$ be a ring.
   Then
   \begin{enumerate}
@@ -116,5 +125,21 @@ These commutative rings have a special name:
 \begin{proof}[Proof of (iv)]
   This is an immediate consequence of (iii).
 \end{proof}
+
+\begin{defn}
+  A \emph{division ring} is a ring in which every nonzero element is a two-sided unit.
+\end{defn}
+
+\begin{defn}
+  A \emph{field} is a nonzero commutative division ring.
+\end{defn}
+
+By \cref{lem:unit-characterization}, a division ring has no zero divisors.
+Thus, an immediate consequence of this definition is that
+
+\begin{cor}
+  Every field is an integral domain.
+\end{cor}
+However, its converse is not true: there are integral domains that are not fields.
 
 \end{document}

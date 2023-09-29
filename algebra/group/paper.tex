@@ -409,9 +409,103 @@ Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
   Thus, $gkg\inv \in \ker{\varphi}$.
 \end{proof}
 
-
 \begin{lem}
   Every normal subgroup is the kernel of some group homomorphism.
 \end{lem}
+\begin{proof}
+  A normal subgroup $H$ is the kernel of the quotient map $\pi : G \to G/H$.
+  \input{img/13}
+  Indeed,
+  \[
+    \ker(\pi) = \{h \in H \mid h\inv \in H\} = H
+  \]
+\end{proof}
+
+\section{Canonical Decomposition}
+\label{sec:canonical-decomposition}
+
+\begin{thm}\label{thm:canonical-decomposition}
+  Every group homomorphism $\varphi : G \to G'$ may be decomposed as follows
+  \input{img/14}
+\end{thm}
+\begin{proof}
+  Recall that the quotient group $G/\ker(\varphi)$ is the following coequalizer.
+  \input{img/15}
+  Additionally, $\varphi$ coequalizes $0$ and $\iota$ by construction.
+  The universal property then demands a unique group homomorphism $G/\ker(\varphi) \to G'$.
+  The universal property of image then yields
+  \input{img/16}
+  Note that $\widetilde{\varphi}$ is an isomorphism, yielding the desired decomposition.
+\end{proof}
+
+\begin{cor}\label{cor:surjective-homomorphism-iso}
+  Suppose $\varphi : G \to G'$ is a surjective group homomorphism.
+  Then
+  \[
+    G' \iso G/\ker(\varphi)
+  \]
+\end{cor}
+\begin{proof}
+  This is an immediate consequence of \cref{thm:canonical-decomposition} since $\img(\varphi) = G'$.
+\end{proof}
+
+\begin{cor}
+  Let $H_{1}$ and $H_{2}$ be normal subgroups of $G_{1}$ and $G_{2}$, respectively.
+  Then $H_{1} \times H_{2}$ is a normal subgroup of $G_{1} \times G_{2}$ and
+  \[
+    G_{1} \times G_{2} / H_{1} \times H_{2} \iso G_{1} / H_{1} \times G_{2} / H_{2}
+  \]
+\end{cor}
+\begin{proof}
+  Recall that every normal subgroup $H$ is the kernel of the quotient map induced by $H$.
+  Let $\pi_{1} : G_{1} \epi G_{1}/H_{1}$ and $\pi_{2} : G_{2} \epi G_{2}/H_{2}$ be the quotient maps, respectively.
+  Their product is a surjective group homomorphism.
+  \[
+    \pi_{1} \times \pi_{2} : G_{1} \times G_{2} \epi G_{1}/H_{1} \times G_{2}/H_{2}
+  \]
+  Then by \cref{cor:surjective-homomorphism-iso},
+  \[
+    G_{1} \times G_{2} / H_{1} \times H_{2} \iso G_{1} / H_{1} \times G_{2} / H_{2}
+  \]
+\end{proof}
+
+\begin{eg}
+  A circle $S^{1}$ can be given a group structure.
+  Points in $S^{1}$ are interpreted as rotations and the group structure is the composition of rotations.
+  There is a surjective group homomorphism
+  \[
+    \rho : \dR \epi S^{1}
+  \]
+  whose kernel is $\ker(\rho) = \dZ$.
+  Thus,
+  \[
+    S^{1} \iso \dR / \dZ
+  \]
+\end{eg}
+
+\begin{thm}
+  Every group is the quotient of a free group.
+\end{thm}
+\begin{proof}
+  Let $G$ be a group.
+  Consider the free group $F(UG)$.
+  There is an evident surjective group homomorphism
+  \[
+    \varphi : F(UG) \epi G
+  \]
+  mapping singleton words $g \in F(UG)$ to its corresponding element $g \in G$, and all other words to the products of those corresponding elements in $G$.
+  Then by \cref{cor:surjective-homomorphism-iso},
+  \[
+    G \iso F(UG)/\ker(\varphi)
+  \]
+\end{proof}
+
+\begin{defn}
+  A \emph{presentation} of a group $G$ is a surjective group homomorphism
+  \[
+    \rho : F(A) \epi G
+  \]
+  The kernel $\ker(\rho)$ can be thought of as a set of ``relations'' identifying elements in $F(A)$ to yield $G$.
+\end{defn}
 
 \end{document}

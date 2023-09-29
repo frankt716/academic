@@ -1,0 +1,73 @@
+\documentclass{amsart}
+\input{decls}
+\title{Rings and Modules}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Rings}
+\label{sec:rings}
+
+\begin{defn}
+  A \emph{ring} consists of
+  \begin{enumerate}
+  \item an underlying set $R$;
+  \item a binary operation $+ : R \times R \to R$;
+  \item a binary operation $\cdot : R \times R \to R$;
+  \item an additive identity $0_{R}$;
+  \item a multiplicative identity $1_{R}$
+  \end{enumerate}
+  such that $(R,+,0_{R})$ is an abelian group and $(R,\cdot,1_{R})$ is a monoid.
+  Additionally, the two operations satisfy the distributive laws
+  \begin{align}
+    t \cdot (r + s) &= t \cdot r + t \cdot s\\
+    (r + s) \cdot t &= r \cdot t + s \cdot t
+  \end{align}
+\end{defn}
+
+\begin{defn}
+  A ring $R$ is \emph{commutative} if the ring multiplication is commutative.
+\end{defn}
+
+We can equip the trivial group $\{\star\}$ with a ring multiplication.
+The ring multiplication coincides with the ring addition and the two identities coincide, i.e., $0 = 1$.
+\begin{defn}
+  Such a ring is called a \emph{zero-ring}.
+\end{defn}
+
+\begin{defn}
+  An element $a$ in a ring $R$ is a \emph{left-zero divisor} if there is an element $b \ne 0$ in $R$ for which $ab = 0$, and is a \emph{right-zero divisor} if $ba = 0$.
+\end{defn}
+
+\begin{lem}
+  Let $R$ be a ring.
+  An element $a \in R$ is not a left- (resp., right-) zero divisor if and only if left (resp., right) multiplication by $a$ is an injection.
+\end{lem}
+\begin{proof}
+  Suppose that $a \in R$ is not a left-zero divisor and that $ab = ac$.
+  \[
+    a(b - c) = 0
+  \]
+  Since $a$ is not a zero-divisor, $b - c$ must be $0$.
+  Thus, $b = c$.
+
+  Conversely, if $a \cdot \blank$ is an injection.
+  Suppose that $a$ is a left-zero divisor, then there is some $b \ne 0$ so that $ab = 0$.
+  Then since $ab = a0 = 0$, it follows that $b = 0$, which is a contradiction.
+  (Note that this is not a proof by contradiction).
+\end{proof}
+
+Some special rings such as $\dZ, \dQ$, etc., are commutative rings \emph{without} zero-divisors.
+These commutative rings have a special name:
+\begin{defn}
+  An \emph{integral domain} is a commutative ring \emph{without} zero-divisors.
+  Namely,
+  \[
+    ab = 0 \iff a = 0~\text{or}~b = 0
+  \]
+\end{defn}
+
+\end{document}

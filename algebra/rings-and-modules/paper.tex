@@ -42,7 +42,7 @@ The ring multiplication coincides with the ring addition and the two identities 
   An element $a$ in a ring $R$ is a \emph{left-zero divisor} if there is an element $b \ne 0$ in $R$ for which $ab = 0$, and is a \emph{right-zero divisor} if $ba = 0$.
 \end{defn}
 
-\begin{lem}
+\begin{lem}\label{lem:zero-divisor-characterization}
   Let $R$ be a ring.
   An element $a \in R$ is not a left- (resp., right-) zero divisor if and only if left (resp., right) multiplication by $a$ is an injection.
 \end{lem}
@@ -69,5 +69,52 @@ These commutative rings have a special name:
     ab = 0 \iff a = 0~\text{or}~b = 0
   \]
 \end{defn}
+
+\begin{defn}
+  An element $u$ of a ring $R$ is a \emph{left (resp., right) unit} if there is some $v \in R$ such that $uv = 1$ (resp., $vu = 1$).
+\end{defn}
+
+\begin{lem}
+  Let $R$ be a ring.
+  Then
+  \begin{enumerate}
+  \item $u$ is a left (resp., right) unit if and only if left (resp., right) multiplication with $u$ is a surjection;
+  \item if $u$ is a left (resp., right) unit, then $u$ is not a right (resp., left) zero-divisor;
+  \item two-sided units form a group under multiplication;
+  \item the inverse of a two-sided unit is unique.
+  \end{enumerate}
+\end{lem}
+\begin{proof}[Proof of (i)]
+  Suppose that $u$ is a left unit.
+  Then it has a right inverse $v$ so that $uv = 1$.
+  Let $w \in R$ be given.
+  Then
+  \[
+    u(vw) = 1w = w
+  \]
+  Thus, $u \cdot \blank$ is surjective.
+  
+  Conversely, if $u \cdot \blank$ is surjective, then there is some element $v \in R$ so that
+  \[
+    uv = 1
+  \]
+\end{proof}
+
+\begin{proof}[Proof of (ii)]
+  Suppose that $u$ is a left unit with a right inverse $v$.
+  By \cref{lem:zero-divisor-characterization}, it suffices to prove $\blank \cdot u$ is an injection.
+  Suppose that $au = bu$.
+  Then $auv = buv \iff a1 = b1 \iff a = b$.
+\end{proof}
+
+\begin{proof}[Proof of (iii)]
+  The multiplicative identity $1$ is a two-sided unit.
+  This provides the group identity.
+  Group axioms follow immediately by the definition of two-sided units.
+\end{proof}
+
+\begin{proof}[Proof of (iv)]
+  This is an immediate consequence of (iii).
+\end{proof}
 
 \end{document}

@@ -508,4 +508,38 @@ Any subgroup $H$ of $G$ induces two equivalence relations on $G$:
   The kernel $\ker(\rho)$ can be thought of as a set of ``relations'' identifying elements in $F(A)$ to yield $G$.
 \end{defn}
 
+\section{Group Actions}
+\label{sec:group-actions}
+
+\begin{defn}[Actions]
+  An \emph{action} of a group $G$, viewed as an 1-object category, on an object $A$ in a category $\iC$ is a functor
+  \[
+    \sigma : G \to \iC
+  \]
+  whose action on objects sends the single object $\star$ to $A$.
+\end{defn}
+
+Thus, the only interesting thing is the action on morphisms of $\sigma$, which maps each group element $g$ to an automorphism on $A$.
+Concretely, when $\iC = \mathsf{Set}$, a (left)-group action on $A$ consists of a function $\bullet : G \times A \to A$, corresponding to the action on morphisms of $\sigma$.
+Note that the function has been uncurried.
+This data is subject to the following axioms
+\begin{enumerate}
+\item $(e \bullet a) = a$.
+\item $(gh) \bullet a = g \bullet (h \bullet a)$.
+\end{enumerate}
+
+\begin{defn}
+  The action of a group $G$ on an object $A$ is \emph{faithful} if the functor $\sigma$ is faithful.
+\end{defn}
+
+\begin{thm}[Cayley's Theorem]
+  Every group acts faithfully on some set.
+  That is, every group is a subgroup of a permutation.
+\end{thm}
+\begin{proof}
+  This theorem is a direct consequence of the Yoneda Lemma.
+  The fully faithful embedding $\yon : G \to \mathsf{Set}^{G\op}$ composed with the faithful forgetful functor $U : \mathsf{Set}^{G\op} \to \mathsf{Set}$ yields a faithful functor $U\yon : G \to \mathsf{Set}$ describing a group action.
+  Concretely, the set is $G(\star,\star)$ and the action is given by precomposition.
+\end{proof}
+
 \end{document}

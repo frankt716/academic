@@ -296,4 +296,53 @@ Thus, an open set of $X/\sim$ is a collection of equivalence classes whose union
 \section{Metric Topology}
 \label{sec:metric-topology}
 
+\begin{defn}
+  A \emph{metric} on a set $X$ is a binary function
+  \[
+    d : X \times X \to \dR
+  \]
+  satisfying the following properties:
+  \begin{enumerate}
+  \item $d(x,y) \geq 0$ for all $x,y \in X$; equality holds if and only if $x = y$.
+  \item $d(x,y) = d(y,x)$ for all $x,y \in X$.
+  \item $d(x,y) + d(y,z) \geq d(x,z)$ for all $x,y,z \in X$.
+  \end{enumerate}
+\end{defn}
+
+\begin{defn}
+  Given a metric $d$ on $X$, the \emph{$\epsilon$-ball centered at $x$} is
+  \[
+    B_{d}(x,\epsilon) = \{ y \mid d(x,y) < \epsilon \}
+  \]
+\end{defn}
+
+\begin{defn}
+  Given a metric $d$ on $X$, the collection of all $\epsilon$-balls is a basis for a topology on $X$, called the \emph{metric topology} induced by $d$.
+\end{defn}
+
+\begin{defn}
+  If $X$ is a topological space, $X$ is \emph{metrizable} if there is a metric $d$ that induces the topology of $X$.
+  A \emph{metric space} is a metrizable topological space with a specified metric.
+\end{defn}
+
+The notion of continuous function coincides with the usual $\epsilon\delta$ definition.
+\begin{thm}
+  Let $f : X \to Y$; let $X$ and $Y$ be metrizable with metrics $d_{X}$ and $d_{Y}$, respectively.
+  Then $f$ is continuous if and only if given $x \in X$ and $\epsilon > 0$, there is $\delta > 0$ such that
+  \[
+    d_{X}(x,y) < \delta \imp d_{Y}(f(x),f(y)) < \epsilon
+  \]
+\end{thm}
+\begin{proof}
+  Suppose that $f$ is continuous, then consider the open set $f\inv(B_{d_{Y}}(f(x),\epsilon))$, contained within it is an open ball $B_{d_{X}}(x,\delta)$.
+  Then for any $y$ in this open ball, $f(y)$ is in the open ball $B_{d_{Y}}(f(x),\epsilon)$.
+
+  Conversely, suppose that the $\epsilon\delta$ condition is satisfied.
+  Let $V$ be open in $Y$ and $x \in f\inv(V)$.
+  Then there is an open ball $B_{d_{Y}}(f(x),\epsilon)$ contained within $V$.
+  The $\epsilon\delta$ condition implies that there is some $\delta$ so that $f(B_{d_{X}}(x,\delta)) \subseteq B_{d_{Y}}(f(x),\epsilon)$.
+  Thus, $B_{d_{X}}(x,\delta)$ is a neighborhood of $x$ contained in $f\inv(V)$.
+  This implies that $f\inv(V)$ is open.
+\end{proof}
+
 \end{document}

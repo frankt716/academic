@@ -51,7 +51,7 @@
   \end{enumerate}
 \end{defn}
 
-\begin{lem}
+\begin{lem}\label{lem:forgetful-strictly-creates}
   For any monad $(T, \eta, \mu)$ acting on $\iC$, the monadic forgetful functor $U^{T} : \iC^{T} \to \iC$ strictly creates coequalizers of $U^{T}$-split pairs.
 \end{lem}
 \begin{proof}
@@ -88,7 +88,53 @@
            &= h\beta\mu_{B}T^{2}s
   \end{align}
 
-  It remains to show that $h : (B,\beta) \to (C,\gamma)$ is an equalizer.
+  It remains to show that $h : (B,\beta) \to (C,\gamma)$ is a coequalizer.
+  That is, for any $T$-homomorphism $k : (B,\beta) \to (D,\delta)$ creating a fork $(f,g,h)$, $k$ admits a unique factorization.
+  Note that $k$ admits a unique factorization in $\iC$ by the universal property of coequalizer.
+  \input{img/4-08}
+  Thus, it suffices to show that $j$ is a $T$-homomorphism.
+  That is,
+  \input{img/4-09}
+  \begin{align}
+    j\gamma &= jh\beta\-Ts\\
+       &= k\beta\-Ts\\
+       &= \delta\-TkTs\\
+       &= \delta\-Tj
+  \end{align}
+\end{proof}
+
+\begin{lem}
+  Let $(T,\eta,\mu)$ be a monad on $\iC$, and let $(A,\alpha)$ be a $T$-algebra.
+  Then
+  \input{img/4-10}
+  is a coequalizer in $\iC^{T}$.
+\end{lem}
+\begin{proof}
+  By \cref{lem:forgetful-strictly-creates}, it suffices to show that $\alpha : TA \to A$ and $T\alpha,\mu_{A} : T^{2}A \toto TA$ can be extended to a split coequalizer.
+  Consider
+  \input{img/4-11}
+  Clearly, $\eta_{A}$ (resp., $\eta_{TA}$) is a retraction for $\alpha$ (resp., $\mu_{A}$).
+  The required equation $\eta_{A} \circ \alpha = T\alpha \circ \eta_{TA}$ is just the naturality of $\eta$.
+\end{proof}
+
+\begin{cor}
+  If $F,U : \iC \toot \iD$ is a monadic adjunction, then
+  \begin{enumerate}
+  \item $U : \iD \to \iC$ creates coequalizers of $U$-split pairs;
+  \item For any $D \in \iD$, there is a coequalizer
+    \input{img/4-12}
+  \end{enumerate}
+\end{cor}
+\begin{proof}
+  Since the adjunction is monadic, the canonical comparison functor $K : \iD \to \iC^{T}$ defines an equivalence.
+  \input{img/4-13}
+  Since $U = U^{T}K$, for any $U$-split pair $f,g : x \toto y$ in $\iD$, $Kf,Kg : Kx \toto Ky$ is a $U^{T}$-split pair.
+  By \cref{lem:forgetful-strictly-creates}, $Kf,Kg$ can be extended to a coequalizer in $\iC^{T}$, which transports to a coequalizer in $\iD$ via any inverse equivalence of $K$.
+
+  For (ii), it suffices to show that $FU\epsilon_{D}, \epsilon_{FUD}$ is a $U$-split pair.
+  Indeed, they are.
+  \input{img/4-14}
+  All the equations hold due to the triangle equalities.
 \end{proof}
 
 \bibliographystyle{alpha}

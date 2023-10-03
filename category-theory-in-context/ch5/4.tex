@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{}
+\title{Canonical Presentations via Free Algebras}
 \author{Frank Tsai}
 \date{\today}
 %\thanks{}
@@ -10,8 +10,86 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+\begin{defn}
+  A \emph{split coequalizer} is a diagram
+  \input{img/4-01}
+  so that
+  \begin{enumerate}
+  \item $(f,g,h)$ defines a \emph{fork}, i.e., $h$ defines a cocone under the parallel morphisms $x \toto y$.
+  \item $h$ is a retraction for $s$, i.e., $hs = \id_{z}$.
+  \item $g$ is a retraction for $t$, i.e., $gt = \id_{y}$.
+  \item $ft = sh$.
+  \end{enumerate}
+\end{defn}
+
+\begin{lem}\label{lem:absolute-coequalizer}
+  Any split coequalizer is an \emph{absolute coequalizer}, i.e., any functor preserves it.
+\end{lem}
+\begin{proof}
+  For any fork $(f,g,u)$, we wish to show that there is a unique way to factorize $u$.
+  Since $h$ is a split epimorphism, the uniqueness of any such factorization is immediate.
+  It remains to show that a factorization always exists.
+  A natural candidate is $u \circ s$.
+  \input{img/4-02}
+  It remains to show that $ush = u$.
+  \begin{align}
+    ush &= uft\\
+        &= ugt\\
+        &= u
+  \end{align}
+  Since functors preserve commutative diagram, the image of a split coequalizer under any functor is a split coequalizer.
+\end{proof}
+
+\begin{defn}
+  Given a functor $U : \iD \to \iC$:
+  \begin{enumerate}
+  \item A \emph{$U$-split coequalizer} is a parallel pair $f,g : x \toto y$ together with an extension of the pair $Uf,Ug : Ux \toto Uy$ to a split coequalizer.
+    \input{img/4-03}
+    in $\iC$.
+  \item $U$ \emph{creates coequalizers of $U$-split pairs} if every $U$-split coequalizer $(f,g,h,s,t)$ in $\iC$ admits a lifting: $f,g$ admit a coequalizer in $\iD$ whose image under $U$ is isomorphic to the fork $(Uf,Ug,h)$.
+  \end{enumerate}
+\end{defn}
+
+\begin{lem}
+  For any monad $(T, \eta, \mu)$ acting on $\iC$, the monadic forgetful functor $U^{T} : \iC^{T} \to \iC$ strictly creates coequalizers of $U^{T}$-split pairs.
+\end{lem}
+\begin{proof}
+  Given any parallel pair $f,g : (A,\alpha) \toto (B,\beta)$ in $\iC^{T}$ that admits a $U^{T}$-splitting:
+  \input{img/4-04}
+  in $\iC$.
+  We need to show that $C$ can be given a unique algebra structure $\gamma$ so that $h : (B,\beta) \to (C,\gamma)$ is a coequalizer.
+  A $U^{T}$-splitting is an absolute coequalizer.
+  Thus, the image of the $U^{T}$-splitting under $U$ is another absolute coequalizer.
+  Since $f$ and $g$ are $T$-homomorphisms, the left-hand square commutes.
+  \input{img/4-05}
+  Clearly, $(Tf,Tg,h\beta)$ is a fork.
+  Thus, there is a unique map $\gamma$ that makes the right-hand square commute.
+  If $\gamma$ is an algebra structure, then this demonstrates that $h$ is a $T$-homomorphism, and $\gamma$ is the only algebra structure that makes $h$ a $T$-homomorphism.
+
+  We need to check that the following diagrams commute:
+  \begin{mathpar}
+    \input{img/4-06} \and \input{img/4-07}
+  \end{mathpar}
+  
+  By \cref{lem:absolute-coequalizer}, $\gamma = h\beta\-Ts$.
+  Thus,
+  \begin{align}
+    \gamma\eta_{C} &= h\beta\-(Ts)\eta_{C}\\
+           &= h\beta\eta_{B}s\\
+           &= hs\\
+           &= \id_{C}\\
+    \gamma\mu_{C} &= h\beta(Ts)\mu_{C}\\
+           &= h\beta\mu_{B}T^{2}s\\
+    \gamma\-T\gamma &= h\beta(Ts)(Th)(T\beta)T^{2}s\\
+           &= h\beta(Tf)(Tt)(T\beta)T^{2}s\\
+           &= h\beta(Tg)(Tt)(T\beta)T^{2}s\\
+           &= h\beta(T\beta)T^{2}s\\
+           &= h\beta\mu_{B}T^{2}s
+  \end{align}
+
+  It remains to show that $h : (B,\beta) \to (C,\gamma)$ is an equalizer.
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

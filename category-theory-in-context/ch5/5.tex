@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{}
+\title{Recognizing Categories of Algebras}
 \author{Frank Tsai}
 \date{\today}
 %\thanks{}
@@ -10,8 +10,36 @@
 
 \section{Introduction}
 \label{sec:introduction}
-% ...
 
+\begin{thm}[Monadicity Theorem]
+  A right adjoint $U : \iD \to \iC$ is monadic if and only if it creates coequalizers of $U$-split pairs.
+\end{thm}
+\begin{proof}
+  We have already proved the ``if'' direction.
+  For the ``only if'' direction, assume that $U$ creates coequalizers of $U$-split pairs.
+  Our goal is to construct an inverse equivalence $L$ for the canonical comparison functor $K : \iD \to \iC^{T}$.
+
+  For free algebras, we define $L(TA,\mu_{A}) = FA$ and $Lf = Ff$.
+  For any algebra $(A, \alpha)$, note that
+  \input{img/5-01}
+  is a $U$-split pair in $\iC$.
+  Since $U$ creates coequalizers of this kind, define $L(A,\alpha)$ to be the coequalizer in $\iD$:
+  \input{img/5-02}
+  For any $T$-homomorphism $f : (A, \alpha) \to (B, \beta)$, define $Lf$ as the unique map given by the universal property of coequalizer:
+  \input{img/5-03}
+  Uniqueness implies functoriality.
+
+  It remains to check that $L$ defines an inverse equivalence of $K$.
+  \input{img/5-04}
+  $L$ carries the right-hand parallel pair to the parallel pair on the left.
+  Then $K$ carries this parallel pair to the same parallel pair on the right.
+  Since $U^{T}$ strictly creates coequalizers of $U^{T}$-split pairs, $KL \iso \id_{\iC^{T}}$.
+
+  Now, since $U$ creates coequalizers of $U$-split pairs, the top diagram is a coequalizer diagram.
+  $LKD$ is defined to be the coequalizer of the parallel pair in the diagram.
+  \input{img/5-05}
+  The isomorphism $LKD \iso D$ for each $D$ assembles into a natural isomorphism $LK \iso \id_{\iD}$.
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

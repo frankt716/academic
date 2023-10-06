@@ -11,7 +11,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\begin{thm}[Monadicity Theorem]
+\begin{thm}[Monadicity Theorem]\label{thm:monadicity-theorem}
   A right adjoint $U : \iD \to \iC$ is monadic if and only if it creates coequalizers of $U$-split pairs.
 \end{thm}
 \begin{proof}
@@ -39,6 +39,32 @@
   $LKD$ is defined to be the coequalizer of the parallel pair in the diagram.
   \input{img/5-05}
   The isomorphism $LKD \iso D$ for each $D$ assembles into a natural isomorphism $LK \iso \id_{\iD}$.
+\end{proof}
+
+\begin{defn}
+  A functor is \emph{finitary} if it preserves filtered colimits.
+  Any finitary right adjoint induces a \emph{finitary monad} since left adjoints preserve any colimit.
+\end{defn}
+
+\begin{defn}
+  A pair of parallel morphisms $f,g : x \toto y$ is \emph{reflexive} if both morphisms admit a common section.
+\end{defn}
+
+\begin{lem}
+  Conservative functors $U : \iD \to \iC$ reflect all limits and colimits that exist in $\iD$ and $U$ preserves.
+\end{lem}
+
+\begin{thm}[Reflexive Tripleability Theorem]
+  If $U : \iD \to \iC$ admits a left adjoint and if
+  \begin{enumerate}
+  \item $\iD$ has coequalizers of reflexive pairs;
+  \item $U$ preserves coequalizers of reflexive pairs;
+  \item $U$ reflects isomorphisms,
+  \end{enumerate}
+  then $U$ is monadic.
+\end{thm}
+\begin{proof}
+  By \cref{thm:monadicity-theorem}, it suffices to prove that $U$ creates coequalizers of $U$-split pairs.
 \end{proof}
 
 \bibliographystyle{alpha}

@@ -11,12 +11,61 @@
 \section{Introduction}
 \label{sec:introduction}
 
+\begin{defn}
+  A pair of parallel morphisms $f,g : x \toto y$ is \emph{reflexive} if both morphisms admit a common section.
+  The coequalizer for a reflexive pair of morphisms is called a \emph{reflexive coequalizer}.
+\end{defn}
+
+Recall that every $T$-algebra $(A,\alpha)$ is the quotient of some free algebra:
+\begin{equation}
+  \label{eq:beck-coequalizer}
+  \input{img/5-06}
+\end{equation}
+
+\begin{lem}
+  The coequalizer in \eqref{eq:beck-coequalizer} is reflexive in $\iC^{T}$.
+\end{lem}
+\begin{proof}
+  $T\eta_{A} : TA \to T^{2}A$ is the common section.
+  The proof is by calculation:
+  \begin{align}
+    T\alpha \circ T\eta_{A} &= T(\alpha \circ \eta_{A})\\
+                &= T(\id_{A})\\
+                &= \id_{TA}\\
+    \mu_{A} \circ T\eta_{A} &= \id_{TA}
+  \end{align}
+\end{proof}
+
+\begin{lem}
+  Let $K : \iD \to \iC^{T}$ be the canonical comparison functor, where $T$ is induced by the adjunction $F,D : \iC \toot \iD$.
+  If the pair $F\alpha,\epsilon_{FA} : FTA \toto FA$ has a coequalizer in $\iD$, then $K$ admits a left adjoint.
+\end{lem}
+\begin{proof}
+  The hypothesis asserts that the parallel pair $F\alpha,\epsilon_{FA} : FTA \toto FA$ in $\iD$ has a coequalizer, so we can define $L(A,\alpha)$ to be that coequalizer.
+  \input{img/5-07}
+  Given any $T$-homomorphism $f : (A,\alpha) \to (B,\beta)$, there are two commutative squares on the left-hand side.
+  Commutativity of each square follows from algebra law and naturality, respectively.
+  \input{img/5-08}
+  In particular, $e \circ Ff$ defines a cocone over $F\alpha,\epsilon_{FA} : FUFA \toto FA$, so we define $Lf$ to be that unique map.
+  Uniqueness implies functoriality.
+
+  It remains to check that $L \adj K$.
+  The universal property of coequalizer asserts that every morphism $L(A,\alpha) \to B$ corresponds to a morphism $FA \to B$.
+  This transports to a morphism $A \to UB$ through the adjunction $F \adj U$.
+  In particular, these morphisms are $T$-homomorphisms, proving the adjunction $L \adj K$.
+  \begin{align}
+    \iD(L(A,\alpha),B) &\iso \iD(FA,B)\\
+                  &\iso \iC(A,UB)\\
+                  &\iso \iC^{T}((A,\alpha),KB)
+  \end{align}
+\end{proof}
+
 \begin{thm}[Monadicity Theorem]\label{thm:monadicity-theorem}
   A right adjoint $U : \iD \to \iC$ is monadic if and only if it creates coequalizers of $U$-split pairs.
 \end{thm}
 \begin{proof}
-  We have already proved the ``if'' direction.
-  For the ``only if'' direction, assume that $U$ creates coequalizers of $U$-split pairs.
+  We have already proved the ``only if'' direction.
+  For the ``if'' direction, assume that $U$ creates coequalizers of $U$-split pairs.
   Our goal is to construct an inverse equivalence $L$ for the canonical comparison functor $K : \iD \to \iC^{T}$.
 
   For free algebras, we define $L(TA,\mu_{A}) = FA$ and $Lf = Ff$.
@@ -45,14 +94,6 @@
   A functor is \emph{finitary} if it preserves filtered colimits.
   Any finitary right adjoint induces a \emph{finitary monad} since left adjoints preserve any colimit.
 \end{defn}
-
-\begin{defn}
-  A pair of parallel morphisms $f,g : x \toto y$ is \emph{reflexive} if both morphisms admit a common section.
-\end{defn}
-
-\begin{lem}
-  Conservative functors $U : \iD \to \iC$ reflect all limits and colimits that exist in $\iD$ and $U$ preserves.
-\end{lem}
 
 \begin{thm}[Reflexive Tripleability Theorem]
   If $U : \iD \to \iC$ admits a left adjoint and if

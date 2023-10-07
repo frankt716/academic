@@ -36,7 +36,7 @@ Recall that every $T$-algebra $(A,\alpha)$ is the quotient of some free algebra:
   \end{align}
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{lem:beck-coequalizer-left-adjoint}
   Let $K : \iD \to \iC^{T}$ be the canonical comparison functor, where $T$ is induced by the adjunction $F,D : \iC \toot \iD$.
   If the pair $F\alpha,\epsilon_{FA} : FTA \toto FA$ has a coequalizer in $\iD$, then $K$ admits a left adjoint.
 \end{lem}
@@ -66,28 +66,29 @@ Recall that every $T$-algebra $(A,\alpha)$ is the quotient of some free algebra:
 \begin{proof}
   We have already proved the ``only if'' direction.
   For the ``if'' direction, assume that $U$ creates coequalizers of $U$-split pairs.
-  Our goal is to construct an inverse equivalence $L$ for the canonical comparison functor $K : \iD \to \iC^{T}$.
+  This hypothesis asserts that the pair $F\alpha,\epsilon_{FA} : FUFA \toto FA$ has a coequalizer in $\iD$.
+  Thus, by \cref{lem:beck-coequalizer-left-adjoint}, $L \adj K$.
 
-  For free algebras, we define $L(TA,\mu_{A}) = FA$ and $Lf = Ff$.
-  For any algebra $(A, \alpha)$, note that
-  \input{img/5-01}
-  is a $U$-split pair in $\iC$.
-  Since $U$ creates coequalizers of this kind, define $L(A,\alpha)$ to be the coequalizer in $\iD$:
-  \input{img/5-02}
-  For any $T$-homomorphism $f : (A, \alpha) \to (B, \beta)$, define $Lf$ as the unique map given by the universal property of coequalizer:
-  \input{img/5-03}
-  Uniqueness implies functoriality.
+  It remains to show that $L$ is an inverse equivalence.
+  The unit of the adjunction $L \adj K$ is given by
+  \begin{align}
+    \id_{L(A,\alpha)} \in \iD(L(A,\alpha), L(A,\alpha)) &\iso e \in \iD(FA, L(A,\alpha))\\
+                                       &\iso Ue \circ \eta_{A} \in \iC(A,U(A,\alpha))\\
+                                       &\iso Ue \circ \eta_{A} \in \iC^{T}((A,\alpha),KB)
+  \end{align}
+  Since $U$ creates $U$-split coequalizers (and thus preserves $U$-split coequalizers), $Ue : UFA \epi UL(A,\alpha)$ is a coequalizer in $\iC$.
+  Since $\alpha : UFA \to A$ is a coequalizer for the same pair of morphisms, $UL(A,\alpha) \iso A$.
+  Thus, $\alpha = i \circ Ue$, where $i$ is the isomorphism mentioned above.
+  In particular, $\eta_{A}$ is a section for $\alpha$.
+  Thus,
+  \[
+    Ue \circ \eta_{A} = i\inv
+  \]
+  That is, the unit is a natural isomorphism.
 
-  It remains to check that $L$ defines an inverse equivalence of $K$.
-  \input{img/5-04}
-  $L$ carries the right-hand parallel pair to the parallel pair on the left.
-  Then $K$ carries this parallel pair to the same parallel pair on the right.
-  Since $U^{T}$ strictly creates coequalizers of $U^{T}$-split pairs, $KL \iso \id_{\iC^{T}}$.
-
-  Now, since $U$ creates coequalizers of $U$-split pairs, the top diagram is a coequalizer diagram.
-  $LKD$ is defined to be the coequalizer of the parallel pair in the diagram.
-  \input{img/5-05}
-  The isomorphism $LKD \iso D$ for each $D$ assembles into a natural isomorphism $LK \iso \id_{\iD}$.
+  The counit is given by $\epsilon'_{B} \in \iD(LKB, B) \iso \epsilon_{B} \in \iD(FUB,B)$.
+  Note that $\epsilon_{B}$ is a coequalizer for the same pair as $e : FUB \to LKB$.
+  Thus, it follows that $\epsilon'_{B}$ is an isomorphism.
 \end{proof}
 
 \begin{defn}

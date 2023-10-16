@@ -117,12 +117,27 @@ This is a consequence of \cref{lem:connected-union-connected}.
 \label{sec:compactness}
 
 \begin{defn}
-  A collection $\sA$ of subsets of a space $X$ is a \emph{covering} of $X$ if the union of the elements of $\sA$ is equal to $X$.
-  $\sA$ is called an \emph{open covering} if each of its elements is open.
+  Let $\iC$ be a locally small category that admits filtered colimits.
+  An object $x \in \iC$ is \emph{compact}, \emph{finitely presented}, \emph{finitely presentable}, or \emph{of finite presentation}, if the corepresentable functor
+  \[
+    \iC(x,\blank) : \iC \to \mathsf{Set}
+  \]
+  preserves these filtered colimits.
+  In other words, an object $X$ is compact if for every map from $X$ to an object presented by an ``increasing sequence'' $\colim F$, this map factors through some injection $\iota : Fj_{i} \to \colim F$.
 \end{defn}
 
 \begin{defn}
-  A space $X$ is \emph{compact} if every open covering $\sA$ of $X$ has a finite subcover.
+  Let $\cO_{\chi}$ be the category of open sets of a topology $\chi$.
+  The topological space $(X, \chi)$ is \emph{compact} precisely when $X$ is a compact object in $\cO_{\chi}$.
+\end{defn}
+
+This means that for any filtered diagram $F : \iJ \to \cO_{\chi}$,
+\[
+  \cO_{\chi}(X,\colim F) \iso \colim\cO_{\chi}(X, F\blank)
+\]
+
+\begin{defn}
+  A space $X$ is \emph{compact} if every open covering of $X$ has a finite subcover.
 \end{defn}
 
 Compactness can be characterized in a different way.

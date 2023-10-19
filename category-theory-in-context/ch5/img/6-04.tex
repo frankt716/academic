@@ -1,0 +1,31 @@
+% https://q.uiver.app/#q=WzAsMTIsWzAsMCwiRGpfezF9Il0sWzQsMCwiRGpfezJ9Il0sWzIsMSwiXFxlbGwiXSxbMiwzLCJUXFxlbGwiXSxbMCwyLCJURGpfezF9Il0sWzQsMiwiVERqX3syfSJdLFsyLDUsIlReezJ9XFxlbGwiXSxbMCw0LCJUXnsyfURqX3sxfSJdLFs0LDQsIlReezJ9RGpfezJ9Il0sWzIsNywiXFxlbGwiXSxbMCw2LCJEal97MX0iXSxbNCw2LCJEal97Mn0iXSxbMCwxXSxbMCwyLCJcXGxhbWJkYV97al97MX19IiwyXSxbMSwyLCJcXGxhbWJkYV97al97Mn19Il0sWzQsMywiVFxcbGFtYmRhX3tqX3sxfX0iLDJdLFs1LDMsIlRcXGxhbWJkYV97al97Mn19Il0sWzQsNV0sWzcsOF0sWzcsNiwiVF57Mn1cXGxhbWJkYV97al97MX19IiwyXSxbOCw2LCJUXnsyfVxcbGFtYmRhX3tqX3syfX0iXSxbMCw0LCJcXGV0YV97RGpfezF9fSIsMl0sWzEsNSwiXFxldGFfe0RqX3syfX0iXSxbNCw3LCJUXFxldGFfe0RqX3sxfX0iLDJdLFs1LDgsIlRcXGV0YV97RGpfezJ9fSJdLFs3LDEwLCJcXGdhbW1hX3tEal97MX19IFxcY2lyYyBcXG11X3tEal97MX19IiwyXSxbOCwxMSwiXFxnYW1tYV97RGpfezJ9fSBcXGNpcmMgXFxtdV97RGpfezJ9fSJdLFsxMCw5LCJcXGxhbWJkYV97al97MX19IiwyXSxbMTEsOSwiXFxsYW1iZGFfe2pfezJ9fSJdLFsyLDMsIiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDYsIlxceGkiLDAseyJsYWJlbF9wb3NpdGlvbiI6MzAsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs2LDksIlxcemV0YSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{Dj_{1}} &&&& {Dj_{2}} \\
+	&& \ell \\
+	{TDj_{1}} &&&& {TDj_{2}} \\
+	&& T\ell \\
+	{T^{2}Dj_{1}} &&&& {T^{2}Dj_{2}} \\
+	&& {T^{2}\ell} \\
+	{Dj_{1}} &&&& {Dj_{2}} \\
+	&& \ell
+	\arrow[from=1-1, to=1-5]
+	\arrow["{\lambda_{j_{1}}}"', from=1-1, to=2-3]
+	\arrow["{\lambda_{j_{2}}}", from=1-5, to=2-3]
+	\arrow["{T\lambda_{j_{1}}}"', from=3-1, to=4-3]
+	\arrow["{T\lambda_{j_{2}}}", from=3-5, to=4-3]
+	\arrow[from=3-1, to=3-5]
+	\arrow[from=5-1, to=5-5]
+	\arrow["{T^{2}\lambda_{j_{1}}}"', from=5-1, to=6-3]
+	\arrow["{T^{2}\lambda_{j_{2}}}", from=5-5, to=6-3]
+	\arrow["{\eta_{Dj_{1}}}"', from=1-1, to=3-1]
+	\arrow["{\eta_{Dj_{2}}}", from=1-5, to=3-5]
+	\arrow["{T\eta_{Dj_{1}}}"', from=3-1, to=5-1]
+	\arrow["{T\eta_{Dj_{2}}}", from=3-5, to=5-5]
+	\arrow["{\gamma_{Dj_{1}} \circ \mu_{Dj_{1}}}"', from=5-1, to=7-1]
+	\arrow["{\gamma_{Dj_{2}} \circ \mu_{Dj_{2}}}", from=5-5, to=7-5]
+	\arrow["{\lambda_{j_{1}}}"', from=7-1, to=8-3]
+	\arrow["{\lambda_{j_{2}}}", from=7-5, to=8-3]
+	\arrow[dashed, from=2-3, to=4-3]
+	\arrow["\xi"{pos=0.3}, dashed, from=4-3, to=6-3]
+	\arrow["\zeta", dashed, from=6-3, to=8-3]
+\end{tikzcd}\]

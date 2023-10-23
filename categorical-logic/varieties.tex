@@ -1,0 +1,47 @@
+\documentclass{amsart}
+\input{decls}
+\title{Varieties}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\label{sec:introduction}
+
+\begin{defn}
+  An object $G$ of a category $\iC$ is \emph{regular projective} if the hom-functor
+  \[
+    \iC(G,\blank) : \iC \to \mathsf{Set}
+  \]
+  preserves regular epimorphism.
+  In other words, $G$ has the left-lifting property against regular epimorphisms.
+  \input{img/2-01}
+\end{defn}
+
+\begin{defn}
+  An object $G$ of a category $\iC$ is \emph{finitely presentable} (resp., \emph{finitely generated}) if the hom-functor $\iC(G,\blank)$ preserves filtered colimits (resp., filtered colimits of monomorphisms).
+  That is, every morphism $G \to \colim F$ factors through some injection map.
+  \input{img/2-02}
+\end{defn}
+
+\begin{defn}
+  A \emph{subcopower} of a copower $\coprod_{I}G$ is the canonical morphism
+  \[
+    \coprod_{i}G : \coprod_{I'}G \to \coprod_{I}G
+  \]
+  where $i : I' \into I$ is the subset inclusion function.
+\end{defn}
+
+\begin{defn}
+  An object $G$ of a category $\iC$ is \emph{abstractly finite} if it has copowers, and every morphism $f : G \to \coprod_{I}G$ has the left-lifting property against a finite subcopower.
+  \input{img/2-03}
+  where $I'$ is a finite subset of $I$.
+\end{defn}
+
+\bibliographystyle{alpha}
+\bibliography{all}
+
+\end{document}

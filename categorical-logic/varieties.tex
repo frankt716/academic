@@ -8,8 +8,8 @@
 \maketitle
 \tableofcontents
 
-\section{Introduction}
-\label{sec:introduction}
+\section{Definitions}
+\label{sec:definitions}
 
 \begin{defn}
   An object $G$ of a category $\iC$ is \emph{regular projective} if the hom-functor
@@ -39,6 +39,36 @@
   An object $G$ of a category $\iC$ is \emph{abstractly finite} if it has copowers, and every morphism $f : G \to \coprod_{I}G$ has the left-lifting property against a finite subcopower.
   \input{img/2-03}
   where $I'$ is a finite subset of $I$.
+\end{defn}
+
+\begin{defn}
+  For an set $S$, an \emph{$S$-sorted signature} is a collection $\Sigma$ of function symbols $\sigma$ with prescribed arities.
+  The category of $S$-sorted sets is the functor category $\mathsf{Set}^{S}$.
+  Let $X \in \mathsf{Set}^{S}$ be an $S$-sorted set of variables.
+  The $S$-sorted set $F_{\Sigma}X$ of terms is the least set so that:
+  \begin{enumerate}
+  \item variables $x \in X$ are in $F_{\Sigma}X$, i.e., variables of sort $s$ are terms of sort $s$, and
+  \item for each function symbol $f : s_{1} \times \cdots \times s_{n} \to s$ and terms $t_{i}$ of sort $s_{i}$, $f(t_{1},\ldots,t_{n})$ is a term of sort $s$.
+  \end{enumerate}
+\end{defn}
+
+\begin{defn}
+  A \emph{$\Sigma$-algebra} is a sorted set $A$ equipped with sorted functions $\sigma_{A} : A_{s_{1}} \times \cdots \times A_{s_{n}} \to A_{s}$ for every function symbol $\sigma : s_{1} \times \cdots \times s_{n} \to s$.
+  Given another $\Sigma$-algebra $B$, a \emph{$\Sigma$-homomorphism} is a sorted map $f : A \to B$ preserving the operations: for each function symbol $\sigma : s_{1} \times \cdots \times s_{n} \to s$, one has
+  \[
+    f_{s} \circ \sigma_{A} = \sigma_{B} \circ (f_{s_{1}} \times \cdots \times f_{s_{n}})
+  \]
+
+  The category of $\Sigma$-algebras and their homomorphisms is denoted $\Sigma\mathsf{Alg}$.
+\end{defn}
+
+\begin{defn}
+  An \emph{equation} in $n$ variables $x_{i}$ of sort $s_{i}$ consists of two terms $t$ and $u$ in $F_{\Sigma}\{x_{1},\ldots,x_{n}\}$ of the same sort.
+  It is written as
+  \[
+    t = u
+  \]
+  A $\Sigma$-algebra $A$ \emph{satisfies} this equation if for every sorted function $f : \{x_{1},\ldots,x_{n}\} \to A$ the free homomorphism $\fbar : F_{\Sigma}\{x_{i}\} \to A$ fulfills $\fbar(t) = \fbar(u)$.
 \end{defn}
 
 \bibliographystyle{alpha}

@@ -1,14 +1,110 @@
 \documentclass{amsart}
 \input{decls}
-\title{Algebraic Theory}
+\title{Handbook of Categorical Algebra}
 \author{Frank Tsai}
 \date{\today}
-%\thanks{}
+% \thanks{}
+
+\newcommand{\interp}[1]{\llbracket #1 \rrbracket}
+
 \begin{document}
 \maketitle
 \tableofcontents
 
-\newcommand{\interp}[1]{\llbracket #1 \rrbracket}
+\section{Generators and Projectives}
+\label{sec:generators-and-projectives}
+
+\subsection{Well-Powered Categories}
+\label{sec:well-powered-categories}
+
+\begin{defn}\label{def:equiv-mono}
+  Given an object $C \in \iC$ of a category $\iC$.
+  Two monomorphisms $f : R \mono C$ and $g : S \mono C$ are \emph{equivalent} when there is an isomorphism $\tau : R \iso S$ such that the triangle
+  \[\input{img/1-01}\]
+  commutes.
+  An equivalence class of monomorphisms with codomain $C$ is called a \emph{subobject} of $C$, and a category is \emph{well-powered} when every object has only a set worth of subobjects.
+\end{defn}
+
+Given a category $\iC$ and an object $C \in \iC$, we can consider the class $\mathsf{Mono}(C)$ of monomorphisms with codomain $C$.
+We define a preorder on $\mathsf{Mono}(C)$ by $f \preceq g$ when there is a morphism $h : R \to S$ so that $f = g \circ h$, where $f : R \mono C$ and $g : S \mono C$.
+Performing quotient on $(\mathsf{Mono}(C),\preceq)$ by the equivalence relation defined in \cref{def:equiv-mono}, one obtains the partially ordered class $\mathsf{Sub}(C)$.
+Often, we write a mono $f : R \mono C$ for its equivalence class by abuse of notation.
+
+In this notes, a ``family'' is always indexed by a set.
+
+\subsection{Intersections and Unions}
+\label{sec:intersections-and-unions}
+
+\begin{defn}
+  Given an object $C \in \iC$.
+  The \emph{intersection} of a family of subobjects of $A$ is the infimum of that family in $\mathsf{Sub}(A)$.
+  Similarly, the \emph{intersection} of a family of subobjects of $A$ is the supremum of that family in $\mathsf{Sub}(A)$.
+\end{defn}
+
+\begin{prop}
+  If $\mathsf{Sub}(A)$ is a set, then the following are equivalent:
+  \begin{enumerate}
+  \item the intersection of every family of subobjects of $A$ exists;
+  \item the union of every family of subobjects of $A$ exists.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  Let $I$ be a family of subobjects.
+  One has
+  \begin{align}
+    \inf_{I}s_{i} &= \sup\{s \mid \forall i \in I.\,s \preceq s_{i}\}\\
+    \sup_{I}s_{i} &= \inf\{s \mid \forall i \in I.\,s_{i} \preceq s\}
+  \end{align}
+\end{proof}
+
+\begin{prop}
+  If $\iC$ has pullbacks, the intersection of two subobjects of the same object $C \in \iC$ is given by their pullback.
+\end{prop}
+\begin{proof}
+  Given two subobjects $f$ and $g$.
+  Since monomorphisms are pullback stable and closed under composition, we have another subobject $R \times_{C} S \mono C$.
+  \[\input{img/1-02}\]
+  The universal property of pullbacks then guarantees that this is the infimum of this family in $\mathsf{Sub}(C)$.
+\end{proof}
+
+This result generalizes to an arbitrary family of subobjects.
+\begin{prop}
+  If $\iC$ is complete, then the intersection of every family of subobjects is given by their limit.
+\end{prop}
+\begin{proof}
+  Take the limit of the family
+  \[\input{img/1-03}\]
+  The universal property of limits guarantees that $\bigcap F \mono C$ is the infimum of this family in $\mathsf{Sub}(C)$.
+\end{proof}
+
+\begin{cor}
+  In a complete and well-powered category, the intersection and union of every family of subobjects of a fixed object always exists.
+\end{cor}
+
+\subsection{Strong Epimorphisms}
+\label{sec:strong-epimorphisms}
+
+\begin{defn}
+  An epimorphism $f : A \epi B$ in a category is \emph{extremal} if it does not factor through any proper subobject of $B$; i.e., any monomorphism $i : C \mono B$ so that the following triangle commutes, is an isomorphism.
+  \[\input{img/1-04}\]
+\end{defn}
+
+\begin{prop}
+  In a category $\iC$,
+  \begin{enumerate}
+  \item every regular epimorphism is extremal,
+  \item if a composite $f \circ g$ is extremal, then $f$ is extremal,
+  \item an monic extremal epimorphism is an isomorphism.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  Suppose that $f = i \circ g$, we wish to show that $i$ is an isomorphism.
+  Since $f \circ u = i \circ g \circ u = i \circ g \circ v = f \circ v$ and $i$ is a monomorphism, it follows that $g$ forms a cocone over $u$ and $v$.
+  Thus, there is a unique morphism $j$ so that $g = j \circ f$.
+  \[\input{img/1-05}\]
+  Since $i \circ j \circ f = i \circ g = \id_{B} \circ f$ and $f$ is an epimorphism, $i \circ j = \id_{B}$.
+  Since $i$ is a monomorphism with a right inverse, $i$ is an isomorphism.
+\end{proof}
 
 \section{Universal Algebra}
 \label{sec:universal-algebra}

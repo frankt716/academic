@@ -1,0 +1,20 @@
+% https://q.uiver.app/#q=WzAsNyxbMCwyLCJcXGNvcHJvZF97SX0oVF57Mn1BX3tpfSxcXG11X3tUQV97aX19KSJdLFsyLDIsIlxcY29wcm9kX3tJfShUQV97aX0sXFxtdV97QV97aX19KSJdLFs0LDIsIihBLFxcYWxwaGEpIl0sWzAsNCwiKFReezJ9QV97aX0sXFxtdV97VEFfe2l9fSkiXSxbMiw0LCIoVEFfe2l9LFxcbXVfe0Ffe2l9fSkiXSxbNCw0LCIoQV97aX0sXFxhbHBoYV97aX0pIl0sWzQsMCwiKEIsXFxiZXRhKSJdLFswLDEsIiIsMix7Im9mZnNldCI6LTF9XSxbMCwxLCIiLDAseyJvZmZzZXQiOjF9XSxbMSwyLCIiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMyw0LCIiLDAseyJvZmZzZXQiOi0xfV0sWzMsNCwiIiwyLHsib2Zmc2V0IjoxfV0sWzQsNSwiXFxhbHBoYV97aX0iLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMywwXSxbNCwxXSxbNSwyXSxbNSw2LCIiLDIseyJjdXJ2ZSI6M31dLFsxLDZdLFsyLDYsIiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\begin{tikzcd}
+	&&&& {(B,\beta)} \\
+	\\
+	{\coprod_{I}(T^{2}A_{i},\mu_{TA_{i}})} && {\coprod_{I}(TA_{i},\mu_{A_{i}})} && {(A,\alpha)} \\
+	\\
+	{(T^{2}A_{i},\mu_{TA_{i}})} && {(TA_{i},\mu_{A_{i}})} && {(A_{i},\alpha_{i})}
+	\arrow[shift left, from=3-1, to=3-3]
+	\arrow[shift right, from=3-1, to=3-3]
+	\arrow[two heads, from=3-3, to=3-5]
+	\arrow[shift left, from=5-1, to=5-3]
+	\arrow[shift right, from=5-1, to=5-3]
+	\arrow["{\alpha_{i}}"', two heads, from=5-3, to=5-5]
+	\arrow[from=5-1, to=3-1]
+	\arrow[from=5-3, to=3-3]
+	\arrow[from=5-5, to=3-5]
+	\arrow[curve={height=18pt}, from=5-5, to=1-5]
+	\arrow[from=3-3, to=1-5]
+	\arrow[dashed, from=3-5, to=1-5]
+\end{tikzcd}

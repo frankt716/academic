@@ -115,6 +115,22 @@ In fact, any such a category is also cocomplete.
   \item $\iA$ has coequalizers.
   \end{enumerate}
 \end{thm}
+\begin{proof}
+  (i) $\imp$ (ii) is trivial.
+  For (ii) $\imp$ (i), it suffices to show that $\iC^{T}$ has coproducts.
+  Given a family $(A_{i},\alpha_{i})$ of algebras, we wish to construct its coproduct.
+  The idea is to algebratize the coproduct of the underlying objects, using the fact that $\iC$ is cocomplete.
+  We can then construct the coproduct as the quotient of certain free algebras.
+  First, note that there is a canonical map $\kappa : \colim FD \to F\colim D$ that we make use of.
+
+  Consider the following coequalizer
+  \[\input{img/6-07}\]
+  Since left adjoints preserve colimits, we have the following:
+  \[\input{img/6-08}\]
+  The injection is determined by the universal property.
+  A morphism $(A_{i},\alpha_{i}) \to (B,\beta)$ determines a cocone over the top coequalizer.
+  Thus, the universal property guarantees a unique arrow factoring into the injection.
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

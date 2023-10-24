@@ -69,7 +69,26 @@
     t = u
   \]
   A $\Sigma$-algebra $A$ \emph{satisfies} this equation if for every sorted function $f : \{x_{1},\ldots,x_{n}\} \to A$ the free homomorphism $\fbar : F_{\Sigma}\{x_{i}\} \to A$ fulfills $\fbar(t) = \fbar(u)$.
+  In other words, a $\Sigma$-algebra $A$ satisfies an equation $t = u$ of $n$ variables if for every valuation of those $n$ variables, the two terms have the same interpretation.
 \end{defn}
+
+\begin{defn}
+  Given a set $\cE$ of equations, we write $(\Sigma,\cE)\mathsf{Alg}$ for the full subcategory of $\Sigma$-algebras that satisfy every equation in $\cE$.
+\end{defn}
+
+\begin{thm}
+  $(\Sigma,\cE)\mathsf{Alg}$ is a reflective subcategory of $\Sigma\mathsf{Alg}$.
+\end{thm}
+\begin{proof}
+  The standard construction works: we define the localization $L : \Sigma\mathsf{Alg} \to (\Sigma,\cE)\mathsf{Alg}$ as follows:
+  \begin{enumerate}
+  \item Take the underlying $S$-sorted set $A$ of a given $\Sigma$-algebra and regard $A$ as an $S$-sorted set of variables.
+  \item Take the $S$-sorted set of terms $F_{\Sigma}A$ and quotient this $S$-sorted set by $\cE$.
+    The quotient $F_{\Sigma}A/\cE$ is the sought after $(\Sigma,\cE)$-algebra.
+  \item Each homomorphism $A \to B$ extends to a morphism $F_{\Sigma}A \to F_{\Sigma}B$ by induction on the structure of those terms in $F_{\Sigma}A$.
+  \item These morphisms respect the equations in $\cE$, yielding the sought after morphism $F_{\Sigma}A/\cE \to F_{\Sigma}B/\cE$
+  \end{enumerate}
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

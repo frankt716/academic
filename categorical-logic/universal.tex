@@ -98,12 +98,105 @@ This result generalizes to an arbitrary family of subobjects.
   \end{enumerate}
 \end{prop}
 \begin{proof}
-  Suppose that $f = i \circ g$, we wish to show that $i$ is an isomorphism.
+  (i) Suppose that $f = i \circ g$, we wish to show that $i$ is an isomorphism.
   Since $f \circ u = i \circ g \circ u = i \circ g \circ v = f \circ v$ and $i$ is a monomorphism, it follows that $g$ forms a cocone over $u$ and $v$.
   Thus, there is a unique morphism $j$ so that $g = j \circ f$.
   \[\input{img/1-05}\]
   Since $i \circ j \circ f = i \circ g = \id_{B} \circ f$ and $f$ is an epimorphism, $i \circ j = \id_{B}$.
   Since $i$ is a monomorphism with a right inverse, $i$ is an isomorphism.
+
+  (ii) For any commutative triangle $f = i \circ j$, where $i$ is an monomorphism, we extend this triangle by $g$, yielding the following diagram:
+  \[\input{img/1-06}\]
+  Since $f \circ g$ is extremal, it follows that $i$ is an isomorphism.
+
+  (iii) Consider the following diagram:
+  \[\input{img/1-07}\]
+  Since $f$ is extremal, $f$ must be an isomorphism.
+\end{proof}
+
+\begin{prop}
+  In a category $\iC$, if every monic epimorphism is an isomorphism, then every epimorphism is extremal.
+\end{prop}
+\begin{proof}
+  Let $f : A \epi B$, $i : C \mono B$, and $j : A \to C$ such that $f = i \circ j$.
+  Since post-composing $i$ with $j$ results in an epimorphism, $i$ is an epimorphism.
+  Then the hypothesis demands that $i$ is an isomorphism.
+\end{proof}
+
+\begin{defn}
+  An epimorphism $f : A \epi B$ is called a \emph{strong epimorphism} when, $f$ has the filling property against any monomorphism, i.e., there is a morphism $w : B \to X$ commuting with the two triangles.
+  \[\input{img/1-08}\]
+  Note that this arrow is necessarily unique.
+\end{defn}
+
+\begin{prop}
+  In a category $\iC$,
+  \begin{enumerate}
+  \item the composite of two strong epimorphisms is a strong epimorphism,
+  \item if a composite $f \circ g$ is a strong epimorphism, then $f$ is a strong epimorphism,
+  \item a monic strong epimorphism is an isomorphism,
+  \item every regular epimorphism is strong,
+  \item every strong epimorphism is extremal.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  (i) Since $f$ is strong, there is a filling $b : B \to X$.
+  This filling yields a commutative square $y \circ x \circ b = w \circ g$.
+  Since $y \circ x$ is also a monomorphism and $g$ is strong, it follows that there is a filling $c : C \to X$.
+  \[\input{img/1-09}\]
+  (ii) Given a commutative square $x \circ u = v \circ f$, we extend this square by $g$.
+  This yields the following commutative square, and since $f \circ g$ strong, there is a filling $w$ so that $w \circ f \circ g = u \circ g$ and $x \circ w = v$.
+  \[\input{img/1-10}\]
+  It remains to show that $w \circ f = u$.
+  To this end, consider $x \circ w \circ f$.
+  \begin{align}
+    x \circ w \circ f &= v \circ f\\
+              &= x \circ u
+  \end{align}
+  Since $x$ is a monomorphism, $w \circ f = u$ follows.
+
+  (iii) Consider the following:
+  \[\input{img/1-11}\]
+  The filling is clearly the inverse of $f$.
+  Thus, $f$ is an isomorphism.
+
+  (iv) Suppose that $x \circ u = v \circ f$.
+  Then $x \circ u \circ a = v \circ f \circ a = v \circ f \circ b = x \circ u \circ b$.
+  Since $x$ is a monomorphism, it follows that $u$ is a cocone over $a$ and $b$.
+  \[\input{img/1-12}\]
+  The universal property of coequalizers yields a morphism $w$ that commutes with the lower triangle.
+  It remains to check that $x \circ w = v$.
+  Since $f$ is an epimorphism, it suffices to check $x \circ w \circ f = v \circ f$.
+  \begin{align}
+    x \circ w \circ f &= x \circ u\\
+              &= v \circ f
+  \end{align}
+
+  (v) Suppose that $f = i \circ j$ with $i$ a monomorphism.
+  Since $f$ is strong, there is a filling $w$ such that $i \circ w = \id$.
+  Since $i$ is a monomorphism with a right inverse, it is an isomorphism.
+  \[\input{img/1-13}\]
+\end{proof}
+
+\begin{prop}
+  Let $\iC$ be a finitely complete category.
+  \begin{enumerate}
+  \item Every morphism with the filling property is a strong epimorphism.
+  \item Every morphism with the extremal property is an extremal epimorphism.
+  \item An epimorphism is extremal if and only if it is strong.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  (i) Let $f$ be a morphism with the filling property, i.e., any commutative square against a monomorphism has a unique filling.
+  We aim to prove that $f$ is an epimorphism.
+  To this end, let $a,b$ be a pair of parallel morphisms so that $a \circ f = b \circ f$.
+  The equalizer $E(a,b)$ is a monomorphism against which there is a commutative square depicted as follow:
+  \[\input{img/1-14}\]
+  Thus, there is a unique filling $w$, corresponding to a unique morphism $A \to A$ that constitute a cone over $a$ and $b$.
+  In this case, $w$ corresponds to the identity.
+  Thus, $a = b$.
+
+  (ii) 
 \end{proof}
 
 \section{Universal Algebra}

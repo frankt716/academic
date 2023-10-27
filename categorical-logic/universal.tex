@@ -129,7 +129,7 @@ This result generalizes to an arbitrary family of subobjects.
   Note that this arrow is necessarily unique.
 \end{defn}
 
-\begin{prop}
+\begin{prop}\label{prop:strong-epimorphism-facts}
   In a category $\iC$,
   \begin{enumerate}
   \item the composite of two strong epimorphisms is a strong epimorphism,
@@ -196,7 +196,61 @@ This result generalizes to an arbitrary family of subobjects.
   In this case, $w$ corresponds to the identity.
   Thus, $a = b$.
 
-  (ii) 
+  (ii) Let $f$ be a morphism with the extremal property, i.e., in every commutative triangle $f = i \circ j$ with $i$ a monomorphism, $i$ is an isomorphism.
+  We aim to show that $f$ is a epimorphism.
+  Let $a,b$ be a pair of parallel morphisms so that $a \circ f = b \circ f$.
+  Consider the following equalizer:
+  \[\input{img/1-15}\]
+  The universal property yields a factorization of $f$.
+  Thus, the equalizer $E(a,b)$ is an isomorphism (thus, an epimorphism).
+  From $a \circ E(a,b) = b \circ E(a,b)$, we can conclude that $a = b$.
+
+  (iii) The ``only if'' direction: Let $f$ be an extremal epimorphism.
+  Assume the commutative square: $x \circ u = v \circ f$.
+  Form the pullback of $v$ along $x$ as follows:
+  \[\input{img/1-16}\]
+  Since monomorphisms are pullback stable, $x'$ is a monomorphism.
+  This constitute a factorization of $f$.
+  Thus, $x'$ is an isomorphism.
+  We can then define $w' = v' \circ {x'}\inv$.
+  This is routine to check that this is a filling.
+
+  The ``if'' direction follows immediately from \cref{prop:strong-epimorphism-facts}.
+\end{proof}
+
+\begin{prop}
+  In a category $\iC$,
+  \begin{enumerate}
+  \item strong epimorphisms are stable under pushout,
+  \item regular epimorphisms are stable under pushout,
+  \end{enumerate}
+  whenever the pushouts exist in $\iC$.
+\end{prop}
+\begin{proof}
+  Note that epimorphisms are stable under pushout.
+  It remains to show that these epimorphisms are strong (resp., regular).
+
+  (i) Let $f$ be a strong epimorphism.
+  We aim to show that $f'$ is a strong epimorphism.
+  To this end, let $x \circ u = v \circ f'$ be a commutative diagram.
+  \[\input{img/1-17}\]
+  Then there is a filling $w$.
+  This constitutes a cocone over the pushout diagram.
+  Thus, the universal property yields a candidate filling $w'$.
+  It remains to check commutativity.
+  $w' \circ f' = u$ is immediate.
+  To show that $x \circ w' = v$, push the cocone $u,w$ out by $x$.
+  Now, it suffices to show that $v$ factors through the legs, i.e., $v \circ h' = x \circ w$ and $v \circ f' = x \circ u$.
+  The latter equation is immediate by assumption.
+  To show the former, consider $v \circ h' \circ f$.
+  \begin{align}
+    v \circ h' \circ f &= x \circ u \circ h\\
+               &= x \circ w \circ f
+  \end{align}
+  Since $f$ is an epimorphism, the former equation follows.
+
+  (ii) Now assume that $f$ is a regular epimorphism.
+  \[\input{img/1-18}\]
 \end{proof}
 
 \section{Universal Algebra}

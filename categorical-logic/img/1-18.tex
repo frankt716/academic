@@ -1,0 +1,17 @@
+% https://q.uiver.app/#q=WzAsNixbMiwwLCJcXGJ1bGxldCJdLFs0LDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbNCwyLCJcXGJ1bGxldCJdLFswLDAsIlxcYnVsbGV0Il0sWzUsMywiXFxidWxsZXQiXSxbMCwxLCJmIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsMiwiaCIsMl0sWzIsMywiZiciLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMSwzLCJoJyJdLFszLDAsIiIsMix7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs0LDAsImEiLDAseyJvZmZzZXQiOi0xfV0sWzQsMCwiYiIsMix7Im9mZnNldCI6MX1dLFsyLDUsIngiLDIseyJjdXJ2ZSI6Mn1dLFszLDUsInciLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSw1LCJ5IiwwLHsiY3VydmUiOi0yfV1d
+\begin{tikzcd}
+	\bullet && \bullet && \bullet \\
+	\\
+	&& \bullet && \bullet \\
+	&&&&& \bullet
+	\arrow["f", two heads, from=1-3, to=1-5]
+	\arrow["h"', from=1-3, to=3-3]
+	\arrow["{f'}", two heads, from=3-3, to=3-5]
+	\arrow["{h'}", from=1-5, to=3-5]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-5, to=1-3]
+	\arrow["a", shift left, from=1-1, to=1-3]
+	\arrow["b"', shift right, from=1-1, to=1-3]
+	\arrow["x"', curve={height=12pt}, from=3-3, to=4-6]
+	\arrow["w"{description}, dashed, from=3-5, to=4-6]
+	\arrow["y", curve={height=-12pt}, from=1-5, to=4-6]
+\end{tikzcd}

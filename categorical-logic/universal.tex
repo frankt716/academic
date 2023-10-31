@@ -38,10 +38,10 @@ In this notes, a ``family'' is always indexed by a set.
 \begin{defn}
   Given an object $C \in \iC$.
   The \emph{intersection} of a family of subobjects of $A$ is the infimum of that family in $\mathsf{Sub}(A)$.
-  Similarly, the \emph{intersection} of a family of subobjects of $A$ is the supremum of that family in $\mathsf{Sub}(A)$.
+  Similarly, the \emph{union} of a family of subobjects of $A$ is the supremum of that family in $\mathsf{Sub}(A)$.
 \end{defn}
 
-\begin{prop}
+\begin{prop}\label{prop:sub-set-intersections-unions}
   If $\mathsf{Sub}(A)$ is a set, then the following are equivalent:
   \begin{enumerate}
   \item the intersection of every family of subobjects of $A$ exists;
@@ -68,7 +68,8 @@ In this notes, a ``family'' is always indexed by a set.
 \end{proof}
 
 This result generalizes to an arbitrary family of subobjects.
-\begin{prop}
+
+\begin{prop}\label{prop:complete-intersection}
   If $\iC$ is complete, then the intersection of every family of subobjects is given by their limit.
 \end{prop}
 \begin{proof}
@@ -178,7 +179,7 @@ This result generalizes to an arbitrary family of subobjects.
   \[\input{img/1-13}\]
 \end{proof}
 
-\begin{prop}
+\begin{prop}\label{prop:fcc-strong-epimorphism-facts}
   Let $\iC$ be a finitely complete category.
   \begin{enumerate}
   \item Every morphism with the filling property is a strong epimorphism.
@@ -250,7 +251,98 @@ This result generalizes to an arbitrary family of subobjects.
   Since $f$ is an epimorphism, the former equation follows.
 
   (ii) Now assume that $f$ is a regular epimorphism.
+  The pushout of $f$ along $h$ is an epimorphism $f'$.
+  Particularly, $f'$ is a cocone under the parallel pair $h \circ a$ and $h \circ b$.
+  For any $x$ that forms a cocone under the same pair, the universal property of coequalizers guarantees a morphism $y$ so that $y \circ f = x \circ h$.
+  Then the universal property for pushouts gives a morphism $w$.
   \[\input{img/1-18}\]
+  This proves that $f'$ is a weak coequalizer.
+  Since $w$ uniquely corresponds to $y$, it follows that $w$ is unique.
+  Thus, $f'$ is a coequalizer.
+\end{proof}
+
+\begin{prop}
+  Left adjoints preserve strong (resp., regular) epimorphisms and right adjoints preserve strong (resp., regular) monomorphisms.
+\end{prop}
+\begin{proof}
+  Since left adjoints preserve colimits and right adjoints preserve limits, preservation of regular epimorphisms (resp., monomorphisms) is evident.
+  It suffices to prove that left adjoints preserve strong epimorphisms.
+  Preservation of strong monomorphisms follows at once by duality.
+
+  Let $F \adj G$ and $f$ be a strong epimorphism in the domain of $F$.
+  $Ff$ is an epimorphism and we wish to prove that it is strong.
+  Let $v \circ Ff = x \circ u$ be a commutative square.
+  This commutative square corresponds to the commutative square on the left.
+  Note that $Gx$ is a monomorphism because right adjoints preserve monomorphisms.
+  \begin{mathpar}
+    \input{img/1-19} \and \input{img/1-20}
+  \end{mathpar}
+  Since $f$ is a strong monomorphism, it has a filling $w$.
+  The transpose $w^{\dagger}$ is the sought after filling.
+\end{proof}
+
+\subsection{Epi-Mono Factorization}
+\label{sec:epi-mono-factorization}
+
+\begin{defn}
+  A category $\iC$ is \emph{finitely well-complete} when
+  \begin{enumerate}
+  \item $\iC$ is finitely complete;
+  \item for any object $C \in \iC$, the intersection of an arbitrary class of subobjects of $C$ exists.
+  \end{enumerate}
+\end{defn}
+
+\begin{prop}
+  \begin{enumerate}
+  \item[]
+  \item A complete and well-powered category is finitely well-complete.
+  \item A finitely complete category where every object has just finitely many subobjects is finitely well-complete.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item \cref{prop:sub-set-intersections-unions}.
+  \item \cref{prop:complete-intersection}.
+  \end{enumerate}
+\end{proof}
+
+\begin{prop}
+  In a finitely well-complete category, every morphism $f$ factorizes as $f = i \circ p$ where $i$ is a monomorphism and $p$ is a strong epimorphism.
+\end{prop}
+\begin{proof}
+  Let $f : A \to B$ be a morphism.
+  Let $i_{k} \in \mathsf{Sub}(B)$ be a family of subobjects of $B$ so that there is a morphism $p_{k}$ such that $f = i_{k} \circ p_{k}$.
+  Any choice of $p_{k}$'s constitutes a cone over $\{i_{k}\}$ so that $f = i_{k} \circ p_{k}$.
+  Consider the intersection of $\{i_{k}\}$.
+  The universal property of limits gives a morphism $p$ so that $i \circ p = f$.
+  \[\input{img/1-21}\]
+  Additionally, $p$ is extremal since its codomain is an infimum of the family $\{i_{k}\}$.
+  Thus, by \cref{prop:fcc-strong-epimorphism-facts}, $p$ is a strong epimorphism.
+\end{proof}
+
+\begin{defn}
+  A category has \emph{strong-epi-mono factorizations} if every morphism $f$ factorizes as $f = i \circ p$ with $i$ a monomorphism and $p$ a strong epimorphism.
+  The monomorphism $i$ is called the \emph{image} of $f$.
+\end{defn}
+
+\begin{prop}
+  Let $\iC$ be a category with strong-epi-mono factorizations.
+  \begin{enumerate}
+  \item The strong-epi-mono factorization of an arrow is unique up to an isomorphism.
+  \item The strong-epi-mono factorizations are natural.
+  \item If $h = i \circ p$ is a strong-epi-mono factorization and $h = k \circ r$, where $k$ is a monomorphism, there is a unique $t$ such that $r = t \circ p$, $i = k \circ t$.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item Let $f = i \circ p = i' \circ p'$.
+    Since $p$ and $p'$ are strong epimorphisms, we have the following:
+    \[\input{img/1-22}\]
+    Clearly, the two dashed morphisms are mutual inverses.
+  \item \[\input{img/1-23}\]
+  \end{enumerate}
 \end{proof}
 
 \section{Universal Algebra}

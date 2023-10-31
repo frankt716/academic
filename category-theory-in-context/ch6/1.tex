@@ -1,6 +1,6 @@
 \documentclass{amsart}
 \input{decls}
-\title{}
+\title{Kan Extensions}
 \author{Frank Tsai}
 \date{\today}
 %\thanks{}
@@ -11,7 +11,25 @@
 \section{Introduction}
 \label{sec:introduction}
 % ...
+\begin{defn}
+  Given functors $F : \iC \to \iE$ and $K : \iC \to \iD$, a \emph{left Kan extension} of $F$ along $K$ is a functor $\mathrm{Kan}_{K}F : \iD \to \iE$ together with a natural transformation $\eta : F \to \mathrm{Kan}_{K} F \circ K$ such that for any other such pair $(G : \iD \to \iE, \gamma : F \to GK)$, $\gamma$ factors uniquely through $\eta$.
+  \[\input{img/1-01}\]
+  Dually, a \emph{right Kan extension} reverses the direction of $\eta$ and $\gamma$.
+\end{defn}
 
+\begin{prop}
+  If, for fixed $K : \iC \to \iD$ and $\iE$, the left and right Kan extensions of any functor $F : \iC \to \iE$ along $K$ exist, then these define left and right adjoints to the pre-composition functor $K^{*} : \iE^{\iD} \to \iE^{\iC}$.
+  \[\input{img/1-02}\]
+\end{prop}
+\begin{proof}
+  By definition, we have the following isomorphisms for any $F : \iC \to \iE$.
+  \begin{mathpar}
+    \iE^{\iD}(\lan_{K}F, G) \iso \iE^{\iC}(F, GK) \and \iE^{\iC}(GK, F) \iso \iE^{\iD}(G, \ran_{K}F)
+  \end{mathpar}
+  These isomorphisms assemble into adjunctions $\lan_{K} \adj K^{*} \adj \ran_{K}$.
+\end{proof}
+
+Observe that the right Kan extension $\ran_{K}F$ of $F$ along $K$ is the terminal object in the category of elements $\int\iE^{\iC}(\blank \circ K, F)$ assuming $\iE^{\iC}$ is locally small.
 
 \bibliographystyle{alpha}
 \bibliography{all}

@@ -1,0 +1,11 @@
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlDIl0sWzIsMCwiXFxpRSJdLFsxLDEsIlxcaUQiXSxbMCwxLCJGIl0sWzAsMiwiSyIsMl0sWzIsMSwiXFxtYXRocm17S2FufV97S31GIiwxXSxbMiwxLCJHIiwyLHsiY3VydmUiOjN9XSxbMywyLCJcXGV0YSIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMH19XSxbNSw2LCJcXGdhbW1hIiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dXQ==
+\begin{tikzcd}
+	\iC && \iE \\
+	& \iD
+	\arrow[""{name=0, anchor=center, inner sep=0}, "F", from=1-1, to=1-3]
+	\arrow["K"', from=1-1, to=2-2]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\mathrm{Kan}_{K}F}"{description}, from=2-2, to=1-3]
+	\arrow[""{name=2, anchor=center, inner sep=0}, "G"', curve={height=18pt}, from=2-2, to=1-3]
+	\arrow["\eta"', shorten <=3pt, Rightarrow, from=0, to=2-2]
+	\arrow["\gamma"', shorten <=3pt, shorten >=3pt, Rightarrow, from=1, to=2]
+\end{tikzcd}

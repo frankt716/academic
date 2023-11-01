@@ -219,7 +219,7 @@ This result generalizes to an arbitrary family of subobjects.
   The ``if'' direction follows immediately from \cref{prop:strong-epimorphism-facts}.
 \end{proof}
 
-\begin{prop}
+\begin{prop}\label{prop:stability-pushout}
   In a category $\iC$,
   \begin{enumerate}
   \item strong epimorphisms are stable under pushout,
@@ -326,11 +326,11 @@ This result generalizes to an arbitrary family of subobjects.
   The monomorphism $i$ is called the \emph{image} of $f$.
 \end{defn}
 
-\begin{prop}
+\begin{prop}\label{prop:semf-facts}
   Let $\iC$ be a category with strong-epi-mono factorizations.
   \begin{enumerate}
   \item The strong-epi-mono factorization of an arrow is unique up to an isomorphism.
-  \item The strong-epi-mono factorizations are natural.
+  \item Given any pair of strong-epi-mono factorizations $(i,p)$ and $(i',p')$ and morphisms $u, v$ so that $v \circ i \circ p = i' \circ p' \circ u$, there is a unique morphism $h : A \to B$ between the middle points of the strong-epi-mono factorizations making the entire diagram commute.
   \item If $h = i \circ p$ is a strong-epi-mono factorization and $h = k \circ r$, where $k$ is a monomorphism, there is a unique $t$ such that $r = t \circ p$, $i = k \circ t$.
   \end{enumerate}
 \end{prop}
@@ -341,8 +341,42 @@ This result generalizes to an arbitrary family of subobjects.
     Since $p$ and $p'$ are strong epimorphisms, we have the following:
     \[\input{img/1-22}\]
     Clearly, the two dashed morphisms are mutual inverses.
-  \item \[\input{img/1-23}\]
+  \item Consider the following diagram:
+    \[\input{img/1-23}\]
+  \item Consider the following diagram:
+    \[\input{img/1-24}\]
   \end{enumerate}
+\end{proof}
+
+\begin{prop}
+  Let $\iC$ be a category with pullbacks and strong-epi-mono factorizations.
+  Given a morphism $f : A \to B$ and writing $\mathsf{Str}(A)$ and $\mathsf{Str}(B)$ for the posets of strong subobjects, the inverse image functor
+  \[
+    f\inv : \mathsf{Str}(B) \to \mathsf{Str}(A)
+  \]
+  is right adjoint to the direct strong image functor
+  \[
+    f_{*} : \mathsf{Str}(A) \to \mathsf{Str}(B)
+  \]
+  In other words, $f_{*} \adj f\inv$ is a Galois connection.
+\end{prop}
+\begin{proof}
+  Given a strong subobject of $B$, by the dual of \cref{prop:stability-pushout}, the pullback along $f$ is a strong subobject of $A$.
+  This defines $f\inv$.
+  Now, given a strong subobject $A'$ of $A$, by hypothesis, $f \circ A' = i \circ p$ has a strong-epi-mono factorization.
+  To show that $i$ is a strong subobject, consider any commutative diagram against an epimorphism.
+  \[\input{img/1-25}\]
+  Since $A'$ is strong, there is a filling $w$, whose composition with $p$ is the sought-after filling.
+
+  Now, Let $A'$ and $B'$ be strong subobjects of $A$ and $B$, respectively.
+  If $A' \subseteq f\inv(B')$, then there is a comparison morphism $A' \to f\inv(B')$.
+  $f \circ a'$ admits a strong-epi-mono factorization.
+  Note that this factorization commutes with the path $A' \to f\inv(B') \to B' \to B$.
+  Thus, \cref{prop:semf-facts} gives a comparison morphism $f_{*}(A') \to B'$.
+  \[\input{img/1-27}\]
+  Conversely, if $f_{*}(A') \subseteq B'$, then there is a morphism $f_{*}(A') \to B'$ that factors through the bottom monomorphism $f_{*}(A') \to B$.
+  The universal property of pullbacks gives a comparison morphism $A' \to f\inv(B')$.
+  \[\input{img/1-26}\]
 \end{proof}
 
 \section{Universal Algebra}

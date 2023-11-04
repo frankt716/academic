@@ -379,6 +379,42 @@ This result generalizes to an arbitrary family of subobjects.
   \[\input{img/1-26}\]
 \end{proof}
 
+\subsection{Generators}
+\label{sec:generators}
+
+\begin{defn}
+  Let $\iC$ be a category.
+  A family $(G_{i})_{i \in I}$ of objects of $\iC$ is a family of \emph{generators} when, for any pair of parallel morphisms $u, v : A \toto B$
+  \[
+    (\forall f : G_{i} \to A.\,u \circ f = v \circ f) \imp u = v
+  \]
+\end{defn}
+
+In some categories, every object is a quotient of a coproduct of generators.
+\begin{prop}
+  Let $\iC$ be a category with coproducts and $(G_{i})_{i \in I}$ a family of objects of $\iC$.
+  The following are equivalent:
+  \begin{enumerate}
+  \item $(G_{i})_{i \in I}$ is a family of generators;
+  \item for every object $C \in \iC$, the unique morphism
+    \[
+      \gamma_{C} : \coprod_{i \in I, f \in \iC(G_{i}, C)} \dom(f) \to C
+    \]
+    such that $\gamma_{C} \circ \iota_{f} = f$ is an epimorphism.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  Suppose that $(G_{i})_{i \in I}$ is a family of generators.
+  Let $u,v : C \toto D$ be a parallel pair of morphisms such that $u \circ \gamma_{C} = v \circ \gamma_{C}$.
+  We need to prove $u = v$.
+  Since $(G_{i})_{i \in I}$ is a family of generators, it suffices to prove that $\forall g : G_{i} \to C.\,u \circ g = v \circ g$.
+  \begin{align}
+    u \circ g &= u \circ \gamma_{C} \circ \iota_{g}\\
+          &= v \circ \gamma_{C} \circ \iota_{g}\\
+          &= v \circ g
+  \end{align}
+\end{proof}
+
 \section{Universal Algebra}
 \label{sec:universal-algebra}
 

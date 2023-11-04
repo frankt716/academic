@@ -400,7 +400,7 @@ In some categories, every object is a quotient of a coproduct of generators.
     \[
       \gamma_{C} : \coprod_{i \in I, f \in \iC(G_{i}, C)} \dom(f) \to C
     \]
-    such that $\gamma_{C} \circ \iota_{f} = f$ is an epimorphism.
+    is an epimorphism and $\gamma_{C} \circ \iota_{f} = f$.
   \end{enumerate}
 \end{prop}
 \begin{proof}
@@ -413,6 +413,14 @@ In some categories, every object is a quotient of a coproduct of generators.
           &= v \circ \gamma_{C} \circ \iota_{g}\\
           &= v \circ g
   \end{align}
+
+  Conversely, suppose that $\gamma_{C}$ is an epimorphism for each $C \in \iC$.
+  Let $u,v : C \toto D$ be a parallel pair of morphisms.
+  Suppose that $\forall f : G_{i} \to C.\, u \circ f = v \circ f$.
+  We need to show that $u = v$.
+  By hypothesis, $u \circ \gamma_{C} \circ \iota_{C} = v \circ \gamma_{C} \circ \iota_{C}$.
+  Thus, $u \circ \gamma_{C} = v \circ \gamma_{C}$ by the universal property of coproducts.
+  Since $\gamma_{C}$ is an epimorphism, $u = v$.
 \end{proof}
 
 \section{Universal Algebra}

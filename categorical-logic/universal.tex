@@ -423,6 +423,19 @@ In some categories, every object is a quotient of a coproduct of generators.
   Since $\gamma_{C}$ is an epimorphism, $u = v$.
 \end{proof}
 
+Observe that when a category $\iC$ has coproducts and a family of regular family of generators $(G_{i})_{i \in I}$, then every object $\iC$ can be presented as a coequalizer of a pair of parallel morphisms between coproducts of generators.
+Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $u \circ \gamma_{P}$ and $v \circ \gamma_{P}$.
+\[\input{img/1-28}\]
+
+Here is another way to define generators.
+\begin{defn}
+  A family of objects $(G_{i})_{i \in I}$ is a family of generators if the functors
+  \[
+    \iC(G_{i}, \blank) : \iC \to \mathsf{Set}
+  \]
+  are collectively faithful.
+\end{defn}
+
 \section{Universal Algebra}
 \label{sec:universal-algebra}
 

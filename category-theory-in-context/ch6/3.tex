@@ -1,0 +1,52 @@
+\documentclass{amsart}
+\input{decls}
+\title{Pointwise Kan extension}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\label{sec:introduction}
+
+\begin{defn}
+  A functor $L : \iE \to \iF$ \emph{preserves} a left Kan extension if the whiskered composition depicted as follows is a left Kan extension of $LF$ along $K$.
+  \[\input{img/3-01}\]
+\end{defn}
+
+\begin{lem}
+  Left adjoints preserve left Kan extensions.
+\end{lem}
+\begin{proof}
+  Let $(\lan_{K}F, \eta)$ be a Kan extension.
+  We have the following isomorphisms:
+  \begin{align}
+    \iF^{\iD}(L \circ \lan_{K}F, H) &\iso \iE^{\iD}(\lan_{K}F, R \circ H)\\
+                                &\iso \iE^{\iC}(F, R \circ H \circ K)\\
+                                &\iso \iF^{\iC}(L \circ F, H \circ K)\\
+                                &\iso \iF^{\iD}(\lan_{K} LF, H)
+  \end{align}
+  These isomorphisms take the identity natural transformations $\id_{\lan_{K}LF}$ to the whiskered composition $L\eta : LF \to \lan_{K}LF \circ K$.
+  Thus, $(L\lan_{K}F, L\eta)$ is a left Kan extension.
+\end{proof}
+
+\begin{defn}
+  When $\iE$ is locally small, a right Kan extension is a \emph{pointwise right Kan extension} if it is preserved by all representable functors $\iE(e,\blank)$.
+  Dually, a left Kan extension is a \emph{pointwise left Kan extension} if its opposite is a pointwise right Kan extension, i.e.,
+  \[\input{img/3-02}\]
+\end{defn}
+
+\begin{thm}
+  If $\iD$ and $\iE$ are locally small, a right Kan extension of $F : \iC \to \iE$ along $K : \iC \to \iD$ is pointwise if and only if it is computed by the limit formula.
+  Dually, the left Kan extension of $F : \iC \to \iE$ along $K : \iC \to \iD$ is pointwise if and only if it is computed by the colimit formula.
+\end{thm}
+\begin{proof}
+  
+\end{proof}
+
+\bibliographystyle{alpha}
+\bibliography{all}
+
+\end{document}

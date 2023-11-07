@@ -74,8 +74,39 @@ These generalize to any category in which certain limits or colimits exist.
   \[
     (\alpha \circ \eta)_{c} = \alpha_{Kc} \circ \lambda^{Kc}_{\id_{Kc}} = \gamma_{c}
   \]
-  It remains to show that $\alpha$ is natural.
 \end{proof}
+
+\begin{cor}
+  If $K : \iC \to \iD$ is a functor so that $\iC$ is small and $\iD$ is locally small then
+  \begin{enumerate}
+  \item If $\iE$ is cocomplete, then left Kan extensions $\lan_{K} \adj K^{*}$ exist and are given by the colimit formula.
+  \item If $\iE$ is complete, the right Kan extensions $K^{*} \adj \ran_{K}$ exist and are given by the limit formula.
+  \end{enumerate}
+\end{cor}
+\begin{proof}
+  Smallness implies that the respective comma categories $K \dn d$ and $d \dn K$ are small.
+  Cocompleteness (resp., completeness) of $\iE$ then implies that the necessary colimits (resp., limits) exist.
+\end{proof}
+
+\begin{eg}
+  Directed graphs are functors from the category with two objects $E, V$ and a parallel pair of morphisms $s, t : E \toto V$ to $\mathsf{Set}$.
+  A natural transformations between two such functors is a graph homomorphism.
+  The forgetful functor $\mathsf{DirGraph} \to \mathsf{Set}$ that maps a graph to its set of vertices is given by restricting along the functor from the terminal category that picks out the object $V$.
+  The forgetful functor admits both left and right adjoints (the free and cofree graphs, respectively).
+  These adjoints can be computed as Kan extensions:
+  \[\input{img/2-06}\]
+  The action on $V$ is trivial since
+  \[\mathrm{res} \dn V \iso 1 \iso V \dn \mathrm{res}\]
+  Thus, $\lan G(V) = G = \ran G(V)$.
+  For edges, $\mathrm{res} \dn E \iso 0$ since there is no morphism $f : V \to E$ and $E \dn \mathrm{res} \iso 2$ since there are exactly two morphisms $s, t : E \toto V$.
+  The colimit under an empty diagram is the initial object.
+  Thus, $\lan G(E) = \varnothing$.
+  This means that $\lan G$ is the discrete graph with vertices $G$.
+  
+  The colimit under a diagram indexed by the discrete category $2$ is a product.
+  Thus, $\ran G(E) = G \times G$.
+  This means that $\ran G$ is the complete graph with vertices $G$.
+\end{eg}
 
 \bibliographystyle{alpha}
 \bibliography{all}

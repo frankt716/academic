@@ -427,14 +427,27 @@ Observe that when a category $\iC$ has coproducts and a regular family of genera
 Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $u \circ \gamma_{P}$ and $v \circ \gamma_{P}$.
 \[\input{img/1-28}\]
 
-Here is another way to define generators.
+\subsection{Projectives}
+\label{sec:projectives}
+
 \begin{defn}
-  A family of objects $(G_{i})_{i \in I}$ is a family of generators if the functors
-  \[
-    \iC(G_{i}, \blank) : \iC \to \mathsf{Set}
-  \]
-  are collectively faithful.
+  An object $P$ of a category $\iC$ is \emph{projective} when, given an epimorphism $p : A \to B$ and a morphism $f : P \to B$, there is a factorization $g : P \to A$ such that $p \circ g = f$.
+  If $\iC$ is locally small, then an equivalent definition is that $P$ is projective when the representable functor $\iC(P,\blank)$ preserves epimorphisms.
 \end{defn}
+
+\begin{defn}
+  A category $\iC$ \emph{has enough projectives} when every object is a strong quotient of a projective object.
+\end{defn}
+
+\begin{prop}
+  A coproduct of projective objects is a projective object.
+\end{prop}
+\begin{proof}
+  Given any epimorphism $p$ and morphism $f$, the compositions of $f$ with those injections yield morphisms to the codomain of $p$.
+  Projectivity then implies that there is a cocone with nadir $\dom(p)$.
+  The universal property of coproducts then yields the desired map.
+  \[\input{img/1-29}\]
+\end{proof}
 
 \section{Universal Algebra}
 \label{sec:universal-algebra}

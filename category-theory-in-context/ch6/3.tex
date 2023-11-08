@@ -43,7 +43,12 @@
   Dually, the left Kan extension of $F : \iC \to \iE$ along $K : \iC \to \iD$ is pointwise if and only if it is computed by the colimit formula.
 \end{thm}
 \begin{proof}
-  
+  For any $e \in \iE$, $\iE(e,\ran_{K}F\blank)$ is the right Kan extension of $\iE(e,F\blank)$.
+  \begin{align}
+    \iE(e, \ran_{K}F(d)) &\iso \mathsf{Set}^{\iD}(\iD(d, \blank), \iE(e, \ran_{K}F\blank))\\
+                         &\iso \mathsf{Set}^{\iC}(\iD(d, K\blank), \iE(e, F\blank))\\
+                         &\iso \mathsf{Cone}(e,F\Pi_{d})
+  \end{align}
 \end{proof}
 
 \bibliographystyle{alpha}

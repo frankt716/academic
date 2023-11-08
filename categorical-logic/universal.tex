@@ -391,7 +391,7 @@ This result generalizes to an arbitrary family of subobjects.
 \end{defn}
 
 In some categories, every object is a quotient of a coproduct of generators.
-\begin{prop}
+\begin{prop}\label{prop:coproduct-generators-epimorphism}
   Let $\iC$ be a category with coproducts and $(G_{i})_{i \in I}$ a family of objects of $\iC$.
   The following are equivalent:
   \begin{enumerate}
@@ -435,18 +435,38 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   If $\iC$ is locally small, then an equivalent definition is that $P$ is projective when the representable functor $\iC(P,\blank)$ preserves epimorphisms.
 \end{defn}
 
-\begin{defn}
-  A category $\iC$ \emph{has enough projectives} when every object is a strong quotient of a projective object.
-\end{defn}
-
-\begin{prop}
+\begin{prop}\label{prop:coproduct-of-projectives-projective}
   A coproduct of projective objects is a projective object.
+  The converse holds when the category has a zero object.
 \end{prop}
 \begin{proof}
   Given any epimorphism $p$ and morphism $f$, the compositions of $f$ with those injections yield morphisms to the codomain of $p$.
   Projectivity then implies that there is a cocone with nadir $\dom(p)$.
   The universal property of coproducts then yields the desired map.
   \[\input{img/1-29}\]
+\end{proof}
+
+\begin{prop}
+  A retract of a projective is a projective.
+\end{prop}
+\begin{proof}
+  Given any morphism $f$, the composition with a section $s$ of $r$ yields a morphism $g$.
+  Since $P$ is projective, there is a morphism $t$.
+  The composition of this morphism with the section $s$ yields the required morphism $w$.
+  \[\input{img/1-30}\]
+\end{proof}
+
+\begin{defn}
+  A category $\iC$ \emph{has enough projectives} when for every object $A$, there is a projective $P$ and an epimorphism $P \epi A$.
+\end{defn}
+
+\begin{prop}
+  Let $\iC$ be a category with coproducts.
+  If $\iC$ has a set of projective generators, then $\iC$ has enough projectives.
+\end{prop}
+\begin{proof}
+  By \cref{prop:coproduct-generators-epimorphism}, the canonical morphism $\coprod G_{i} \epi C$ is an epimorphism.
+  By \cref{prop:coproduct-of-projectives-projective}, $\coprod G_{i}$ is projective.
 \end{proof}
 
 \section{Universal Algebra}

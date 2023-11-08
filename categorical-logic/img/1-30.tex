@@ -1,0 +1,13 @@
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJQIl0sWzAsMiwiUiJdLFsyLDIsIlxcYnVsbGV0Il0sWzIsMCwiXFxidWxsZXQiXSxbMCwxLCJyIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzMsMiwiIiwwLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzAsMiwiZyIsMCx7ImxhYmVsX3Bvc2l0aW9uIjo4MH1dLFsxLDIsImYiLDJdLFsxLDAsInMiLDAseyJjdXJ2ZSI6LTIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwzLCJ0IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMywidyIsMCx7ImxhYmVsX3Bvc2l0aW9uIjo3MCwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\begin{tikzcd}
+	P && \bullet \\
+	\\
+	R && \bullet
+	\arrow["r", two heads, from=1-1, to=3-1]
+	\arrow[two heads, from=1-3, to=3-3]
+	\arrow["g"{pos=0.8}, from=1-1, to=3-3]
+	\arrow["f"', from=3-1, to=3-3]
+	\arrow["s", curve={height=-12pt}, tail, from=3-1, to=1-1]
+	\arrow["t", dashed, from=1-1, to=1-3]
+	\arrow["w"{pos=0.7}, dashed, from=3-1, to=1-3]
+\end{tikzcd}

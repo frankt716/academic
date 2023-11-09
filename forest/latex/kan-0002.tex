@@ -1,0 +1,22 @@
+\documentclass[a4paper]{article}
+\usepackage[final]{microtype}
+\usepackage{fontspec}
+\setmonofont{inconsolata}
+\usepackage{amsmath,amsthm,amssymb,stmaryrd,mathtools,biblatex,forester}
+\addbibresource{forest.bib}
+
+
+\date{November 9, 2023}
+
+
+\begin{document}
+\maketitle
+\par{  Given functors \(F :  \mathsf{C}   \to   \mathsf{E}\) and \(K :  \mathsf{C}   \to   \mathsf{D}\) with \(\mathsf{D}\) and \(\mathsf{E}\) locally small and an object \(d  \in   \mathsf{D}\), there is a natural isomorphism
+  \[\mathsf{Cone} ( e , F \Pi _{d} )   \cong   \mathsf{Set} ^{ \mathsf{C} }( \mathsf{D} ( d , K \mathord{\hspace{1pt} \text{--} \hspace{1pt}} ) , \mathsf{E} ( e , F \mathord{\hspace{1pt} \text{--} \hspace{1pt}} ) )\]}  \begin{proof}[{\textbf{Proof}.}]
+  \par{    The comma category \({ d } \downarrow{K}\) consists of objects \((c  \in   \mathsf{C} , f : d  \to  Kc)\).
+  }    \iftex{\[\includegraphics{resources/828e9472a845b3be7e5ca5bdb2b4f6f5-print.pdf}\]
+}{    \xml{center}{\[\includegraphics{resources/828e9472a845b3be7e5ca5bdb2b4f6f5-print.pdf}\]
+}  }\qedhere{}\end{proof}
+
+\printbibliography
+\end{document}

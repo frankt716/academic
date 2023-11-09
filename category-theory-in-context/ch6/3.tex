@@ -38,6 +38,21 @@
   \[\input{img/3-02}\]
 \end{defn}
 
+\begin{lem}
+  Given functors $F : \iC \to \iE$ and $K : \iC \to \iD$ with $\iD$ and $\iE$ locally small and an object $d \in \iD$, there is a natural isomorphism
+  \[
+    \mathsf{Cone}(e, F\Pi_{d}) \iso \mathsf{Set}^{\iC}(\iD(d,K\blank),\iE(e,F\blank))
+  \]
+\end{lem}
+\begin{proof}
+  The comma category $d \dn K$ consists of objects $(c \in \iC, f : d \to Kc)$ and morphisms $h : c \to c'$ such that $Kh \circ f = f'$.
+  A cone over $F\Pi_{d}$ with submit $e$ is a natural transformation $e \to F\Pi_{d}$:
+  \[\input{img/3-03}\]
+  For each $c$, we can define a function $\lambda_{c} : \iD(d,Kc) \to \iE(e,Fc)$ by $f \mapsto \lambda_{(c,f)}$ making the following diagram commute:
+  \[\input{img/3-04}\]
+  This is precisely the data of a natural transformation $\iD(d,K\blank) \to \iE(e,F\blank)$.
+\end{proof}
+
 \begin{thm}
   If $\iD$ and $\iE$ are locally small, a right Kan extension of $F : \iC \to \iE$ along $K : \iC \to \iD$ is pointwise if and only if it is computed by the limit formula.
   Dually, the left Kan extension of $F : \iC \to \iE$ along $K : \iC \to \iD$ is pointwise if and only if it is computed by the colimit formula.
@@ -49,6 +64,7 @@
                          &\iso \mathsf{Set}^{\iC}(\iD(d, K\blank), \iE(e, F\blank))\\
                          &\iso \mathsf{Cone}(e,F\Pi_{d})
   \end{align}
+  Thus, $\ran_{K}F(d) \iso \lim F\Pi_{d}$.
 \end{proof}
 
 \bibliographystyle{alpha}

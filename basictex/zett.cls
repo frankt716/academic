@@ -1,66 +1,90 @@
-\usepackage{amssymb,amsmath,stmaryrd,mathrsfs}
-\usepackage{quiver}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{zett}[Zettelkasten class]
 
-% This is a generally good thing to do (https://tex.stackexchange.com/q/664/535), but make sure that the package cm-super is installed (https://tex.stackexchange.com/a/1293/535) or it will make bad-looking PDFs with bitmap (type 3) fonts.
-\usepackage[T1]{fontenc}
+\LoadClass[article,9pt,oneside]{memoir}
 
-
-\usepackage{amsthm}
-% \usepackage[all,2cell]{xy}
-% \UseAllTwocells
-\usepackage{tikz,tikz-cd}
-\usetikzlibrary{arrows}
-
-\usepackage{enumitem}
-\usepackage{xcolor}
+\RequirePackage{amssymb,amsmath,stmaryrd,mathrsfs,amsthm}
+\RequirePackage{quiver}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{tikz,tikz-cd}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
 \definecolor{darkgreen}{rgb}{0,0.45,0} 
-\usepackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
-\renewcommand*{\backref}[1]{}
-\renewcommand*{\backrefalt}[4]{({%
-    \ifcase #1 Not cited.%
-    \or Cited on p.~#2%
-    \else Cited on pp.~#2%
-    \fi%
-  })}
-
-\usepackage{mathtools}          % for all sorts of things
-%\usepackage{graphics}
-\usepackage{ifmtarg}            % used in \jd
-%\usepackage{microtype}
-%\usepackage{color,epsfig}
-%\usepackage{fullpage}
-%\usepackage{eucal}
-%\usepackage{wasysym}
-%\usepackage{txfonts}            % for \invamp, or for the nice fonts
-\usepackage{braket}             % for \Set, etc.
+\RequirePackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
+\RequirePackage{mathtools}
+\RequirePackage{ifmtarg}
+\RequirePackage{braket}
 \let\setof\Set
-\usepackage{url}                % for citations to web sites
-\usepackage{xspace}             % put spaces after a \command in text
-%\usepackage{cite}               % compress and sort grouped citations (only use with numbered citations)
-\ifcref\usepackage{cleveref,aliascnt}\fi
-\usepackage[status=draft,author=]{fixme}
-\fxusetheme{color}
-\usepackage{mathpartir}
+\RequirePackage{url}
+\RequirePackage{xspace}
+\RequirePackage{cleveref,aliascnt}
+\RequirePackage{mathpartir}
+\RequirePackage{xparse}
+\RequirePackage[activate={true,nocompatibility}]{microtype}
+\RequirePackage[cal=boondoxo]{mathalfa}
+\RequirePackage{libertine}
+\RequirePackage[libertine]{newtxmath}
+\RequirePackage{zi4}
+\RequirePackage{cleveref}
 
-%% If you want to use biblatex, e.g. if a journal requires (Author name YEAR) citations.
-%% You also need to remove the pagebackref option and \backref commands above.
-% \usepackage[style=authoryear,
-%  backend=biber, bibencoding=utf8,
-%  backref=true,
-%  maxnames=4,
-%  maxbibnames=99,
-%  uniquename=false,
-%  firstinits=true
-% ]{biblatex}
-% \addbibresource{all.bib}
+\counterwithout{section}{chapter}
+\setsecnumdepth{subsection}
+\setsecnumformat{\csname the#1\endcsname.\ \ }
 
-% \let\cite\parencite
-% \DeclareNameAlias{sortname}{last-first}
+\setsecheadstyle{\bfseries}
+\setsubsecheadstyle{\bfseries}
+\setsubsubsecheadstyle{\bfseries}
+\setparaheadstyle{\bfseries}
+\setsubparaheadstyle{\bfseries}
 
+
+\pretitle{\begin{center}\LARGE\bfseries\MakeTextUppercase}
+\posttitle{\par\end{center}\vskip 0.5em}
+
+\linespread{1.2}
+
+
+% theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+
+% Labeled paragraph command.
+\newcommand*\thesubbbsection{%
+  \ifnum\c@subsection=0
+    \thesection%
+  \else
+    \thesubsection%
+  \fi
+}
+
+\ExplSyntaxOn
+\newcounter{para}[subsubsection]
+\renewcommand\thepara{{\bfseries(\thesubbbsection\textasteriskcentered{\arabic{para})}}}
+
+\NewDocumentCommand\para{}{
+  \par\noindent
+  \refstepcounter{para}
+  \thepara
+  \space\space
+}
+\ExplSyntaxOff
+
+
+\tightlists
+
+
+% magic
 \makeatletter
 \let\ea\expandafter
-
-
 
 %% Defining commands that are always in math mode.
 \def\mdef#1#2{\ea\ea\ea\gdef\ea\ea\noexpand#1\ea{\ea\ensuremath\ea{#2}\xspace}}
@@ -521,300 +545,6 @@
 \newcommand{\urpullback}[1][ur]{\ar[#1,phantom,near start,"\urcorner"]}
 \newcommand{\ulpullback}[1][ul]{\ar[#1,phantom,near start,"\ulcorner"]}
 
-
-%%%% THEOREM-TYPE ENVIRONMENTS, hacked to
-%%% (a) number all with the same numbers, and
-%%% (b) have the right names.
-%% The following code should work in TAC or out of it, and with
-%% hyperref or without it.  In all cases, we use \label to label
-%% things and \autoref to refer to them (ordinary \ref declines to
-%% include names).  The non-hyperref label and reference hack is from
-%% Mike Mandell, I believe.
-\newif\ifhyperref
-\@ifpackageloaded{hyperref}{\hyperreftrue}{\hyperreffalse}
-\iftac
-% TODO: In TAC style, \currthmtype isn't getting set by the theorem environments.  They need to be a \your@thing *followed* by a \gdef\currthmtype{#2}.
-
-  %% In the TAC style, all theorems are actually subsections.  So
-  %% the hyperref \autoref doesn't work and we have to use our own code
-  %% in any case.  We also have to hook into the \state macros instead
-  %% of \@thm since those are what know about the current theorem type.
-  \let\your@state\state
-  \def\state#1{\my@state#1}
-  \def\my@state#1.{\gdef\currthmtype{#1}\your@state{#1.}}
-  \let\your@staterm\staterm
-  \def\staterm#1{\my@staterm#1}
-  \def\my@staterm#1.{\gdef\currthmtype{#1}\your@staterm{#1.}}
-  \let\@defthm\newtheorem
-  \def\switchtotheoremrm{\let\@defthm\newtheoremrm}
-  \def\defthm#1#2#3{\@defthm{#1}{#2}} % Ignore the third argument (for cleveref only)
-  % The following allows us to use \cref for sections, subsections,
-  % and figures too, as if it were cleveref.  (But not for multiple
-  % references at once.)
-  \let\your@section\section
-  \def\section{\gdef\currthmtype{section}\your@section}
-  \let\your@subsection\subsection
-  \def\subsection{\gdef\currthmtype{subsection}\your@subsection}
-  \let\your@figure\figure
-  \def\figure{\gdef\currthmtype{Figure}\your@figure}
-  % Start out \currthmtype as empty
-  \def\currthmtype{}
-  % In a bit, we're going to redefine \label so that \label{athm} will
-  % also make a label "label@name@athm" which is the current value of
-  % \currthmtype.  Now \autoref{athm} just adds a reference to this in
-  % front of the reference.
-  \ifhyperref
-    \def\autoref#1{\ref*{label@name@#1}~\ref{#1}}
-  \else
-    \def\autoref#1{\ref{label@name@#1}~\ref{#1}}
-  \fi
-  % This has to go AFTER the \begin{document} because apparently
-  % hyperref resets the definition of \label at that point.
-  \AtBeginDocument{%
-    % Save the old definition of \label
-    \let\old@label\label%
-    % Redefine \label so that \label{athm} will also make a label
-    % "label@name@athm" which is the current value of \currthmtype.
-    \def\label#1{%
-      {\let\your@currentlabel\@currentlabel%
-        \edef\@currentlabel{\currthmtype}%
-        \old@label{label@name@#1}}%
-      \old@label{#1}}
-  }
-  \let\cref\autoref
-\else\ifcref
-  % Cleveref does most of it for us.
-  \def\defthm#1#2#3{%
-    %% Ensure all theorem types are numbered with the same counter
-    \newaliascnt{#1}{thm}
-    \newtheorem{#1}[#1]{#2}
-    \aliascntresetthe{#1}
-    %% This command tells cleveref's \cref what to call things
-    \crefname{#1}{#2}{#3}% following brace must be on separate line to support poorman cleveref sed file
-  }
-  % \let\autoref\cref  % May want to use \autoref for xr-ed links
-\else
-  % In non-TAC styles without cleveref, theorems have their own counters and so the
-  % hyperref \autoref works, if hyperref is loaded.
-  \ifhyperref
-    %% If we have hyperref, then we have to make sure all the theorem
-    %% types appear to use different counters so that hyperref can tell
-    %% them apart.  However, we want them actually to use the same
-    %% counter, so we don't have both Theorem 9.1 and Definition 9.1.
-    \def\defthm#1#2#3{% Ignore the third argument (for cleveref only)
-      %% All types of theorems are number inside sections
-      \newtheorem{#1}{#2}[section]%
-      %% This command tells hyperref's \autoref what to call things
-      \expandafter\def\csname #1autorefname\endcsname{#2}%
-      %% This makes all the theorem counters actually the same counter
-      \expandafter\let\csname c@#1\endcsname\c@thm}
-  \else
-    %% Without hyperref, we have to roll our own.  This code is due to
-    %% Mike Mandell.  First, all theorems can now "officially" use the
-    %% same counter.
-    \def\defthm#1#2#3{\newtheorem{#1}[thm]{#2}} % Ignore the third argument (for cleveref only)
-    %% Save the label- and theorem-making commands
-    \ifx\SK@label\undefined\let\SK@label\label\fi
-    \let\old@label\label
-    \let\your@thm\@thm
-    %% Save the current type of theorem whenever we start one
-    \def\@thm#1#2#3{\gdef\currthmtype{#3}\your@thm{#1}{#2}{#3}}
-    %% Start that out as empty
-    \def\currthmtype{}
-    %% Redefine \label so that \label{athm} defines, in addition to a
-    %% label "athm" pointing to "9.1," a label "athm@" pointing to
-    %% "Theorem 9.1."
-    \def\label#1{{\let\your@currentlabel\@currentlabel\def\@currentlabel%
-        {\currthmtype~\your@currentlabel}%
-        \SK@label{#1@}}\old@label{#1}}
-    %% Now \autoref just looks at "athm@" instead of "athm."
-    \def\autoref#1{\ref{#1@}}
-  \fi
-  \let\cref\autoref
-\fi\fi
-
-%% Now the code that works in all cases.  Note that TAC allows the
-%% optional arguments, but ignores them.  It also defines environments
-%% called "theorem," etc.
-\newtheorem{thm}{Theorem}[section]
-\ifcref
-  \crefname{thm}{Theorem}{Theorems}
-\else
-  \newcommand{\thmautorefname}{Theorem}
-\fi
-\defthm{cor}{Corollary}{Corollaries}
-\defthm{prop}{Proposition}{Propositions}
-\defthm{lem}{Lemma}{Lemmas}
-\defthm{sch}{Scholium}{Scholia}
-\defthm{assume}{Assumption}{Assumptions}
-\defthm{claim}{Claim}{Claims}
-\defthm{conj}{Conjecture}{Conjectures}
-\defthm{hyp}{Hypothesis}{Hypotheses}
-\iftac\switchtotheoremrm\else\theoremstyle{definition}\fi
-\defthm{defn}{Definition}{Definitions}
-\defthm{notn}{Notation}{Notations}
-\iftac\switchtotheoremrm\else\theoremstyle{remark}\fi
-\defthm{rmk}{Remark}{Remarks}
-\defthm{eg}{Example}{Examples}
-\defthm{egs}{Examples}{Examples}
-\defthm{ex}{Exercise}{Exercises}
-\defthm{ceg}{Counterexample}{Counterexamples}
-
-\ifcref
-  % Display format for sections
-  \crefformat{section}{\S#2#1#3}
-  \Crefformat{section}{Section~#2#1#3}
-  \crefrangeformat{section}{\S\S#3#1#4--#5#2#6}
-  \Crefrangeformat{section}{Sections~#3#1#4--#5#2#6}
-  \crefmultiformat{section}{\S\S#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \Crefmultiformat{section}{Sections~#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \crefrangemultiformat{section}{\S\S#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  \Crefrangemultiformat{section}{Sections~#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  % Display format for appendices
-  \crefformat{appendix}{Appendix~#2#1#3}
-  \Crefformat{appendix}{Appendix~#2#1#3}
-  \crefrangeformat{appendix}{Appendices~#3#1#4--#5#2#6}
-  \Crefrangeformat{appendix}{Appendices~#3#1#4--#5#2#6}
-  \crefmultiformat{appendix}{Appendices~#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \Crefmultiformat{appendix}{Appendices~#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \crefrangemultiformat{appendix}{Appendices~#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  \Crefrangemultiformat{appendix}{Appendices~#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  \crefformat{subappendix}{\S#2#1#3}
-  \Crefformat{subappendix}{Section~#2#1#3}
-  \crefrangeformat{subappendix}{\S\S#3#1#4--#5#2#6}
-  \Crefrangeformat{subappendix}{Sections~#3#1#4--#5#2#6}
-  \crefmultiformat{subappendix}{\S\S#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \Crefmultiformat{subappendix}{Sections~#2#1#3}{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-  \crefrangemultiformat{subappendix}{\S\S#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  \Crefrangemultiformat{subappendix}{Sections~#3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}{, #3#1#4--#5#2#6}{ and~#3#1#4--#5#2#6}
-  % Display format for parts
-  \crefname{part}{Part}{Parts}
-  % Display format for figures
-  \crefname{figure}{Figure}{Figures}
-\fi
-
-% Knowledge package
-\usepackage[quotation,protect quotation=tikzcd,notion]{knowledge}
-% Hack the knowledge "notion" command to introduce things in boldface
-\ifKnowledgePaperMode
-  \knowledgestyle*{intro notion}{boldface}
-\fi
-\ifKnowledgeCompositionMode
-  \ifXcolor
-    \knowledgestyle*{intro notion}{boldface,color={blue}}
-  \else
-    \knowledgestyle*{intro notion}{boldface, underline}
-  \fi
-\fi
-\ifKnowledgeElectronicMode
-  \ifXcolor
-    \knowledgestyle*{intro notion}{boldface,color={blue}}
-  \else
-    \knowledgestyle*{intro notion}{boldface, underline}
- \fi
-\fi
-
-% \qedhere for TAC
-\iftac
-  \let\qed\endproof
-  \let\your@endproof\endproof
-  \def\my@endproof{\your@endproof}
-  \def\endproof{\my@endproof\gdef\my@endproof{\your@endproof}}
-  \def\qedhere{\tag*{\endproofbox}\gdef\my@endproof{\relax}}
-\fi
-
-% Make the optional arguments to TAC's \proof behave like everyone else's
-\iftac
-  \def\pr@@f[#1]{\subsubsection*{\sc #1.}}
-\fi
-
-% How to get QED symbols inside equations at the end of the statements
-% of theorems.  AMS LaTeX knows how to do this inside equations at the
-% end of *proofs* with \qedhere, and at the end of the statement of a
-% theorem with \qed (meaning no proof will be given), but it can't
-% seem to combine the two.  Use this instead.
-\def\thmqedhere{\expandafter\csname\csname @currenvir\endcsname @qed\endcsname}
-
-% Number numbered lists as (i), (ii), ...
-\ifbeamer\else
-  \renewcommand{\theenumi}{(\roman{enumi})}
-  \renewcommand{\labelenumi}{\theenumi}
-\fi
-
-% Left margins for enumitem
-\ifbeamer\else
-  \setitemize[1]{leftmargin=2em}
-  \setenumerate[1]{leftmargin=*}
-\fi
-
-% Also number formulas with the theorem counter
-\iftac
-  \let\c@equation\c@subsection
-\else
-  \let\c@equation\c@thm
-\fi
-\numberwithin{equation}{section}
-
-% Only show numbers for equations that are actually referenced (or
-% whose tags are specified manually) - uses mathtools.  All equations
-% need to be referenced with \eqref, not \ref, for this to work!
-\ifcref\else
-  \@ifpackageloaded{mathtools}{\mathtoolsset{showonlyrefs,showmanualtags}}{}
-\fi
-
-% GREEK LETTERS, ETC.
-\alwaysmath{alpha}
-\alwaysmath{beta}
-\alwaysmath{gamma}
-\alwaysmath{Gamma}
-\alwaysmath{delta}
-\alwaysmath{Delta}
-\alwaysmath{epsilon}
-\mdef\ep{\varepsilon}
-\alwaysmath{zeta}
-\alwaysmath{eta}
-\alwaysmath{theta}
-\alwaysmath{Theta}
-\alwaysmath{iota}
-\alwaysmath{kappa}
-\alwaysmath{lambda}
-\alwaysmath{Lambda}
-\alwaysmath{mu}
-\alwaysmath{nu}
-\alwaysmath{xi}
-\alwaysmath{pi}
-\alwaysmath{rho}
-\alwaysmath{sigma}
-\alwaysmath{Sigma}
-\alwaysmath{tau}
-\alwaysmath{upsilon}
-\alwaysmath{Upsilon}
-\alwaysmath{phi}
-\alwaysmath{Pi}
-\alwaysmath{Phi}
-\mdef\ph{\varphi}
-\alwaysmath{chi}
-\alwaysmath{psi}
-\alwaysmath{Psi}
-\alwaysmath{omega}
-\alwaysmath{Omega}
-\let\al\alpha
-\let\be\beta
-\let\gm\gamma
-\let\Gm\Gamma
-\let\de\delta
-\let\De\Delta
-\let\si\sigma
-\let\Si\Sigma
-\let\om\omega
-\let\ka\kappa
-\let\la\lambda
-\let\La\Lambda
-\let\ze\zeta
-\let\th\theta
-\let\Th\Theta
-\let\vth\vartheta
-\let\Om\Omega
 
 %% Include or exclude solutions
 % This code is basically copied from version.sty, except that when the

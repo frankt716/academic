@@ -4,25 +4,49 @@
 % This is a generally good thing to do (https://tex.stackexchange.com/q/664/535), but make sure that the package cm-super is installed (https://tex.stackexchange.com/a/1293/535) or it will make bad-looking PDFs with bitmap (type 3) fonts.
 \usepackage[T1]{fontenc}
 
+%% Set this to true before loading if we're using the TAC style file.
+%% Note that eventually, TAC requires everything to be in one source file.
+\def\definetac{\newif\iftac}    % Can't define a \newif inside another \if!
+\ifx\tactrue\undefined
+  \definetac
+  %% Guess whether we're using TAC by whether \state is defined.
+  \ifx\state\undefined\tacfalse\else\tactrue\fi
+\fi
 
-\usepackage{amsthm}
-% \usepackage[all,2cell]{xy}
-% \UseAllTwocells
+% Similarly detect beamer
+\def\definebeamer{\newif\ifbeamer}
+\ifx\beamertrue\undefined
+  \definebeamer
+  %% Guess whether we're using Beamer by whether \uncover is defined.
+  \ifx\uncover\undefined\beamerfalse\else\beamertrue\fi
+\fi
+
+% And cleveref
+\def\definecref{\newif\ifcref}
+\ifx\creftrue\undefined
+  \definecref
+  % Default to false
+  \creftrue
+\fi
+
+\iftac\else\usepackage{amsthm}\fi
+%\usepackage[all,2cell]{xy}
+%\UseAllTwocells
 \usepackage{tikz,tikz-cd}
 \usetikzlibrary{arrows}
-
-\usepackage{enumitem}
-\usepackage{xcolor}
-\definecolor{darkgreen}{rgb}{0,0.45,0} 
-\usepackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
-\renewcommand*{\backref}[1]{}
-\renewcommand*{\backrefalt}[4]{({%
-    \ifcase #1 Not cited.%
-    \or Cited on p.~#2%
-    \else Cited on pp.~#2%
-    \fi%
-  })}
-
+\ifbeamer\else
+  \usepackage{enumitem}
+  \usepackage{xcolor}
+  \definecolor{darkgreen}{rgb}{0,0.45,0} 
+  \iftac\else\usepackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
+  \renewcommand*{\backref}[1]{}
+  \renewcommand*{\backrefalt}[4]{({%
+      \ifcase #1 Not cited.%
+            \or Cited on p.~#2%
+            \else Cited on pp.~#2%
+      \fi%
+    })}\fi
+\fi
 \usepackage{mathtools}          % for all sorts of things
 %\usepackage{graphics}
 \usepackage{ifmtarg}            % used in \jd
@@ -59,8 +83,6 @@
 
 \makeatletter
 \let\ea\expandafter
-
-
 
 %% Defining commands that are always in math mode.
 \def\mdef#1#2{\ea\ea\ea\gdef\ea\ea\noexpand#1\ea{\ea\ensuremath\ea{#2}\xspace}}

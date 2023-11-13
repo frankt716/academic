@@ -1,72 +1,10 @@
-\NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{zett}[Zettelkasten class]
-
-\LoadClass[article,10pt,oneside]{memoir}
-
-\RequirePackage{amsthm,amssymb,amsmath,stmaryrd,mathrsfs}
-\RequirePackage[T1]{fontenc}
-\RequirePackage{xcolor}
-\definecolor{darkgreen}{rgb}{0,0.45,0} 
-\RequirePackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
-\RequirePackage{libertine}
-\RequirePackage{zi4}
-\RequirePackage[capitalise]{cleveref}
-
-\counterwithout{section}{chapter}
-\setsecnumdepth{subsection}
-\setsecnumformat{\csname the#1\endcsname.\ \ }
-
-\setsecheadstyle{\bfseries}
-\setsubsecheadstyle{\bfseries}
-\setsubsubsecheadstyle{\bfseries}
-\setparaheadstyle{\bfseries}
-\setsubparaheadstyle{\bfseries}
-
-
-\pretitle{\begin{center}\LARGE\bfseries\MakeTextUppercase}
-\posttitle{\par\end{center}\vskip 0.5em}
-
-\linespread{1.1}
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{dieudonne}[2020/10/08 Dieudonne]
+\RequirePackage{xparse}
+\RequirePackage{chngcntr}
+\RequirePackage{etoolbox}
 
 \ExplSyntaxOn
-
-\AtEndPreamble{
-  \setlrmarginsandblock{1.33in}{*}{1}
-  \setulmarginsandblock{1.4in}{*}{1}
-  \setheaderspaces{*}{2\onelineskip}{*}
-  \checkandfixthelayout
-}
-
-\NewDocumentCommand\ega_thesection{}{\thesection.~}
-\NewDocumentCommand\ega_thesubsection{}{\thesubsection.~}
-\NewDocumentCommand\ega_thesubsubsection{}{\thesubsubsection.~}
-
-
-\setsecnumdepth{subsubsection}
-\setsecnumformat{\csname ega_the#1\endcsname}
-\setsecheadstyle{\normalsize\bfseries\MakeUppercase}
-\setsubsecheadstyle{\noindent\normalfont\bfseries}
-
-
-\appto\mainmatter{
-  \setcounter{secnumdepth}{30}
-}
-
-
-\cs_new:Npn \__ega_append_period:c #1 {
-  \cs_if_exist:cTF {#1} {
-    \cs_set_eq:cc {ega_old_ #1} {#1}
-    \cs_set:cpn {#1} ##1 {
-      \use:c {ega_old_ #1} [##1]{##1.}
-    }
-  }{}
-}
-
-
-% \__ega_append_period:c {subsection}
-% \__ega_append_period:c {subsubsection}
-\__ega_append_period:c {paragraph}
-\__ega_append_period:c {subparagraph}
 
 \bool_new:N \dieudonne_include_chapter
 \bool_set_false:N \dieudonne_include_chapter
@@ -75,9 +13,9 @@
   \bool_set_true:N \dieudonne_include_chapter
 }
 
-
-%% Numbered paragraphs
 \ProcessOptions\relax
+
+
 
 %% Customizable
 
@@ -235,7 +173,7 @@
 
 
 %% theorem environments
-\newtheorem{thm}{Theorem}[section]
+\newtheorem{thm}{Theorem}[node]
 \newtheorem{lem}[thm]{Lemma}
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{prop}[thm]{Proposition}

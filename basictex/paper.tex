@@ -1,4 +1,5 @@
 \documentclass{zett}
+\input{preambles}
 \title{grass is always greener on the other side}
 \author{Frank Tsai}
 \date{\today}
@@ -10,50 +11,36 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\para\label{para:the-para-command}%
-Each paragraph begins with the \verb|\para| command followed by a \verb|%|.
+\begin{node}
+  \label{node:hello}
+  It is the first numbered paragraph in \cref{sec:introduction}.
+\end{node}
 
-\smallskip
-\para%
-Insert \verb|\smallskip| before any subsequent \verb|\para| command.
+\begin{proof}
+  \begin{node}
+    \label{node:hello2}
+    You can put \verb|node| in \verb|proof|.
+  \end{node}
+\end{proof}
 
-\smallskip
-\para%
-The \verb|%| symbol prevents \LaTeX~from adding unwanted spaces.
+\begin{thm}
+  Hello there.
+\end{thm}
 
-\smallskip
-\para%
-Type setting paragraphs now requires some boiler plates, but it is what I have to live with until I find a better solution.
+\begin{rmk}
+  Bonk
+\end{rmk}
 
-\smallskip
-\para%
-Each paragraph should contain exactly one idea.
+\subsection{This is a subsection}
+\label{sec:this-is-a-subsection}
 
-\smallskip
-\para%
-Each \verb|\section| should contain exactly one concept.
-
-\smallskip
-\para%
-Interconnects of different ideas usually do not admit a tree structure.
-
-
-\subsection{Subsection}
-\label{sec:subsection}
-
-\para%
 This is a subsection.
 
-\smallskip
-\para%
-This is yet another paragraph.
+\begin{node}
+  It is a numbered paragraph.
+  \cref{node:hello,node:hello2,sec:this-is-a-subsection}.
+\end{node}
 
-\section{Another Section}
-\label{sec:another-section}
-
-\para%
-This is another section.
-$F : \sC \to \Set{a,b,c}$
 
 \bibliographystyle{alpha}
 \bibliography{all}

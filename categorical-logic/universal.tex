@@ -688,8 +688,8 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Thus, \cref{prop:strong-epimorphism-facts} applies.
 \end{proof}
 
-\subsection{Equivalence relations}
-\label{sec:regular-categories-equivalence-relations}
+\subsection{Relations}
+\label{sec:regular-categories-relations}
 
 \begin{node}
   \label{node:relations-motivation}
@@ -702,7 +702,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 
 \begin{defn}
   \label{defn:relations}
-  A \emph{relation} on an object $A$ of a category $\iC$ is an object $R \in \iC$ with a pair of morphisms $r_{1},r_{2} : R \toto A$.
+  A \emph{relation} on an object $A$ of a category $\iC$ is an object $R \in \iC$ with a pair of jointly monomorphic morphisms $r_{1},r_{2} : R \toto A$.
   For each object $X \in \iC$ we write
   \[
     R_{X} = \Set{ (r_{1}x, r_{2}x) \mid x \in \iC(X,R) }
@@ -728,6 +728,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \item a morphism $\sigma : R \to R$ such that $r_{1}\sigma = r_{2}$ and $r_{2}\sigma = r1$;
   \item a morphism $\tau : R \times_{A} R \to R$ such that $r_{1}\tau = r_{1}\rho_{1}$ and $r_{2}\tau = r_{2}\rho_{2}$, where $\rho_{1}$ and $\rho_{2}$ are the pullback of $r_{1}$ and $r_{2}$.
   \end{enumerate}
+  Additionally, these morphisms are unique.
 \end{prop}
 \begin{proof}
   \begin{enumerate}
@@ -800,77 +801,38 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
       \]
       By construction, $(r_{1}\tau u,r_{2}\tau u) = (r_{1}\rho_{1}u,r_{2}\rho_{2}u) = (r_{1}x,r_{2}y) \in R_{X}$.
     \end{node}
+    \begin{node}
+      Any morphisms $\delta'$, $\sigma'$, and $\tau'$ satisfying the same properties as $\delta$, $\sigma$, and $\tau$ also satisfy the following equations:
+      \begin{mathpar}
+        r_{1}\delta = r_{1}\delta' \and r_{2}\delta = r_{2}\delta' \and
+        r_{1}\sigma = r_{1}\sigma' \and r_{2}\sigma = r_{2}\sigma' \and
+        r_{1}\tau = r_{1}\tau' \and r_{2}\tau = r_{2}\tau'
+      \end{mathpar}
+      Since $r_{1}$ and $r_{2}$ are jointly monomorphic, we conclude that $\delta = \delta'$, $\sigma = \sigma'$, and $\tau = \tau'$.
+    \end{node}
   \end{enumerate}
 \end{proof}
 
-\todo{Investigate what happens when r1 and r2 are monomorphisms.}
+\section{Exact categories}
+\label{sec:exact-categories}
 
-\section{Universal Algebra}
+\begin{defn}
+  \label{defn:exact-categories}
+  An \emph{exact category} is a \hyperref[defn:regular-categories]{regular category} in which equivalence \hyperref[defn:relations]{relations} are \hyperref[defn:effective-equivalence-relations]{effective}.
+\end{defn}
+
+\section{Universal algebra}
 \label{sec:universal-algebra}
 
-The theory of groups $\cG$ can be described by specifying
-\begin{enumerate}
-\item a denumerable set of variables $x, y, z, \ldots$;
-\item three formal symbols $+, -, 0$.
-\end{enumerate}
-
-The terms of the theory of groups are defined inductively:
-\begin{enumerate}
-\item variables are terms;
-\item $0$ is a term;
-\item if $t$ is a term, then $-t$ is a term;
-\item if $t_{1}$ and $t_{2}$ are terms, then $t_{1} + t_{2}$ is a term.
-\end{enumerate}
-
-The axioms of the theory of groups are the following:
-\begin{enumerate}
-\item $x + (y + z) = (x + y) + z$
-\item $x + 0 = x$
-\item $0 + x = x$
-\item $x + (-x) = 0$
-\item $(-x) + x = 0$
-\end{enumerate}
-
 \begin{defn}
-  A \emph{premodel} of the theory of groups $\cG$ consists of
-  \begin{enumerate}
-  \item a set $G$;
-  \item an element $\hat{0} \in G$;
-  \item a unary function $\hat{-} : G \to G$;
-  \item a binary function $\hat{+} : G \times G \to G$.
-  \end{enumerate}
-\end{defn}
-
-Given a premodel $(G, \hat{0}, \hat{-}, \hat{+})$, terms are interpreted recursively in this premodel:
-\begin{enumerate}
-\item $\interp{x}$ is any element of $G$;
-\item $\interp{0}$ is $\hat{0}$;
-\item $\interp{-t}$ is $\hat{-}\interp{t}$;
-\item $\interp{t_{1} + t_{2}}$ is $\interp{t_{1}} \hat{+} \interp{t_{2}}$.
-\end{enumerate}
-
-\begin{defn}
-  A premodel $(G, \hat{0}, \hat{-}, \hat{+})$ constitutes a \emph{model} of $\cG$ if for every interpretation of variables, every axiom is satisfied, i.e.,
-  \begin{enumerate}
-  \item $\interp{x} \hat{+} (\interp{y} \hat{+} \interp{z}) = (\interp{x} \hat{+} \interp{y}) \hat{+} \interp{z}$
-  \item $\interp{x} \hat{+} \hat{0} = \interp{x}$
-  \item $\hat{0} \hat{+} \interp{x} = \interp{x}$
-  \item $\interp{x} \hat{+} (\hat{-}\interp{x}) = \hat{0}$
-  \item $(\hat{-}\interp{x}) \hat{+} \interp{x} = \hat{0}$
-  \end{enumerate}
-\end{defn}
-
-We can repeat this process for rings, $R$-modules, monoids, etc.
-In general, algebraic theories fit in the following formal framework:
-
-\begin{defn}
-  A \emph{presentation} $\dP$ of an algebraic theory $\cT$ is a theory with equality specified by
+  \label{defn:universal-algebra-presentation}
+  A \emph{presentation} $\dP$ of an algebraic theory $\cT$ is a theory with equality specified by three components:
   \begin{enumerate}
   \item a denumerable set of variables: $x, y, z, \ldots$;
   \item for each $n \in \dN$, a set $\cO_{n}$ of $n$-ary function symbols;
   \item a set of axioms.
   \end{enumerate}
-  Axioms are equalities between terms; terms are defined inductively as follows:
+  The axioms are equalities between \emph{terms}, which are defined inductively as follows:
   \begin{enumerate}
   \item variables are terms;
   \item if $f$ is an $n$-ary function symbol and $t_{1},\ldots,t_{n}$ are terms, then $f(t_{1},\ldots,t_{n})$ is a term.
@@ -879,67 +841,95 @@ In general, algebraic theories fit in the following formal framework:
 \end{defn}
 
 \begin{defn}
-  Let $\dP$ be a presentation of an algebraic theory.
-  A \emph{premodel} of $\dP$ consists of
+  \label{defn:universal-algebra-models}
+  Let $\dP$ be a presentation.
+  A \emph{model} of $\dP$ consists of the following data:
   \begin{enumerate}
   \item a set $M$;
-  \item a function $\hat{f} : M^{n} \to M$ for each $n$-ary function symbol $f$.
+  \item for each $n \in \dN$ and $f \in \cO_{n}$, a function $\fhat : M^{n} \to M$.
   \end{enumerate}
+  subject to the condition that axioms of $\dP$ are realized by this interpretation, i.e., when
+  \begin{enumerate}
+  \item each variable is interpreted as any element of $M$;
+  \item for each $n \in \dN$, $f \in \cO_{n}$, and terms $t_{1},\ldots,t_{n}$ with interpretations $\that_{1},\ldots,\that_{n}$, the term $f(t_{1},\ldots,t_{n})$ is interpreted as $\fhat(\that_{1},\ldots,\that_{n})$, then
+  \end{enumerate}
+  all the equations of $\dP$ hold for every possible interpretation of the variables.
 \end{defn}
-
-Given a premodel, terms are interpreted recursively:
-\begin{enumerate}
-\item $\interp{x}$ is any element of $M$;
-\item $\interp{f(t_{1},\ldots,t_{n})} = \hat{f}(\interp{t_{1}},\ldots,\interp{t_{n}})$.
-\end{enumerate}
-
-A model is a premodel in which every axiom is valid.
 
 \begin{defn}
-  Let $\sL$ and $\sM$ be models of a presentation $\dP$.
-  A $\dP$-homomorphism is a function $\varphi : L \to M$ so that
+  \label{defn:universal-algebra-homomorphisms}
+  Let $\dP$ be a presentation, and $\sM$ and $\sM'$ be models of $\dP$.
+  A \emph{homomorphism} $\sM \to \sM'$ is a function $\varphi : M \to M'$ such that
   \[
-    \varphi(\hat{f}_{\sL}(a_{1},\ldots,a_{n})) = \hat{f}_{\sM}(\varphi(a_{1}),\ldots,\varphi(a_{n}))
+    \fhat(\varphi(x_{1}),\ldots,\varphi(x_{n}))) = \varphi(\fhat(x_{1},\ldots,x_{n}))
   \]
-  for any function symbol $f$ of $\dP$ and any elements $a_{1},\ldots,a_{n}$ of $L$.
+  for all $n \in \dN$, $f \in \cO_{n}$, and $x_{1},\ldots,x_{n} \in M$.
 \end{defn}
 
 \begin{lem}
+  \label{lem:universal-algebra-varieties}
   Let $\dP$ be a presentation of an algebraic theory.
-  The models of $\dP$ and their homomorphisms constitute a category.
-\end{lem}
-
-Given a presentation $\dP$ of some algebraic theory, we can define a congruence relation on the set of terms.
-\begin{mathpar}
-  \inferrule*
-  { s = t }
-  { s \sim t }\and
-
-  \inferrule*
-  { s \sim t }
-  { s[u_{1},\ldots,u_{n}/x_{1},\ldots,x_{n}] \sim t[u_{1},\ldots,u_{n}/x_{1},\ldots,x_{n}] }\and
-
-  \inferrule*
-  { s_{1} \sim t_{1} \\ \cdots \\ s_{n} \sim t_{n} }
-  { f(s_{1},\ldots,s_{n}) \sim f(t_{1},\ldots,t_{n}) }
-\end{mathpar}
-Essentially, two terms $s,t$ are identified if $s = t$ is an axiom.
-
-Suppose that only variables $x_{1},\ldots,x_{n}$ appear in the axioms of $\dP$.
-Let $F_{n}$ be the set of terms containing only $x_{1},\ldots,x_{n}$ modulo $\sim$.
-
-\begin{lem}
-  $F_{n}$ is a model of $\dP$.
+  The models of $\dP$ and their homomorphisms constitute a category, which we call a \emph{variety}.
 \end{lem}
 \begin{proof}
-  The underlying set is just $F_{n}$.
-  Each function symbol $f$ is interpreted as a function $\hat{f} : F_{n}^{m} \to F_{n}$ mapping $[t_{1}],\ldots,[t_{m}]$ to $[f(t_{1},\ldots,t_{m})]$.
-  This interpretation is compatible with $\sim$ due to the last rule.
-
-  It remains to show that all the axioms are satisfied.
-  Given an axiom $s = t$, rule 1 says that these two terms are identified.
-  For any possible valuation, rule 2 says that they are interpreted as the same thing.
+  \begin{node}
+    A variety inherits its categorical structure from ordinary identity functions and function compositions.
+  \end{node}
 \end{proof}
+
+\begin{node}
+  \label{node:universal-algebra-cong}
+  Given a presentation $\dP$, we inductively define a congruence relation $\cng$ on the set of $\dP$-terms as follows:
+  for any terms $s$ and $t$,
+  \begin{enumerate}
+  \item\label{node:universal-algebra-cong-1}
+    if $s = t$ holds in every model, then $s \cng t$;
+  \item\label{node:universal-algebra-cong-2}
+    if $s \sim t$ then for any $n \in \dN$ and any terms $u_{1},\ldots,u_{n}$ and any variables $x_{1},\ldots,x_{n}$,
+    \[
+      s[u_{1},\ldots,u_{n}/x_{1},\ldots,x_{n}] \cng u[u_{1},\ldots,u_{n}/x_{1},\ldots,x_{n}]
+    \]
+  \item\label{node:universal-algebra-cong-3}
+    for any $n \in \dN$ and $f \in \cO_{n}$, if $s_{1} \cng t_{1},\ldots,s_{n} \cng t_{n}$, then
+    \[
+      f(s_{1},\ldots,s_{n}) \cng f(t_{1},\ldots,t_{n})
+    \]
+  \end{enumerate}
+\end{node}
+
+\begin{node}
+  Given a presentation $\dP$, let $T_{n}$ be the set of all $\dP$-terms with variables $x_{1},\ldots,x_{n}$.
+  We define $F_{n}$ to be the quotient of $T_{n}$ by the congruence defined in \cref{node:universal-algebra-cong}.
+\end{node}
+
+\begin{node}
+  Concretely, the set $F_{n}$ is the set of \emph{$\dP$-abstract terms} in $n$ variables.
+  This ought to be a (syntactic) model of $\dP$.
+\end{node}
+
+\begin{lem}
+  Given a presentation $\dP$, the set $F_{n}$ can be equipped with the structure of a $\dP$-model.
+\end{lem}
+\begin{proof}
+  \begin{node}
+    To specify a model is to specify an underlying set and functions on this set.
+    We take $F_{n}$ to be the underlying set.
+  \end{node}
+  \begin{node}
+    For any $m \in \dN$ and any $m$-ary function symbol $f \in \cO_{m}$, we define a function $\fbar : T_{n}^{m} \to T_{n}$ by mapping an $m$-tuple of raw terms $(t_{1},\ldots,t_{n})$ to the term $f(t_{1},\ldots,t_{n})$.
+    Condition \ref{node:universal-algebra-cong-3} demands that $\fbar$ is compatible with $\cng$.
+    Thus, it induces a function $\fhat : F_{n}^{m} \to F_{n}$.
+  \end{node}
+  \begin{node}
+    It remains to check that every axiom of $\dP$ is satisfied in every possible interpretation of the variables.
+    Let $s = t$ be an axiom of $\dP$.
+    Then $s = t$ holds in every model.
+    Thus, $s \cng t$ by condition \ref{node:universal-algebra-cong-1}.
+    Condition \ref{node:universal-algebra-cong-2} then implies that $s$ and $t$ are interpreted as the same abstract term in any possible interpretation of the variables.
+  \end{node}
+\end{proof}
+
+\todo{Cleanup}
 
 These models can be generated from a ``generic'' one.
 \begin{lem}

@@ -898,6 +898,11 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 
 \begin{node}
   Given a presentation $\dP$, let $T_{n}$ be the set of all $\dP$-terms with variables $x_{1},\ldots,x_{n}$.
+  Concretely, $T_{n}$ is defined inductively as follows:
+  \begin{enumerate}
+  \item variables $x_{1},\ldots,x_{n} \in T_{n}$;
+  \item if $f$ is an $m$-ary function symbol and $t_{1},\ldots,t_{m} \in T_{n}$, then $f(t_{1},\ldots,t_{m}) \in T_{n}$.
+  \end{enumerate}
   We define $F_{n}$ to be the quotient of $T_{n}$ by the congruence defined in \cref{node:universal-algebra-cong}.
 \end{node}
 
@@ -907,6 +912,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{node}
 
 \begin{lem}
+  \label{lem:universal-algebra-F-n-model}
   Given a presentation $\dP$, the set $F_{n}$ can be equipped with the structure of a $\dP$-model.
 \end{lem}
 \begin{proof}
@@ -982,7 +988,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 
 \begin{node}
   \label{node:universal-algebra-morphism-encodes-n-terms}
-  \cref{lem:universal-algebra-copower-F-1} means that a morphism $F_{n} \to F_{m}$ in $\Mod_{\dP}$ precisely encodes a choice of $n$ abstract terms in $F_{m}$.
+  \cref{lem:universal-algebra-copower-F-1} means that a morphism $f : F_{n} \to F_{m}$ in $\Mod_{\dP}$ precisely encodes a choice of $n$ abstract terms in $F_{m}$: the morphism $f$ is uniquely determined by $n$ homomorphisms $F_{1} \to F_{m}$, preserving constant symbols whiling picking out an abstract term in $F_{m}$.
 \end{node}
 
 \begin{prop}
@@ -991,6 +997,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{prop}
 \begin{proof}
   \begin{node}
+    \label{node:universal-algebra-functor-to-model}
     Given a finite-product preserving functor $G : \sF\op \to \CSet$, we construct a model of $\dP$ by taking $G(F_{1})$ as the underlying set.
     Each function symbol $f \in \cO_{n}$ gives an abstract term $[f(x_{1},\ldots,x_{n})] \in F_{n}$.
     By \cref{node:universal-algebra-morphism-encodes-n-terms}, this is precisely a morphism $\fbar : F_{1} \to F_{n}$, corresponding to $f^{*} : F_{1}^{n} \to F_{1}$ in the opposite category $\sF\op$.
@@ -1002,8 +1009,43 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \end{node}
   \begin{node}
     Suppose that the variables $x_{1},\ldots,x_{n}$ are interpreted as $a_{1},\ldots,a_{n} \in G(F_{1})$.
-    \todo{Finish}
+    We show that if $t \in T_{n}$, then $t$ is interpreted as $G(t^{*})(a_{1},\ldots,a_{n})$.
+    By induction on the structure of $t$.
+    When $t$ is a variable $x_{i}$, then the abstract term $[x_{i}]$ corresponds to the injection $\xbar_{i} : F_{1} \to F_{n}$.
+    Thus, $x_{i}^{*} : F_{1}^{n} \to F_{1}$ is the projection, so $G(x_{i}^{*})(a_{1},\ldots,a_{n}) = a_{i}$.
+    When $t = f(t_{1},\ldots,t_{m})$, $t$ is interpreted as $G(f^{*})(G(t_{1}^{*})(a_{1},\ldots,a_{n}),\ldots,G(t_{m}^{*})(a_{1},\ldots,a_{n}))$ by the induction hypothesis.
+    Or equivalently,
+    \[
+      G(f^{*}(t_{1},\ldots,t_{m})^{*})(a_{1},\ldots,a_{n})
+    \]
   \end{node}
+  \begin{node}
+    Let $s = t$ be an axiom of $\dP$, we must show that $s$ and $t$ have the same interpretation in $G(F_{1})$.
+    Since axioms must hold in all models, $[s] = [t]$ holds in $F_{n}$, so $\sbar = \tbar : F_{1} \to F_{n}$.
+    Thus, they are interpreted as $G(s^{*})(a_{1},\ldots,a_{n}) = G(t^{*})(a_{1},\ldots,a_{n})$.
+  \end{node}
+
+  \begin{node}
+    \label{node:universal-algebra-model-to-functor}
+    Conversely, given a model $\sM$, we define a finite-product preserving functor $G : \sF\op \to \CSet$ by
+    \[
+      G(F_{n}) = M^{n}
+    \]
+    Given a morphism $t : F_{n} \to F_{m}$, corresponding to $n$ abstract terms in $m$ variables, the function $G(\tbar) : M^{m} \to M^{n}$ maps $(a_{1},\ldots,a_{m})$ to the $n$ tuple in which each of the $n$ abstract terms in $m$ variables is interpreted by substituting $(a_{1},\ldots,a_{m})$ for those variables.
+  \end{node}
+
+  \begin{node}
+    By construction, for any model $\sM \in \Mod_{\dP}$, let $G : \sF\op \to \CSet$ be the functor defined in \cref{node:universal-algebra-model-to-functor}.
+    The construction in \cref{node:universal-algebra-functor-to-model} yields a model such that
+    \[
+      G(F_{1}) = M
+    \]
+    Conversely, for any product-preserving functor $G : \sF\op \to \CSet$, applying construction \cref{node:universal-algebra-model-to-functor} to the model $G(F_{1})$ yields another product-preserving functor $G'$ such that
+    \[
+      G'(F_{n}) \iso G'(F_{1})^{n} = G(F_{1})^{n} \iso G(F_{n})
+    \]
+  \end{node}
+  \todo{Extend constructions to morphisms and verify functoriality}
 \end{proof}
 
 \section{Lawvere Theory}

@@ -868,13 +868,18 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \begin{lem}
   \label{lem:universal-algebra-varieties}
   Let $\dP$ be a presentation of an algebraic theory.
-  The models of $\dP$ and their homomorphisms constitute a category, which we call a \emph{variety}.
+  The models of $\dP$ and their homomorphisms constitute a category, denoted $\Mod_{\dP}$.
 \end{lem}
 \begin{proof}
   \begin{node}
     A variety inherits its categorical structure from ordinary identity functions and function compositions.
   \end{node}
 \end{proof}
+
+\begin{defn}
+  Let $\Mod_{\cT}$ be the category of models of an algebraic theory $\cT$.
+  A \emph{variety} of $\cT$ is a category $\iC$ such that $\iC \eqv \Mod$.
+\end{defn}
 
 \begin{node}
   \label{node:universal-algebra-cong}
@@ -987,9 +992,23 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{proof}
 
 \begin{node}
-  \label{node:universal-algebra-morphism-encodes-n-terms}
-  \cref{lem:universal-algebra-copower-F-1} means that a morphism $f : F_{n} \to F_{m}$ in $\Mod_{\dP}$ precisely encodes a choice of $n$ abstract terms in $F_{m}$: the morphism $f$ is uniquely determined by $n$ homomorphisms $F_{1} \to F_{m}$, preserving constant symbols whiling picking out an abstract term in $F_{m}$.
+  $F_{n}$ is the free model on $n$ generators.
+  For example, consider the usual presentation of the theory of monoids.
+  $F_{0}$ is the trivial monoid, $F_{1}$ is the free monoid on one generator, and $F_{2}$ is constructed by gluing two copies of $F_{1}$ together.
 \end{node}
+
+\begin{node}
+  \label{node:universal-algebra-homomorphisms-determined-by-one-point}
+  By abuse of notation, we write $x$ for the abstract term $[x]$.
+  A homomorphism $F_{1} \to F_{n}$ is completely determined by the value of $x$ in $F_{n}$ (this can be seen as a mini Yoneda Lemma).
+  For example, if $x \mapsto xy$ then the conditions of homomorphisms demand that $xx \mapsto xyxy$ and so on.
+\end{node}
+
+\begin{node}
+  \label{node:universal-algebra-morphism-encodes-n-terms}
+  Considering \cref{node:universal-algebra-homomorphisms-determined-by-one-point}, \cref{lem:universal-algebra-copower-F-1} means that a morphism $f : F_{n} \to F_{m}$ in $\Mod_{\dP}$ precisely encodes a choice of $n$ abstract terms in $F_{m}$: the morphism $f$ is uniquely determined by $n$ homomorphisms $F_{1} \to F_{m}$.
+\end{node}
+
 
 \begin{prop}
   Let $\dP$ be a presentation and $\sF$ be the full subcategory of $\Mod_{\dP}$ spanned by the free models $F_{n}$ on finitely many generators.
@@ -1006,6 +1025,12 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
       G(f^{*}) : G(F_{1}^{n}) \to G(F_{1})
     \]
     composed with the isomorphism $G(F_{1}^{n}) \iso G(F_{1})^{n}$ gives an interpretation for $f$.
+  \end{node}
+  \begin{node}
+    We extend construction \cref{node:universal-algebra-functor-to-model} to morphisms.
+    Given a natural transformation $\alpha : G \to G'$ between two product-preserving functors, we need to define a homomorphism $G(F_{1}) \to G'(F_{1})$.
+    The natural candidate for such a map is the component $\alpha_{F_{1}}$, and indeed naturality implies that $\alpha_{F_{1}}$ is a homomorphism.
+    Functoriality is also easy to check.
   \end{node}
   \begin{node}
     Suppose that the variables $x_{1},\ldots,x_{n}$ are interpreted as $a_{1},\ldots,a_{n} \in G(F_{1})$.
@@ -1032,6 +1057,14 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
       G(F_{n}) = M^{n}
     \]
     Given a morphism $t : F_{n} \to F_{m}$, corresponding to $n$ abstract terms in $m$ variables, the function $G(\tbar) : M^{m} \to M^{n}$ maps $(a_{1},\ldots,a_{m})$ to the $n$ tuple in which each of the $n$ abstract terms in $m$ variables is interpreted by substituting $(a_{1},\ldots,a_{m})$ for those variables.
+    Functoriality of $G$ is easy to check.
+  \end{node}
+
+  \begin{node}
+    Now, we extend construction \cref{node:universal-algebra-model-to-functor} to morphisms.
+    Given a homomorphism $\varphi : \sM \to \sM'$, we need to extend to a natural transformation $\alpha : G \to G'$.
+    The underlying function $\varphi : M \to M'$ determines the component $\alpha_{F_{1}} : G(F_{1}) \to G'(F_{1})$.
+    The conditions of homomorphisms and preservation of finite-products allow us to extend $\alpha_{F_{1}}$ to a natural transformation.
   \end{node}
 
   \begin{node}
@@ -1045,118 +1078,23 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
       G'(F_{n}) \iso G'(F_{1})^{n} = G(F_{1})^{n} \iso G(F_{n})
     \]
   \end{node}
-  \todo{Extend constructions to morphisms and verify functoriality}
 \end{proof}
 
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
 \begin{defn}
-  An algebraic theory $\cT$ is a category with a denumerable set of objects $\{T^{0}, T^{1}, T^{2}, \ldots\}$.
-  Each object $T^{n}$ is the $n$-th power of $T^{1}$.
-  The object $T^{1}$ is known as the \emph{generic object} of the algebraic theory $\cT$.
-  The set $\cT(T^{n},T^{1})$ contains all the definable $n$-ary operations for $\cT$.
-\end{defn}
-
-Instead of explicitly choosing specific $n$-ary operations, such as group multiplication, for an algebraic theory, Lawvere theory considers \emph{all} definable operations.
-Axioms are then expressed as compositions of morphisms.
-
-\begin{defn}
-  Let $\cT$ be an algebraic theory.
-  A \emph{model} of $\cT$ is a finite-product-preserving functor $F : \cT \to \mathsf{Set}$.
-\end{defn}
-
-Such a functor $F$ carries the generic object to the set $F(T^{1})$ and $T^{n}$ to the Cartesian product $F(T^{n}) \iso (F(T))^{n}$.
-A morphism $g : T^{m} \to T^{n}$ is mapped to a function $F(g) : (F(T^{1}))^{m} \iso F(T^{m}) \to F(T^{n}) \iso (F(T^{1}))^{n}$.
-In particular, an $n$-ary operation $f : T^{n} \to T^{1}$ is mapped to the function $F(f) : (F(T^{1}))^{n} \iso F(T^{n}) \to F(T^{1})$.
-
-\begin{defn}
-  A \emph{$\cT$-homomorphism} is a natural transformation between two $\cT$-models.
-\end{defn}
-
-Naturality and \cref{lem:T-homomorphism} then ensures that this agrees with the usual notion of homomorphism.
-\input{img/02}
-
-\begin{lem}\label{lem:T-homomorphism}
-  Let $\cT$ be an algebraic theory.
-  If $\alpha : F \to G$ is a morphism in $\mathsf{Mod}_{\cT}$, then the diagram
-  \input{img/01}
-  commutes and the isomorphisms are the canonical ones.
-\end{lem}
-\begin{proof}
-  By naturality,
+  \label{defn:lawvere-theory-algebraic-theory}
+  An \emph{algebraic theory} $\cT$ is a category with skeleton a denumerable set of objects
   \[
-    G(\pi_{i}) \circ \alpha_{T^{n}} = \alpha_{T} \circ F(\pi_{i})
+    \Set{T^{0}, T, T^{2}, T^{3}, \ldots}
   \]
-  for any projection $\pi_{i} : T^{n} \to T$.
-  The projections $F(\pi_{i})$ and $G(\pi_{i})$ assemble into the isomorphisms, proving that the diagram commutes.
-\end{proof}
+  A \emph{model} of $\cT$ is a finite-product preserving functor $F : \cT \to \CSet$.
+  A \emph{homomorphism} between $\cT$-models is a natural transformation.
+\end{defn}
 
-$\cT$-models and their homomorphisms form a category $\mathsf{Mod}_{\cT}$.
-There is an evident forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ that evaluates a model $F$ at the generic object $T^{1}$.
-In effect, this produces the underlying set of the model.
 
-\begin{lem}
-  Let $\cT$ be an algebraic theory.
-  Consider the forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$.
-  \begin{enumerate}
-  \item $U$ is representable by $\cT(T^{1}, \blank)$;
-  \item $U$ is faithful;
-  \item $U$ reflects isomorphisms;
-  \item each finite set with $n$ elements admits $\cT(T^{n}, \blank)$ as a reflection along $U$;
-  \item $\cT(T^{1}, \blank)$ is a strong generator for $\mathsf{Mod}_{\cT}$.
-  \end{enumerate}
-\end{lem}
-\begin{proof}
-  Since $\cT(T^{1},\blank)$ is continuous, it is a model of $\cT$.
-  By the Yoneda Lemma,
-  \[
-    \mathsf{Nat}(\cT(T^{1}, \blank), F) \iso F(T^{1}) \iso U(F)
-  \]
-  Thus, $\cT(T^{1},\blank)$ is a representing object for $U$.
 
-  For each finite set $\{1,\ldots,n\}$, one has
-  \begin{align}
-    \mathsf{Nat}(\cT(T^{n},\blank), F) &\iso F(T^{n})\\
-                                       &\iso (F(T^{1}))^{n}\\
-                                       &\iso \mathsf{Set}(\{1,\ldots,n\}, F(T^{1}))\\
-                                       &\iso \mathsf{Set}(\{1,\ldots,n\}, U(F))
-  \end{align}
-
-  Suppose that $U\alpha = \alpha_{T^{1}} : F(T^{1}) \to G(T^{1})$ is an isomorphism.
-  Then by \cref{lem:T-homomorphism}, $\alpha_{T^{n}}$ is an isomorphism.
-  Thus, $\alpha$ is an isomorphism.
-
-  Now suppose that $U\alpha = \alpha_{T^{1}} = \beta_{T^{1}} = U\beta$.
-  Since every component of $\alpha$ and $\beta$ are determined by $\alpha_{T^{1}}$ and $\beta_{T^{1}}$, respectively, $\alpha = \beta$.
-\end{proof}
-
-\begin{lem}
-  Let $\cT$ be an algebraic theory and consider the corresponding presentation $\dT_{1}$ of this algebraic theory.
-  The categories of models for $\cT$ and $\dT_{1}$ are equivalent and the functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ maps a $\dT_{1}$ model to its underlying set.
-\end{lem}
-\begin{proof}
-  Let $F : \cT \to \mathsf{Set}$ be a $\cT$-model.
-  We show that $F$ yields a model of $\dT_{1}$.
-  To this end, we need to choose an underlying set and a function for each function symbol.
-  We make these choices as follows:
-  \begin{enumerate}
-  \item Underlying set: $F(T^{1})$.
-  \item Functions: for each $f \in \cT(T^{n},T^{1})$, choose
-    \input{img/03}
-  \end{enumerate}
-  By functoriality,
-  \begin{enumerate}
-  \item $F(\id_{T^{1}}) = \id_{F(T^{1})}$;
-  \item $F(f \circ g) = F(f) \circ F(g)$.
-  \end{enumerate}
-  Thus, the required axioms
-  \begin{enumerate}
-  \item $\id_{T^{1}}(x) = x$;
-  \item $f(g_{1},\ldots,g_{n}) = fg(x_{1},\ldots,x_{n})$
-  \end{enumerate}
-  hold.
-\end{proof}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}

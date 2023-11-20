@@ -1011,6 +1011,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 
 
 \begin{prop}
+  \label{prop:universal-algebra-presentation-to-category}
   Let $\dP$ be a presentation and $\sF$ be the full subcategory of $\Mod_{\dP}$ spanned by the free models $F_{n}$ on finitely many generators.
   The dual category $\sF\op$ has finite products and $\Mod_{\dP}$ is equivalent to the category of finite-product preserving functors from $\sF\op$ to $\CSet$.
 \end{prop}
@@ -1093,8 +1094,29 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   A \emph{homomorphism} between $\cT$-models is a natural transformation.
 \end{defn}
 
+\begin{node}
+  \cref{prop:universal-algebra-presentation-to-category} inspired \cref{defn:lawvere-theory-algebraic-theory}.
+  We now show that every algebraic theory $\cT$ admits a canonical presentation $\dT$.
+\end{node}
 
+\begin{node}
+  \label{node:lawvere-theory-canonical-presentation}
+  We take each element of $\cT(T^{n}, T)$ as an $n$-ary function symbol of $\dT$.
+  For each term $t$ in variables $\Set{x_{1},\ldots,x_{n}}$, we associate $t$ with a morphism $\tau \in \cT(T^{n}, T)$ inductively as follows:
+  \begin{enumerate}
+  \item variable $x_{i}$ is associated with the projection $\pi_{i} : T^{n} \to T$;
+  \item if $f$ is an $m$-ary function symbol and $t_{1},\ldots,t_{m}$ are associated with $\alpha_{1},\ldots,\alpha_{m} : T^{n} \to T$ then $f(t_{1},\ldots,t_{m})$ is associated with the composite $f \circ (\alpha_{1},\ldots,\alpha_{m})$.
+  \end{enumerate}
+  We then include as an axiom $t = \tau(x_{1},\ldots,x_{n})$.
+\end{node}
 
+\begin{lem}
+  Let $\cT$ be an algebraic theory and $\dT$ be the canonical presentation of $\cT$ constructed in \cref{node:lawvere-theory-canonical-presentation}.
+  The categories of models $\Mod_{\cT}$ and $\Mod_{\dT}$ are equivalent.
+\end{lem}
+\begin{proof}
+  \todo{Finish}
+\end{proof}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}

@@ -1,6 +1,6 @@
 \documentclass{zett}
 \input{preambles}
-\title{Handbook of Categorical Algebra}
+\title{categorical logic lecture notes}
 \author{Frank Tsai}
 \date{\today}
 % \thanks{}
@@ -872,14 +872,9 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{lem}
 \begin{proof}
   \begin{node}
-    A variety inherits its categorical structure from ordinary identity functions and function compositions.
+    $\Mod_{\dP}$ inherits its categorical structure from ordinary identity functions and function compositions.
   \end{node}
 \end{proof}
-
-\begin{defn}
-  Let $\Mod_{\cT}$ be the category of models of an algebraic theory $\cT$.
-  A \emph{variety} of $\cT$ is a category $\iC$ such that $\iC \eqv \Mod$.
-\end{defn}
 
 \begin{node}
   \label{node:universal-algebra-cong}
@@ -1108,15 +1103,66 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \item if $f$ is an $m$-ary function symbol and $t_{1},\ldots,t_{m}$ are associated with $\alpha_{1},\ldots,\alpha_{m} : T^{n} \to T$ then $f(t_{1},\ldots,t_{m})$ is associated with the composite $f \circ (\alpha_{1},\ldots,\alpha_{m})$.
   \end{enumerate}
   We then include as an axiom $t = \tau(x_{1},\ldots,x_{n})$.
+  We demand that the chosen canonical projection $\pi : T \to T$ is the identity map.
+  This gives us the axiom $x = \id_{T}(x)$.
 \end{node}
 
 \begin{lem}
+  \label{lem:lawvere-theory-canonical-presentation}
   Let $\cT$ be an algebraic theory and $\dT$ be the canonical presentation of $\cT$ constructed in \cref{node:lawvere-theory-canonical-presentation}.
   The categories of models $\Mod_{\cT}$ and $\Mod_{\dT}$ are equivalent.
 \end{lem}
 \begin{proof}
-  \todo{Finish}
+  \begin{node}
+    Given a finite-product preserving functor $G : \cT \to \CSet$, we need to construct a model of $\dT$.
+    It is same construction presented in \cref{node:universal-algebra-functor-to-model}.
+    We take $G(T)$ as the underlying set.
+    By induction on the structure of $t$, when $t$ is a variable $x_{i}$, then clearly $\xhat_{i} = G(\pi_{i})(\xhat_{1},\ldots,\xhat_{n})$.
+  \end{node}
+  \begin{node}
+    When $t$ is $f(t_{1},\ldots,t_{m})$, the induction hypothesis tells us that $\that_{i} = G(\alpha_{i})(\xhat_{1},\ldots,\xhat_{n})$, where $t_{i}$ is associated with the morphism $\alpha_{i}$.
+    Thus, $t$ is interpreted as
+    \begin{align}
+      G(f)(\that_{1},\ldots,\that_{m}) &= G(f)(G(\alpha_{1})(\xhat_{1},\ldots,\xhat_{n}),G(\alpha_{m})(\xhat_{1},\ldots,\xhat_{n})) \\
+                                  &= G(f)G((\alpha_{1},\ldots,\alpha_{m}))(\xhat_{1},\ldots,\xhat_{n}) \\
+                                  &= G(f(\alpha_{1},\ldots,\alpha_{m}))(\xhat_{1},\ldots,\xhat_{n})\label{lem:canonical-model-last-equation}
+    \end{align}
+    \cref{lem:canonical-model-last-equation} is precisely the interpretation of $f \circ (\alpha_{1},\ldots,\alpha_{m})(x_{1},\ldots,x_{n})$ in $G(T)$ and the equality follows by the functoriality of $G$.
+  \end{node}
+  \begin{node}
+    Conversely, given a model $\sM$ of $\dT$, we need to construct a finite-product preserving functor $G : \cT \to \CSet$.
+    The construction is the one presented in \cref{node:universal-algebra-model-to-functor}.
+    Any object of $\cT$ that is isomorphic to $T^{n}$ for some $n$ is mapped to the product $M^{n}$, where $M$ is the underlying set of the model $\sM$.
+  \end{node}
+  \begin{node}
+    Each morphism $t : T^{n} \to T^{m}$ corresponds to $m$ morphisms $t_{i} : T^{n} \to T$, each of which is a function symbol of $\dT$.
+    We define $G(t_{i}) : G(T)^{n} \to G(T)$ to be the realization $\that_{i}$ of $t_{i}$ in $\sM$.
+    These assemble into a morphism $G(t) : G(T)^{n} \to G(T)^{m}$.
+    The axiom $x = \id_{T}(x)$ demands that $G(\id_{T}) = \id_{G(T)}$, which generalizes to any $T^{n}$.
+    For any composable pair of morphisms $f$ and $g$, we have
+    \[
+      G(f \circ g)(a_{1},\ldots,a_{n}) = \widehat{f \circ g}(a_{1},\ldots,a_{n})
+    \]
+    The axioms of $\dT$ then demand that $\fhat \circ \ghat(a_{1},\ldots,a_{n})$ which equals $G(f) \circ G(g)(a_{1},\ldots,a_{n})$ by definition.
+  \end{node}
 \end{proof}
+
+\begin{eg}
+  \begin{node}
+    Consider a presentation with no function symbols and axioms.
+    The models $F_{0} = \varnothing,F_{1} = \Set{[x_{1}]}, F_{2} = \Set{[x_{1}],[x_{2}]}\ldots$ are just finite sets.
+    By \cref{prop:universal-algebra-presentation-to-category}, the category of models of this presentation is equivalent to the category of finite-product preserving functors and natural transformations between them: $\CSet^{\sF\op}$, where $\sF\op$ is the full subcategory spanned by the finite sets $F_{0},F_{1},F_{2},\ldots$.
+    Thus, the corresponding algebraic theory is $\CFinSet\op$.
+    By \cref{lem:lawvere-theory-canonical-presentation}, this algebraic theory admits an alternative presentation in which the function symbols correspond to morphisms $F \to F_{n}$, i.e., each $n$-ary function symbol is just an element of the finite set $F_{n}$.
+  \end{node}
+\end{eg}
+
+\begin{eg}
+  \begin{node}
+    Consider the standard presentation of the theory of monoids.
+    Its corresponding algebraic theory is a full subcategory $\sF\op$ whose objects are free monoids on finitely many generators.
+  \end{node}
+\end{eg}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}

@@ -839,6 +839,8 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   A nullary function symbol is also called a \emph{constant}.
 \end{defn}
 
+\todo{Ivan's Lec3 notes: A variety is a cocomplete category with a dense generator made of finitely projective objects}
+
 \begin{defn}
   \label{defn:universal-algebra-models}
   Let $\dP$ be a presentation.
@@ -1205,6 +1207,91 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \]
 \end{defn}
 
+\section{Splitting of idempotents}
+\label{sec:splitting-of-idempotents}
+
+\begin{defn}
+  \label{defn:idempotents}
+  A morphism $e : C \to C$ is \emph{idempotent} when $ee = e$.
+\end{defn}
+
+\begin{prop}
+  Consider a retract and a section $r, s : R \otto C$.
+  The composition $sr$ is idempotent.
+\end{prop}
+\begin{proof}
+  \[
+    srsr = s \circ \id \circ r = sr
+  \]
+\end{proof}
+
+\begin{defn}
+  An idempotent $e : C \to C$ \emph{splits} when there exists a retract $r,s : R \otto C$ such that $sr = e$.
+\end{defn}
+
+\begin{prop}
+  In a category $\iC$, the following conditions are equivalent for an idempotent $e : C \to C$.
+  \begin{enumerate}
+  \item\label{prop:splitting-of-idempotents-equiv-1}
+    $e$ splits as $e = sr$.
+  \item\label{prop:splitting-of-idempotents-equiv-2}
+    the equalizer $s = \ker(e,\id_{C})$ exists and is absolute
+  \item\label{prop:splitting-of-idempotents-equiv-3}
+    the coequalizer $r = \coker(e,\id_{C})$ exists and is absolute
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  \begin{node}
+    Assume (\ref{prop:splitting-of-idempotents-equiv-1}).
+    The diagram below is a split coequalizer diagram.
+    \[
+      % https://q.uiver.app/#q=WzAsMyxbMCwwLCJDIl0sWzIsMCwiQyJdLFs0LDAsIlIiXSxbMCwxLCJlIiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIlxcaWRfe0N9IiwyLHsib2Zmc2V0IjoxfV0sWzEsMiwiciJdLFsyLDEsInMiLDAseyJjdXJ2ZSI6LTJ9XSxbMSwwLCJcXGlkX3tDfSIsMCx7ImN1cnZlIjotMn1dXQ==
+      \begin{tikzcd}
+	C && C && R
+	\arrow["e", shift left, from=1-1, to=1-3]
+	\arrow["{\id_{C}}"', shift right, from=1-1, to=1-3]
+	\arrow["r", from=1-3, to=1-5]
+	\arrow["s", curve={height=-15pt}, from=1-5, to=1-3]
+	\arrow["{\id_{C}}", curve={height=-15pt}, from=1-3, to=1-1]
+      \end{tikzcd}
+    \]
+    Thus, $r$ is an absolute coequalizer.
+  \end{node}
+  \begin{node}
+    Assume (\ref{prop:splitting-of-idempotents-equiv-3}).
+    $e$ is a cocone under the pair $e, \id_{C}$ since $ee = e = e \circ \id_{C}$.
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJDIl0sWzIsMCwiQyJdLFs0LDAsIlIiXSxbNCwyLCJDIl0sWzEsMiwiciJdLFswLDEsImUiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiXFxpZF97Q30iLDIseyJvZmZzZXQiOjF9XSxbMSwzLCJlIiwyXSxbMiwzLCJzIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+      \begin{tikzcd}
+	C && C && R \\
+	\\
+	&&&& C
+	\arrow["r", from=1-3, to=1-5]
+	\arrow["e", shift left, from=1-1, to=1-3]
+	\arrow["{\id_{C}}"', shift right, from=1-1, to=1-3]
+	\arrow["e"', from=1-3, to=3-5]
+	\arrow["s", dashed, from=1-5, to=3-5]
+      \end{tikzcd}
+    \]
+    The universal property of coequalizers gives a unique section $s$ with $e = sr$.
+  \end{node}
+  \begin{node}
+    (\ref{prop:splitting-of-idempotents-equiv-2}) is equivalent to (\ref{prop:splitting-of-idempotents-equiv-3}) by duality.
+  \end{node}
+\end{proof}
+
+\section{Cauchy complete categories}
+\label{sec:cauchy-complete-categories}
+
+\begin{defn}
+  A category $\iC$ is \emph{Cauchy complete} when all idempotents of $\iC$ split.
+\end{defn}
+
+\section{Canonical algebraic theory}
+\label{sec:canonical-algebraic-theory}
+
+
+
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}
 
@@ -1229,56 +1316,6 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Let $\cT$ be an algebraic theory.
   $\mathsf{Mod}_{\cT}$ is complete and cocomplete because it is reflective in the category $\mathsf{Set}^{\cT}$.
 \end{lem}
-
-\section{Algebraic Functors}
-\label{sec:algebraic-functors}
-
-\begin{defn}
-  Let $\cR$ and $\cT$ be algebraic theories.
-  A morphism of algebraic theory is a functor $F : \cR \to \cT$ with preserves finite products and maps $R^{n}$ to $T^{n}$.
-\end{defn}
-
-\begin{lem}
-  The theory of sets is initial in the category of algebraic theory.
-\end{lem}
-\begin{proof}
-  The algebraic theory of sets $\cS$ is equivalent to the dual of the category of finite sets.
-  Thus, in $\cS$ the only $n$-ary operations are the projections.
-  Then for any algebraic theory $\cT$, the evident finite-product preserving and identity on object functor $F : \cS \to \cT$ is unique.
-\end{proof}
-
-\begin{cor}\label{cor:forgetful-functor-is-precomposition}
-  Let $\cT$ be an algebraic theory and $\cS$ be the theory of sets.
-  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ is the precomposition with the unique morphism of algebraic theories $\sigma : \cS \to \cT$.
-\end{cor}
-\begin{proof}
-  Let $G : \cT \to \mathsf{Set}$ be a $\cT$-model.
-  Then $G \circ \sigma$ is an $\cS$-model since the composite of finite-product-preserving functors is finite-product-preserving.
-  The underlying set of this model is $G \circ \sigma(S^{1}) = G(T^{1}) = UG$.
-\end{proof}
-
-\begin{defn}
-  Let $F : \cR \to \cT$ be a morphism of algebraic theories.
-  The precomposition with $F$
-  \begin{align}
-    F^{*} &: \mathsf{Mod}_{\cT} \to \mathsf{Mod}_{\cR}\\
-    F^{*} &: G \mapsto G \circ F
-  \end{align}
-  is called an \emph{algebraic functor}.
-\end{defn}
-
-\begin{thm}\label{thm:algebraic-functor-has-left-adjoint}
-  Every algebraic functor has a left adjoint.
-\end{thm}
-
-\begin{cor}
-  Let $\cT$ be an algebraic theory.
-  The forgetful functor $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ has a left adjoint.
-\end{cor}
-\begin{proof}
-  By \cref{cor:forgetful-functor-is-precomposition}, $U : \mathsf{Mod}_{\cT} \to \mathsf{Set}$ is an algebraic functor.
-  Then by \cref{thm:algebraic-functor-has-left-adjoint}, $U$ has a left adjoint.
-\end{proof}
 
 \section{Freely Generated Models}
 \label{sec:freely-generated-models}

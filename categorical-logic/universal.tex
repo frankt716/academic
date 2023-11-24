@@ -1081,7 +1081,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 
 \begin{defn}
   \label{defn:lawvere-theory-algebraic-theory}
-  An \emph{algebraic theory} $\cT$ is a category with skeleton a denumerable set of objects
+  An \emph{algebraic theory} $\cT$ is a category with a denumerable set of objects
   \[
     \Set{T^{0}, T, T^{2}, T^{3}, \ldots}
   \]
@@ -1148,6 +1148,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{proof}
 
 \begin{eg}
+  \label{eg:algebraic-theory-of-sets}
   \begin{node}
     Consider a presentation with no function symbols and axioms.
     The models $F_{0} = \varnothing,F_{1} = \Set{[x_{1}]}, F_{2} = \Set{[x_{1}],[x_{2}]}\ldots$ are just finite sets.
@@ -1163,6 +1164,46 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
     Its corresponding algebraic theory is a full subcategory $\sF\op$ whose objects are free monoids on finitely many generators.
   \end{node}
 \end{eg}
+
+\section{Theory morphisms}
+\label{sec:theory-morphisms}
+
+\begin{defn}
+  \label{defn:theory-morphisms}
+  Let $\cR$ and $\cT$ be algebraic theories.
+  A \emph{morphism of algebraic theory} is a finite-product preserving functor $F : \cR \to \cT$ that maps $R^{n} \to T^{n}$ for each $n \in \dN$.
+\end{defn}
+
+\begin{prop}
+  The theory of sets is an initial object in the category of algebraic theories and their morphisms.
+\end{prop}
+\begin{proof}
+  \begin{node}
+    The algebraic theory of sets is $\CFinSet\op$ (see \cref{eg:algebraic-theory-of-sets}).
+    We need to show that there is a unique theory morphism $F : \CFinSet\op \to \cT$ for any algebraic theory $\cT$.
+    In $\CFinSet$, the only morphism $\iota : 1 \to n$ is the injection map, so the only morphism $\pi : n \to 1$ in $\CFinSet\op$ is the projection map.
+    Since $F$ must preserve finite products, $F(\pi)$ has to be the projection map.
+    Thus, it follows that $F$ is the unique theory morphism.
+  \end{node}
+\end{proof}
+
+\section{Algebraic functors}
+\label{sec:algebraic-functors}
+
+\begin{defn}
+  Let $F : \cR \to \cT$ be a theory morphism.
+  Precomposition with $F$ induces a functor $\blank \circ F : \Mod_{\cT} \to \Mod_{\cR}$, which we call an \emph{algebraic functor}.
+  \[
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUIl0sWzEsMSwiXFxDU2V0Il0sWzIsMCwiXFxjUiJdLFswLDEsIkciLDJdLFsyLDAsIkYiLDJdLFsyLDEsIkcgXFxjaXJjIEYiXV0=
+    \begin{tikzcd}
+      \cT && \cR \\
+      & \CSet
+      \arrow["G"', from=1-1, to=2-2]
+      \arrow["F"', from=1-3, to=1-1]
+      \arrow["{G \circ F}", from=1-3, to=2-2]
+    \end{tikzcd}
+  \]
+\end{defn}
 
 \section{Limits and Colimits in Algebraic Categories}
 \label{sec:limits-and-colimits-in-algebraic-categories}

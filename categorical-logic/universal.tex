@@ -1082,17 +1082,35 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \label{sec:lawvere-theory}
 
 \begin{defn}\label{defn:lawvere-theory-algebraic-theory}%
-  A \emph{Lawvere theory} is a category $\cT$ with finite products equipped with a strictly finite-power preserving functor $p : \dF\op \to \cT$, where $\dF$ is the skeletal category of $\CFinSet$.
+  A \emph{Lawvere theory} is a category $\cT$ with finite products equipped with an identity-on-objects strictly finite-power preserving functor $p : \dF\op \to \cT$, where $\dF$ is the skeletal category of $\CFinSet$.
   A \emph{model} of $\cT$ is a finite-product preserving functor $F : \cT \to \CSet$.
   A \emph{homomorphism} between $\cT$-models is a natural transformation.
 \end{defn}
 
 \begin{node}%
-  Let $(\cT,p)$ be a Lawvere theory, we write $T^{n}$ for $p(n)$.
-  For each morphism $n \to 1 \in \dF\op$, the functor $p$ picks out an $n$-ary operation $T^{n} \to T$.
+  Given a Lawvere theory, we write $T^{n}$ for $p(n)$.
+  The functor $p$ encodes the data of a presentation.
+  Recall that a presentation in the traditional sense consists of a set of variables, a set of function symbols for each arity, and a set of axioms.
+  Instead of defining these separately, we define the terms of this presentation (and therefore the variables and function symbols) directly.
+\end{node}
+\begin{node}%
+  Terms are define inductively as follows:
+  \begin{enumerate}
+  \item For each projection $\pi_{i}$ in $\dF\op$, $p(\pi_{i})$ is a term.
+    We write $x^{n}_{i}$ for $p(\pi_{i})$, dropping the superscript most of the times.
+  \item Let $\ftil : n \to 1$ be a morphism in $\dF\op$ and $t_{1},\ldots,t_{m}$ be terms, $p(\ftil) \circ (t_{1},\ldots,t_{m})$ is a term.
+  \end{enumerate}
+\end{node}
+\begin{node}%
+  By induction on the structure of terms, we see that every term $t$ is the image of some morphism $\ttil : n \to 1$ in $\dF\op$ for some $n$.
+  Composing $\ttil$ with the morphism $(\pi_{1},\ldots,\pi_{n}) : m \to n$ for some $m$ yields $\ttil \circ (\pi_{1},\ldots,\pi_{n}) : m \to 1$ whose image under $p$ is the term $p(\,\ttil\,)(x_{1},\ldots,x_{n})$ by functoriality.
+  Thus, we take as an axiom
+  \[
+    t = p(\,\ttil\,)(x_{1},\ldots,x_{n})
+  \]
 \end{node}
 
-\begin{node}
+\begin{node}%
   \cref{prop:universal-algebra-presentation-to-category} inspired \cref{defn:lawvere-theory-algebraic-theory}.
   We now show that every algebraic theory $\cT$ admits a canonical presentation $\dT$.
 \end{node}

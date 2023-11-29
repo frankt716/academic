@@ -1081,25 +1081,30 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
-\begin{defn}
-  \label{defn:lawvere-theory-algebraic-theory}
-  An \emph{algebraic theory} $\cT$ is a category with a denumerable set of objects
-  \[
-    \Set{T^{0}, T, T^{2}, T^{3}, \ldots}
-  \]
+\begin{defn}\label{defn:lawvere-theory-algebraic-theory}%
+  A \emph{Lawvere theory} is a category $\cT$ with finite products equipped with a strictly finite-power preserving functor $p : \dF\op \to \cT$, where $\dF$ is the skeletal category of $\CFinSet$.
   A \emph{model} of $\cT$ is a finite-product preserving functor $F : \cT \to \CSet$.
   A \emph{homomorphism} between $\cT$-models is a natural transformation.
 \end{defn}
+
+\begin{node}%
+  Let $(\cT,p)$ be a Lawvere theory, we write $T^{n}$ for $p(n)$.
+  For each morphism $n \to 1 \in \dF\op$, the functor $p$ picks out an $n$-ary operation $T^{n} \to T$.
+\end{node}
 
 \begin{node}
   \cref{prop:universal-algebra-presentation-to-category} inspired \cref{defn:lawvere-theory-algebraic-theory}.
   We now show that every algebraic theory $\cT$ admits a canonical presentation $\dT$.
 \end{node}
 
-\begin{node}
-  \label{node:lawvere-theory-canonical-presentation}
-  We take each element of $\cT(T^{n}, T)$ as an $n$-ary function symbol of $\dT$.
-  For each term $t$ in variables $\Set{x_{1},\ldots,x_{n}}$, we associate $t$ with a morphism $\tau \in \cT(T^{n}, T)$ inductively as follows:
+\begin{node}\label{node:lawvere-theory-canonical-presentation}%
+  We write $T^{n}$ for $p(n)$.
+  For each $n \in \dN$, we take each element of $\cT(T^{n},T)$ as an $n$-ary function symbol of $\dT$.
+  For each projection $\pi_{i} : n \to 1$, we take $p(\pi_{i})$ as the variable $x_{i}$.
+
+
+  
+  For each term $t$ in variables $\Set{x_{1},\ldots,x_{n}} \iso n$, we associate $t$ with a morphism $\tau \in \cT(T^{n}, T)$ inductively as follows:
   \begin{enumerate}
   \item variable $x_{i}$ is associated with the projection $\pi_{i} : T^{n} \to T$;
   \item if $f$ is an $m$-ary function symbol and $t_{1},\ldots,t_{m}$ are associated with $\alpha_{1},\ldots,\alpha_{m} : T^{n} \to T$ then $f(t_{1},\ldots,t_{m})$ is associated with the composite $f \circ (\alpha_{1},\ldots,\alpha_{m})$.

@@ -1081,152 +1081,54 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
-\begin{defn}\label{defn:lawvere-theory-algebraic-theory}%
-  A \emph{Lawvere theory} is an identity-on-objects finite-product preserving functor $p : \dF\op \to \cT$, where $\dF$ is a chosen skeleton of $\CFinSet$ and $\cT$ is a category spanned by finite products of a given object $T$.
-\end{defn}
-
-\begin{node}%
-  Given a Lawvere theory, we write $T^{n}$ for $p(n)$.
-  The functor $p$ encodes the data of a presentation.
-  Recall that a presentation in the traditional sense consists of a set of variables, a set of function symbols for each arity, and a set of axioms.
-  Instead of defining these separately, we define the terms of this presentation (and therefore the variables and function symbols) directly.
-\end{node}
-\begin{node}%
-  Terms are define inductively as follows:
-  \begin{enumerate}
-  \item For each projection $\pi_{i}$ in $\dF\op$, $p(\pi_{i})$ is a term.
-    We write $x^{n}_{i}$ for $p(\pi_{i})$, dropping the superscript most of the times.
-  \item Let $\ftil : n \to 1$ be a morphism in $\dF\op$ and $t_{1},\ldots,t_{m}$ be terms, $p(\ftil) \circ (t_{1},\ldots,t_{m})$ is a term.
-  \end{enumerate}
-\end{node}
-\begin{node}%
-  By induction on the structure of terms, we see that every term $t$ is the image of some morphism $\ttil : n \to 1$ in $\dF\op$ for some $n$.
-  Composing $\ttil$ with the morphism $(\pi_{1},\ldots,\pi_{n}) : m \to n$ for some $m$ yields $\ttil \circ (\pi_{1},\ldots,\pi_{n}) : m \to 1$ whose image under $p$ is the term $p(\,\ttil\,)(x_{1},\ldots,x_{n})$ by functoriality.
-  Thus, we take as an axiom
-  \[
-    t = p(\,\ttil\,)(x_{1},\ldots,x_{n})
-  \]
-\end{node}
-
-\begin{node}%
-  \cref{prop:universal-algebra-presentation-to-category} inspired \cref{defn:lawvere-theory-algebraic-theory}.
-  We now show that every algebraic theory $\cT$ admits a canonical presentation $\dT$.
-\end{node}
-
-\begin{node}\label{node:lawvere-theory-canonical-presentation}%
-  We write $T^{n}$ for $p(n)$.
-  For each $n \in \dN$, we take each element of $\cT(T^{n},T)$ as an $n$-ary function symbol of $\dT$.
-  For each projection $\pi_{i} : n \to 1$, we take $p(\pi_{i})$ as the variable $x_{i}$.
-
-
-  
-  For each term $t$ in variables $\Set{x_{1},\ldots,x_{n}} \iso n$, we associate $t$ with a morphism $\tau \in \cT(T^{n}, T)$ inductively as follows:
-  \begin{enumerate}
-  \item variable $x_{i}$ is associated with the projection $\pi_{i} : T^{n} \to T$;
-  \item if $f$ is an $m$-ary function symbol and $t_{1},\ldots,t_{m}$ are associated with $\alpha_{1},\ldots,\alpha_{m} : T^{n} \to T$ then $f(t_{1},\ldots,t_{m})$ is associated with the composite $f \circ (\alpha_{1},\ldots,\alpha_{m})$.
-  \end{enumerate}
-  We then include as an axiom $t = \tau(x_{1},\ldots,x_{n})$.
-  We demand that the chosen canonical projection $\pi : T \to T$ is the identity map.
-  This gives us the axiom $x = \id_{T}(x)$.
-\end{node}
-
-\begin{lem}
-  \label{lem:lawvere-theory-canonical-presentation}
-  Let $\cT$ be an algebraic theory and $\dT$ be the canonical presentation of $\cT$ constructed in \cref{node:lawvere-theory-canonical-presentation}.
-  The categories of models $\Mod_{\cT}$ and $\Mod_{\dT}$ are equivalent.
-\end{lem}
-\begin{proof}
-  \begin{node}
-    Given a finite-product preserving functor $G : \cT \to \CSet$, we need to construct a model of $\dT$.
-    It is same construction presented in \cref{node:universal-algebra-functor-to-model}.
-    We take $G(T)$ as the underlying set.
-    By induction on the structure of $t$, when $t$ is a variable $x_{i}$, then clearly $\xhat_{i} = G(\pi_{i})(\xhat_{1},\ldots,\xhat_{n})$.
-  \end{node}
-  \begin{node}
-    When $t$ is $f(t_{1},\ldots,t_{m})$, the induction hypothesis tells us that $\that_{i} = G(\alpha_{i})(\xhat_{1},\ldots,\xhat_{n})$, where $t_{i}$ is associated with the morphism $\alpha_{i}$.
-    Thus, $t$ is interpreted as
-    \begin{align}
-      G(f)(\that_{1},\ldots,\that_{m}) &= G(f)(G(\alpha_{1})(\xhat_{1},\ldots,\xhat_{n}),G(\alpha_{m})(\xhat_{1},\ldots,\xhat_{n})) \\
-                                  &= G(f)G((\alpha_{1},\ldots,\alpha_{m}))(\xhat_{1},\ldots,\xhat_{n}) \\
-                                  &= G(f(\alpha_{1},\ldots,\alpha_{m}))(\xhat_{1},\ldots,\xhat_{n})\label{lem:canonical-model-last-equation}
-    \end{align}
-    \cref{lem:canonical-model-last-equation} is precisely the interpretation of $f \circ (\alpha_{1},\ldots,\alpha_{m})(x_{1},\ldots,x_{n})$ in $G(T)$ and the equality follows by the functoriality of $G$.
-  \end{node}
-  \begin{node}
-    Conversely, given a model $\sM$ of $\dT$, we need to construct a finite-product preserving functor $G : \cT \to \CSet$.
-    The construction is the one presented in \cref{node:universal-algebra-model-to-functor}.
-    Any object of $\cT$ that is isomorphic to $T^{n}$ for some $n$ is mapped to the product $M^{n}$, where $M$ is the underlying set of the model $\sM$.
-  \end{node}
-  \begin{node}
-    Each morphism $t : T^{n} \to T^{m}$ corresponds to $m$ morphisms $t_{i} : T^{n} \to T$, each of which is a function symbol of $\dT$.
-    We define $G(t_{i}) : G(T)^{n} \to G(T)$ to be the realization $\that_{i}$ of $t_{i}$ in $\sM$.
-    These assemble into a morphism $G(t) : G(T)^{n} \to G(T)^{m}$.
-    The axiom $x = \id_{T}(x)$ demands that $G(\id_{T}) = \id_{G(T)}$, which generalizes to any $T^{n}$.
-    For any composable pair of morphisms $f$ and $g$, we have
-    \[
-      G(f \circ g)(a_{1},\ldots,a_{n}) = \widehat{f \circ g}(a_{1},\ldots,a_{n})
-    \]
-    The axioms of $\dT$ then demand that $\fhat \circ \ghat(a_{1},\ldots,a_{n})$ which equals $G(f) \circ G(g)(a_{1},\ldots,a_{n})$ by definition.
-  \end{node}
-\end{proof}
-
-\begin{eg}
-  \label{eg:algebraic-theory-of-sets}
-  \begin{node}
-    Consider a presentation with no function symbols and axioms.
-    The models $F_{0} = \varnothing,F_{1} = \Set{[x_{1}]}, F_{2} = \Set{[x_{1}],[x_{2}]}\ldots$ are just finite sets.
-    By \cref{prop:universal-algebra-presentation-to-category}, the category of models of this presentation is equivalent to the category of finite-product preserving functors and natural transformations between them: $\CSet^{\sF\op}$, where $\sF\op$ is the full subcategory spanned by the finite sets $F_{0},F_{1},F_{2},\ldots$.
-    Thus, the corresponding algebraic theory is $\CFinSet\op$.
-    By \cref{lem:lawvere-theory-canonical-presentation}, this algebraic theory admits an alternative presentation in which the function symbols correspond to morphisms $F \to F_{n}$, i.e., each $n$-ary function symbol is just an element of the finite set $F_{n}$.
-  \end{node}
-\end{eg}
-
-\begin{eg}
-  \begin{node}
-    Consider the standard presentation of the theory of monoids.
-    Its corresponding algebraic theory is a full subcategory $\sF\op$ whose objects are free monoids on finitely many generators.
-  \end{node}
-\end{eg}
-
-\section{Theory morphisms}
-\label{sec:theory-morphisms}
-
 \begin{defn}
-  \label{defn:theory-morphisms}
-  Let $\cR$ and $\cT$ be algebraic theories.
-  A \emph{morphism of algebraic theory} is a finite-product preserving functor $F : \cR \to \cT$ that maps $R^{n} \to T^{n}$ for each $n \in \dN$.
+  The \emph{category of Lawvere theories} $\CLaw$ is the full subcategory of $\dN\op/\CCat$ spanned by those objects $A : \dN\op \to \dA$ that is identity-on-objects and preserves finite products.
+  We write $A^{n}$ for the value of $A$ at $n$ and we omit the superscript when $n = 1$.
+  An \emph{$n$-ary operation} of $\dA$ is a morphism $f : A^{n} \to A$.
 \end{defn}
 
 \begin{prop}
-  The theory of sets is an initial object in the category of algebraic theories and their morphisms.
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The morphism $1 : A \to A^{0}$ is always epimorphic, and if there exists $g : A^{0} \to A$ then $1$ is a retraction.
 \end{prop}
 \begin{proof}
   \begin{node}
-    The algebraic theory of sets is $\CFinSet\op$ (see \cref{eg:algebraic-theory-of-sets}).
-    We need to show that there is a unique theory morphism $F : \CFinSet\op \to \cT$ for any algebraic theory $\cT$.
-    In $\CFinSet$, the only morphism $\iota : 1 \to n$ is the injection map, so the only morphism $\pi : n \to 1$ in $\CFinSet\op$ is the projection map.
-    Since $F$ must preserve finite products, $F(\pi)$ has to be the projection map.
-    Thus, it follows that $F$ is the unique theory morphism.
+    Since $A^{0}$ is a terminal object in $\dA$, $1 \circ g = \id_{A^{0}}$ for any $g : A^{0} \to A$.
+    Thus, $1$ is a retraction whenever $g$ exists.
+  \end{node}
+  \begin{node}
+    If $g$ does not exist, then $1$ is trivially epimorphic.
   \end{node}
 \end{proof}
 
-\section{Algebraic functors}
-\label{sec:algebraic-functors}
+\begin{eg}
+  The identity functor $\dN\op \to \dN\op$ is a Lawvere theory, which we call ``the theory of equality''.
+  This is the initial object of $\CLaw$.
+\end{eg}
 
-\begin{defn}
-  Let $F : \cR \to \cT$ be a theory morphism.
-  Precomposition with $F$ induces a functor $\blank \circ F : \Mod_{\cT} \to \Mod_{\cR}$, which we call an \emph{algebraic functor}.
-  \[
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUIl0sWzEsMSwiXFxDU2V0Il0sWzIsMCwiXFxjUiJdLFswLDEsIkciLDJdLFsyLDAsIkYiLDJdLFsyLDEsIkcgXFxjaXJjIEYiXV0=
-    \begin{tikzcd}
-      \cT && \cR \\
-      & \CSet
-      \arrow["G"', from=1-1, to=2-2]
-      \arrow["F"', from=1-3, to=1-1]
-      \arrow["{G \circ F}", from=1-3, to=2-2]
-    \end{tikzcd}
-  \]
-\end{defn}
+\begin{node}
+  Given a family of Lawvere theories indexed by a small set $\Lambda$ (i.e., a functor $\dF : \Lambda \to \CLaw$), we can construct the coproduct of Lawvere theories in this family.
+  The category $\dF\Lambda$ is defined as follows:
+  \begin{enumerate}
+  \item The objects are the natural numbers.
+  \item If $f : A^{n} \to A$ is an $n$-ary operation of some Lawvere theory in the family $\dF$, then $\fhat : n \to 1$ is a morphism of $\dF\Lambda$.
+  \item If $t_{1},\ldots,t_{n} : m \to 1$ are morphisms of $\dF\Lambda$, then $(t_{1},\ldots,t_{n}) : m \to n$ is a morphism of $\dF\Lambda$.
+  \item If $t : j \to k$ and $t' : i \to j$ are morphisms of $\dF\Lambda$, then $tt' : i \to k$ is a morphism of $\dF\Lambda$.
+  \end{enumerate}
+\end{node}
+
+\section{Presentations of Lawvere theories}
+\label{sec:presentations-of-lawvere-theories}
+
+\begin{node}
+  We define a functor $T : \CLaw \to \CSet^{|\dN|}$ that maps a Lawvere theory to a sequence of sets of operations.
+  $T$ maps each Lawvere theory $A$ to a sequence of sets whose $n$-th element is the set $\Hom(A^{n}, A)$, i.e., the set of all $n$-ary operations.
+  For each $F : A \to B$, $T$ maps $F$ to a sequence of functions whose $n$-th element $(TF)_{n} : \Hom(A^{n}, A) \to \Hom(B^{n}, B)$ maps each $n$-ary operation $k$ of $A$ to $Fk$, an $n$-ary operation of $B$.
+\end{node}
+
+\begin{thm}
+  $T$ has a left adjoint $F$.
+\end{thm}
 
 \section{Splitting of idempotents}
 \label{sec:splitting-of-idempotents}

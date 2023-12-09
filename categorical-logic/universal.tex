@@ -1081,54 +1081,48 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
+\begin{node}
+  We write $\dN$ for a chosen skeletal category of $\CFinSet$.
+\end{node}
+
 \begin{defn}
   The \emph{category of Lawvere theories} $\CLaw$ is the full subcategory of $\dN\op/\CCat$ spanned by those objects $A : \dN\op \to \dA$ that is identity-on-objects and preserves finite products.
   We write $A^{n}$ for the value of $A$ at $n$ and we omit the superscript when $n = 1$.
   An \emph{$n$-ary operation} of $\dA$ is a morphism $f : A^{n} \to A$.
+  We write $\pi^{n}_{i} : A^{n} \to A$ for the value of $A$ at the $i$-th projection $n \to 1$ of $\dN\op$.
 \end{defn}
-
-\begin{prop}
-  Let $A : \dN\op \to \dA$ be a Lawvere theory.
-  The morphism $1 : A \to A^{0}$ is always epimorphic, and if there exists $g : A^{0} \to A$ then $1$ is a retraction.
-\end{prop}
-\begin{proof}
-  \begin{node}
-    Since $A^{0}$ is a terminal object in $\dA$, $1 \circ g = \id_{A^{0}}$ for any $g : A^{0} \to A$.
-    Thus, $1$ is a retraction whenever $g$ exists.
-  \end{node}
-  \begin{node}
-    If $g$ does not exist, then $1$ is trivially epimorphic.
-  \end{node}
-\end{proof}
 
 \begin{eg}
   The identity functor $\dN\op \to \dN\op$ is a Lawvere theory, which we call ``the theory of equality''.
-  This is the initial object of $\CLaw$.
+  This is an initial object of $\CLaw$.
 \end{eg}
 
-\begin{node}
-  Given a family of Lawvere theories indexed by a small set $\Lambda$ (i.e., a functor $\dF : \Lambda \to \CLaw$), we can construct the coproduct of Lawvere theories in this family.
-  The category $\dF\Lambda$ is defined as follows:
-  \begin{enumerate}
-  \item The objects are the natural numbers.
-  \item If $f : A^{n} \to A$ is an $n$-ary operation of some Lawvere theory in the family $\dF$, then $\fhat : n \to 1$ is a morphism of $\dF\Lambda$.
-  \item If $t_{1},\ldots,t_{n} : m \to 1$ are morphisms of $\dF\Lambda$, then $(t_{1},\ldots,t_{n}) : m \to n$ is a morphism of $\dF\Lambda$.
-  \item If $t : j \to k$ and $t' : i \to j$ are morphisms of $\dF\Lambda$, then $tt' : i \to k$ is a morphism of $\dF\Lambda$.
-  \end{enumerate}
-\end{node}
+\begin{thm}
+  The category $\CLaw$ has coproducts.
+\end{thm}
 
 \section{Presentations of Lawvere theories}
 \label{sec:presentations-of-lawvere-theories}
 
 \begin{node}
   We define a functor $T : \CLaw \to \CSet^{|\dN|}$ that maps a Lawvere theory to a sequence of sets of operations.
-  $T$ maps each Lawvere theory $A$ to a sequence of sets whose $n$-th element is the set $\Hom(A^{n}, A)$, i.e., the set of all $n$-ary operations.
+  $T$ maps each Lawvere theory $A$ to a sequence of sets whose $n$-th element is the set $\dA(A^{n}, A)$, i.e., the set of all $n$-ary operations.
   For each $F : A \to B$, $T$ maps $F$ to a sequence of functions whose $n$-th element $(TF)_{n} : \Hom(A^{n}, A) \to \Hom(B^{n}, B)$ maps each $n$-ary operation $k$ of $A$ to $Fk$, an $n$-ary operation of $B$.
 \end{node}
 
 \begin{thm}
   $T$ has a left adjoint $F$.
 \end{thm}
+
+\section{Algebraic categories}
+\label{sec:algebraic-categories}
+
+\begin{defn}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The \emph{category of algebras of type $A$}, denoted $\Alg(A)$, is the full subcategory of $\CSet^{\dA}$ spanned by those finite-product preserving functors.
+  A category $\iC$ is \emph{algebraic} if $\iC \eqv \Alg(B)$ for some Lawvere theory $B$.
+\end{defn}
+
 
 \section{Splitting of idempotents}
 \label{sec:splitting-of-idempotents}

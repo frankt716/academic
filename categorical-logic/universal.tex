@@ -1198,7 +1198,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{defn}
 
 \begin{defn}
-  A small category $\iC$ is \emph{filtered} if every finite diagram $F : \iJ \to iC$ admits a cocone.
+  A small category $\iC$ is \emph{filtered} if every finite diagram $F : \iJ \to \iC$ admits a cocone.
   Colimits of diagrams over filtered categories are called \emph{filtered colimits}.
 \end{defn}
 
@@ -1232,6 +1232,24 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Let $A : \dN\op \to \dA$ be a Lawvere theory.
   The category $\Alg(A)$ has sifted colimits.
 \end{cor}
+\begin{proof}
+  Since the full inclusion $\iota$ creates sifted colimits and $\CSet^{\dA}$ is cocomplete, it follows that $\Alg(A)$ has sifted colimits.
+\end{proof}
+
+\begin{cor}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  Sifted colimits commute with finite products in $\Alg(A)$.
+\end{cor}
+\begin{proof}
+  The full inclusion $\iota$ reflects isomorphism.
+  Thus, the isomorphism in \cref{lem:functor-category-sifted-colimits-commute-with-finite-products} is reflected to an isomorphism in $\Alg(A)$.
+\end{proof}
+
+\begin{node}
+  Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
+\end{node}
+
+
 
 \section{Algebraic categories as free cocompletions}
 \label{sec:algebraic-categories-as-free-cocompletions}

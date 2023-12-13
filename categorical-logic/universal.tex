@@ -1098,21 +1098,82 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{eg}
 
 \begin{thm}
-  The category $\CLaw$ has coproducts.
+  The category of Lawvere theories is complete and cocomplete.
 \end{thm}
+\begin{proof}[Proof sketch]
+  \begin{node}
+    It suffices to prove that $\CLaw$ has products, equalizers, coproducts, and coequalizers.
+  \end{node}
+  \begin{node}
+    Products in $\CLaw$ are constructed as follows.
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGRBIl0sWzEsMiwiXFxkQSBcXHRpbWVzIFxcZEIiXSxbMiwyLCJcXGRCIl0sWzEsMCwiXFxkTlxcb3AiXSxbMywwLCJBIiwyXSxbMywyLCJCIl0sWzEsMCwiXFxwaV97XFxkQX0iXSxbMSwyLCJcXHBpX3tcXGRCfSIsMl0sWzMsMSwiKEEsIEIpIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+      \begin{tikzcd}
+	& \dN\op \\
+	\\
+	\dA & {\dA \times \dB} & \dB
+	\arrow["A"', from=1-2, to=3-1]
+	\arrow["B", from=1-2, to=3-3]
+	\arrow["{\pi_{\dA}}", from=3-2, to=3-1]
+	\arrow["{\pi_{\dB}}"', from=3-2, to=3-3]
+	\arrow["{(A, B)}"{description}, dashed, from=1-2, to=3-2]
+      \end{tikzcd}
+    \]
+  \end{node}
+  \begin{node}
+    Equalizers in $\CLaw$ are constructed as follows:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMiwyLCJcXGRBIl0sWzQsMiwiXFxkQiJdLFswLDIsIlxcZEsiXSxbMiwwLCJcXGROXFxvcCJdLFswLDEsImYiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiZyIsMix7Im9mZnNldCI6MX1dLFsyLDAsImsiLDJdLFszLDAsIkEiLDJdLFszLDEsIkIiXSxbMywyLCJLIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+      \begin{tikzcd}
+	&& \dN\op \\
+	\\
+	\dK && \dA && \dB
+	\arrow["f", shift left, from=3-3, to=3-5]
+	\arrow["g"', shift right, from=3-3, to=3-5]
+	\arrow["k"', from=3-1, to=3-3]
+	\arrow["A"', from=1-3, to=3-3]
+	\arrow["B", from=1-3, to=3-5]
+	\arrow["K"', dashed, from=1-3, to=3-1]
+      \end{tikzcd}
+    \]
+  \end{node}
 
-\section{Presentations of Lawvere theories}
-\label{sec:presentations-of-lawvere-theories}
-
-\begin{node}
-  We define a functor $T : \CLaw \to \CSet^{|\dN|}$ that maps a Lawvere theory to a sequence of sets of operations.
-  $T$ maps each Lawvere theory $A$ to a sequence of sets whose $n$-th element is the set $\dA(A^{n}, A)$, i.e., the set of all $n$-ary operations.
-  For each $F : A \to B$, $T$ maps $F$ to a sequence of functions whose $n$-th element $(TF)_{n} : \Hom(A^{n}, A) \to \Hom(B^{n}, B)$ maps each $n$-ary operation $k$ of $A$ to $Fk$, an $n$-ary operation of $B$.
-\end{node}
-
-\begin{thm}
-  $T$ has a left adjoint $F$.
-\end{thm}
+  \begin{node}
+    Coproducts are computed as pushouts:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGROXFxvcCJdLFswLDIsIlxcZEEiXSxbMiwwLCJcXGRCIl0sWzIsMiwiXFxkQSArX3tcXGROXFxvcH0gXFxkQiJdLFswLDEsIkEiLDJdLFswLDIsIkIiXSxbMSwzXSxbMiwzXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+      \begin{tikzcd}
+	\dN\op && \dB \\
+	\\
+	\dA && {\dA +_{\dN\op} \dB}
+	\arrow["A"', from=1-1, to=3-1]
+	\arrow["B", from=1-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+      \end{tikzcd}
+    \]
+    Intuitively, when we glue a small family of Lawvere theories together, each operation of the new theory is an operation of some theory of the family.
+    Each variable of each theory of the family is identified which is achieved via a pushout.
+  \end{node}
+  \begin{node}
+    Coequalizers are computed as follows:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGRBIl0sWzIsMiwiXFxkQiJdLFs0LDIsIlxcZEsiXSxbMSwwLCJcXGROXFxvcCJdLFswLDEsImYiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiZyIsMix7Im9mZnNldCI6MX1dLFsxLDIsImsiLDJdLFszLDEsIkIiLDFdLFszLDIsIksiXSxbMywwLCJBIiwyXV0=
+      \begin{tikzcd}
+	& \dN\op \\
+	\\
+	\dA && \dB && \dK
+	\arrow["f", shift left, from=3-1, to=3-3]
+	\arrow["g"', shift right, from=3-1, to=3-3]
+	\arrow["k"', from=3-3, to=3-5]
+	\arrow["B"{description}, from=1-2, to=3-3]
+	\arrow["K", from=1-2, to=3-5]
+	\arrow["A"', from=1-2, to=3-1]
+      \end{tikzcd}
+    \]
+  \end{node}
+\end{proof}
 
 \section{Algebraic categories}
 \label{sec:algebraic-categories}
@@ -1122,6 +1183,59 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   The \emph{category of algebras of type $A$}, denoted $\Alg(A)$, is the full subcategory of $\CSet^{\dA}$ spanned by those finite-product preserving functors.
   A category $\iC$ is \emph{algebraic} if $\iC \eqv \Alg(B)$ for some Lawvere theory $B$.
 \end{defn}
+
+\section{Sifted and filtered colimits}
+\label{sec:sifted-and-filtered-colimits}
+
+\begin{defn}
+  A small category $\iC$ is \emph{sifted} if finite products in $\CSet$ commute with colimits over $\iC$.
+  Concretely, a small category $\iC$ is sifted if, given a diagram $D : \iC \times \iJ \to \CSet$ where $\iJ$ is a finite set, the canonical morphism
+  \[
+    \colim_{\iC}\prod_{\iJ}D(c,j) \to \prod_{\iJ}\colim_{\iC}D(c,j)
+  \]
+  is an isomorphism.
+  Colimits of diagrams over sifted categories are called \emph{sifted colimits}.
+\end{defn}
+
+\begin{defn}
+  A small category $\iC$ is \emph{filtered} if every finite diagram $F : \iJ \to iC$ admits a cocone.
+  Colimits of diagrams over filtered categories are called \emph{filtered colimits}.
+\end{defn}
+
+\begin{node}
+  It is well-known that filtered colimits commute with finite limits in $\CSet$.
+\end{node}
+
+\begin{lem}\label{lem:functor-category-sifted-colimits-commute-with-finite-products}
+  For any small category $\iC$, sifted colimits in $\CSet^{\iC}$ commute with finite products.
+\end{lem}
+\begin{proof}
+  Let $D : S \times J \to \CSet^{\iC}$ be a diagram where $S$ is a sifted category and $J$ is a finite set.
+  The colimit $\colim_{S}\prod_{J}D(s,j)$ is computed componentwise: $\colim_{S}\prod_{J}D(s,j)(c)$ is the colimit $\colim_{S}\prod_{J}\ev_{c}D(s,j)$.
+  By definition, sifted colimits commute with finite products in $\CSet$.
+  These isomorphisms assemble into a natural isomorphism:
+  \[
+    \colim_{S}\prod_{J}D(s,j) \iso \prod_{J}\colim_{S}D(s,j)
+  \]
+\end{proof}
+
+\begin{lem}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The full inclusion functor $\iota : \Alg(A) \to \CSet^{\dA}$ creates colimits of sifted diagrams.
+\end{lem}
+\begin{proof}
+  Let $S$ be a sifted category and $D : S \to \Alg(A)$ be a diagram.
+  Since $\CSet^{\dA}$ is cocomplete (has all sifted colimits) and $\iota$ reflects all colimits, it suffices to show that $\colim_{S}\iota \circ D$ is a finite-product preserving functor, but this is immediate from \cref{lem:functor-category-sifted-colimits-commute-with-finite-products}.
+\end{proof}
+
+\begin{cor}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The category $\Alg(A)$ has sifted colimits.
+\end{cor}
+
+\section{Algebraic categories as free cocompletions}
+\label{sec:algebraic-categories-as-free-cocompletions}
+
 
 
 \section{Splitting of idempotents}

@@ -1260,7 +1260,36 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
 \end{node}
 
-\todo{characterize sifted categories.}
+\begin{defn}
+  A functor $F : \iC \to \iD$ is \emph{final} if, for every diagram $D : \iD \to \iE$ such that $\colim(DF)$ exists, then $\colim D$ exists and the canonical morphism $\colim(DF) \to \colim D$ is an isomorphism.
+\end{defn}
+
+\begin{prop}
+  Let $F : \iC \to \iD$ be a functor.
+  The following conditions are equivalent:
+  \begin{enumerate}
+  \item $F$ is final;
+  \item $F$ satisfies the finality condition with respect to all representable functors $\iD(d, \blank)$;
+  \item For every object $d$ of $\iD$, the slice category $d \dn F$ is connected.
+  \end{enumerate}
+\end{prop}
+\begin{proof}
+  \begin{node}
+    (1) $\imp$ (2) is trivial.
+  \end{node}
+  \begin{node}
+    Assume (2).
+    Since the diagram $\iD(d, \blank) : \iD \to \CSet$ has colimit $1$, $1$ is also a colimit of $\iD(d, F\blank)$.
+    Thus, the slice category $d \dn F$ has an initial object and, therefore, connected.
+  \end{node}
+  \begin{node}
+    Assume (3).
+    Let $\gamma : e \to DF$ be a colimit cone of $DF$.
+    We show that $e$ is a colimit of the diagram $D$.
+    Pick an arbitrary $c \in \iC$.
+    For each $d \in D$, pick an arbitrary morphism $u_{d} : d \to Fc$.
+  \end{node}
+\end{proof}
 
 \section{Reflexive coequalizers}
 \label{sec:reflexive-coequalizers}
@@ -1287,37 +1316,15 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \section{Algebraic categories as free cocompletions}
 \label{sec:algebraic-categories-as-free-cocompletions}
 
-\begin{thm}
+\begin{node}\label{node:colimit-of-representables}
   Let $\iC$ be a small category.
-  Every functor $F : \iC \to \CSet$ is the colimit of representable functors.
-  That is, $F \iso \colim \yon\Pi$, where $\Pi : \int F \to \iC$ is the projection functor.
-\end{thm}
+  Any functor $F : \iC \to \CSet$ is naturally isomorphic to the colimit $\colim\yon\Pi$, where $\Pi : (\yon \dn F)\op \to \iC\op$ is the projection functor and $F : 1 \to \CSet^{\iC}$ is a functor that picks out $F : \iC \to \CSet$.
+\end{node}
 
 \begin{node}
   For any small category $\iC$ and object $c \in \iC$, the Hom functor $\iC(c, \blank)$ preserves limits.
   Thus, given a Lawvere theory $A : \dN\op \to \dA$, each object $a \in \dA$ determines an algebra $\dA(a, \blank) : \dA \to \CSet$.
-\end{node}
-
-\begin{node}
-  The algebra $\dA(A^{n},\blank)$ is precisely the free algebra on $n$ generators.
-\end{node}
-
-\begin{node}
-  This determines a functor $F_{a} : \dA \to \Alg(A)$ whose composition with the full inclusion functor $\iota : \Alg(A) \into \CSet^{\dA}$ is the Yoneda embedding.
-  \[
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEFsZyhBKSJdLFsyLDIsIlxcU2V0XntcXGRBfSJdLFswLDIsIlxcZEFcXG9wIl0sWzIsMSwiXFx5b25fe2F9IiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwxLCJcXGlvdGEiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDAsIlRfe2F9Il1d
-    \begin{tikzcd}
-      {\Alg(A)} \\
-      \\
-      \dA\op && {\CSet^{\dA}}
-      \arrow["{\yon_{a}}"', hook, from=3-1, to=3-3]
-      \arrow["\iota", hook, from=1-1, to=3-3]
-      \arrow["{F_{a}}", from=3-1, to=1-1]
-    \end{tikzcd}
-  \]
-\end{node}
-\begin{node}
-  Since $\yon_{a}$ and $\iota$ are fully faithful, so is $F_{a}$.
+  By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
 \end{node}
 
 \begin{thm}

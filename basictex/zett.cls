@@ -26,14 +26,14 @@
 \pretitle{\begin{center}\LARGE\bfseries\MakeTextUppercase}
 \posttitle{\par\end{center}\vskip 0.5em}
 
-\linespread{1.1}
+\linespread{1}
 
 \ExplSyntaxOn
 
 \AtEndPreamble{
-  \setlrmarginsandblock{1.33in}{*}{1}
-  \setulmarginsandblock{1.4in}{*}{1}
-  \setheaderspaces{*}{2\onelineskip}{*}
+  \setlrmarginsandblock{2cm}{*}{1}
+  \setulmarginsandblock{2cm}{*}{1}
+  \setheaderspaces{*}{\onelineskip}{*}
   \checkandfixthelayout
 }
 
@@ -63,8 +63,8 @@
 }
 
 
-% \__ega_append_period:c {subsection}
-% \__ega_append_period:c {subsubsection}
+\__ega_append_period:c {subsection}
+\__ega_append_period:c {subsubsection}
 \__ega_append_period:c {paragraph}
 \__ega_append_period:c {subparagraph}
 
@@ -82,7 +82,7 @@
 %% Customizable
 
 \newlength\DieudonneNodeIndent
-\setlength\DieudonneNodeIndent{\parindent}
+\setlength\DieudonneNodeIndent{0pt}
 
 \NewDocumentCommand\DieudonneInterpunct{}{
   \textperiodcentered
@@ -220,17 +220,17 @@
   \dieudonne_fmt_num_notoc:n {equation}
 }
 
-
+\makeatletter
 \NewDocumentEnvironment{node}{o}{
   \refstepcounter{node}
   \noindent
-  \IfValueT{#1}{#1}
   \hspace{\DieudonneNodeIndent}\textbf{(\thenode)}\hspace{.3em}
+  \IfValueT{#1}{\label{node:#1}}
   \ignorespaces
 }{
   \par\addvspace{.5\baselineskip}
 }
-
+\makeatother
 \ExplSyntaxOff
 
 

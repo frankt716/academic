@@ -10,7 +10,6 @@
 \RequirePackage[pagebackref,colorlinks,citecolor=darkgreen,linkcolor=darkgreen]{hyperref}
 \RequirePackage{libertine}
 \RequirePackage{zi4}
-\RequirePackage{aliascnt}
 \RequirePackage[capitalise]{cleveref}
 
 \counterwithout{section}{chapter}
@@ -27,14 +26,14 @@
 \pretitle{\begin{center}\LARGE\bfseries\MakeTextUppercase}
 \posttitle{\par\end{center}\vskip 0.5em}
 
-\linespread{1.1}
+\linespread{1}
 
 \ExplSyntaxOn
 
 \AtEndPreamble{
-  \setlrmarginsandblock{1.33in}{*}{1}
-  \setulmarginsandblock{1.4in}{*}{1}
-  \setheaderspaces{*}{2\onelineskip}{*}
+  \setlrmarginsandblock{2cm}{*}{1}
+  \setulmarginsandblock{2cm}{*}{1}
+  \setheaderspaces{*}{\onelineskip}{*}
   \checkandfixthelayout
 }
 
@@ -64,8 +63,8 @@
 }
 
 
-% \__ega_append_period:c {subsection}
-% \__ega_append_period:c {subsubsection}
+\__ega_append_period:c {subsection}
+\__ega_append_period:c {subsubsection}
 \__ega_append_period:c {paragraph}
 \__ega_append_period:c {subparagraph}
 
@@ -221,44 +220,28 @@
   \dieudonne_fmt_num_notoc:n {equation}
 }
 
-
+\makeatletter
 \NewDocumentEnvironment{node}{o}{
   \refstepcounter{node}
   \noindent
-  \IfValueT{#1}{#1}
   \hspace{\DieudonneNodeIndent}\textbf{(\thenode)}\hspace{.3em}
+  \IfValueT{#1}{\label{node:#1}}
   \ignorespaces
 }{
   \par\addvspace{.5\baselineskip}
 }
-
+\makeatother
 \ExplSyntaxOff
 
 
-\def\defthm#1#2#3{%
-  %% Ensure all theorem types are numbered with the same counter
-  \newaliascnt{#1}{thm}
-  \newtheorem{#1}[#1]{#2}
-  \aliascntresetthe{#1}
-  %% This command tells cleveref's \cref what to call things
-  \crefname{#1}{#2}{#3}% following brace must be on separate line to support poorman cleveref sed file
-}
-
+%% theorem environments
 \newtheorem{thm}{Theorem}[section]
-\crefname{thm}{Theorem}{Theorems}
-\defthm{cor}{Corollary}{Corollaries}
-\defthm{prop}{Proposition}{Propositions}
-\defthm{lem}{Lemma}{Lemmas}
-\defthm{sch}{Scholium}{Scholia}
-\defthm{assume}{Assumption}{Assumptions}
-\defthm{claim}{Claim}{Claims}
-\defthm{conj}{Conjecture}{Conjectures}
-\defthm{hyp}{Hypothesis}{Hypotheses}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+
 \theoremstyle{definition}
-\defthm{defn}{Definition}{Definitions}
-\defthm{notn}{Notation}{Notations}
-\defthm{rmk}{Remark}{Remarks}
-\defthm{eg}{Example}{Examples}
-\defthm{egs}{Examples}{Examples}
-\defthm{ex}{Exercise}{Exercises}
-\defthm{ceg}{Counterexample}{Counterexamples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rmk}[thm]{Remark}
+\newtheorem{eg}[thm]{Example}

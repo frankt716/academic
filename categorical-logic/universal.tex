@@ -1260,36 +1260,49 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
 \end{node}
 
-\begin{defn}
-  A functor $F : \iC \to \iD$ is \emph{final} if, for every diagram $D : \iD \to \iE$ such that $\colim(DF)$ exists, then $\colim D$ exists and the canonical morphism $\colim(DF) \to \colim D$ is an isomorphism.
-\end{defn}
+\begin{lem}
+  Let $F : \iD \to \iE$ be a functor.
+  $F$ is final if and only if for each $d \in \iD$, the slice category $d \dn F$ is connected.
+\end{lem}
 
-\begin{prop}
-  Let $F : \iC \to \iD$ be a functor.
-  The following conditions are equivalent:
-  \begin{enumerate}
-  \item $F$ is final;
-  \item $F$ satisfies the finality condition with respect to all representable functors $\iD(d, \blank)$;
-  \item For every object $d$ of $\iD$, the slice category $d \dn F$ is connected.
-  \end{enumerate}
-\end{prop}
+\begin{thm}
+  An inhabited small category $\iD$ is sifted if and only if for each $(d, d') \in \iD \times \iD$, the category of cospans $(d, d') \dn \Delta$ is connected.
+\end{thm}
 \begin{proof}
   \begin{node}
-    (1) $\imp$ (2) is trivial.
+    Given any two diagrams $F, F' : \iD \to \CSet$, consider the diagram $F \times F' : \iD \times \iD \to \CSet$ defined by
+    \[
+      F \times F' : (d, d') \mapsto Fd \times F'd'
+    \]
+    For any set $X$, the functor $X \times \blank$ is left adjoint to $\CSet(X, \blank)$.
+    Thus, $X \times \blank$ preserves colimits.
+    The colimit of this diagram can be computed as follows
+    \[
+      \colim_{(d, d') \in \iD \times \iD}(Fd \times F'd') \iso \colim_{d \in \iD}(\colim_{d' \in \iD}(Fd \times F'd')) \iso \colim_{d \in \iD}Fd \times \colim_{d \in \iD}Fd
+    \]
+    Now, consider the following diagram
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGNvbGltX3tcXGlEfShGIFxcdGltZXMgRicpXFxEZWx0YSJdLFsyLDAsIlxcY29saW1fe1xcaUR9RmQgXFx0aW1lcyBcXGNvbGltX3tcXGlEfUYnZCJdLFsyLDIsIlxcY29saW1fe1xcaUQgXFx0aW1lcyBcXGlEfShGIFxcdGltZXMgRicpIl0sWzAsMCwiXFxjb2xpbV97XFxpRH0oRmQgXFx0aW1lcyBGJ2QpIl0sWzAsMiwiXFxnYW1tYSIsMl0sWzIsMSwiXFxpc28iLDJdLFszLDAsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMSwiXFxkZWx0YSJdXQ==
+      \begin{tikzcd}
+	{\colim_{\iD}(Fd \times F'd)} && {\colim_{\iD}Fd \times \colim_{\iD}F'd} \\
+	\\
+	{\colim_{\iD}(F \times F')\Delta} && {\colim_{\iD \times \iD}(F \times F')}
+	\arrow["\gamma"', from=3-1, to=3-3]
+	\arrow["\iso"', from=3-3, to=1-3]
+	\arrow[Rightarrow, no head, from=1-1, to=3-1]
+	\arrow["\delta", from=1-1, to=1-3]
+      \end{tikzcd}
+    \]
+    Note that the diagram commutes as the canonical map out of a colimit is unique.
   \end{node}
   \begin{node}
-    Assume (2).
-    Since the diagram $\iD(d, \blank) : \iD \to \CSet$ has colimit $1$, $1$ is also a colimit of $\iD(d, F\blank)$.
-    Thus, the slice category $d \dn F$ has an initial object and, therefore, connected.
-  \end{node}
-  \begin{node}
-    Assume (3).
-    Let $\gamma : e \to DF$ be a colimit cone of $DF$.
-    We show that $e$ is a colimit of the diagram $D$.
-    Pick an arbitrary $c \in \iC$.
-    For each $d \in D$, pick an arbitrary morphism $u_{d} : d \to Fc$.
+    If $\iD$ is sifted, then $\delta$ is an isomorphism.
+    Thus, $\gamma$ is an isomorphism.
+    Conversely, if $\Delta$ is final then $\gamma$ is an isomorphism.
+    Thus, $\delta$ is an isomorphism.
   \end{node}
 \end{proof}
+\todo{Investigate remark 2.2.2}
 
 \section{Reflexive coequalizers}
 \label{sec:reflexive-coequalizers}
@@ -1327,9 +1340,30 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
 \end{node}
 
+\begin{lem}
+  Given an algebraic theory $A$, for any functor $F : \dA \to \CSet$ the following conditions are equivalent:
+  \begin{enumerate}
+  \item $F$ is an algebra.
+  \item $(\yon \dn F)\op$ is a sifted category.
+  \item $F$ is a sifted colimit of representable algebras.
+  \end{enumerate}
+\end{lem}
+
 \begin{thm}
   Every algebraic category is cocomplete.
 \end{thm}
+\begin{proof}
+  \begin{node}
+    We have already shown that algebraic categories have reflexive coequalizers and filtered coequalizers.
+    It suffices to construct binary coproducts.
+  \end{node}
+  \begin{node}
+    Let $F$ and $G$ be algebras expressed as $\colim\yon\Pi_{F}$ and $\colim\yon\Pi_{G}$.
+    Construct the coproduct $\colim\yon\Pi_{F} + \colim\yon\Pi_{G}$.
+    Since colimits commute with coproducts, this is naturally isomorphic to $\colim(\yon\Pi_{F} + \yon\Pi_{G})$.
+    The indexing category of the diagram $\yon\Pi_{F} + \yon\Pi_{G}$ is sifted, so its colimit commutes with finite products.
+  \end{node}
+\end{proof}
 
 \section{Splitting of idempotents}
 \label{sec:splitting-of-idempotents}

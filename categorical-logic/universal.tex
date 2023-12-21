@@ -1240,6 +1240,70 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \end{node}
 \end{proof}
 
+\begin{defn}
+  A functor $F : \iC \to \iD$ is \emph{final} if, for any diagram $G : \iD \to \iE$ such that $\colim_{\iC}GF$ exists, then $\colim_{\iD}G$ exists and the canonical morphism $\colim_{\iC}GF \to \colim_{\iD}G$ is an isomorphism.
+\end{defn}
+
+\begin{lem}
+  A functor $F : \iC \to \iD$ is final if and only if the slice category $d \dn F$ is connected for all $d \in \iD$.
+\end{lem}
+\begin{proof}
+  \begin{node}
+    Suppose that $F$ is final.
+    Consider the diagram $\iD(d, F\blank) : \iC \to \CSet$.
+    By hypothesis, $\colim_{\iC}\iD(d, F\blank) \iso \colim_{\iD}\iD(d, \blank)$.
+    The colimit of the represented functor is the singleton set.
+    Thus, $\colim_{\iC}\iD(d, F\blank) \iso 1$, so the slice category $d \dn F$ is connected.
+  \end{node}
+  \begin{node}
+    Conversely, suppose that $d \dn F$ is connected for all $d \in \iD$.
+    Let $G : \iD \to \iE$ be any diagram such that $\colim_{\iC}GF$ exists.
+    We show that $\colim_{\iD}G$ is just $\colim_{\iC}GF$.
+    Let $\lambda : GF \to e$ be the colimiting cocone.
+    We construct a colimiting cocone $\lambda' : G \to e$ as follows.
+    Choose an arbitrary object in $d \dn F$, i.e., an object $c \in \iC$ and a morphism $f : d \to Fc$.
+    Then the component $\lambda'_{d}$ is the composite
+    \[
+      % https://q.uiver.app/#q=WzAsMyxbMCwyLCJHZCJdLFsyLDIsIkdGYyJdLFsyLDAsImUiXSxbMCwxLCJHZiIsMl0sWzEsMiwiXFxsYW1iZGFfe2N9IiwyXSxbMCwyLCJcXGxhbWJkYSdfe2R9Il1d
+      \begin{tikzcd}
+	&& e \\
+	\\
+	Gd && GFc
+	\arrow["Gf"', from=3-1, to=3-3]
+	\arrow["{\lambda_{c}}"', from=3-3, to=1-3]
+	\arrow["{\lambda'_{d}}", from=3-1, to=1-3]
+      \end{tikzcd}
+    \]
+    Naturality of $\lambda'$ follows from the naturality of $\lambda$ and the fact that $d \dn F$ is connected for all $d \in \iD$.
+    Connectedness means that there is a sequence of zig-zag morphisms so that every triangle in the square commutes.
+    \[
+      % https://q.uiver.app/#q=WzAsOCxbMCwwLCJHZCJdLFs0LDAsIkdGYyJdLFs0LDIsIkdGY197Mn0iXSxbNCwzLCJHRmNfezN9Il0sWzQsNCwiR0ZjJyJdLFswLDQsIkdkJyJdLFs0LDEsIkdGY197MX0iXSxbNiwyLCJlIl0sWzMsMl0sWzMsNF0sWzAsNSwiR2ciLDJdLFswLDEsIkdmIl0sWzUsNCwiR2YnIiwyXSxbMSw2XSxbMiw2XSxbMSw3LCJcXGxhbWJkYV97Y30iXSxbNCw3LCJcXGxhbWJkYV97Yyd9IiwyXSxbMCw2LCJHZl97MX0iLDFdLFs2LDcsIlxcbGFtYmRhX3tjX3sxfX0iLDFdLFszLDcsIlxcbGFtYmRhX3tjX3szfX0iLDFdLFswLDMsIkdmX3szfSIsMV0sWzAsNCwiRyhmJ2cpIiwyXV0=
+      \begin{tikzcd}
+	Gd &&&& GFc \\
+	&&&& {GFc_{1}} \\
+	&&&& {GFc_{2}} && e \\
+	&&&& {GFc_{3}} \\
+	{Gd'} &&&& {GFc'}
+	\arrow[from=4-5, to=3-5]
+	\arrow[from=4-5, to=5-5]
+	\arrow["Gg"', from=1-1, to=5-1]
+	\arrow["Gf", from=1-1, to=1-5]
+	\arrow["{Gf'}"', from=5-1, to=5-5]
+	\arrow[from=1-5, to=2-5]
+	\arrow[from=3-5, to=2-5]
+	\arrow["{\lambda_{c}}", from=1-5, to=3-7]
+	\arrow["{\lambda_{c'}}"', from=5-5, to=3-7]
+	\arrow["{Gf_{1}}"{description}, from=1-1, to=2-5]
+	\arrow["{\lambda_{c_{1}}}"{description}, from=2-5, to=3-7]
+	\arrow["{\lambda_{c_{3}}}"{description}, from=4-5, to=3-7]
+	\arrow["{Gf_{3}}"{description}, from=1-1, to=4-5]
+	\arrow["{G(f'g)}"', from=1-1, to=5-5]
+      \end{tikzcd}
+    \]
+    It is easy to verify that this cocone is colimiting.
+  \end{node}
+\end{proof}
+
 \begin{thm}
   A small category $\iD$ is sifted if and only if it is connected and the diagonal functor $\Delta$ is final.
 \end{thm}
@@ -1272,7 +1336,21 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
     This is isomorphic to the empty product, so colimits under $\iD$ commute with the empty product.
   \end{node}
   \begin{node}
-    We need to show that $\Delta$ is final.
+    Assume that $\Delta$ is final.
+    Then for any functors $F, F' : \iD \to \CSet$, the product $F \times F'$ is computed as $G \circ \Delta$, where $G : \iD \times \iD \to \CSet$ is defined by $(d, d') \mapsto Fd \times F'd'$.
+    Thus,
+    \[
+      \colim_{\iD}F \times F' \iso \colim_{\iD}G \circ \Delta \iso \colim_{\iD \times \iD}G \iso \colim_{\iD}F \times \colim_{\iD}F'
+    \]
+    The last isomorphism follows from the fact that for any set $X$, the functor $X \times \blank$ is a left adjoint, and thus colimit preserving.
+    Conversely, assume that colimits under $\iD$ commute with binary products.
+    Then for any $d, d' \in \iD$
+    \begin{align}
+      \colim_{\iD}\iD \times \iD((d, d'), \Delta\blank) &= \colim_{\iD}(\iD(d, \blank) \times \iD(d', \blank))\\
+                                                   &\iso \colim_{\iD}\iD(d, \blank) \times \colim_{\iD}\iD(d', \blank)\\
+                                                   &\iso 1
+    \end{align}
+    Thus, the category of cospans $(d, d') \dn \Delta$ is connected.
   \end{node}
 \end{proof}
 

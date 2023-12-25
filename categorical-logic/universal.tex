@@ -1304,7 +1304,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \end{node}
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:characterization-of-sifted}
   A small category $\iD$ is sifted if and only if it is connected and the diagonal functor $\Delta$ is final.
 \end{thm}
 \begin{proof}
@@ -1354,6 +1354,16 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \end{node}
 \end{proof}
 
+\begin{cor}\label{cor:finite-coproducts-then-sifted}
+  Every small category $\iD$ with finite coproducts is sifted.
+\end{cor}
+\begin{proof}
+  By \cref{thm:characterization-of-sifted}, it suffices to show that $\iD$ is connected and that for all $d, d' \in \iD$, the category of cospans $(d, d') \dn \Delta$ is connected.
+  $\iD$ has an initial object, so it is connected.
+  $\iD$ has binary coproducts, so for any $d, d' \in \iD$, their coproduct in $\iD$ corresponds to the initial object in $(d, d') \dn \Delta$.
+  Thus, the category of cospans is connected.
+\end{proof}
+
 \begin{lem}\label{lem:functor-category-sifted-colimits-commute-with-finite-products}
   For any small category $\iC$, sifted colimits in $\CSet^{\iC}$ commute with finite products.
 \end{lem}
@@ -1397,16 +1407,11 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
 \end{node}
 
-\begin{lem}
-  Let $F : \iD \to \iE$ be a functor.
-  $F$ is final if and only if for each $d \in \iD$, the slice category $d \dn F$ is connected.
-\end{lem}
-
 \section{Reflexive coequalizers}
 \label{sec:reflexive-coequalizers}
 
 \begin{defn}
-  Let $\iJ$ be the following sifted category
+  Let $\iJ$ be the following category
   \[
     % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzAsMSwiZiIsMCx7Im9mZnNldCI6LTJ9XSxbMCwxLCJnIiwyLHsib2Zmc2V0IjoyfV0sWzEsMCwicyIsMV1d
     \begin{tikzcd}
@@ -1421,7 +1426,8 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{defn}
 
 \begin{node}
-  Since reflexive coequalizers are sifted colimits, any algebraic category has reflexive coequalizers by \cref{thm:algebraic-categories-has-sifted-colimits}.
+  It is easy to verify that $\iJ$ is a sifted category.
+  Thus, reflexive coequalizers are sifted colimits.
 \end{node}
 
 \section{Algebraic categories as free cocompletions}
@@ -1432,7 +1438,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   Any functor $F : \iC \to \CSet$ is naturally isomorphic to the colimit $\colim\yon\Pi$, where $\Pi : (\yon \dn F)\op \to \iC\op$ is the projection functor and $F : 1 \to \CSet^{\iC}$ is a functor that picks out $F : \iC \to \CSet$.
 \end{node}
 
-\begin{node}
+\begin{node}\label{node:colim-of-representable}%
   For any small category $\iC$ and object $c \in \iC$, the Hom functor $\iC(c, \blank)$ preserves limits.
   Thus, given a Lawvere theory $A : \dN\op \to \dA$, each object $a \in \dA$ determines an algebra $\dA(a, \blank) : \dA \to \CSet$.
   By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
@@ -1446,6 +1452,26 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   \item $F$ is a sifted colimit of representable algebras.
   \end{enumerate}
 \end{lem}
+\begin{proof}
+  \begin{node}
+    (1) $\imp$ (2).
+    Assume that $F$ is an algebra.
+    By \cref{cor:finite-coproducts-then-sifted} and duality, it suffices to show that $(\yon \dn F)$ has finite products.
+    Since $F$ is an algebra, $F1$ is the singleton set.
+    Thus, $(1, *)$ is the terminal object in $(\yon \dn F)$.
+    Binary products are defined pointwise: $(a, x) \times (b, y)$ is $(a \times b, (x, y))$.
+    This is well-defined because $Fa \times Fb \iso F(a \times b)$.
+  \end{node}
+  \begin{node}
+    (2) $\imp$ (3).
+    Since $(\yon \dn F)\op$ is sifted, colimits of this shape are sifted colimits.
+    By \cref{node:colim-of-representable}, any functor is a sifted colimit of representable algebras.
+  \end{node}
+  \begin{node}
+    (3) $\imp$ (1).
+    By \cref{thm:algebraic-categories-has-sifted-colimits}, $\Alg(A)$ is closed under sifted colimits.
+  \end{node}
+\end{proof}
 
 \begin{thm}
   Every algebraic category is cocomplete.

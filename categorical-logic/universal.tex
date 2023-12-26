@@ -1444,7 +1444,7 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
   By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
 \end{node}
 
-\begin{lem}
+\begin{lem}\label{lem:algebras-are-sifted-colimits}
   Given an algebraic theory $A$, for any functor $F : \dA \to \CSet$ the following conditions are equivalent:
   \begin{enumerate}
   \item $F$ is an algebra.
@@ -1478,14 +1478,23 @@ Since $\gamma_{P}$ is an epimorphism, $\gamma_{C}$ is the cokernel of the pair $
 \end{thm}
 \begin{proof}
   \begin{node}
-    We have already shown that algebraic categories have reflexive coequalizers and filtered coequalizers.
-    It suffices to construct binary coproducts.
+    We have already shown that algebraic categories have reflexive coequalizers and filtered colimits.
+    It suffices to construct finite coproducts.
   \end{node}
   \begin{node}
-    Let $F$ and $G$ be algebras expressed as $\colim\yon\Pi_{F}$ and $\colim\yon\Pi_{G}$.
-    Construct the coproduct $\colim\yon\Pi_{F} + \colim\yon\Pi_{G}$.
-    Since colimits commute with coproducts, this is naturally isomorphic to $\colim(\yon\Pi_{F} + \yon\Pi_{G})$.
-    The indexing category of the diagram $\yon\Pi_{F} + \yon\Pi_{G}$ is sifted, so its colimit commutes with finite products.
+    Let $F, G : \dA \to \CSet$ be algebras of type $A$.
+    By \cref{lem:algebras-are-sifted-colimits}, $F$ and $G$ can be expressed as sifted colimits of representable algebras.
+    Consider the category $\iD = (\yon \dn F)\op \times (\yon \dn G)\op$ and the diagram $H : \iD \to \Alg(A)$ defined by
+    \[
+      H : ((a \in \dA, x \in Fa), (a' \in \dA, y \in Ga)) \mapsto \yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)
+    \]
+    Note that $\yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)$ exists in $\Alg(A)$.
+    Since $\iD$ is the product of two sifted categories, $\iD$ itself is also a sifted category.
+    Thus, the colimit of this diagram exists in $\Alg(A)$.
+    Since colimits commute with coproducts, we have
+    \[
+      \colim H \iso \colim_{(\yon \dn F)\op}\yon\Pi_{A} + \colim_{(\yon \dn G)\op}\yon\Pi_{B} \iso F + G
+    \]
   \end{node}
 \end{proof}
 

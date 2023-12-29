@@ -1,0 +1,463 @@
+\documentclass{zett}
+\input{preambles}
+\title{Lawvere theories}
+\author{Frank Tsai}
+\date{\today}
+%\thanks{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Lawvere Theory}
+\label{sec:lawvere-theory}
+
+\begin{node}
+  We write $\dN$ for a chosen skeletal category of $\CFinSet$.
+\end{node}
+
+\begin{defn}
+  The \emph{category of Lawvere theories} $\CLaw$ is the full subcategory of $\dN\op/\CCat$ spanned by those objects $A : \dN\op \to \dA$ that is identity-on-objects and preserves finite products.
+  We write $A^{n}$ for the value of $A$ at $n$ and we omit the superscript when $n = 1$.
+  An \emph{$n$-ary operation} of $\dA$ is a morphism $f : A^{n} \to A$.
+  We write $\pi^{n}_{i} : A^{n} \to A$ for the value of $A$ at the $i$-th projection $n \to 1$ of $\dN\op$.
+\end{defn}
+
+\begin{eg}
+  The identity functor $\dN\op \to \dN\op$ is a Lawvere theory, which we call ``the theory of equality''.
+  This is an initial object of $\CLaw$.
+\end{eg}
+
+\begin{thm}
+  The category of Lawvere theories is complete and cocomplete.
+\end{thm}
+\begin{proof}[Proof sketch]
+  \begin{node}
+    It suffices to prove that $\CLaw$ has products, equalizers, coproducts, and coequalizers.
+  \end{node}
+  \begin{node}
+    Products in $\CLaw$ are constructed as follows.
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGRBIl0sWzEsMiwiXFxkQSBcXHRpbWVzIFxcZEIiXSxbMiwyLCJcXGRCIl0sWzEsMCwiXFxkTlxcb3AiXSxbMywwLCJBIiwyXSxbMywyLCJCIl0sWzEsMCwiXFxwaV97XFxkQX0iXSxbMSwyLCJcXHBpX3tcXGRCfSIsMl0sWzMsMSwiKEEsIEIpIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+      \begin{tikzcd}
+	& \dN\op \\
+	\\
+	\dA & {\dA \times \dB} & \dB
+	\arrow["A"', from=1-2, to=3-1]
+	\arrow["B", from=1-2, to=3-3]
+	\arrow["{\pi_{\dA}}", from=3-2, to=3-1]
+	\arrow["{\pi_{\dB}}"', from=3-2, to=3-3]
+	\arrow["{(A, B)}"{description}, dashed, from=1-2, to=3-2]
+      \end{tikzcd}
+    \]
+  \end{node}
+  \begin{node}
+    Equalizers in $\CLaw$ are constructed as follows:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMiwyLCJcXGRBIl0sWzQsMiwiXFxkQiJdLFswLDIsIlxcZEsiXSxbMiwwLCJcXGROXFxvcCJdLFswLDEsImYiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiZyIsMix7Im9mZnNldCI6MX1dLFsyLDAsImsiLDJdLFszLDAsIkEiLDJdLFszLDEsIkIiXSxbMywyLCJLIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+      \begin{tikzcd}
+	&& \dN\op \\
+	\\
+	\dK && \dA && \dB
+	\arrow["f", shift left, from=3-3, to=3-5]
+	\arrow["g"', shift right, from=3-3, to=3-5]
+	\arrow["k"', from=3-1, to=3-3]
+	\arrow["A"', from=1-3, to=3-3]
+	\arrow["B", from=1-3, to=3-5]
+	\arrow["K"', dashed, from=1-3, to=3-1]
+      \end{tikzcd}
+    \]
+  \end{node}
+
+  \begin{node}
+    Coproducts are computed as pushouts:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGROXFxvcCJdLFswLDIsIlxcZEEiXSxbMiwwLCJcXGRCIl0sWzIsMiwiXFxkQSArX3tcXGROXFxvcH0gXFxkQiJdLFswLDEsIkEiLDJdLFswLDIsIkIiXSxbMSwzXSxbMiwzXSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+      \begin{tikzcd}
+	\dN\op && \dB \\
+	\\
+	\dA && {\dA +_{\dN\op} \dB}
+	\arrow["A"', from=1-1, to=3-1]
+	\arrow["B", from=1-1, to=1-3]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+      \end{tikzcd}
+    \]
+    Intuitively, when we glue a small family of Lawvere theories together, each operation of the new theory is an operation of some theory of the family.
+    Each variable of each theory of the family is identified which is achieved via a pushout.
+  \end{node}
+  \begin{node}
+    Coequalizers are computed as follows:
+    \[
+      % https://q.uiver.app/#q=WzAsNCxbMCwyLCJcXGRBIl0sWzIsMiwiXFxkQiJdLFs0LDIsIlxcZEsiXSxbMSwwLCJcXGROXFxvcCJdLFswLDEsImYiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiZyIsMix7Im9mZnNldCI6MX1dLFsxLDIsImsiLDJdLFszLDEsIkIiLDFdLFszLDIsIksiXSxbMywwLCJBIiwyXV0=
+      \begin{tikzcd}
+	& \dN\op \\
+	\\
+	\dA && \dB && \dK
+	\arrow["f", shift left, from=3-1, to=3-3]
+	\arrow["g"', shift right, from=3-1, to=3-3]
+	\arrow["k"', from=3-3, to=3-5]
+	\arrow["B"{description}, from=1-2, to=3-3]
+	\arrow["K", from=1-2, to=3-5]
+	\arrow["A"', from=1-2, to=3-1]
+      \end{tikzcd}
+    \]
+  \end{node}
+\end{proof}
+
+\section{Algebraic categories}
+\label{sec:algebraic-categories}
+
+\begin{defn}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The \emph{category of algebras of type $A$}, denoted $\Alg(A)$, is the full subcategory of $\CSet^{\dA}$ spanned by those finite-product preserving functors.
+  A category $\iC$ is \emph{algebraic} if $\iC \eqv \Alg(B)$ for some Lawvere theory $B$.
+\end{defn}
+
+\begin{thm}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The category $\Alg(A)$ is complete.
+\end{thm}
+\begin{proof}
+  Let $D : \iJ \to \Alg(A)$ be any small diagram.
+  Consider the diagram $\iota \circ D : \iJ \to \CSet^{\dA}$, where $\iota : \Alg(A) \into \CSet^{\dA}$ is the full inclusion functor.
+  Since $\iota$ reflects limits and $\CSet^{\dA}$ is complete, it suffices to show that $\lim \iota D$ is a finite-product preserving functor.
+  This follows immediately from the fact that limits commute.
+\end{proof}
+
+\section{Sifted and filtered colimits}
+\label{sec:sifted-and-filtered-colimits}
+
+\begin{defn}\label{defn:sifted-categories}
+  A small category $\iC$ is \emph{sifted} if finite products in $\CSet$ commute with colimits over $\iC$.
+  Concretely, a small category $\iC$ is sifted if, given a diagram $D : \iC \times \iJ \to \CSet$ where $\iJ$ is a finite set, the canonical morphism
+  \[
+    \delta : \colim_{\iC}\prod_{\iJ}D(c,j) \to \prod_{\iJ}\colim_{\iC}D(c,j)
+  \]
+  is an isomorphism.
+  Colimits of diagrams over sifted categories are called \emph{sifted colimits}.
+\end{defn}
+
+\begin{defn}
+  A small category $\iC$ is \emph{filtered} if every finite diagram $F : \iJ \to \iC$ admits a cocone.
+  Colimits of diagrams over filtered categories are called \emph{filtered colimits}.
+\end{defn}
+
+\begin{node}
+  It is well-known that filtered colimits commute with finite limits in $\CSet$.
+\end{node}
+
+\begin{lem}\label{lem:sifted-empty-binary}%
+  A small category $\iC$ is sifted if and only if colimits under $\iD$ commute with the empty product and binary products.
+\end{lem}
+\begin{proof}
+  \begin{node}
+    The only if direction is trivial.
+    Let $D : \iD \times \iJ \to \CSet$ be an arbitrary diagram.
+    Suppose the hypothesis.
+    We proceed by induction on the size of $\iJ$.
+    When $\iJ$ is the empty set, then the statement follows immediately from the hypothesis.
+    Consider the following colimit
+    \[
+      \colim_{\iD}\left(\prod_{i=1}^{n}D(d, j_{i}) \times D(d, j_{i+1})\right)
+    \]
+    This colimit commute with binary products by the hypothesis.
+    Thus,
+    \[
+      \colim_{\iD}\left(\prod_{i=1}^{n}D(d, j_{i}) \times D(d, j_{i+1})\right) \iso \colim_{\iD}\prod_{i=1}^{n}D(d, j_{i}) \times \colim_{\iD}D(d, j_{i+1})
+    \]
+    By the induction hypothesis, $\colim_{\iD}\prod_{i=1}^{n}D(d, j_{i}) \iso \prod_{i=1}^{n}\colim_{\iD}D(d, j_{i})$, so the statement follows.
+  \end{node}
+\end{proof}
+
+\begin{defn}
+  A functor $F : \iC \to \iD$ is \emph{final} if, for any diagram $G : \iD \to \iE$ such that $\colim_{\iC}GF$ exists, then $\colim_{\iD}G$ exists and the canonical morphism $\colim_{\iC}GF \to \colim_{\iD}G$ is an isomorphism.
+\end{defn}
+
+\begin{lem}
+  A functor $F : \iC \to \iD$ is final if and only if the slice category $d \dn F$ is connected for all $d \in \iD$.
+\end{lem}
+\begin{proof}
+  \begin{node}
+    Suppose that $F$ is final.
+    Consider the diagram $\iD(d, F\blank) : \iC \to \CSet$.
+    By hypothesis, $\colim_{\iC}\iD(d, F\blank) \iso \colim_{\iD}\iD(d, \blank)$.
+    The colimit of the represented functor is the singleton set.
+    Thus, $\colim_{\iC}\iD(d, F\blank) \iso 1$, so the slice category $d \dn F$ is connected.
+  \end{node}
+  \begin{node}
+    Conversely, suppose that $d \dn F$ is connected for all $d \in \iD$.
+    Let $G : \iD \to \iE$ be any diagram such that $\colim_{\iC}GF$ exists.
+    We show that $\colim_{\iD}G$ is just $\colim_{\iC}GF$.
+    Let $\lambda : GF \to e$ be the colimiting cocone.
+    We construct a colimiting cocone $\lambda' : G \to e$ as follows.
+    Choose an arbitrary object in $d \dn F$, i.e., an object $c \in \iC$ and a morphism $f : d \to Fc$.
+    Then the component $\lambda'_{d}$ is the composite
+    \[
+      % https://q.uiver.app/#q=WzAsMyxbMCwyLCJHZCJdLFsyLDIsIkdGYyJdLFsyLDAsImUiXSxbMCwxLCJHZiIsMl0sWzEsMiwiXFxsYW1iZGFfe2N9IiwyXSxbMCwyLCJcXGxhbWJkYSdfe2R9Il1d
+      \begin{tikzcd}
+	&& e \\
+	\\
+	Gd && GFc
+	\arrow["Gf"', from=3-1, to=3-3]
+	\arrow["{\lambda_{c}}"', from=3-3, to=1-3]
+	\arrow["{\lambda'_{d}}", from=3-1, to=1-3]
+      \end{tikzcd}
+    \]
+    Naturality of $\lambda'$ follows from the naturality of $\lambda$ and the fact that $d \dn F$ is connected for all $d \in \iD$.
+    Connectedness means that there is a sequence of zig-zag morphisms so that every triangle in the square commutes.
+    \[
+      % https://q.uiver.app/#q=WzAsOCxbMCwwLCJHZCJdLFs0LDAsIkdGYyJdLFs0LDIsIkdGY197Mn0iXSxbNCwzLCJHRmNfezN9Il0sWzQsNCwiR0ZjJyJdLFswLDQsIkdkJyJdLFs0LDEsIkdGY197MX0iXSxbNiwyLCJlIl0sWzMsMl0sWzMsNF0sWzAsNSwiR2ciLDJdLFswLDEsIkdmIl0sWzUsNCwiR2YnIiwyXSxbMSw2XSxbMiw2XSxbMSw3LCJcXGxhbWJkYV97Y30iXSxbNCw3LCJcXGxhbWJkYV97Yyd9IiwyXSxbMCw2LCJHZl97MX0iLDFdLFs2LDcsIlxcbGFtYmRhX3tjX3sxfX0iLDFdLFszLDcsIlxcbGFtYmRhX3tjX3szfX0iLDFdLFswLDMsIkdmX3szfSIsMV0sWzAsNCwiRyhmJ2cpIiwyXV0=
+      \begin{tikzcd}
+	Gd &&&& GFc \\
+	&&&& {GFc_{1}} \\
+	&&&& {GFc_{2}} && e \\
+	&&&& {GFc_{3}} \\
+	{Gd'} &&&& {GFc'}
+	\arrow[from=4-5, to=3-5]
+	\arrow[from=4-5, to=5-5]
+	\arrow["Gg"', from=1-1, to=5-1]
+	\arrow["Gf", from=1-1, to=1-5]
+	\arrow["{Gf'}"', from=5-1, to=5-5]
+	\arrow[from=1-5, to=2-5]
+	\arrow[from=3-5, to=2-5]
+	\arrow["{\lambda_{c}}", from=1-5, to=3-7]
+	\arrow["{\lambda_{c'}}"', from=5-5, to=3-7]
+	\arrow["{Gf_{1}}"{description}, from=1-1, to=2-5]
+	\arrow["{\lambda_{c_{1}}}"{description}, from=2-5, to=3-7]
+	\arrow["{\lambda_{c_{3}}}"{description}, from=4-5, to=3-7]
+	\arrow["{Gf_{3}}"{description}, from=1-1, to=4-5]
+	\arrow["{G(f'g)}"', from=1-1, to=5-5]
+      \end{tikzcd}
+    \]
+    It is easy to verify that this cocone is colimiting.
+  \end{node}
+\end{proof}
+
+\begin{thm}\label{thm:characterization-of-sifted}
+  A small category $\iD$ is sifted if and only if it is connected and the diagonal functor $\Delta$ is final.
+\end{thm}
+\begin{proof}
+  \begin{node}
+    By \cref{lem:sifted-empty-binary}, the sifted condition is equivalent to that colimits under $\iD$ commute with the empty product and binary products.
+    Let $D : \iD \to \CSet$ be an arbitrary diagram.
+    Suppose that $\iD$ is sifted.
+    Then,
+    \[
+      \colim_{\iD}\prod_{\varnothing}D \iso 1
+    \]
+    The empty product $\prod_{\varnothing}D$ is the terminal object $1$ in $\CSet^{\iD}$.
+    It is a functor that assigns each object in $\iD$ to the singleton set.
+    A cocone $\lambda : 1 \to A$ encodes how to partition $\iD$ so that objects connected by a morphism in $\iD$ are assigned the same element in $A$.
+    The colimit of $1$ is precisely the following cocone
+    \[
+      % https://q.uiver.app/#q=WzAsMyxbMiwwLCIxKGQnKSJdLFswLDAsIjEoZCkiXSxbMSwxLCJ8XFxpRHwvXFxzaW0iXSxbMSwyLCJbZF0iLDJdLFswLDIsIltkJ10iXSxbMSwwLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkb3R0ZWQifX19XV0=
+      \begin{tikzcd}
+	{1(d)} && {1(d')} \\
+	& {|\iD|/\sim}
+	\arrow["{[d]}"', from=1-1, to=2-2]
+	\arrow["{[d']}", from=1-3, to=2-2]
+	\arrow[dotted, from=1-1, to=1-3]
+      \end{tikzcd}
+    \]
+    where $d \sim d'$ if and only if there is a zig-zag sequence of morphisms between $d$ and $d'$, i.e., the colimit of $1$ is precisely the set of connected components of $\iD$.
+    Since this colimit is the singleton set, $\iD$ is connected.
+    Conversely, if $\iD$ is connected, then the colimit of $1$ is the singleton set.
+    This is isomorphic to the empty product, so colimits under $\iD$ commute with the empty product.
+  \end{node}
+  \begin{node}
+    Assume that $\Delta$ is final.
+    Then for any functors $F, F' : \iD \to \CSet$, the product $F \times F'$ is computed as $G \circ \Delta$, where $G : \iD \times \iD \to \CSet$ is defined by $(d, d') \mapsto Fd \times F'd'$.
+    Thus,
+    \[
+      \colim_{\iD}F \times F' \iso \colim_{\iD}G \circ \Delta \iso \colim_{\iD \times \iD}G \iso \colim_{\iD}F \times \colim_{\iD}F'
+    \]
+    The last isomorphism follows from the fact that for any set $X$, the functor $X \times \blank$ is a left adjoint, and thus colimit preserving.
+    Conversely, assume that colimits under $\iD$ commute with binary products.
+    Then for any $d, d' \in \iD$
+    \begin{align}
+      \colim_{\iD}\iD \times \iD((d, d'), \Delta\blank) &= \colim_{\iD}(\iD(d, \blank) \times \iD(d', \blank))\\
+                                                   &\iso \colim_{\iD}\iD(d, \blank) \times \colim_{\iD}\iD(d', \blank)\\
+                                                   &\iso 1
+    \end{align}
+    Thus, the category of cospans $(d, d') \dn \Delta$ is connected.
+  \end{node}
+\end{proof}
+
+\begin{cor}\label{cor:finite-coproducts-then-sifted}
+  Every small category $\iD$ with finite coproducts is sifted.
+\end{cor}
+\begin{proof}
+  By \cref{thm:characterization-of-sifted}, it suffices to show that $\iD$ is connected and that for all $d, d' \in \iD$, the category of cospans $(d, d') \dn \Delta$ is connected.
+  $\iD$ has an initial object, so it is connected.
+  $\iD$ has binary coproducts, so for any $d, d' \in \iD$, their coproduct in $\iD$ corresponds to the initial object in $(d, d') \dn \Delta$.
+  Thus, the category of cospans is connected.
+\end{proof}
+
+\begin{lem}\label{lem:functor-category-sifted-colimits-commute-with-finite-products}
+  For any small category $\iC$, sifted colimits in $\CSet^{\iC}$ commute with finite products.
+\end{lem}
+\begin{proof}
+  Let $D : S \times J \to \CSet^{\iC}$ be a diagram where $S$ is a sifted category and $J$ is a finite set.
+  The colimit $\colim_{S}\prod_{J}D(s,j)$ is computed componentwise: $\colim_{S}\prod_{J}D(s,j)(c)$ is the colimit $\colim_{S}\prod_{J}\ev_{c}D(s,j)$.
+  By definition, sifted colimits commute with finite products in $\CSet$.
+  These isomorphisms assemble into a natural isomorphism:
+  \[
+    \colim_{S}\prod_{J}D(s,j) \iso \prod_{J}\colim_{S}D(s,j)
+  \]
+\end{proof}
+
+\begin{lem}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The full inclusion functor $\iota : \Alg(A) \to \CSet^{\dA}$ creates colimits of sifted diagrams.
+\end{lem}
+\begin{proof}
+  Let $S$ be a sifted category and $D : S \to \Alg(A)$ be a diagram.
+  Since $\CSet^{\dA}$ is cocomplete (has all sifted colimits) and $\iota$ reflects all colimits, it suffices to show that $\colim_{S}\iota \circ D$ is a finite-product preserving functor, but this is immediate from \cref{lem:functor-category-sifted-colimits-commute-with-finite-products}.
+\end{proof}
+
+\begin{thm}\label{thm:algebraic-categories-has-sifted-colimits}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  The category $\Alg(A)$ has sifted colimits.
+\end{thm}
+\begin{proof}
+  Since the full inclusion $\iota$ creates sifted colimits and $\CSet^{\dA}$ is cocomplete, it follows that $\Alg(A)$ has sifted colimits.
+\end{proof}
+
+\begin{cor}
+  Let $A : \dN\op \to \dA$ be a Lawvere theory.
+  Sifted colimits commute with finite products in $\Alg(A)$.
+\end{cor}
+\begin{proof}
+  The full inclusion $\iota$ reflects isomorphism.
+  Thus, the isomorphism in \cref{lem:functor-category-sifted-colimits-commute-with-finite-products} is reflected to an isomorphism in $\Alg(A)$.
+\end{proof}
+
+\begin{node}
+  Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
+\end{node}
+
+\section{Reflexive coequalizers}
+\label{sec:reflexive-coequalizers}
+
+\begin{defn}
+  Let $\iJ$ be the following category
+  \[
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzAsMSwiZiIsMCx7Im9mZnNldCI6LTJ9XSxbMCwxLCJnIiwyLHsib2Zmc2V0IjoyfV0sWzEsMCwicyIsMV1d
+    \begin{tikzcd}
+      \bullet && \bullet
+      \arrow[shift left=2, from=1-1, to=1-3]
+      \arrow[shift right=2, from=1-1, to=1-3]
+      \arrow[from=1-3, to=1-1]
+    \end{tikzcd}
+  \]
+  Colimits of diagrams of shape $\iJ$ are called \emph{reflexive coequalizers}.
+  These are equalizers of parallel pairs that admit a common section.
+\end{defn}
+
+\begin{node}
+  It is easy to verify that $\iJ$ is a sifted category.
+  Thus, reflexive coequalizers are sifted colimits.
+\end{node}
+
+\section{Algebraic categories as free cocompletions}
+\label{sec:algebraic-categories-as-free-cocompletions}
+
+\begin{node}\label{node:colimit-of-representables}
+  Let $\iC$ be a small category.
+  Any functor $F : \iC \to \CSet$ is naturally isomorphic to the colimit $\colim\yon\Pi$, where $\Pi : (\yon \dn F)\op \to \iC\op$ is the projection functor and $F : 1 \to \CSet^{\iC}$ is a functor that picks out $F : \iC \to \CSet$.
+\end{node}
+
+\begin{node}\label{node:colim-of-representable}%
+  For any small category $\iC$ and object $c \in \iC$, the Hom functor $\iC(c, \blank)$ preserves limits.
+  Thus, given a Lawvere theory $A : \dN\op \to \dA$, each object $a \in \dA$ determines an algebra $\dA(a, \blank) : \dA \to \CSet$.
+  By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
+\end{node}
+
+\begin{lem}\label{lem:algebras-are-sifted-colimits}
+  Given an algebraic theory $A$, for any functor $F : \dA \to \CSet$ the following conditions are equivalent:
+  \begin{enumerate}
+  \item $F$ is an algebra.
+  \item $(\yon \dn F)\op$ is a sifted category.
+  \item $F$ is a sifted colimit of representable algebras.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  \begin{node}
+    (1) $\imp$ (2).
+    Assume that $F$ is an algebra.
+    By \cref{cor:finite-coproducts-then-sifted} and duality, it suffices to show that $(\yon \dn F)$ has finite products.
+    Since $F$ is an algebra, $F1$ is the singleton set.
+    Thus, $(1, *)$ is the terminal object in $(\yon \dn F)$.
+    Binary products are defined pointwise: $(a, x) \times (b, y)$ is $(a \times b, (x, y))$.
+    This is well-defined because $Fa \times Fb \iso F(a \times b)$.
+  \end{node}
+  \begin{node}
+    (2) $\imp$ (3).
+    Since $(\yon \dn F)\op$ is sifted, colimits of this shape are sifted colimits.
+    By \cref{node:colim-of-representable}, any functor is a sifted colimit of representable algebras.
+  \end{node}
+  \begin{node}
+    (3) $\imp$ (1).
+    By \cref{thm:algebraic-categories-has-sifted-colimits}, $\Alg(A)$ is closed under sifted colimits.
+  \end{node}
+\end{proof}
+
+\begin{thm}
+  Every algebraic category is cocomplete.
+\end{thm}
+\begin{proof}
+  \begin{node}
+    We have already shown that algebraic categories have reflexive coequalizers and filtered colimits.
+    It suffices to construct finite coproducts.
+  \end{node}
+  \begin{node}
+    Let $F, G : \dA \to \CSet$ be algebras of type $A$.
+    By \cref{lem:algebras-are-sifted-colimits}, $F$ and $G$ can be expressed as sifted colimits of representable algebras.
+    Consider the category $\iD = (\yon \dn F)\op \times (\yon \dn G)\op$ and the diagram $H : \iD \to \Alg(A)$ defined by
+    \[
+      H : ((a \in \dA, x \in Fa), (a' \in \dA, y \in Ga)) \mapsto \yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)
+    \]
+    Note that $\yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)$ exists in $\Alg(A)$.
+    Since $\iD$ is the product of two sifted categories, $\iD$ itself is also a sifted category.
+    Thus, the colimit of this diagram exists in $\Alg(A)$.
+    Since colimits commute with coproducts, we have
+    \[
+      \colim H \iso \colim_{(\yon \dn F)\op}\yon\Pi_{A} + \colim_{(\yon \dn G)\op}\yon\Pi_{B} \iso F + G
+    \]
+  \end{node}
+\end{proof}
+
+\section{Properties of algebras}
+\label{sec:properties-of-algebras}
+
+\begin{lem}
+  Let $C' \in \iC$ be a retract of $C \in \iC$.
+  The functor $\iC(C', \blank)$ preserves any colimit preserved by $\iC(C, \blank)$.
+\end{lem}
+\begin{proof}
+  Let $r : C \to C'$ and $s : C' \to C$ be morphisms such that $rs = \id_{C'}$.
+  The following diagram is an absolute coequalizer
+  \[
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlDKEMsXFxibGFuaykiXSxbMiwwLCJcXGlDKEMsXFxibGFuaykiXSxbNCwwLCJcXGlDKEMnLFxcYmxhbmspIl0sWzEsMiwiXFxpQyhzLFxcYmxhbmspIl0sWzAsMSwiXFxpQyhyLFxcYmxhbmspIFxcY2lyYyBcXGlDKHMsIFxcYmxhbmspIiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIlxcaWQiLDIseyJvZmZzZXQiOjF9XSxbMiwxLCJcXGlDKHIsXFxibGFuaykiLDAseyJjdXJ2ZSI6LTJ9XSxbMSwwLCJcXGlkIiwwLHsiY3VydmUiOi0yfV1d
+    \begin{tikzcd}
+      {\iC(C,\blank)} && {\iC(C,\blank)} && {\iC(C',\blank)}
+      \arrow["{\iC(s,\blank)}", from=1-3, to=1-5]
+      \arrow["{\iC(r,\blank) \circ \iC(s, \blank)}", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["{\iC(r,\blank)}", curve={height=-12pt}, from=1-5, to=1-3]
+      \arrow["\id", curve={height=-12pt}, from=1-3, to=1-1]
+    \end{tikzcd}
+  \]
+  Thus, any isomorphism $\iC(C, \colim D) \iso \colim\iC(C, D(d))$ extends to an isomorphism $\iC(C', \colim D) \iso \colim\iC(C', D(d))$.
+\end{proof}
+
+\begin{cor}
+  If $C$ is regular projective (resp., finitely presentable), then its retracts are regular projective (resp., finitely presentable).
+\end{cor}
+
+
+\bibliographystyle{alpha}
+\bibliography{all}
+
+\end{document}

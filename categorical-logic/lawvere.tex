@@ -3,7 +3,7 @@
 \title{Lawvere theories}
 \author{Frank Tsai}
 \date{\today}
-%\thanks{}
+% \thanks{}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -277,8 +277,8 @@
     Then for any $d, d' \in \iD$
     \begin{align}
       \colim_{\iD}\iD \times \iD((d, d'), \Delta\blank) &= \colim_{\iD}(\iD(d, \blank) \times \iD(d', \blank))\\
-                                                   &\iso \colim_{\iD}\iD(d, \blank) \times \colim_{\iD}\iD(d', \blank)\\
-                                                   &\iso 1
+                                              &\iso \colim_{\iD}\iD(d, \blank) \times \colim_{\iD}\iD(d', \blank)\\
+                                              &\iso 1
     \end{align}
     Thus, the category of cospans $(d, d') \dn \Delta$ is connected.
   \end{node}
@@ -403,7 +403,7 @@
   \end{node}
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:algebraic-categories-cocomplete}
   Every algebraic category is cocomplete.
 \end{thm}
 \begin{proof}
@@ -455,6 +455,107 @@
 \begin{cor}
   If $C$ is regular projective (resp., finitely presentable), then its retracts are regular projective (resp., finitely presentable).
 \end{cor}
+
+\begin{thm}\label{thm:represented-functors-perfectly-presentable}
+  Let $\cT$ be a small category.
+  In $\CSet^{\cT}$ the representable functors are perfectly presentable.
+  If $\cT$ is a Lawvere theory, the representable functors are perfectly presentable objects in $\Alg(\cT)$.
+\end{thm}
+\begin{proof}
+  \begin{node}\label{node:represented-functors-perfectly-presentable}
+    By the Yoneda Lemma,
+    \[
+      \CSet^{\cT}(\cT(t,\blank), \colim_{\iJ} D) \iso (\colim_{\iJ} D)(t)
+    \]
+    Since colimits in $\CSet^{\cT}$ are computed objectwise, we have
+    \[
+      (\colim_{\iJ} D)(t) = \colim_{\iJ}(D_{j}(t)) \iso \colim_{\iJ}\CSet^{\cT}(\cT(t,\blank), D_{j})
+    \]
+    Since $\CSet^{\cT}(\cT(t,\blank), \blank)$ preserves any colimit, it preserves sifted ones.
+    Thus, $\cT(t,\blank)$ is perfectly presentable in $\CSet^{\cT}$.
+  \end{node}
+  \begin{node}
+    If $\cT$ is a Lawvere theory, then by \cref{thm:algebraic-categories-has-sifted-colimits}, sifted colimits in $\CSet^{\cT}$ are also in $\Alg(\cT)$.
+    Thus, the argument in \cref{node:represented-functors-perfectly-presentable} works for any sifted category $\iJ$.
+  \end{node}
+\end{proof}
+
+\begin{lem}\label{lem:coproduct-generators-epimorphism}
+  Let $\iC$ be a category with coproducts and $\iG$ be a set of objects of $\iC$.
+  The following are equivalent:
+  \begin{enumerate}
+  \item $\iG$ is a family of generators;
+  \item for every object $C \in \iC$, the canonical morphism
+    \[
+      e_{C} : \left(\coprod_{(G, g) \in \iG \dn C} G\right) \to C
+    \]
+    is an epimorphism.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  \begin{node}
+    Suppose that $\iG$ is a set of generators.
+    Let $C \in \iC$ and $u, v : C \toto D$ be a parallel pair of morphisms such that $ue_{C} = ve_{C}$.
+    Since $\iG$ is a set of generators, morphisms out of $\iG$ are jointly epimorphic.
+    Morphisms from $\iG$ to $C$ are encoded by the canonical morphism $e_{C}$.
+    The hypothesis $ue_{C} = ve_{C}$ means that $u$ and $v$ form a pair of morphisms indistinguishable by $\iG$.
+    Thus, $u = v$.
+  \end{node}
+  \begin{node}
+    Conversely, suppose that $\gamma_{C}$ is an epimorphism for each $C \in \iC$.
+    The encodes precisely the jointly epimorphic condition.
+    Thus, $\iG$ is a set of generators.
+  \end{node}
+\end{proof}
+
+\begin{defn}
+  In a category $\iA$ with coproducts, a set of objects $\iG$ is a strong generator if and only if
+  \[
+    e_{A} : \left(\coprod_{(G, g) \in \iG \dn A} G\right) \to A
+  \]
+  is an extremal epimorphism for all $A \in \iA$.
+\end{defn}
+
+\begin{cor}\label{cor:colimits-strong-generators}
+  Let $\iA$ be a category with colimits.
+  If every object of $\iA$ is a colimit of objects from a set $\iG$, then $\iG$ is a strong generator.
+\end{cor}
+\begin{proof}
+  \begin{node}
+    The hypothesis states that the canonical morphism
+    \[
+      e_{A} : \left(\coprod_{(G, g) \in \iG \dn A} G\right) \to A
+    \]
+    is a regular epimorphism for all $A \in \iA$.
+    By \cref{lem:coproduct-generators-epimorphism}, $\iG$ is a generating set.
+    Since regular epimorphisms are extremal, $\iG$ is strong.
+  \end{node}
+\end{proof}
+
+\begin{thm}[Characterization of algebraic categories]
+  The following conditions are equivalent:
+  \begin{enumerate}
+  \item $\iA$ is algebraic.
+  \item $\iA$ is cocomplete and has a set $G$ of perfectly presentable objects such that every object of $\iA$ is a sifted colimit of objects of $G$.
+  \item $\iA$ is cocomplete and has a strong generator consisting of perfectly presentable objects.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \begin{node}
+    (1) $\imp$ (2).
+    By \cref{thm:algebraic-categories-cocomplete}, $\iA$ is cocomplete.
+    By \cref{thm:represented-functors-perfectly-presentable} the representable functors are perfectly presentable.
+    Finally, by \cref{lem:algebras-are-sifted-colimits}, every algebra in $\iA$ is a sifted colimit of representable algebras.
+  \end{node}
+  \begin{node}
+    (2) $\imp$ (3).
+    $G$ is a strong generator by \cref{cor:colimits-strong-generators}.
+  \end{node}
+  \begin{node}
+    (3) $\imp$ (1).
+    \todo{Finish this}
+  \end{node}
+\end{proof}
 
 
 \bibliographystyle{alpha}

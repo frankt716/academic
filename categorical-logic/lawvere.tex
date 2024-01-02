@@ -532,6 +532,55 @@
   \end{node}
 \end{proof}
 
+\begin{lem}\label{lem:coproduct-completion-generator}
+  Suppose that $\iA$ is cocomplete and $\iG$ is a set of (strong) generators of $\iA$, then the coproduct completion of $\iG$ in $\iA$ is also a set of (strong) generators.
+\end{lem}
+\begin{proof}
+  Morphisms out of a coproduct in $\sqcup\iG$ consists of morphisms out of $\iG$.
+  Thus, any indistinguishable pair of morphisms in $\iA$ remains indistinguishable.
+  If $\iG$ is strong, then consider the following commutative diagram:
+  \[
+    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXGNvcHJvZF97KEcsZykgXFxpbiBcXGlHIFxcZG4gXFxjb3Byb2R9RyJdLFswLDAsIlxcY29wcm9kX3soRyxnKSBcXGluIFxcc3FjdXBcXGlHIFxcZG4gQX1HIl0sWzIsMCwiQSJdLFsxLDIsImVfe0F9JyJdLFswLDIsImVfe0F9IiwyXSxbMCwxLCJlX3tcXGNvcHJvZH0iXV0=
+    \begin{tikzcd}
+      {\coprod_{(G,g) \in \sqcup\iG \dn A}G} && A \\
+      \\
+      {\coprod_{(G,g) \in \iG \dn \coprod}G}
+      \arrow["{e_{A}'}", from=1-1, to=1-3]
+      \arrow["{e_{A}}"', from=3-1, to=1-3]
+      \arrow["{e_{\coprod}}", from=3-1, to=1-1]
+    \end{tikzcd}
+  \]
+  Since $e_{A}$ is extremal, $e_{A}'$ is also extremal.
+\end{proof}
+
+\begin{lem}
+  Let $\iA$ be a cocomplete category.
+  If $\iG$ is a strong generator consisting of perfectly presentable objects and closed under coproducts, then $\iG$ is dense.
+  In other words, for any $a \in \iA$, the domain functor
+  \[
+    \dom_{a} : \iG \dn a \to \iA, (g : G \to a) \mapsto G
+  \]
+  has $a$ as a colimit.
+\end{lem}
+\begin{proof}
+  Let $\alpha : \dom_{a} \to a'$ be a colimiting cocone.
+  Consider the following commutative diagram:
+  \[
+    % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGNvcHJvZF97XFxpRyBcXGRuIGF9RyJdLFs0LDEsImEiXSxbMCwxLCJhJyJdLFswLDIsIlxcYWxwaGFfe2Vfe2F9fSIsMl0sWzAsMSwiZV97YX0iXSxbMiwxLCJcXGxhbWJkYSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+    \begin{tikzcd}
+      && {\coprod_{\iG \dn a}G} \\
+      {a'} &&&& a
+      \arrow["{\alpha_{e_{a}}}"', from=1-3, to=2-1]
+      \arrow["{e_{a}}", from=1-3, to=2-5]
+      \arrow["\lambda"', dashed, from=2-1, to=2-5]
+    \end{tikzcd}
+  \]
+  Since $e_{a}$ is an extremal epimorphism, so is $\lambda$.
+  To show that $\lambda$ is an isomorphism, it suffices to show that $\lambda$ is a monomorphism.
+  Let $u, v : c \toto a'$ be a parallel pair of morphisms such that $\lambda u = \lambda v$.
+  \todo{}
+\end{proof}
+
 \begin{thm}[Characterization of algebraic categories]
   The following conditions are equivalent:
   \begin{enumerate}
@@ -553,7 +602,10 @@
   \end{node}
   \begin{node}
     (3) $\imp$ (1).
-    \todo{Finish this}
+    Let $\sqcup\iG$ be the coproduct completion of $\iG$ in $\iA$.
+    By \cref{lem:coproduct-completion-generator}, $\sqcup\iG$ is a strong generator.
+    We claim that $\Alg(\sqcup\iG\op) \eqv \iA$, where $\sqcup\iG$ is a full subcategory of $\iA$.
+    \todo{}
   \end{node}
 \end{proof}
 

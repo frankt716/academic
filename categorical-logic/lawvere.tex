@@ -561,29 +561,32 @@
 \begin{lem}
   Let $\iA$ be a cocomplete category.
   If $\iG$ is a strong generator consisting of perfectly presentable objects and closed under coproducts, then $\iG$ is dense.
-  In other words, for any $a \in \iA$, the domain functor
-  \[
-    \dom_{a} : \iG \dn a \to \iA, (g : G \to a) \mapsto G
-  \]
-  has $a$ as a colimit.
+  In other words, for any $a \in \iA$, the domain functor $\dom : \iG \dn a \to \iA$ has $a$ as a colimit.
 \end{lem}
 \begin{proof}
-  Let $\alpha : \dom_{a} \to a'$ be a colimiting cocone.
-  Consider the following commutative diagram:
-  \[
-    % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGNvcHJvZF97XFxpRyBcXGRuIGF9RyJdLFs0LDEsImEiXSxbMCwxLCJhJyJdLFswLDIsIlxcYWxwaGFfe2Vfe2F9fSIsMl0sWzAsMSwiZV97YX0iXSxbMiwxLCJcXGxhbWJkYSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
-    \begin{tikzcd}
-      && {\coprod_{\iG \dn a}G} \\
-      {a'} &&&& a
-      \arrow["{\alpha_{e_{a}}}"', from=1-3, to=2-1]
-      \arrow["{e_{a}}", from=1-3, to=2-5]
-      \arrow["\lambda"', dashed, from=2-1, to=2-5]
-    \end{tikzcd}
-  \]
-  Since $e_{a}$ is an extremal epimorphism, so is $\lambda$.
-  To show that $\lambda$ is an isomorphism, it suffices to show that $\lambda$ is a monomorphism.
-  Let $u, v : c \toto a'$ be a parallel pair of morphisms such that $\lambda u = \lambda v$.
-  \todo{}
+  \begin{node}
+    Let $\alpha : \dom \to a'$ be a colimiting cocone.
+    A cocone under $\dom$ with nadir $a$ can be determined by morphisms in $\iG \dn a$.
+    Indeed, we may take $\beta_{f} := f$ for any $G \in \iG$ and $f : G \to a$ as a morphism $m : f \to f'$ in $\iG \dn \iA$ is simply a morphism $m : G \to G'$ in $\iA$ so that $f'm = f$ and $\dom(m) = m$.
+    Thus, there is a unique morphism $\lambda : a' \to a$ such that every $f : G \to a$ factors through $\lambda$.
+    % https://q.uiver.app/#q=WzAsNCxbMiwyLCJhJyJdLFswLDMsIkciXSxbNCwzLCJHJyJdLFsyLDAsImEiXSxbMSwwLCJcXGFscGhhX3tnfSJdLFsyLDAsIlxcYWxwaGFfe2cnfSIsMl0sWzEsMywiZyJdLFsyLDMsImcnIiwyXSxbMSwyXSxbMCwzLCJcXGxhbWJkYSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+    \[\begin{tikzcd}
+	&& a \\
+	\\
+	&& {a'} \\
+	G &&&& {G'}
+	\arrow["{\alpha_{f}}", from=4-1, to=3-3]
+	\arrow["{\alpha_{f'}}"', from=4-5, to=3-3]
+	\arrow["f", from=4-1, to=1-3]
+	\arrow["{f'}"', from=4-5, to=1-3]
+	\arrow[from=4-1, to=4-5]
+	\arrow["\lambda"{description}, dashed, from=3-3, to=1-3]
+      \end{tikzcd}\]
+    To show that $\lambda$ is an isomorphism, it suffices to show that $\lambda$ is a monic extremal epimorphism.
+  \end{node}
+  \begin{node}
+    First, we show that $\lambda$ is monomorphic for $\iG$.
+  \end{node}
 \end{proof}
 
 \todo{Ivan's LN3: A variety is a cocomplete category with a dense generator consisting of ``finite projective'' objects.}

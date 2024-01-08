@@ -586,6 +586,26 @@
   \end{node}
   \begin{node}
     First, we show that $\lambda$ is monomorphic for $\iG$.
+    As $\iG$ has finite coproducts, so does $\iG \dn a$.
+    Thus, by \cref{cor:finite-coproducts-then-sifted}, $\iG \dn a$ is sifted.
+    Let $x$ be an object in $\iG$.
+    Since $x$ is perfectly presentable and $a'$ is a sifted colimit, we have
+    \[
+      \iA(x, a') = \iA(x, \colim_{f \in \iG \dn a}\dom(f)) \iso \colim_{f \in \iG \dn a}\iA(x, \dom(f))
+    \]
+    Thus, every morphism $u : x \to a'$ determines morphisms $f : G \to a$ and $\util : x \to G$ so that the following commutes.
+    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXHV0aWwgXFxpbiBcXGlBKHgsXFxkb20oZikpIl0sWzIsMCwiXFxjb2xpbV97ZiBcXGluIFxcaUcgXFxkbiBhfVxcaUEoeCxcXGRvbShmKSkiXSxbNCwyLCJcXGlBKHgsXFxkb20oXFxsYW1iZGEgdSkpIl0sWzAsMV0sWzIsMCwiXFx1dGlsIFxcY2lyYyBcXGJsYW5rIl0sWzIsMV1d
+    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXHV0aWwgXFxpbiBcXGlBKHgsXFxkb20oZikpIl0sWzIsMCwiXFxjb2xpbV97ZiBcXGluIFxcaUcgXFxkbiBhfVxcaUEoeCxcXGRvbShmKSkiXSxbNCwyLCJcXGlBKHgsXFxkb20oXFxsYW1iZGEgdSkpIFxcbmkgXFxpZCJdLFswLDFdLFsyLDAsIlxcdXRpbCBcXGNpcmMgXFxibGFuayJdLFsyLDFdXQ==
+    \[\begin{tikzcd}
+	&& {\colim_{f \in \iG \dn a}\iA(x,\dom(f))} \\
+	\\
+	{\util \in \iA(x,\dom(f))} &&&& {\iA(x,\dom(\lambda u)) \ni \id}
+	\arrow[from=3-1, to=1-3]
+	\arrow["{\util \circ \blank}", from=3-5, to=3-1]
+	\arrow[from=3-5, to=1-3]
+      \end{tikzcd}\]
+    Thus, $u$ equivalently corresponds to $\lambda u$ and $\id$, which in term corresponds to $\alpha_{\lambda u}$, i.e., $u = \alpha_{\lambda u}$.
+    For any parallel pair if $\lambda u = \lambda v$, then $u = \alpha_{\lambda u} = \alpha_{\lambda v} = v$.
   \end{node}
 \end{proof}
 

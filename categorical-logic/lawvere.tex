@@ -433,6 +433,56 @@
   \end{node}
 \end{proof}
 
+\begin{defn}
+  A \emph{free cocompletion} of a category $\iC$ under colimits is a functor $F : \iC \to \iD$ so that
+  \begin{enumerate}
+  \item $\iD$ has colimits.
+  \item For any functor $G : \iC \to \iE$, where $\iE$ has colimits, there is an essentially unique functor $G^{*} : \iD \to \iE$ preserving colimits with $G \iso G^{*}F$.
+  \end{enumerate}
+\end{defn}
+
+\begin{thm}
+  For every small category $\iC$, the Yoneda embedding $\yon : \iC \to \CSet^{\iC\op}$ is a free cocompletion under colimits.
+\end{thm}
+\begin{proof}
+  \begin{node}
+    The functor category $\CSet^{\iC\op}$ is cocomplete.
+    For any functor $F : \iC \to \iD$ where $\iD$ is cocomplete, we need to show that there is an essentially unique extension $F^{*} : \CSet^{\iC\op} \to \iD$.
+    We define
+    \[
+      F^{*}(G) := \colim F\Pi
+    \]
+    where $\Pi : \yon \dn G \to \iC$ is the canonical projection functor.
+    That is, $F^{*}$ is the left Kan extension of $F$ along the Yoneda embedding.
+    Since $\yon$ is fully faithful, this extension is a genuine extension.
+  \end{node}
+  \begin{node}
+    It remains to verify that $F^{*}$ preserves colimits.
+    To this end, we show that $F^{*}$ admits a right adjoint.
+    We define the functor $R : \iD \to \CSet^{\iC\op}$ by
+    \[
+      R : d \mapsto \iD(F\blank, d)
+    \]
+    We need to verify the natural isomorphism
+    \[
+      \iD(F^{*}G, d) \iso \CSet^{\iC\op}(G, Rd)
+    \]
+    By definition,
+    \[
+      \iD(F^{*}G, d) = \iD(\colim F\Pi, d) \iso \lim\iD(F\Pi\blank, d)
+    \]
+    Every functor $G$ is naturally isomorphic to $\colim\yon\Pi$.
+    \[
+      \CSet^{\iC\op}(G, Rd) \iso \CSet^{\iC\op}(\colim\yon\Pi, Rd) = \lim\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))
+    \]
+    By the Yoneda lemma,
+    \[
+      \CSet^{\iC\op}(\yon\Pi(c, x), \iD(F\blank, d)) = \CSet^{\iC\op}(\iC(\blank, c), \iD(F\blank, d)) \iso \iD(Fc, d)
+    \]
+    Thus, the two diagrams $\iD(F\Pi\blank, d)$ and $\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))$ are naturally isomorphic, and so are their limits.
+  \end{node}
+\end{proof}
+
 \section{Properties of algebras}
 \label{sec:properties-of-algebras}
 
@@ -558,7 +608,7 @@
   Since $e_{A}$ is extremal, $e_{A}'$ is also extremal.
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{lem:strong-generators-perfect-dense}
   Let $\iA$ be a cocomplete category.
   If $\iG$ is a strong generator consisting of perfectly presentable objects and closed under coproducts, then $\iG$ is dense.
   In other words, for any $a \in \iA$, the domain functor $\dom : \iG \dn a \to \iA$ has $a$ as a colimit.
@@ -608,9 +658,9 @@
     For any parallel pair $u, v : x \toto a'$, if $\lambda u = \lambda v$, then $u = \alpha_{\lambda u} = \alpha_{\lambda v} = v$.
   \end{node}
   \begin{node}
-    Now, for any object $x \in \iA$ and any parallel pair $u, v : x \toto a'$ so that $\lambda u = \lambda v$, consider $e_{x} : \coprod_{f \in \iG \dn a}G \to x$.
+    Now, for any object $x \in \iA$ and any parallel pair $u, v : x \toto a'$ so that $\lambda u = \lambda v$, consider $e_{x} : \coprod_{f \in \iG \dn x}G \to x$.
     We have $\lambda ue_{x} = \lambda ve_{x}$.
-    As $\coprod_{f \in \iG \dn a}G$ is an object in $\iG$, we have $ue_{x} = ve_{x}$, and as $e_{x}$ is epimorphic, $u = v$.
+    As $\coprod_{f \in \iG \dn x}G$ is an object in $\iG$, we have $ue_{x} = ve_{x}$, and as $e_{x}$ is epimorphic, $u = v$.
   \end{node}
   \begin{node}
     Consider the following commutative diagram:
@@ -652,6 +702,25 @@
     Without loss of generality, suppose that $\iG$ is closed under coproducts.
     This works since \cref{lem:coproduct-completion-generator} guarantees that the coproduct completion of $\iG$ is a strong generator.
     We claim that $\Alg(\iG\op) \eqv \iA$.
+    Consider the functor $F : \iA \to \Alg(\iG\op)$ defined by
+    \[
+      F : A \mapsto \iA(\blank, A)
+    \]
+    By \cref{lem:strong-generators-perfect-dense}, $A$ is a colimit of a diagram of shape $\iG \dn A$.
+    Given a morphism $\alpha : \iA(\blank, A) \to \iA(\blank, B)$, for each $g \in \iG \dn A$, consider $\alpha_{G}(g) : G \to B$.
+    These morphisms assemble into a cocone under the $\dom$ diagram.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGRvbShnKSJdLFsyLDEsIkIiXSxbMCwyLCJcXGRvbShnJykiXSxbMCwxLCJcXGFscGhhX3tHfShnKSJdLFsyLDEsIlxcYWxwaGFfe0cnfShnJykiLDJdLFswLDIsIlxcZG9tKG0pIiwyXV0=
+    \[\begin{tikzcd}
+	{\dom(g)} \\
+	&& B \\
+	{\dom(g')}
+	\arrow["{\alpha_{G}(g)}", from=1-1, to=2-3]
+	\arrow["{\alpha_{G'}(g')}"', from=3-1, to=2-3]
+	\arrow["{\dom(m)}"', from=1-1, to=3-1]
+      \end{tikzcd}\]
+    The morphism $m : \dom(g) \to \dom(g')$ serves as a witness for the fact that $g = g'm$.
+    Thus, by the universal property of colimits, there is a unique morphism $\atil : A \to B$, proving that $F$ is fully faithful.
+    It remains to show that $F$ is essentially surjective on objects.
     \todo{}
   \end{node}
 \end{proof}

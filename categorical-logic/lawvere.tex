@@ -456,7 +456,7 @@
     That is, $F^{*}$ is the left Kan extension of $F$ along the Yoneda embedding.
     Since $\yon$ is fully faithful, this extension is a genuine extension.
   \end{node}
-  \begin{node}
+  \begin{node}\label{node:lan-has-right-adjoint}%
     It remains to verify that $F^{*}$ preserves colimits.
     To this end, we show that $F^{*}$ admits a right adjoint.
     We define the functor $R : \iD \to \CSet^{\iC\op}$ by
@@ -473,7 +473,7 @@
     \]
     Every functor $G$ is naturally isomorphic to $\colim\yon\Pi$.
     \[
-      \CSet^{\iC\op}(G, Rd) \iso \CSet^{\iC\op}(\colim\yon\Pi, Rd) = \lim\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))
+      \CSet^{\iC\op}(G, Rd) \iso \CSet^{\iC\op}(\colim\yon\Pi, Rd) \iso \lim\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))
     \]
     By the Yoneda lemma,
     \[
@@ -482,6 +482,49 @@
     Thus, the two diagrams $\iD(F\Pi\blank, d)$ and $\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))$ are naturally isomorphic, and so are their limits.
   \end{node}
 \end{proof}
+
+\begin{thm}
+  For every Lawvere theory $\cT$, the Yoneda embedding
+  \[
+    \yon : \cT\op \to \Alg(\cT)
+  \]
+  is a free cocompletion of $\cT\op$ under sifted colimits.
+\end{thm}
+\begin{proof}
+  \begin{node}
+    For any functor $F : \cT\op \to \iD$ where $\iD$ has sifted colimits, we define $F^{*}$ as the left Kan extension of $F$ along $\yon$.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsxLDEsIlxcQWxnKFxcY1QpIl0sWzIsMCwiXFxpRCJdLFswLDEsIlxceW9uIiwyXSxbMCwyLCJGIl0sWzEsMiwiRl57Kn0iLDJdXQ==
+    \[\begin{tikzcd}
+        \cT\op && \iD \\
+        & {\Alg(\cT)}
+        \arrow["\yon"', from=1-1, to=2-2]
+        \arrow["F", from=1-1, to=1-3]
+        \arrow["{F^{*}}"', from=2-2, to=1-3]
+      \end{tikzcd}\]
+    This is always possible because the category of elements $(\yon \dn F)\op$ is sifted by \cref{lem:algebras-are-sifted-colimits}, so $\colim_{(\yon \dn F)\op}F\Pi$ exists in $\iD$ by hypothesis.
+    This is a genuine extension because $\yon$ is fully faithful.
+  \end{node}
+  \begin{node}
+    It remains to show that $F^{*}$ preserves sifted colimits.
+    We have the following natural isomorphism by \cref{node:lan-has-right-adjoint}.
+    The functor $\iota : \Alg(\cT) \to \CSet^{\cT}$ is the inclusion functor, which preserves colimits (trivially).
+    \[
+      \iD(F^{*}G, d) \iso \CSet^{\cT}(\iota G, Rd) = \CSet^{\cT}(\iota G, \iD(F\blank, d))
+    \]
+    Thus, for any sifted colimit, we have
+    \begin{align}
+      \iD(F^{*}\colim G, d) &\iso \CSet^{\cT}(\colim G, Rd)\\
+                            &\iso \lim\CSet^{\cT}(G, Rd)\\
+                            &\iso \lim\iD(F^{*}G, d)\\
+                            &\iso \iD(\colim F^{*}G, d)
+    \end{align}
+    By the Yoneda lemma, $F^{*}(\colim G) \iso \colim F^{*}G$.
+  \end{node}
+\end{proof}
+
+\begin{cor}
+  Every algebraic category $\iC$ is a free cocompletion of a small category with finite coproducts under sifted colimits.
+\end{cor}
 
 \section{Properties of algebras}
 \label{sec:properties-of-algebras}
@@ -678,7 +721,7 @@
 \end{proof}
 
 \todo{Ivan's LN3: A variety is a cocomplete category with a dense generator consisting of ``finite projective'' objects.}
-\begin{thm}[Characterization of algebraic categories]
+\begin{thm}[Characterization of algebraic categories]\label{thm:characterization-of-algebraic-categories}
   The following conditions are equivalent:
   \begin{enumerate}
   \item $\iA$ is algebraic.
@@ -699,8 +742,8 @@
   \end{node}
   \begin{node}
     (3) $\imp$ (1).
-    Without loss of generality, suppose that $\iG$ is closed under coproducts.
-    This works since \cref{lem:coproduct-completion-generator} guarantees that the coproduct completion of $\iG$ is a strong generator.
+    Without loss of generality, suppose that $\iG$ is closed under finite coproducts.
+    This works since \cref{lem:coproduct-completion-generator} guarantees that the finite coproduct completion of $\iG$ is a strong generator.
     We claim that $\Alg(\iG\op) \eqv \iA$.
     Consider the functor $F : \iA \to \Alg(\iG\op)$ defined by
     \[
@@ -721,10 +764,42 @@
     The morphism $m : \dom(g) \to \dom(g')$ serves as a witness for the fact that $g = g'm$.
     Thus, by the universal property of colimits, there is a unique morphism $\atil : A \to B$, proving that $F$ is fully faithful.
     It remains to show that $F$ is essentially surjective on objects.
-    \todo{}
+    Consider the following diagram:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGlHIl0sWzIsMCwiXFxpQSJdLFsxLDEsIlxcQWxnKFxcaUdcXG9wKSJdLFs0LDAsIlxcQWxnKFxcaUdcXG9wKSJdLFswLDEsIlxcaW90YSJdLFswLDIsIlxceW9uIiwyXSxbMiwxLCJcXGlvdGFeeyp9IiwxXSxbMSwzLCJGIl0sWzIsM11d
+    \[\begin{tikzcd}
+	\iG && \iA && {\Alg(\iG\op)} \\
+	& {\Alg(\iG\op)}
+	\arrow["\iota", from=1-1, to=1-3]
+	\arrow["\yon"', from=1-1, to=2-2]
+	\arrow["{\iota^{*}}"{description}, from=2-2, to=1-3]
+	\arrow["F", from=1-3, to=1-5]
+	\arrow[from=2-2, to=1-5]
+      \end{tikzcd}\]
+    By definition, $F\iota(G) = \iA(\blank, G)$.
+    This is just the Yoneda embedding.
+    Thus, the identity functor is a left Kan extension of $\yon$ along itself.
+    To show that $F\iota^{*}$ is also a left Kan extension of $\yon$ along itself, it suffices to show that $F$ preserves sifted colimits as we would have
+    \[
+      F\iota^{*}(K) = F(\colim\iota\Pi_{K}) \iso \colim F\iota\Pi_{K}
+    \]
+    That is, $F\iota^{*}$ is computed by the colimit formula.
+    We show that $F$ preserves sifted colimits objectwise.
+    This is sufficient because colimits are computed objectwise.
+    Consider any sifted diagram $D$ and any object $G \in \iG$.
+    \[
+      F(\colim D)(G) = \iA(G, \colim D) \iso \colim\iA(G, D\blank)
+    \]
+    The isomorphism follows from the fact that $G$ is perfectly presentable.
   \end{node}
 \end{proof}
 
+\begin{lem}
+  Let $U : \iA \to \iB$ be a functor with a left adjoint $F : \iB \to \iA$.
+  \begin{enumerate}
+  \item If $I$ is faithful and conservative and $\iG$ is a strong generator of $\iB$, then $F(\iG)$ is a strong generator of $\iA$.
+  \item If $I$ preserves sifted colimits and $b$ is perfectly presentable in $\iB$, then $Fb$ is perfectly presentable in $\iA$.
+  \end{enumerate}
+\end{lem}
 
 \bibliographystyle{alpha}
 \bibliography{lawvere}

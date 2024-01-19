@@ -501,8 +501,10 @@
         \arrow["F", from=1-1, to=1-3]
         \arrow["{F^{*}}"', from=2-2, to=1-3]
       \end{tikzcd}\]
-    This is always possible because the category of elements $(\yon \dn F)\op$ is sifted by \cref{lem:algebras-are-sifted-colimits}, so $\colim_{(\yon \dn F)\op}F\Pi$ exists in $\iD$ by hypothesis.
-    This is a genuine extension because $\yon$ is fully faithful.
+    This is always possible because $\cT\op$ has finite coproducts, and so does $\cT\op \dn t$ for any $t$.
+    By \cref{cor:finite-coproducts-then-sifted}, $\cT\op \dn t$ is sifted.
+    Thus, the left Kan extension can be computed by the colimit formula.
+    This is a genuine extension because $\yon$ is fully faithful and $F^{*}$ is point-wise.
   \end{node}
   \begin{node}
     It remains to show that $F^{*}$ preserves sifted colimits.

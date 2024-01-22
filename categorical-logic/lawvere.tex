@@ -197,6 +197,25 @@
   \]
 \end{proof}
 
+\begin{defn}
+  Let $\iJ$ be the following category
+  \[
+    % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzAsMSwiZiIsMCx7Im9mZnNldCI6LTJ9XSxbMCwxLCJnIiwyLHsib2Zmc2V0IjoyfV0sWzEsMCwicyIsMV1d
+    \begin{tikzcd}
+      \bullet && \bullet
+      \arrow[shift left=2, from=1-1, to=1-3]
+      \arrow[shift right=2, from=1-1, to=1-3]
+      \arrow[from=1-3, to=1-1]
+    \end{tikzcd}
+  \]
+  Colimits of diagrams of shape $\iJ$ are called \emph{reflexive coequalizers}.
+  These are equalizers of parallel pairs that admit a common section.
+\end{defn}
+
+\begin{rmk}
+  Reflexive coequalizers are sifted colimits.
+\end{rmk}
+
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
@@ -227,147 +246,93 @@
   Since $\iota$ is fully faithful, it reflects limits.
   The limit $\lim \iota D$ exists because $\CSet^{\cT}$ is complete.
   Now, it suffices to show that $\Alg(\cT)$ has enough limits so that $\iota$ creates limits.
-  To this end, we show that $\lim \iota D$ is finite-limit preserving, which is immediate by the fact that limits commute with limits.
+  To this end, we show that $\lim \iota D$ is limit preserving (therefore, finite-product preserving).
+  For an arbitrary diagram $G : \iC \to \cT$, we have
+  \[
+    \lim_{\iJ} \iota D(\lim_{\iC}G) \iso \lim_{\iJ}\lim_{\iC}\iota D \circ G \iso \lim_{\iC}\lim_{\iJ}\iota D \circ G
+  \]
 \end{proof}
 
-
-
-\section{Sifted and filtered colimits}
-\label{sec:sifted-and-filtered-colimits}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{lem}
-  Let $A : \dN\op \to \dA$ be a Lawvere theory.
-  The full inclusion functor $\iota : \Alg(A) \to \CSet^{\dA}$ creates colimits of sifted diagrams.
+\begin{lem}\label{lem:inclusion-creates-sifted-colimits}%
+  Let $\cT$ be a Lawvere theory.
+  The inclusion functor $\iota : \Alg(\cT) \to \CSet^{\cT}$ creates colimits of sifted diagrams.
 \end{lem}
 \begin{proof}
-  Let $S$ be a sifted category and $D : S \to \Alg(A)$ be a diagram.
-  Since $\CSet^{\dA}$ is cocomplete (has all sifted colimits) and $\iota$ reflects all colimits, it suffices to show that $\colim_{S}\iota \circ D$ is a finite-product preserving functor, but this is immediate from \cref{lem:functor-category-sifted-colimits-commute-with-finite-products}.
+  Let $\iS$ be a sifted category and $D : \iS \to \Alg(\cT)$ be a diagram.
+  Since $\CSet^{\cT}$ is cocomplete (therefore, it has all sifted colimits) and $\iota$ reflects all colimits, it suffices to show that $\colim_{\iS}\iota \circ D$ is a finite-product preserving functor, but this is immediate from \cref{lem:functor-category-sifted-colimits-commute-with-finite-products}.
 \end{proof}
 
 \begin{thm}\label{thm:algebraic-categories-has-sifted-colimits}
-  Let $A : \dN\op \to \dA$ be a Lawvere theory.
-  The category $\Alg(A)$ has sifted colimits.
+  Every algebraic category is closed under sifted colimits.
 \end{thm}
 \begin{proof}
-  Since the full inclusion $\iota$ creates sifted colimits and $\CSet^{\dA}$ is cocomplete, it follows that $\Alg(A)$ has sifted colimits.
+  It suffices to show that $\Alg(\cT)$ is closed under sifted colimits for all Lawvere theory $\cT$.
+  By \cref{lem:inclusion-creates-sifted-colimits}, $\iota$ creates sifted colimits.
+  Since $\CSet^{\cT}$ is cocomplete, it follows that $\Alg(\cT)$ has sifted colimits.
 \end{proof}
 
 \begin{cor}
-  Let $A : \dN\op \to \dA$ be a Lawvere theory.
-  Sifted colimits commute with finite products in $\Alg(A)$.
+  Sifted colimits commute with finite products in algebraic categories.
 \end{cor}
 \begin{proof}
-  The full inclusion $\iota$ reflects isomorphism.
-  Thus, the isomorphism in \cref{lem:functor-category-sifted-colimits-commute-with-finite-products} is reflected to an isomorphism in $\Alg(A)$.
+  It suffices to prove this statement for $\Alg(\cT)$, where $\cT$ is an arbitrary Lawvere theory.
+  The inclusion functor $\iota$ reflects isomorphism because it is fully faithful.
+  Thus, the isomorphism in \cref{lem:functor-category-sifted-colimits-commute-with-finite-products} is reflected to an isomorphism in $\Alg(\cT)$.
 \end{proof}
-
-\begin{node}
-  Using the same argument, one can prove that $\Alg(A)$ has filtered colimits, and filtered colimits commute with finite limits in any algebraic category.
-\end{node}
-
-\section{Reflexive coequalizers}
-\label{sec:reflexive-coequalizers}
-
-\begin{defn}
-  Let $\iJ$ be the following category
-  \[
-    % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzAsMSwiZiIsMCx7Im9mZnNldCI6LTJ9XSxbMCwxLCJnIiwyLHsib2Zmc2V0IjoyfV0sWzEsMCwicyIsMV1d
-    \begin{tikzcd}
-      \bullet && \bullet
-      \arrow[shift left=2, from=1-1, to=1-3]
-      \arrow[shift right=2, from=1-1, to=1-3]
-      \arrow[from=1-3, to=1-1]
-    \end{tikzcd}
-  \]
-  Colimits of diagrams of shape $\iJ$ are called \emph{reflexive coequalizers}.
-  These are equalizers of parallel pairs that admit a common section.
-\end{defn}
-
-\begin{node}
-  It is easy to verify that $\iJ$ is a sifted category.
-  Thus, reflexive coequalizers are sifted colimits.
-\end{node}
 
 \section{Algebraic categories as free cocompletions}
 \label{sec:algebraic-categories-as-free-cocompletions}
 
-\begin{node}\label{node:colimit-of-representables}
-  Let $\iC$ be a small category.
-  Any functor $F : \iC \to \CSet$ is naturally isomorphic to the colimit $\colim\yon\Pi$, where $\Pi : (\yon \dn F)\op \to \iC\op$ is the projection functor and $F : 1 \to \CSet^{\iC}$ is a functor that picks out $F : \iC \to \CSet$.
-\end{node}
+For a small category $\iC$, every set valued functor $F : \iC \to \CSet$ is naturally isomorphic to $\colim \yon\Pi_{F}$, where $\Pi_{F} : (\yon \dn F)\op \to \iC\op$ is the projection functor out of the opposite of the category of elements of $F$.
 
-\begin{node}\label{node:colim-of-representable}%
-  For any small category $\iC$ and object $c \in \iC$, the Hom functor $\iC(c, \blank)$ preserves limits.
-  Thus, given a Lawvere theory $A : \dN\op \to \dA$, each object $a \in \dA$ determines an algebra $\dA(a, \blank) : \dA \to \CSet$.
-  By \cref{node:colimit-of-representables}, every algebra $F : \dA \to \CSet$ is the colimit $\colim\yon\Pi$.
-\end{node}
+Given a Lawvere theory $\cT$ and an object $t \in \cT$, the represented functor $\cT(t, \blank) : \cT \to \CSet$ is limit preserving, so $\cT(t, \blank)$ is an algebra.
+We call these algebras \emph{represented algebras}.
+Indeed, every algebra can be expressed as a colimit of represented algebras.
 
 \begin{lem}\label{lem:algebras-are-sifted-colimits}
-  Given an algebraic theory $A$, for any functor $F : \dA \to \CSet$ the following conditions are equivalent:
+  Given a Lawvere theory $\cT$, for any functor $F : \cT \to \CSet$ the following conditions are equivalent:
   \begin{enumerate}
   \item $F$ is an algebra.
   \item $(\yon \dn F)\op$ is a sifted category.
-  \item $F$ is a sifted colimit of representable algebras.
+  \item $F$ is a sifted colimit of represented algebras.
   \end{enumerate}
 \end{lem}
 \begin{proof}
-  \begin{node}
-    (1) $\imp$ (2).
-    Assume that $F$ is an algebra.
-    By \cref{cor:finite-coproducts-then-sifted} and duality, it suffices to show that $(\yon \dn F)$ has finite products.
-    Since $F$ is an algebra, $F1$ is the singleton set.
-    Thus, $(1, *)$ is the terminal object in $(\yon \dn F)$.
-    Binary products are defined pointwise: $(a, x) \times (b, y)$ is $(a \times b, (x, y))$.
-    This is well-defined because $Fa \times Fb \iso F(a \times b)$.
-  \end{node}
-  \begin{node}
-    (2) $\imp$ (3).
-    Since $(\yon \dn F)\op$ is sifted, colimits of this shape are sifted colimits.
-    By \cref{node:colim-of-representable}, any functor is a sifted colimit of representable algebras.
-  \end{node}
-  \begin{node}
-    (3) $\imp$ (1).
-    By \cref{thm:algebraic-categories-has-sifted-colimits}, $\Alg(A)$ is closed under sifted colimits.
-  \end{node}
+  \textbf{(1) $\imp$ (2).}
+  By \cref{cor:finite-coproducts-then-sifted} and duality, it suffices to show that $(\yon \dn F)$ has finite products.
+  Since $F$ preserves finite products, $F1$ is the singleton set.
+  Then by the Yoneda lemma, $\hom(\cT(\blank, 1), F) \iso F1 \iso 1$, so there is a unique natural transformation from the represented functor to $F$.
+  Thus, $(1, * : \cT(\blank, 1) \to F)$ is the terminal object in $\yon \dn F$.
+  Binary products are defined pointwise: $(a, \mu) \times (b, \nu)$ is defined as $(a \times b, \gamma)$, where $\gamma$ corresponds to $(x, y) \in F(a) \times F(b)$ and $x$ and $y$ correspond to $\mu$ and $\nu$ respectively under the Yoneda bijection.
+  This is well-defined because $F(a) \times F(b) \iso F(a \times b)$.
+
+  \textbf{(2) $\imp$ (3).}
+  $F$ is naturally isomorphic to $\colim_{(\yon \dn F)\op}\yon\Pi_{F}$.
+  Since $(\yon \dn F)\op$ is sifted, $F$ is a sifted colimit of represented algebras.
+
+  \textbf{(3) $\imp$ (1).}
+  By \cref{thm:algebraic-categories-has-sifted-colimits}, $\Alg(\cT)$ is closed under sifted colimits.
 \end{proof}
 
 \begin{thm}\label{thm:algebraic-categories-cocomplete}
   Every algebraic category is cocomplete.
 \end{thm}
 \begin{proof}
-  \begin{node}
-    We have already shown that algebraic categories have reflexive coequalizers and filtered colimits.
-    It suffices to construct finite coproducts.
-  \end{node}
-  \begin{node}
-    Let $F, G : \dA \to \CSet$ be algebras of type $A$.
-    By \cref{lem:algebras-are-sifted-colimits}, $F$ and $G$ can be expressed as sifted colimits of representable algebras.
-    Consider the category $\iD = (\yon \dn F)\op \times (\yon \dn G)\op$ and the diagram $H : \iD \to \Alg(A)$ defined by
-    \[
-      H : ((a \in \dA, x \in Fa), (a' \in \dA, y \in Ga)) \mapsto \yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)
-    \]
-    Note that $\yon\Pi_{A}(a, x) + \yon\Pi_{B}(a', y)$ exists in $\Alg(A)$.
-    Since $\iD$ is the product of two sifted categories, $\iD$ itself is also a sifted category.
-    Thus, the colimit of this diagram exists in $\Alg(A)$.
-    Since colimits commute with coproducts, we have
-    \[
-      \colim H \iso \colim_{(\yon \dn F)\op}\yon\Pi_{A} + \colim_{(\yon \dn G)\op}\yon\Pi_{B} \iso F + G
-    \]
-  \end{node}
+  It suffices to show that $\Alg(\cT)$ is cocomplete for any Lawvere theory $\cT$.
+  By \cref{thm:algebraic-categories-has-sifted-colimits}, algebraic categories have sifted colimits.
+  In particular, they have reflexive coequalizers.
+  We can use the same argument to show that algebraic categories have filtered colimits.
+  Thus, it suffices to construct finite coproducts.
+
+  The initial object $i \in \CSet^{\cT}$ maps each object $t \in \cT$ to the empty set.
+  This is also an initial object in $\Alg(\cT)$ as it preserves finite products.
+  Now, consider two arbitrary algebras $F, G : \cT \toto \CSet$.
+  We define
+  \[
+    F + G := \colim_{(\yon \dn F)\op}\yon\Pi_{F} + \colim_{(\yon \dn G)\op}\yon\Pi_{G} \iso \colim_{(\yon \dn F)\op \times (\yon \dn G)\op}\yon\Pi_{F} + \yon\Pi_{G}
+  \]
+  By \cref{lem:algebras-are-sifted-colimits}, the categories of elements of $F$ and $G$ are sifted, and the product of sifted categories is also sifted.
+  Thus, the last colimit is an algebra by \cref{thm:algebraic-categories-has-sifted-colimits}.
 \end{proof}
 
 \begin{defn}
@@ -382,42 +347,42 @@
   For every small category $\iC$, the Yoneda embedding $\yon : \iC \to \CSet^{\iC\op}$ is a free cocompletion under colimits.
 \end{thm}
 \begin{proof}
-  \begin{node}
-    The functor category $\CSet^{\iC\op}$ is cocomplete.
-    For any functor $F : \iC \to \iD$ where $\iD$ is cocomplete, we need to show that there is an essentially unique extension $F^{*} : \CSet^{\iC\op} \to \iD$.
-    We define
-    \[
-      F^{*}(G) := \colim F\Pi
-    \]
-    where $\Pi : \yon \dn G \to \iC$ is the canonical projection functor.
-    That is, $F^{*}$ is the left Kan extension of $F$ along the Yoneda embedding.
-    Since $\yon$ is fully faithful, this extension is a genuine extension.
-  \end{node}
-  \begin{node}\label{node:lan-has-right-adjoint}%
-    It remains to verify that $F^{*}$ preserves colimits.
-    To this end, we show that $F^{*}$ admits a right adjoint.
-    We define the functor $R : \iD \to \CSet^{\iC\op}$ by
-    \[
-      R : d \mapsto \iD(F\blank, d)
-    \]
-    We need to verify the natural isomorphism
-    \[
-      \iD(F^{*}G, d) \iso \CSet^{\iC\op}(G, Rd)
-    \]
-    By definition,
-    \[
-      \iD(F^{*}G, d) = \iD(\colim F\Pi, d) \iso \lim\iD(F\Pi\blank, d)
-    \]
-    Every functor $G$ is naturally isomorphic to $\colim\yon\Pi$.
-    \[
-      \CSet^{\iC\op}(G, Rd) \iso \CSet^{\iC\op}(\colim\yon\Pi, Rd) \iso \lim\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))
-    \]
-    By the Yoneda lemma,
-    \[
-      \CSet^{\iC\op}(\yon\Pi(c, x), \iD(F\blank, d)) = \CSet^{\iC\op}(\iC(\blank, c), \iD(F\blank, d)) \iso \iD(Fc, d)
-    \]
-    Thus, the two diagrams $\iD(F\Pi\blank, d)$ and $\CSet^{\iC\op}(\yon\Pi\blank, \iD(F\blank, d))$ are naturally isomorphic, and so are their limits.
-  \end{node}
+  Let $G : \iC \to \iE$ be any functor, where $\iE$ is cocomplete.
+  We define $G^{*}$ as the pointwise left Kan extension computed by the colimit formula:
+  \[
+    G^{*}(F) := \colim\left((\yon \dn F) \xrightarrow{\Pi_{F}} \iC \xrightarrow{G} \iE\right)
+  \]
+  Since $\yon$ is fully faithful, $G^{*}$ is a genuine extension.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsxLDEsIlxcQWxnKFxcY1QpIl0sWzIsMCwiXFxpRCJdLFswLDEsIlxceW9uIiwyXSxbMCwyLCJGIl0sWzEsMiwiRl57Kn0iLDJdXQ==
+  \[\begin{tikzcd}
+      \iC && \iE \\
+      & {\CSet^{\iC\op}}
+      \arrow["\yon"', from=1-1, to=2-2]
+      \arrow["G", from=1-1, to=1-3]
+      \arrow["{G^{*}}"', from=2-2, to=1-3]
+    \end{tikzcd}\]
+  
+  It remains to show that $G^{*}$ preserves colimits.
+  To this end, we show that $G^{*}$ is a left adjoint.
+  We define a functor $R : \iE \to \CSet^{\iC\op}$ by
+  \[
+    R : e \mapsto \iE(G\blank, e)
+  \]
+  We need to verify the natural isomorphism
+  \[
+    \iE(G^{*}F, e) = \iE(\colim G\Pi_{F}, e) \iso \CSet^{\iC\op}(F, Re) = \CSet^{\iC\op}(F, \iE(G\blank, e))
+  \]
+  By the represented property of colimits, we have
+  \[
+    \iE(\colim_{(\yon \dn F)} G\Pi_{F}, e) \iso \lim_{(\yon \dn F)\op}\iE(G\Pi_{F}, e).
+  \]
+  and similarly,
+  \[
+    \CSet^{\iC\op}(F, \iE(G\blank, e)) \iso \CSet^{\iC\op}(\colim_{(\yon \dn F)}\yon\Pi_{F}, \iE(G\blank, e)) \iso \lim_{(\yon \dn F)\op}\CSet^{\iC\op}(\yon\Pi_{F}, \iE(G\blank, e))
+  \]
+  Note that $F$ is contravariant so it is isomorphic to $\colim_{(\yon \dn F)}\yon\Pi_{F}$.
+  By the Yoneda lemma, $\iE(G\Pi_{F}, e) \iso \CSet^{\iC\op}(\yon\Pi_{F}, \iE(G\blank, e))$.
+  Thus, their limits are isomorphic.
 \end{proof}
 
 \begin{thm}
@@ -428,37 +393,36 @@
   is a free cocompletion of $\cT\op$ under sifted colimits.
 \end{thm}
 \begin{proof}
-  \begin{node}
-    For any functor $F : \cT\op \to \iD$ where $\iD$ has sifted colimits, we define $F^{*}$ as the left Kan extension of $F$ along $\yon$.
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsxLDEsIlxcQWxnKFxcY1QpIl0sWzIsMCwiXFxpRCJdLFswLDEsIlxceW9uIiwyXSxbMCwyLCJGIl0sWzEsMiwiRl57Kn0iLDJdXQ==
-    \[\begin{tikzcd}
-        \cT\op && \iD \\
-        & {\Alg(\cT)}
-        \arrow["\yon"', from=1-1, to=2-2]
-        \arrow["F", from=1-1, to=1-3]
-        \arrow["{F^{*}}"', from=2-2, to=1-3]
-      \end{tikzcd}\]
-    This is always possible because $\cT\op$ has finite coproducts, and so does $\cT\op \dn t$ for any $t$.
-    By \cref{cor:finite-coproducts-then-sifted}, $\cT\op \dn t$ is sifted.
-    Thus, the left Kan extension can be computed by the colimit formula.
-    This is a genuine extension because $\yon$ is fully faithful and $F^{*}$ is point-wise.
-  \end{node}
-  \begin{node}
-    It remains to show that $F^{*}$ preserves sifted colimits.
-    We have the following natural isomorphism by \cref{node:lan-has-right-adjoint}.
-    The functor $\iota : \Alg(\cT) \to \CSet^{\cT}$ is the inclusion functor, which preserves colimits (trivially).
-    \[
-      \iD(F^{*}G, d) \iso \CSet^{\cT}(\iota G, Rd) = \CSet^{\cT}(\iota G, \iD(F\blank, d))
-    \]
-    Thus, for any sifted colimit, we have
-    \begin{align}
-      \iD(F^{*}\colim G, d) &\iso \CSet^{\cT}(\colim G, Rd)\\
-                            &\iso \lim\CSet^{\cT}(G, Rd)\\
-                            &\iso \lim\iD(F^{*}G, d)\\
-                            &\iso \iD(\colim F^{*}G, d)
-    \end{align}
-    By the Yoneda lemma, $F^{*}(\colim G) \iso \colim F^{*}G$.
-  \end{node}
+  For any functor $G : \cT\op \to \iE$ where $\iE$ has sifted colimits, we define $G^{*}$ as the left Kan extension of $G$ along $\yon$.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsxLDEsIlxcQWxnKFxcY1QpIl0sWzIsMCwiXFxpRCJdLFswLDEsIlxceW9uIiwyXSxbMCwyLCJGIl0sWzEsMiwiRl57Kn0iLDJdXQ==
+  \[\begin{tikzcd}
+      \cT\op && \iE \\
+      & {\Alg(\cT)}
+      \arrow["\yon"', from=1-1, to=2-2]
+      \arrow["G", from=1-1, to=1-3]
+      \arrow["{G^{*}}"', from=2-2, to=1-3]
+    \end{tikzcd}\]
+  This is always possible because $\cT\op$ has finite coproducts, and so does the slice category $\cT\op \dn t$ for any $t \in \cT$.
+  By \cref{cor:finite-coproducts-then-sifted}, $\cT\op \dn t$ is sifted.
+  Thus, the left Kan extension can be computed by the colimit formula.
+  This is a genuine extension because $\yon$ is fully faithful and $F^{*}$ is pointwise.
+  
+  It remains to show that $G^{*}$ preserves sifted colimits.
+  The inclusion functor $\iota : \Alg(\cT) \to \CSet^{\cT}$ preserves colimits (trivially).
+  Consider the following natural isomorphism:
+  \[
+    \iE(G^{*}F, e) \iso \CSet^{\cT}(\iota F, Re)
+  \]
+  where $F$ is an algebra.
+  For any sifted diagram $D : \iS \to \Alg(\cT)$, we have
+  \begin{align}
+    \iE(G^{*}\colim_{s \in \iS} D(s), e) &\iso \CSet^{\cT}(\iota\colim_{s \in \iS} D(s), Re)\\
+                                       &\iso \CSet^{\cT}(\colim_{s \in \iS} \iota D(s), Re)\\
+                                       &\iso \lim_{s \in \iS\op}\CSet^{\cT}(\iota D(s), Rd)\\
+                                       &\iso \lim_{s \in \iS\op}\iE(G^{*}D(s), e)\\
+                                       &\iso \iE(\colim_{s \in \iS}G^{*}D(s), e)
+  \end{align}
+  By the Yoneda lemma, $F^{*}(\colim G) \iso \colim F^{*}G$.
 \end{proof}
 
 \begin{cor}

@@ -216,6 +216,188 @@
   Reflexive coequalizers are sifted colimits.
 \end{rmk}
 
+\begin{lem}\label{lem:retract-colimit-preserved}
+  If $c' \in \iC$ is a retract of $c \in \iC$, then the functor $\iC(c', \blank)$ preserves any colimit preserved by $\iC(c, \blank)$.
+\end{lem}
+\begin{proof}
+  Let $r : c \to c'$ be a retraction to the section $s : c' \to c$.
+  Consider the following absolute coequalizer diagram:
+  % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGlDKGMsXFxibGFuaykiXSxbNCwwLCJcXGlDKGMnLFxcYmxhbmspIl0sWzAsMCwiXFxpQyhjLFxcYmxhbmspIl0sWzAsMSwiXFxpQyhzLFxcYmxhbmspIl0sWzEsMCwiXFxpQyhyLFxcYmxhbmspIiwwLHsiY3VydmUiOi0yfV0sWzIsMCwiXFxpQyhycyxcXGJsYW5rKSIsMCx7Im9mZnNldCI6LTF9XSxbMiwwLCJcXGlkIiwyLHsib2Zmc2V0IjoxfV0sWzAsMiwiXFxpZCIsMCx7ImN1cnZlIjotM31dXQ==
+  \[\begin{tikzcd}
+      {\iC(c,\blank)} && {\iC(c,\blank)} && {\iC(c',\blank)}
+      \arrow["{\iC(s,\blank)}", from=1-3, to=1-5]
+      \arrow["{\iC(r,\blank)}", curve={height=-12pt}, from=1-5, to=1-3]
+      \arrow["{\iC(rs,\blank)}", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["\id", curve={height=-18pt}, from=1-3, to=1-1]
+    \end{tikzcd}\]
+  Since it is an absolute coequalizer, it is preserved by the evaluation functor $\ev_{\colim\iD} : \CSet^{\iC} \to \CSet$.
+  % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGlDKGMsXFxjb2xpbVxcaUQpIl0sWzQsMCwiXFxpQyhjJyxcXGNvbGltXFxpRCkiXSxbMCwwLCJcXGlDKGMsXFxjb2xpbVxcaUQpIl0sWzAsMSwiXFxpQyhzLFxcYmxhbmspX3tcXGNvbGltXFxpRH0iXSxbMSwwLCJcXGlDKHIsXFxibGFuaylfe1xcY29saW1cXGlEfSIsMCx7ImN1cnZlIjotMn1dLFsyLDAsIlxcaUMocnMsXFxibGFuaylfe1xcY29saW1cXGlEfSIsMCx7Im9mZnNldCI6LTF9XSxbMiwwLCJcXGlkIiwyLHsib2Zmc2V0IjoxfV0sWzAsMiwiXFxpZCIsMCx7ImN1cnZlIjotM31dXQ==
+  \[\begin{tikzcd}
+      {\iC(c,\colim\iD)} && {\iC(c,\colim\iD)} && {\iC(c',\colim\iD)}
+      \arrow["{\iC(s,\blank)_{\colim\iD}}", from=1-3, to=1-5]
+      \arrow["{\iC(r,\blank)_{\colim\iD}}", curve={height=-12pt}, from=1-5, to=1-3]
+      \arrow["{\iC(rs,\blank)_{\colim\iD}}", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["\id", curve={height=-18pt}, from=1-3, to=1-1]
+    \end{tikzcd}\]
+  and similarly it is preserved by the functor $\colim(\blank \circ D) : \CSet^{\iC} \to \CSet$.
+  % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGNvbGltXFxpQyhjLERcXGJsYW5rKSJdLFs0LDAsIlxcY29saW1cXGlDKGMnLERcXGJsYW5rKSJdLFswLDAsIlxcY29saW1cXGlDKGMsRFxcYmxhbmspIl0sWzAsMSwiXFxjb2xpbVxcaUMocyxcXGJsYW5rKV97RFxcYmxhbmt9Il0sWzEsMCwiXFxjb2xpbVxcaUMocixcXGJsYW5rKV97RFxcYmxhbmt9IiwwLHsiY3VydmUiOi0yfV0sWzIsMCwiXFxjb2xpbVxcaUMocnMsXFxibGFuaylfe0RcXGJsYW5rfSIsMCx7Im9mZnNldCI6LTF9XSxbMiwwLCJcXGlkIiwyLHsib2Zmc2V0IjoxfV0sWzAsMiwiXFxpZCIsMCx7ImN1cnZlIjotM31dXQ==
+  \[\begin{tikzcd}
+      {\colim\iC(c,D\blank)} && {\colim\iC(c,D\blank)} && {\colim\iC(c',D\blank)}
+      \arrow["{\colim\iC(s,\blank)_{D\blank}}", from=1-3, to=1-5]
+      \arrow["{\colim\iC(r,\blank)_{D\blank}}", curve={height=-12pt}, from=1-5, to=1-3]
+      \arrow["{\colim\iC(rs,\blank)_{D\blank}}", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["\id", curve={height=-18pt}, from=1-3, to=1-1]
+    \end{tikzcd}\]
+  If $\iC(c,\colim D) \iso \colim\iC(c,D\blank)$, then this isomorphism together with $\iC(s,\blank)_{\colim D}$ form a cocone over the pair $\colim\iC(rs,\blank)_{D\blank}$ and $\id$.
+  Similarly, $\colim\iC(s,\blank)_{D\blank}$ with the isomorphism form a cocone over $\iC(rs,\blank)_{\colim D}$ and $\id$.
+  Thus, $\iC(c',\colim D) \iso \colim\iC(c', D\blank)$.
+\end{proof}
+
+\begin{lem}\label{lem:pp-closed-under-coprod}
+  In a category $\iC$,
+  \begin{enumerate}
+  \item Perfectly presentable objects are closed under finite coproducts if it exists.
+  \item Finitely presentable objects are closed under finite colimits if it exists.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  Given a finite set of perfectly presentable objects $(c_{j})_{j \in \iJ}$.
+  Suppose that $\coprod_{\iJ}c_{j}$ exists, then for any sifted colimits $\colim D$, we have
+  \[
+    \iC(\coprod_{\iJ}c_{j},\colim D) \iso \prod_{\iJ\op}\iC(c_{j},\colim D) \iso \prod_{\iJ\op}\colim\iC(c_{j},D\blank)
+  \]
+  By definition, sifted colimits commute with finite products.
+  Thus, we have
+  \[
+    \prod_{\iJ\op}\colim\iC(c_{j},D\blank) \iso \colim\prod_{\iJ\op}\iC(c_{j},D\blank) \iso \colim\iC(\coprod_{\iJ}c_{j},D\blank)
+  \]
+  The proof for statement 2 is completely analogous.
+\end{proof}
+
+\begin{defn}
+  Let $\iC$ be a category.
+  A \emph{generator} of $\iC$ consists of a set of objects $\iG$ so that for all $c \in \iC$, all morphisms from $\iG$ to $c$ are jointly epimorphic.
+  If $\iC$ has coproducts, then this is equivalent to the condition that the canonical morphism
+  \[
+    e_{c} : \left(\coprod_{(G,g) \in \iG \dn c}G\right) \to c
+  \]
+  is epimorphic.
+  A generator is \emph{strong} if the morphisms are jointly extremal.
+\end{defn}
+
+\begin{lem}\label{lem:colimits-strong-generators}
+  Let $\iC$ be a small category with colimits.
+  If $\iG$ is a dense set of $\iC$, i.e., every object $c \in \iC$ is the colimit of the domain functor $\dom : \iG \dn c \to \iC$, then $\iG$ is a strong generator.
+\end{lem}
+\begin{proof}
+  As $c$ is the colimit of $\dom$, $c$ is a regular quotient of $\coprod_{\iG \dn c}G$.
+  That is,
+  \[
+    \left(\coprod_{(G,g) \in \iG \dn c}G\right) \xrightarrow{e_{c}} c
+  \]
+  is a regular epimorphism.
+  Thus, it is also an extremal epimorphism.
+\end{proof}
+
+\begin{lem}\label{lem:srong-coprod-comp-strong}
+  Let $\iC$ be a small category with colimits and $\iG$ be a (strong) generator of $\iC$.
+  If $\iG'$ is a coproduct completion of $\iG$ in $\iC$, i.e., $\iG'$ is a superset of $\iG$ closed under coproducts of objects in $\iG$, then $\iG'$ is also a (strong) generator.
+\end{lem}
+\begin{proof}
+  As $\iG'$ is a coproduct completion of $\iG$, $\coprod_{(G,g) \in \iG \dn c}G$ is an object in $\iG'$.
+  For any object $c \in \iC$, the fact that morphisms from $\iG$ to $c$ are jointly (extremal) epimorphic implies that the canonical morphism $e_{c} : \left(\coprod_{(G,g) \in \iG \dn c}G\right) \to c$ is (extremal) epimorphic.
+  Thus, morphisms from $\iG'$ (for which $e_{c}$ is one of them) to $c$ are (trivially) jointly (extremal) epimorphic.
+\end{proof}
+
+\begin{lem}\label{lem:sg-pp-dense}
+  Let $\iC$ be a small category with colimits.
+  If $\iG$ is a strong generator of $\iC$ consisting of perfectly presentable objects, then any coproduct completion of $\iG$ in $\iC$ is dense.
+\end{lem}
+\begin{proof}
+  By \cref{lem:srong-coprod-comp-strong}, any coproduct completion of $\iG$ in $\iC$ is a strong generator.
+  Thus, we may assume that $\iG$ is closed under coproducts without loss of generality.
+
+  Let $c \in \iC$ be an object and $\alpha : \dom \to c'$ be a colimiting cocone of the domain functor.
+  We need to show that $c \iso c'$.
+  Let $\beta : \dom \to c$ be a cocone defined by $\beta_{(G,g)} := g$.
+  This indeed defines a cocone because a morphism $m : (G,g) \to (G',g')$ consists of a morphism $m : G \to G'$ so that $mg = g'$.
+  % https://q.uiver.app/#q=WzAsMyxbMiwwLCJjIl0sWzAsMiwiXFxkb20oRyxnKSJdLFs0LDIsIlxcZG9tKEcnLGcnKSJdLFsxLDIsIlxcZG9tKG0pIiwyXSxbMSwwLCJcXGJldGFfeyhHLGcpfSA9IGciXSxbMiwwLCJcXGJldGFfeyhHJyxnJyl9ID0gZyciLDJdXQ==
+  \[\begin{tikzcd}
+      && c \\
+      \\
+      {\dom(G,g)} &&&& {\dom(G',g')}
+      \arrow["{\dom(m)}"', from=3-1, to=3-5]
+      \arrow["{\beta_{(G,g)} = g}", from=3-1, to=1-3]
+      \arrow["{\beta_{(G',g')} = g'}"', from=3-5, to=1-3]
+    \end{tikzcd}\]
+  Thus, there is a unique morphism $k : c' \to c$ so that $k \cdot \alpha = \beta$.
+
+  We show that the morphism $k$ is monomorphic for objects in $\iG$.
+  This can then be generalized to any object in $\iC$.
+  Let $x \in \iG$.
+  Since $\iG$ has coproducts, so does $\iG \dn c$.
+  By \cref{cor:finite-coproducts-then-sifted}, $\iG \dn c$ is sifted.
+  That is, $c'$ is a sifted colimit.
+  As $x$ is perfectly presentable, we have
+  \[
+    \iC(x, c') = \iC(x, \colim_{\iG \dn c}\dom) \iso \colim_{\iG \dn c}\iC(x, \dom\blank)
+  \]
+  That is, $\iC(x, c')$ is the colimit of the diagram $\iC(x, \dom\blank)$.
+  A colimiting cocone is obtained by applying $\iC(x,\blank)$ to each component of $\alpha$.
+  % https://q.uiver.app/#q=WzAsMyxbMSwwLCJcXGlDKHgsYycpIl0sWzAsMSwiXFxpQyh4LFxcZG9tKEcsZykpIl0sWzIsMSwiXFxpQyh4LFxcZG9tKEcnLGcnKSkiXSxbMSwyXSxbMSwwLCJcXGFscGhhX3soRyxnKX1cXGNpcmMgXFxibGFuayJdLFsyLDAsIlxcYWxwaGFfeyhHJyxnJyl9XFxjaXJjIFxcYmxhbmsiLDJdXQ==
+  \[\begin{tikzcd}
+      & {\iC(x,c')} \\
+      {\iC(x,\dom(G,g))} && {\iC(x,\dom(G',g'))}
+      \arrow[from=2-1, to=2-3]
+      \arrow["{\alpha_{(G,g)}\circ \blank}", from=2-1, to=1-2]
+      \arrow["{\alpha_{(G',g')}\circ \blank}"', from=2-3, to=1-2]
+    \end{tikzcd}\]
+  Thus, for any $u \in \iC(x, c')$ there is some $(G,g) \in \iG \dn c$ and $\util \in \iC(x, \dom(G,g))$ so that $\alpha_{(G,g)} \circ \util = u$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJ4Il0sWzAsMCwiRyJdLFsyLDIsImMnIl0sWzQsMiwiYyJdLFswLDEsIlxcdXRpbCJdLFsxLDIsIlxcYWxwaGFfeyhHLGcpfSIsMV0sWzAsMiwidSIsMl0sWzIsMywiayIsMl0sWzEsMywiXFxiZXRhX3soRyxnKX0gPSBnIiwwLHsiY3VydmUiOi0xfV1d
+  \[\begin{tikzcd}
+      G \\
+      \\
+      x && {c'} && c
+      \arrow["\util", from=3-1, to=1-1]
+      \arrow["{\alpha_{(G,g)}}"{description}, from=1-1, to=3-3]
+      \arrow["u"', from=3-1, to=3-3]
+      \arrow["k"', from=3-3, to=3-5]
+      \arrow["{\beta_{(G,g)} = g}", curve={height=-6pt}, from=1-1, to=3-5]
+    \end{tikzcd}\]
+  Naturality of $\alpha$ then demands that $\alpha_{(G,g)} \circ \util = \alpha_{(G,ku)}$.
+  Let $u,v : x \toto c'$ be any pair of morphisms so that $ku = kv$.
+  Then $\alpha_{(G,ku)} = \alpha_{(G,g)} \circ \util = u = \alpha_{(G,kv)} = \alpha_{(G',g')} \circ \vtil = v$.
+
+  Now let $x \in \iC$ and $u, v : x \toto c'$ be any parallel pair so that $ku = kv$.
+  Consider the following composites
+  % https://q.uiver.app/#q=WzAsNCxbMSwwLCJ4Il0sWzIsMCwiYyciXSxbMCwwLCJcXGNvcHJvZF97KEcsZykgXFxpbiBcXGlHIFxcZG4geH1HIl0sWzMsMCwiYyJdLFsyLDAsImVfe3h9Il0sWzAsMSwidSIsMCx7Im9mZnNldCI6LTF9XSxbMCwxLCJ2IiwyLHsib2Zmc2V0IjoxfV0sWzEsMywiayJdXQ==
+  \[\begin{tikzcd}
+      {\coprod_{(G,g) \in \iG \dn x}G} & x & {c'} & c
+      \arrow["{e_{x}}", from=1-1, to=1-2]
+      \arrow["u", shift left, from=1-2, to=1-3]
+      \arrow["v"', shift right, from=1-2, to=1-3]
+      \arrow["k", from=1-3, to=1-4]
+    \end{tikzcd}\]
+  Since $\coprod_{(G,g) \in \iG \dn x}G \in \iG$, $k$ is monomorphic for objects in $\iG$ and $kue_{x} = kve_{x}$, we have $ue_{x} = ve_{x}$.
+  As $e_{x}$ is epimorphic, $u = v$.
+
+  To show that $k$ is an isomorphism, it suffices to show that $k$ is an extremal epimorphism.
+  Consider the following commutative diagram
+  % https://q.uiver.app/#q=WzAsMyxbMCwyLCJjJyJdLFsyLDIsImMiXSxbMSwwLCJcXGNvcHJvZF97KEcsZykgXFxpbiBcXGlHIFxcZG4gY31HIl0sWzAsMSwiayIsMl0sWzIsMCwiXFxhbHBoYV97KFxcY29wcm9kX3soRyxnKSBcXGluIFxcaUcgXFxkbiBjfUcsIGVfe2N9KX0iLDJdLFsyLDEsIlxcYmV0YV97KFxcY29wcm9kX3soRyxnKSBcXGluIFxcaUcgXFxkbiBjfUcsIGVfe2N9KX0gPSBlX3tjfSJdXQ==
+  \[\begin{tikzcd}
+      & {\coprod_{(G,g) \in \iG \dn c}G} \\
+      \\
+      {c'} && c
+      \arrow["k"', from=3-1, to=3-3]
+      \arrow["{\alpha_{(\coprod_{(G,g) \in \iG \dn c}G, e_{c})}}"', from=1-2, to=3-1]
+      \arrow["{\beta_{(\coprod_{(G,g) \in \iG \dn c}G, e_{c})} = e_{c}}", from=1-2, to=3-3]
+    \end{tikzcd}\]
+  Since $e_{c}$ is an extremal epimorphism, it follows that $k$ is an extremal epimorphism.
+\end{proof}
+
 \section{Lawvere Theory}
 \label{sec:lawvere-theory}
 
@@ -343,7 +525,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   \end{enumerate}
 \end{defn}
 
-\begin{thm}
+\begin{thm}\label{thm:yon-free-cocomp}
   For every small category $\iC$, the Yoneda embedding $\yon : \iC \to \CSet^{\iC\op}$ is a free cocompletion under colimits.
 \end{thm}
 \begin{proof}
@@ -363,7 +545,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
     \end{tikzcd}\]
   
   It remains to show that $G^{*}$ preserves colimits.
-  To this end, we show that $G^{*}$ is a left adjoint.
+  Indeed, $G^{*}$ has a right adjoint.
   We define a functor $R : \iE \to \CSet^{\iC\op}$ by
   \[
     R : e \mapsto \iE(G\blank, e)
@@ -385,324 +567,246 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Thus, their limits are isomorphic.
 \end{proof}
 
-\begin{thm}
-  For every Lawvere theory $\cT$, the Yoneda embedding
+\begin{thm}\label{thm:alg-free-cocompletion}
+  For every Lawvere theory $\cT$, the functor
   \[
-    \yon : \cT\op \to \Alg(\cT)
+    y : \cT\op \to \Alg(\cT),\quad~t \mapsto \cT(t,\blank)
   \]
   is a free cocompletion of $\cT\op$ under sifted colimits.
 \end{thm}
 \begin{proof}
   For any functor $G : \cT\op \to \iE$ where $\iE$ has sifted colimits, we define $G^{*}$ as the left Kan extension of $G$ along $\yon$.
-  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsxLDEsIlxcQWxnKFxcY1QpIl0sWzIsMCwiXFxpRCJdLFswLDEsIlxceW9uIiwyXSxbMCwyLCJGIl0sWzEsMiwiRl57Kn0iLDJdXQ==
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNUXFxvcCJdLFsyLDAsIlxcaUUiXSxbMSwyLCJcXEFsZyhcXGNUKSJdLFsxLDEsIlxcQ1NldF57XFxjVH0iXSxbMCwyLCJ5IiwyLHsiY3VydmUiOjJ9XSxbMCwxLCJHIl0sWzIsMSwiR157Kn1cXGlvdGEiLDIseyJjdXJ2ZSI6Mn1dLFswLDMsIlxceW9uIiwyXSxbMywxLCJHXnsqfSIsMl0sWzIsMywiXFxpb3RhIl0sWzUsMywiXFxpc28iLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjB9fV1d
   \[\begin{tikzcd}
       \cT\op && \iE \\
+      & {\CSet^{\cT}} \\
       & {\Alg(\cT)}
+      \arrow["y"', curve={height=12pt}, from=1-1, to=3-2]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "G", from=1-1, to=1-3]
+      \arrow["{G^{*}\iota}"', curve={height=12pt}, from=3-2, to=1-3]
       \arrow["\yon"', from=1-1, to=2-2]
-      \arrow["G", from=1-1, to=1-3]
       \arrow["{G^{*}}"', from=2-2, to=1-3]
+      \arrow["\iota", from=3-2, to=2-2]
+      \arrow["\iso", shorten <=3pt, Rightarrow, from=0, to=2-2]
     \end{tikzcd}\]
   This is always possible because $\cT\op$ has finite coproducts, and so does the slice category $\cT\op \dn t$ for any $t \in \cT$.
   By \cref{cor:finite-coproducts-then-sifted}, $\cT\op \dn t$ is sifted.
   Thus, the left Kan extension can be computed by the colimit formula.
-  This is a genuine extension because $\yon$ is fully faithful and $F^{*}$ is pointwise.
+  As it turns out, $G^{*}\iota$ is a left Kan extension of $G$ along $y$ as it is also computed by the colimit formula.
+  Commutativity of the diagram then implies that $G^{*}\iota$ is a genuine extension.
   
-  It remains to show that $G^{*}$ preserves sifted colimits.
-  The inclusion functor $\iota : \Alg(\cT) \to \CSet^{\cT}$ preserves colimits (trivially).
+  It remains to show that $G^{*}\iota$ preserves sifted colimits.
   Consider the following natural isomorphism:
   \[
-    \iE(G^{*}F, e) \iso \CSet^{\cT}(\iota F, Re)
+    \iE(G^{*}\iota F, e) \iso \CSet^{\cT}(\iota F, Re)
   \]
   where $F$ is an algebra.
   For any sifted diagram $D : \iS \to \Alg(\cT)$, we have
   \begin{align}
-    \iE(G^{*}\colim_{s \in \iS} D(s), e) &\iso \CSet^{\cT}(\iota\colim_{s \in \iS} D(s), Re)\\
+    \iE(G^{*}\iota\colim_{s \in \iS} D(s), e) &\iso \CSet^{\cT}(\iota\colim_{s \in \iS} D(s), Re)\\
                                        &\iso \CSet^{\cT}(\colim_{s \in \iS} \iota D(s), Re)\\
                                        &\iso \lim_{s \in \iS\op}\CSet^{\cT}(\iota D(s), Rd)\\
-                                       &\iso \lim_{s \in \iS\op}\iE(G^{*}D(s), e)\\
-                                       &\iso \iE(\colim_{s \in \iS}G^{*}D(s), e)
+                                       &\iso \lim_{s \in \iS\op}\iE(G^{*}\iota D(s), e)\\
+                                       &\iso \iE(\colim_{s \in \iS}G^{*}\iota D(s), e)
   \end{align}
-  By the Yoneda lemma, $F^{*}(\colim G) \iso \colim F^{*}G$.
+  As the isomorphism holds for any $e \in \iE$, $G^{*}\iota(\colim D) \iso \colim G^{*}\iota D$ by the Yoneda lemma.
 \end{proof}
 
 \begin{cor}
   Every algebraic category $\iC$ is a free cocompletion of a small category with finite coproducts under sifted colimits.
 \end{cor}
+\begin{proof}
+  By definition, every algebraic category is equivalent to $\Alg(\cT)$ for some Lawvere theory $\cT$.
+  By \cref{thm:alg-free-cocompletion}, $\Alg(\cT)$ is the free cocompletion of $\cT\op$, a category with finite coproducts, under sifted colimits.
+\end{proof}
+
+\begin{cor}\label{cor:alg-reflective}
+  For any algebraic theory $\cT$, $\Alg(\cT)$ is a full reflective subcategory of $\CSet^{\cT}$.
+\end{cor}
+\begin{proof}
+  By the construction in \cref{thm:yon-free-cocomp}, the extension $y^{*}$ admits a right adjoint.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUXFxvcCJdLFsyLDAsIlxcQWxnKFxcY1QpIl0sWzEsMiwiXFxDU2V0XntcXGNUfSJdLFswLDEsInkiXSxbMCwyLCJcXHlvbiIsMl0sWzIsMSwieV57Kn0iLDAseyJvZmZzZXQiOi0yfV0sWzEsMiwiUiIsMCx7Im9mZnNldCI6LTJ9XSxbNSw2LCIiLDIseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dXQ==
+  \[\begin{tikzcd}
+      \cT\op && {\Alg(\cT)} \\
+      \\
+      & {\CSet^{\cT}}
+      \arrow["y", from=1-1, to=1-3]
+      \arrow["\yon"', from=1-1, to=3-2]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{y^{*}}", shift left=2, from=3-2, to=1-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "R", shift left=2, from=1-3, to=3-2]
+      \arrow["\dashv"{anchor=center, rotate=-37}, draw=none, from=0, to=1]
+    \end{tikzcd}\]
+  It suffices to show that $R$ is naturally isomorphic to the inclusion functor.
+  For each $G \in \Alg(\cT)$, we have a natural isomorphism by the Yoneda lemma
+  \[
+    \Alg(\cT(t,\blank), G) \iso Gt
+  \]
+  These natural isomorphisms assemble into a natural isomorphism $\alpha : R \to \iota$.
+\end{proof}
 
 \section{Properties of algebras}
 \label{sec:properties-of-algebras}
 
-\begin{lem}
-  Let $C' \in \iC$ be a retract of $C \in \iC$.
-  The functor $\iC(C', \blank)$ preserves any colimit preserved by $\iC(C, \blank)$.
-\end{lem}
+\begin{thm}\label{thm:retract-reg-reg}
+  If $c$ is regular projective (resp., finitely presentable), then its retracts are regular projective (resp., finitely presentable).
+\end{thm}
 \begin{proof}
-  Let $r : C \to C'$ and $s : C' \to C$ be morphisms such that $rs = \id_{C'}$.
-  The following diagram is an absolute coequalizer
-  \[
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlDKEMsXFxibGFuaykiXSxbMiwwLCJcXGlDKEMsXFxibGFuaykiXSxbNCwwLCJcXGlDKEMnLFxcYmxhbmspIl0sWzEsMiwiXFxpQyhzLFxcYmxhbmspIl0sWzAsMSwiXFxpQyhyLFxcYmxhbmspIFxcY2lyYyBcXGlDKHMsIFxcYmxhbmspIiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIlxcaWQiLDIseyJvZmZzZXQiOjF9XSxbMiwxLCJcXGlDKHIsXFxibGFuaykiLDAseyJjdXJ2ZSI6LTJ9XSxbMSwwLCJcXGlkIiwwLHsiY3VydmUiOi0yfV1d
-    \begin{tikzcd}
-      {\iC(C,\blank)} && {\iC(C,\blank)} && {\iC(C',\blank)}
-      \arrow["{\iC(s,\blank)}", from=1-3, to=1-5]
-      \arrow["{\iC(r,\blank) \circ \iC(s, \blank)}", shift left, from=1-1, to=1-3]
-      \arrow["\id"', shift right, from=1-1, to=1-3]
-      \arrow["{\iC(r,\blank)}", curve={height=-12pt}, from=1-5, to=1-3]
-      \arrow["\id", curve={height=-12pt}, from=1-3, to=1-1]
-    \end{tikzcd}
-  \]
-  Thus, any isomorphism $\iC(C, \colim D) \iso \colim\iC(C, D(d))$ extends to an isomorphism $\iC(C', \colim D) \iso \colim\iC(C', D(d))$.
+  Let $c'$ be a retract of $c$.
+  By \cref{lem:retract-colimit-preserved}, $\iC(c',\blank)$ preserves regular epimorphisms (resp., filtered colimits) since $\iC(c,\blank)$ does.
 \end{proof}
-
-\begin{cor}
-  If $C$ is regular projective (resp., finitely presentable), then its retracts are regular projective (resp., finitely presentable).
-\end{cor}
 
 \begin{thm}\label{thm:represented-functors-perfectly-presentable}
   Let $\cT$ be a small category.
-  In $\CSet^{\cT}$ the representable functors are perfectly presentable.
+  In $\CSet^{\cT}$, the representable functors are perfectly presentable.
   If $\cT$ is a Lawvere theory, the representable functors are perfectly presentable objects in $\Alg(\cT)$.
 \end{thm}
 \begin{proof}
-  \begin{node}\label{node:represented-functors-perfectly-presentable}
-    By the Yoneda Lemma,
-    \[
-      \CSet^{\cT}(\cT(t,\blank), \colim_{\iJ} D) \iso (\colim_{\iJ} D)(t)
-    \]
-    Since colimits in $\CSet^{\cT}$ are computed objectwise, we have
-    \[
-      (\colim_{\iJ} D)(t) = \colim_{\iJ}(D_{j}(t)) \iso \colim_{\iJ}\CSet^{\cT}(\cT(t,\blank), D_{j})
-    \]
-    Since $\CSet^{\cT}(\cT(t,\blank), \blank)$ preserves any colimit, it preserves sifted ones.
-    Thus, $\cT(t,\blank)$ is perfectly presentable in $\CSet^{\cT}$.
-  \end{node}
-  \begin{node}
-    If $\cT$ is a Lawvere theory, then by \cref{thm:algebraic-categories-has-sifted-colimits}, sifted colimits in $\CSet^{\cT}$ are also in $\Alg(\cT)$.
-    Thus, the argument in \cref{node:represented-functors-perfectly-presentable} works for any sifted category $\iJ$.
-  \end{node}
-\end{proof}
-
-\begin{lem}\label{lem:coproduct-generators-epimorphism}
-  Let $\iC$ be a category with coproducts and $\iG$ be a set of objects of $\iC$.
-  The following are equivalent:
-  \begin{enumerate}
-  \item $\iG$ is a family of generators;
-  \item for every object $C \in \iC$, the canonical morphism
-    \[
-      e_{C} : \left(\coprod_{(G, g) \in \iG \dn C} G\right) \to C
-    \]
-    is an epimorphism.
-  \end{enumerate}
-\end{lem}
-\begin{proof}
-  \begin{node}
-    Suppose that $\iG$ is a set of generators.
-    Let $C \in \iC$ and $u, v : C \toto D$ be a parallel pair of morphisms such that $ue_{C} = ve_{C}$.
-    Since $\iG$ is a set of generators, morphisms out of $\iG$ are jointly epimorphic.
-    Morphisms from $\iG$ to $C$ are encoded by the canonical morphism $e_{C}$.
-    The hypothesis $ue_{C} = ve_{C}$ means that $u$ and $v$ form a pair of morphisms indistinguishable by $\iG$.
-    Thus, $u = v$.
-  \end{node}
-  \begin{node}
-    Conversely, suppose that $\gamma_{C}$ is an epimorphism for each $C \in \iC$.
-    The encodes precisely the jointly epimorphic condition.
-    Thus, $\iG$ is a set of generators.
-  \end{node}
-\end{proof}
-
-\begin{defn}
-  In a category $\iA$ with coproducts, a set of objects $\iG$ is a strong generator if and only if
+  By the Yoneda Lemma,
   \[
-    e_{A} : \left(\coprod_{(G, g) \in \iG \dn A} G\right) \to A
+    \CSet^{\cT}(\cT(t,\blank), \colim_{\iJ} D) \iso (\colim_{\iJ} D)(t)
   \]
-  is an extremal epimorphism for all $A \in \iA$.
-\end{defn}
+  Since colimits in $\CSet^{\cT}$ are computed objectwise, we have
+  \[
+    (\colim_{\iJ} D)(t) = \colim_{\iJ}(D_{j}(t)) \iso \colim_{\iJ}\CSet^{\cT}(\cT(t,\blank), D_{j})
+  \]
+  That is, $\CSet^{\cT}(\cT(t,\blank), \blank)$ preserves any colimit, including sifted ones.
+  Thus, $\cT(t,\blank)$ is perfectly presentable in $\CSet^{\cT}$.
+  If $\cT$ is a Lawvere theory, then by \cref{thm:algebraic-categories-has-sifted-colimits}, $\Alg(\cT)$ is closed under sifted colimits.
+  Thus, the argument above can be restricted to $\Alg(\cT)$.
+\end{proof}
 
-\begin{cor}\label{cor:colimits-strong-generators}
-  Let $\iA$ be a category with colimits.
-  If every object of $\iA$ is a colimit of objects from a set $\iG$, then $\iG$ is a strong generator.
+\begin{thm}\label{thm:alg-pp-ret}
+  In every algebraic category,
+  \begin{enumerate}
+  \item The perfectly presentable objects are precisely the retracts of representable algebras.
+  \item The regular projective objects are precisely the retracts of coproducts of representable algebras.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  1. By \cref{thm:represented-functors-perfectly-presentable}, representable algebras are perfectly presentable.
+  By \cref{thm:retract-reg-reg}, retractions of perfectly presentable objects are perfectly presentable.
+  Conversely, suppose that $F$ is a perfectly presentable algebra.
+  By \cref{lem:algebras-are-sifted-colimits}, $F$ is a sifted colimit of representable algebras.
+  As $\Alg(\cT)(F,F) \iso \Alg(\cT)(F,\colim\yon\Pi_{F}) \iso \colim\Alg(\cT)(F,\yon\Pi_{F}\blank)$, the identity natural transformation $\id_{F}$ determines $s : F \to \cT(t,\blank)$ so that $rs = \id_{F}$, where $r : \cT(t,\blank) \to F$ is a component of the colimiting cocone of $\colim\yon\Pi_{F}$.
+  % https://q.uiver.app/#q=WzAsMyxbMiwyLCJcXGNvbGltXFxBbGcoXFxjVCkoRixcXHlvblxcUGlfe0Z9XFxibGFuaykiXSxbMCwyLCJzIFxcaW4gXFxBbGcoXFxjVCkoRixcXGlUKHQsXFxibGFuaykpIl0sWzIsMCwiXFxBbGcoXFxjVCkoRixGKSJdLFsxLDBdLFsxLDIsInIgXFxjaXJjIFxcYmxhbmsiXSxbMCwyLCJcXGlzbyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+  \[\begin{tikzcd}
+      && {\id_{F} \in \Alg(\cT)(F,F)} \\
+      \\
+      {s \in \Alg(\cT)(F,\cT(t,\blank))} && {\colim\Alg(\cT)(F,\yon\Pi_{F}\blank)}
+      \arrow[from=3-1, to=3-3]
+      \arrow["{r \circ \blank}", from=3-1, to=1-3]
+      \arrow["\iso"', dashed, from=3-3, to=1-3]
+    \end{tikzcd}\]
+  Thus, $r$ is a retraction and $F$ is a retract of $\cT(t,\blank)$.
+
+  2. Since regular epimorphisms are coequalizers of reflexive pairs (sifted colimits), every perfectly presentable algebra is regular projective.
+  By \cref{thm:represented-functors-perfectly-presentable}, representable algebras are perfectly presentable, and by \cref{lem:pp-closed-under-coprod}, coproducts of perfectly presentable algebras are perfectly presentable algebras.
+  By \cref{thm:retract-reg-reg}, the retract of this algebra is perfectly presentable; therefore, regular projective.
+  Conversely, suppose that $F$ is a regular projective algebra.
+  By \cref{lem:algebras-are-sifted-colimits}, $F$ can be expressed as a sifted colimit of representable algebras.
+  Thus, it is a regular quotient
+  \[
+    \coprod\cT(t,\blank) \epi \colim\yon\Pi_{F} \xrightarrow{\iso} F
+  \]
+  Since $F$ is regular projective, the epimorphism $\coprod\cT(t,\blank) \epi F$ admits a section.
+  % https://q.uiver.app/#q=WzAsMyxbMSwwLCJGIl0sWzIsMSwiRiJdLFswLDEsIlxcY29wcm9kXFxjVCh0LFxcYmxhbmspIl0sWzAsMSwiXFxpZCJdLFsyLDEsIiIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFswLDIsIiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+  \[\begin{tikzcd}
+      & F \\
+      {\coprod\cT(t,\blank)} && F
+      \arrow["\id", from=1-2, to=2-3]
+      \arrow[two heads, from=2-1, to=2-3]
+      \arrow[dashed, from=1-2, to=2-1]
+    \end{tikzcd}\]
+  Thus, $F$ is a retract of a coproduct of representable algebras.
+\end{proof}
+
+\begin{cor}
+  Every algebraic theory has enough regular projective objects, i.e., every algebra is a regular quotient of a regular projective algebra.
 \end{cor}
 \begin{proof}
-  \begin{node}
-    The hypothesis states that the canonical morphism
-    \[
-      e_{A} : \left(\coprod_{(G, g) \in \iG \dn A} G\right) \to A
-    \]
-    is a regular epimorphism for all $A \in \iA$.
-    By \cref{lem:coproduct-generators-epimorphism}, $\iG$ is a generating set.
-    Since regular epimorphisms are extremal, $\iG$ is strong.
-  \end{node}
-\end{proof}
-
-\begin{lem}\label{lem:coproduct-completion-generator}
-  Suppose that $\iA$ is cocomplete and $\iG$ is a set of (strong) generators of $\iA$, then the coproduct completion of $\iG$ in $\iA$ is also a set of (strong) generators.
-\end{lem}
-\begin{proof}
-  Morphisms out of a coproduct in $\sqcup\iG$ consists of morphisms out of $\iG$.
-  Thus, any indistinguishable pair of morphisms in $\iA$ remains indistinguishable.
-  If $\iG$ is strong, then consider the following commutative diagram:
-  \[
-    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXGNvcHJvZF97KEcsZykgXFxpbiBcXGlHIFxcZG4gXFxjb3Byb2R9RyJdLFswLDAsIlxcY29wcm9kX3soRyxnKSBcXGluIFxcc3FjdXBcXGlHIFxcZG4gQX1HIl0sWzIsMCwiQSJdLFsxLDIsImVfe0F9JyJdLFswLDIsImVfe0F9IiwyXSxbMCwxLCJlX3tcXGNvcHJvZH0iXV0=
-    \begin{tikzcd}
-      {\coprod_{(G,g) \in \sqcup\iG \dn A}G} && A \\
-      \\
-      {\coprod_{(G,g) \in \iG \dn \coprod}G}
-      \arrow["{e_{A}'}", from=1-1, to=1-3]
-      \arrow["{e_{A}}"', from=3-1, to=1-3]
-      \arrow["{e_{\coprod}}", from=3-1, to=1-1]
-    \end{tikzcd}
-  \]
-  Since $e_{A}$ is extremal, $e_{A}'$ is also extremal.
-\end{proof}
-
-\begin{lem}\label{lem:strong-generators-perfect-dense}
-  Let $\iA$ be a cocomplete category.
-  If $\iG$ is a strong generator consisting of perfectly presentable objects and closed under coproducts, then $\iG$ is dense.
-  In other words, for any $a \in \iA$, the domain functor $\dom : \iG \dn a \to \iA$ has $a$ as a colimit.
-\end{lem}
-\begin{proof}
-  \begin{node}
-    Let $\alpha : \dom \to a'$ be a colimiting cocone.
-    A cocone under $\dom$ with nadir $a$ can be determined by morphisms in $\iG \dn a$.
-    Indeed, we may take $\beta_{f} := f$ for any $G \in \iG$ and $f : G \to a$ as a morphism $m : f \to f'$ in $\iG \dn \iA$ is simply a morphism $m : G \to G'$ in $\iA$ so that $f'm = f$ and $\dom(m) = m$.
-    Thus, there is a unique morphism $\lambda : a' \to a$ such that every $f : G \to a$ factors through $\lambda$.
-    % https://q.uiver.app/#q=WzAsNCxbMiwyLCJhJyJdLFswLDMsIkciXSxbNCwzLCJHJyJdLFsyLDAsImEiXSxbMSwwLCJcXGFscGhhX3tnfSJdLFsyLDAsIlxcYWxwaGFfe2cnfSIsMl0sWzEsMywiZyJdLFsyLDMsImcnIiwyXSxbMSwyXSxbMCwzLCJcXGxhbWJkYSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
-    \[\begin{tikzcd}
-	&& a \\
-	\\
-	&& {a'} \\
-	G &&&& {G'}
-	\arrow["{\alpha_{f}}", from=4-1, to=3-3]
-	\arrow["{\alpha_{f'}}"', from=4-5, to=3-3]
-	\arrow["f", from=4-1, to=1-3]
-	\arrow["{f'}"', from=4-5, to=1-3]
-	\arrow[from=4-1, to=4-5]
-	\arrow["\lambda"{description}, dashed, from=3-3, to=1-3]
-      \end{tikzcd}\]
-    To show that $\lambda$ is an isomorphism, it suffices to show that $\lambda$ is a monic extremal epimorphism.
-  \end{node}
-  \begin{node}
-    First, we show that $\lambda$ is monomorphic for $\iG$.
-    As $\iG$ has finite coproducts, so does $\iG \dn a$.
-    Thus, by \cref{cor:finite-coproducts-then-sifted}, $\iG \dn a$ is sifted.
-    Let $x$ be an object in $\iG$.
-    Since $x$ is perfectly presentable and $a'$ is a sifted colimit, we have
-    \[
-      \iA(x, a') = \iA(x, \colim_{f \in \iG \dn a}\dom(f)) \iso \colim_{f \in \iG \dn a}\iA(x, \dom(f))
-    \]
-    Thus, every morphism $u : x \to a'$ determines morphisms $f : G \to a$ and $\util : x \to G$ so that the following commutes.
-    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXHV0aWwgXFxpbiBcXGlBKHgsXFxkb20oZikpIl0sWzIsMCwiXFxjb2xpbV97ZiBcXGluIFxcaUcgXFxkbiBhfVxcaUEoeCxcXGRvbShmKSkiXSxbNCwyLCJcXGlBKHgsXFxkb20oXFxsYW1iZGEgdSkpIl0sWzAsMV0sWzIsMCwiXFx1dGlsIFxcY2lyYyBcXGJsYW5rIl0sWzIsMV1d
-    % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXHV0aWwgXFxpbiBcXGlBKHgsXFxkb20oZikpIl0sWzIsMCwiXFxjb2xpbV97ZiBcXGluIFxcaUcgXFxkbiBhfVxcaUEoeCxcXGRvbShmKSkiXSxbNCwyLCJcXGlBKHgsXFxkb20oXFxsYW1iZGEgdSkpIFxcbmkgXFxpZCJdLFswLDFdLFsyLDAsIlxcdXRpbCBcXGNpcmMgXFxibGFuayJdLFsyLDFdXQ==
-    \[\begin{tikzcd}
-	&& {\colim_{f \in \iG \dn a}\iA(x,\dom(f))} \\
-	\\
-	{\util \in \iA(x,\dom(f))} &&&& {\iA(x,\dom(\lambda u)) \ni \id}
-	\arrow[from=3-1, to=1-3]
-	\arrow["{\util \circ \blank}", from=3-5, to=3-1]
-	\arrow[from=3-5, to=1-3]
-      \end{tikzcd}\]
-    Thus, $u$ equivalently corresponds to $\lambda u$ and $\id$, which in term corresponds to $\alpha_{\lambda u}$, i.e., $u = \alpha_{\lambda u}$.
-    For any parallel pair $u, v : x \toto a'$, if $\lambda u = \lambda v$, then $u = \alpha_{\lambda u} = \alpha_{\lambda v} = v$.
-  \end{node}
-  \begin{node}
-    Now, for any object $x \in \iA$ and any parallel pair $u, v : x \toto a'$ so that $\lambda u = \lambda v$, consider $e_{x} : \coprod_{f \in \iG \dn x}G \to x$.
-    We have $\lambda ue_{x} = \lambda ve_{x}$.
-    As $\coprod_{f \in \iG \dn x}G$ is an object in $\iG$, we have $ue_{x} = ve_{x}$, and as $e_{x}$ is epimorphic, $u = v$.
-  \end{node}
-  \begin{node}
-    Consider the following commutative diagram:
-    % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXGNvcHJvZF97ZiBcXGluIFxcaUcgXFxkbiBhfSJdLFs0LDIsImEiXSxbMCwyLCJhJyJdLFswLDEsImVfe2F9Il0sWzAsMiwiXFxhbHBoYV97ZV97YX19IiwyXSxbMiwxLCJcXGxhbWJkYSIsMl1d
-    \[\begin{tikzcd}
-	&& {\coprod_{f \in \iG \dn a}} \\
-	\\
-	{a'} &&&& a
-	\arrow["{e_{a}}", from=1-3, to=3-5]
-	\arrow["{\alpha_{e_{a}}}"', from=1-3, to=3-1]
-	\arrow["\lambda"', from=3-1, to=3-5]
-      \end{tikzcd}\]
-    Since $e_{a}$ is an extremal epimorphism by hypothesis, so is $\lambda$.
-  \end{node}
+  Immediate from the retraction $\coprod\cT(t,\blank) \epi F$ in \cref{thm:alg-pp-ret}.
 \end{proof}
 
 \todo{Ivan's LN3: A variety is a cocomplete category with a dense generator consisting of ``finite projective'' objects.}
 \begin{thm}[Characterization of algebraic categories]\label{thm:characterization-of-algebraic-categories}
   The following conditions are equivalent:
   \begin{enumerate}
-  \item $\iA$ is algebraic.
-  \item $\iA$ is cocomplete and has a set $G$ of perfectly presentable objects such that every object of $\iA$ is a sifted colimit of objects of $G$.
-  \item $\iA$ is cocomplete and has a strong generator consisting of perfectly presentable objects.
+  \item $\iC$ is algebraic.
+  \item $\iC$ is cocomplete and has a set $\iG$ of perfectly presentable objects such that every object of $\iC$ is a sifted colimit of objects of $\iG$.
+  \item $\iC$ is cocomplete and has a strong generator $\iG$ consisting of perfectly presentable objects.
   \end{enumerate}
 \end{thm}
 \begin{proof}
-  \begin{node}
-    (1) $\imp$ (2).
-    By \cref{thm:algebraic-categories-cocomplete}, $\iA$ is cocomplete.
-    By \cref{thm:represented-functors-perfectly-presentable} the representable functors are perfectly presentable.
-    Finally, by \cref{lem:algebras-are-sifted-colimits}, every algebra in $\iA$ is a sifted colimit of representable algebras.
-  \end{node}
-  \begin{node}
-    (2) $\imp$ (3).
-    $G$ is a strong generator by \cref{cor:colimits-strong-generators}.
-  \end{node}
-  \begin{node}
-    (3) $\imp$ (1).
-    Without loss of generality, suppose that $\iG$ is closed under finite coproducts.
-    This works since \cref{lem:coproduct-completion-generator} guarantees that the finite coproduct completion of $\iG$ is a strong generator.
-    We claim that $\Alg(\iG\op) \eqv \iA$.
-    Consider the functor $F : \iA \to \Alg(\iG\op)$ defined by
-    \[
-      F : A \mapsto \iA(\blank, A)
-    \]
-    By \cref{lem:strong-generators-perfect-dense}, $A$ is a colimit of a diagram of shape $\iG \dn A$.
-    Given a morphism $\alpha : \iA(\blank, A) \to \iA(\blank, B)$, for each $g \in \iG \dn A$, consider $\alpha_{G}(g) : G \to B$.
-    These morphisms assemble into a cocone under the $\dom$ diagram.
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGRvbShnKSJdLFsyLDEsIkIiXSxbMCwyLCJcXGRvbShnJykiXSxbMCwxLCJcXGFscGhhX3tHfShnKSJdLFsyLDEsIlxcYWxwaGFfe0cnfShnJykiLDJdLFswLDIsIlxcZG9tKG0pIiwyXV0=
-    \[\begin{tikzcd}
-	{\dom(g)} \\
-	&& B \\
-	{\dom(g')}
-	\arrow["{\alpha_{G}(g)}", from=1-1, to=2-3]
-	\arrow["{\alpha_{G'}(g')}"', from=3-1, to=2-3]
-	\arrow["{\dom(m)}"', from=1-1, to=3-1]
-      \end{tikzcd}\]
-    The morphism $m : \dom(g) \to \dom(g')$ serves as a witness for the fact that $g = g'm$.
-    Thus, by the universal property of colimits, there is a unique morphism $\atil : A \to B$, proving that $F$ is fully faithful.
-    It remains to show that $F$ is essentially surjective on objects.
-    Consider the following diagram:
-    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGlHIl0sWzIsMCwiXFxpQSJdLFsxLDEsIlxcQWxnKFxcaUdcXG9wKSJdLFs0LDAsIlxcQWxnKFxcaUdcXG9wKSJdLFswLDEsIlxcaW90YSJdLFswLDIsIlxceW9uIiwyXSxbMiwxLCJcXGlvdGFeeyp9IiwxXSxbMSwzLCJGIl0sWzIsM11d
-    \[\begin{tikzcd}
-	\iG && \iA && {\Alg(\iG\op)} \\
-	& {\Alg(\iG\op)}
-	\arrow["\iota", from=1-1, to=1-3]
-	\arrow["\yon"', from=1-1, to=2-2]
-	\arrow["{\iota^{*}}"{description}, from=2-2, to=1-3]
-	\arrow["F", from=1-3, to=1-5]
-	\arrow[from=2-2, to=1-5]
-      \end{tikzcd}\]
-    By definition, $F\iota(G) = \iA(\blank, G)$.
-    This is just the Yoneda embedding.
-    Thus, the identity functor is a left Kan extension of $\yon$ along itself.
-    To show that $F\iota^{*}$ is also a left Kan extension of $\yon$ along itself, it suffices to show that $F$ preserves sifted colimits as we would have
-    \[
-      F\iota^{*}(K) = F(\colim\iota\Pi_{K}) \iso \colim F\iota\Pi_{K}
-    \]
-    That is, $F\iota^{*}$ is computed by the colimit formula.
-    We show that $F$ preserves sifted colimits objectwise.
-    This is sufficient because colimits are computed objectwise.
-    Consider any sifted diagram $D$ and any object $G \in \iG$.
-    \[
-      F(\colim D)(G) = \iA(G, \colim D) \iso \colim\iA(G, D\blank)
-    \]
-    The isomorphism follows from the fact that $G$ is perfectly presentable.
-  \end{node}
+  \textbf{(1) $\imp$ (2).}
+  By definition, $\iC$ is equivalent to $\Alg(\cT)$ for some algebraic theory $\cT$.
+  It suffices to show the statement for $\Alg(\cT)$.
+  By \cref{thm:algebraic-categories-cocomplete}, $\Alg(\cT)$ is cocomplete.
+  Let $\iG$ be the collection of all representable algebras $\cT(t,\blank)$.
+  As $\cT$ is small, $\iG$ is a set.
+  By \cref{thm:represented-functors-perfectly-presentable}, $\iG$ consists of perfectly presentable objects and by \cref{lem:algebras-are-sifted-colimits}, every algebra is a sifted colimit of representable functors.
+
+  \textbf{(2) $\imp$ (3).}
+  By hypothesis, $\iG$ is dense.
+  By \cref{lem:colimits-strong-generators}, $\iG$ is a strong generator.
+
+  \textbf{(3) $\imp$ (1).}
+  Without loss of generality, assume that $\iG$ is closed under coproducts.
+  This is justified as any coproduct completion of $\iG$ is still a strong generator by \cref{lem:srong-coprod-comp-strong}.
+  Additionally, $\iG$ is dense by \cref{lem:sg-pp-dense}.
+  As $\iG\op$ has finite products, it is an algebraic theory.
+  Now, it suffices to show that $\iG\op$ axiomatizes $\iC$, i.e., $\Alg(\iG\op) \eqv \iC$.
+  Let $\iota : \iG \into \iC$ be the inclusion functor and $\yon_{\iG} : \iC \to \CSet^{\iG\op}$ be the restricted Yoneda embedding along $\iota$.
+  This is right adjoint to the left Kan extension $\iota^{*}$.
+  Composing $\yon_{\iG}$ with the localizer in \cref{cor:alg-reflective} yields $y^{*}\yon_{\iG} : \iC \to \Alg(\iG\op)$.
+  We show that this functor is an equivalence.
+  % https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXGlHIl0sWzMsMCwiXFxpQyJdLFsyLDEsIlxcQ1NldF57XFxpR1xcb3B9Il0sWzAsMSwiXFxBbGcoXFxpR1xcb3ApIl0sWzAsMSwiXFxpb3RhIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwyLCJcXHlvbiIsMV0sWzEsMiwiXFx5b25fe1xcaUd9Il0sWzAsMywieSIsMl0sWzIsMywieV57Kn0iXSxbNywyLCJcXGlkX3t5fSIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMH19XV0=
+  \[\begin{tikzcd}
+      & \iG && \iC \\
+      {\Alg(\iG\op)} && {\CSet^{\iG\op}}
+      \arrow["\iota", hook, from=1-2, to=1-4]
+      \arrow["\yon"{description}, from=1-2, to=2-3]
+      \arrow["{\yon_{\iG}}", from=1-4, to=2-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "y"', from=1-2, to=2-1]
+      \arrow["{y^{*}}", from=2-3, to=2-1]
+      \arrow["{\id_{y}}"', shorten <=9pt, Rightarrow, from=0, to=2-3]
+    \end{tikzcd}\]
+  First, we show that $y^{*}\yon_{\iG}$ is essentially surjective on objects.
+  Clearly, $\id_{\Alg(\iG\op)}$ is the essentially unique extension along $y$ in \cref{thm:alg-free-cocompletion}.
+  As we have $y^{*}\yon_{\iG}\iota^{*}y = y^{*}\yon_{\iG}\iota = y$, if we can show that $y^{*}\yon_{\iG}\iota^{*}$ preserves sifted colimit, then $y^{*}\yon_{\iG}\iota^{*} \iso \id$.
+  Since $y^{*}$ and $\iota^{*}$ are left adjoints, it suffices to show that $\yon_{\iG}$ preserves sifted colimits.
+  As $\iG$ consists of perfectly presentable objects and colimits are computed pointwise, we have
+  \[
+    \yon_{\iG}(\colim D)(G) = \iC(\iota G, \colim D) \iso \colim\iC(\iota G,D\blank) \iso (\colim\yon_{\iG}D)(G)
+  \]
+  Now, we show that $y^{*}\yon_{\iG}$ is fully faithful.
+  For any $c \in \iC$, we have
+  \[
+    y^{*}\yon_{\iG}c = y^{*}\iC(\iota\blank, c) \iso \iC(\iota\blank, c)
+  \]
+  as $y^{*}$ is a localizer.
+  Indeed, the functor $\iC(\iota\blank, c)$ is an algebra.
+  Thus, it suffices to show how to lift each homomorphism $\alpha : \iC(\iota\blank, c) \to \iC(\iota\blank, c')$ to a unique morphism $a : c \to c'$.
+  Let $\chat := \coprod_{(G,g) \in \iG \dn c}G$ and $\ctil := \colim_{(G,g) \in \iG \dn c}G$
+  As $\iG$ is dense, every object $c \in \iC$ can be expressed as $\ctil$.
+  In particular, $\chat \in \iG$ and $\ctil$ is a sifted colimit because $\iG$ is closed under coproducts.
+  Consider $\alpha_{\chat}(\ev_{c}) : \chat \to c'$.
+  The whisker $\alpha(\ev_{c}) \cdot \beta$, where $\beta$ is the coproduct cocone, yields a cocone under $\dom$ with nadir $\ctil'$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwxLCJcXGRvbSJdLFsyLDAsIlxcY2hhdCJdLFsyLDEsIlxcY3RpbCJdLFs0LDEsIlxcY3RpbCciXSxbMCwyLCIiLDIseyJsZXZlbCI6Mn1dLFswLDEsIlxcZ2FtbWEiLDAseyJsZXZlbCI6Mn1dLFsxLDMsIlxcYWxwaGEoXFxldl97Y30pIl0sWzIsMywiIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+  \[\begin{tikzcd}
+      && \chat \\
+      \dom && \ctil && {\ctil'}
+      \arrow[Rightarrow, from=2-1, to=2-3]
+      \arrow["\beta", Rightarrow, from=2-1, to=1-3]
+      \arrow["{\alpha(\ev_{c})}", from=1-3, to=2-5]
+      \arrow[dashed, from=2-3, to=2-5]
+    \end{tikzcd}\]
+  Thus, there is a unique morphism $\atil : \ctil \to \ctil'$ that determines the required morphism $a : c \to c'$ whose image under $\iota^{*}\yon_{\iG}$ is essentially $\alpha$.
 \end{proof}
 
-\begin{lem}
-  Let $U : \iA \to \iB$ be a functor with a left adjoint $F : \iB \to \iA$.
-  \begin{enumerate}
-  \item If $I$ is faithful and conservative and $\iG$ is a strong generator of $\iB$, then $F(\iG)$ is a strong generator of $\iA$.
-  \item If $I$ preserves sifted colimits and $b$ is perfectly presentable in $\iB$, then $Fb$ is perfectly presentable in $\iA$.
-  \end{enumerate}
-\end{lem}
+\section{Algebraic functors}
+\label{sec:algebraic-functors}
+
+
 
 \bibliographystyle{alpha}
 \bibliography{lawvere}

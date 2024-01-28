@@ -290,10 +290,10 @@
 
 \begin{lem}\label{lem:colimits-strong-generators}
   Let $\iC$ be a small category with colimits.
-  If $\iG$ is a dense set of $\iC$, i.e., every object $c \in \iC$ is the colimit of the domain functor $\dom : \iG \dn c \to \iC$, then $\iG$ is a strong generator.
+  If $\iG$ is a dense set of $\iC$, i.e., the inclusion functor $\iota : \iG \to \iC$ is dense, then $\iG$ is a strong generator.
 \end{lem}
 \begin{proof}
-  As $c$ is the colimit of $\dom$, $c$ is a regular quotient of $\coprod_{\iG \dn c}G$.
+  As $c$ is the colimit of $\iota$, $c$ is a regular quotient of $\coprod_{\iG \dn c}G$.
   That is,
   \[
     \left(\coprod_{(G,g) \in \iG \dn c}G\right) \xrightarrow{e_{c}} c
@@ -396,6 +396,45 @@
       \arrow["{\beta_{(\coprod_{(G,g) \in \iG \dn c}G, e_{c})} = e_{c}}", from=1-2, to=3-3]
     \end{tikzcd}\]
   Since $e_{c}$ is an extremal epimorphism, it follows that $k$ is an extremal epimorphism.
+\end{proof}
+
+\begin{lem}\label{lem:realization}
+  Let $\iC$ be a category with colimits.
+  Let $\iG$ be a small category and $\iota : \iG \to \iC$ be a functor.
+  The restricted Yoneda embedding $\yon_{\iG} : \iC \to \CSet^{\iG\op}$ admits a realization, i.e., a left adjoint.
+  Additionally, if $\iota$ is dense, then $\iC$ is a reflective subcategory of $\CSet^{\iG\op}$.
+\end{lem}
+\begin{proof}
+  As $\iC$ is cocomplete and $\iG$ is small, the colimit
+  \[
+    \colim\left((\yon \dn F) \xrightarrow{\Pi_{F}} \iG \xrightarrow{\iota} \iC\right)
+  \]
+  exists for all $F \in \CSet^{\iG\op}$.
+  This is precisely the colimit formula defining a left Kan extension of $\iota$ along the Yoneda embedding.
+  % https://q.uiver.app/#q=WzAsMyxbMiwyLCJcXENTZXRee1xcaUdcXG9wfSJdLFswLDAsIlxcaUciXSxbNCwwLCJcXGlDIl0sWzEsMCwiXFx5b24iLDJdLFsxLDIsIlxcaW90YSJdLFswLDIsIlxcaW90YV57Kn0iLDAseyJvZmZzZXQiOi0yfV0sWzIsMCwiXFx5b25fe1xcaUd9IiwwLHsib2Zmc2V0IjotMn1dLFs1LDYsIiIsMix7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
+  \[\begin{tikzcd}
+      \iG &&&& \iC \\
+      \\
+      && {\CSet^{\iG\op}}
+      \arrow["\yon"', from=1-1, to=3-3]
+      \arrow["\iota", from=1-1, to=1-5]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{\iota^{*}}", shift left=2, from=3-3, to=1-5]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\yon_{\iG}}", shift left=2, from=1-5, to=3-3]
+      \arrow["\dashv"{anchor=center, rotate=-50}, draw=none, from=0, to=1]
+    \end{tikzcd}\]
+  Indeed, this extension admits $\yon_{\iG}$ as the right adjoint.
+  The remaining detail can be found in \cite{riehl:category}.
+
+  If $\iota$ is dense, then $\yon_{\iG}$ is fully faithful.
+  Thus, $\iC$ is a reflective subcategory.
+\end{proof}
+
+\begin{cor}
+  If $\iC$ is a cocomplete category with a dense set of objects $\iG$, then $\iC$ is complete.
+\end{cor}
+\begin{proof}
+  By \cref{lem:realization}, $\iC$ is a reflective subcategory of $\CSet^{\iG\op}$.
+  As $\CSet^{\iG\op}$ is complete, so is $\iC$.
 \end{proof}
 
 \section{Lawvere Theory}
@@ -755,52 +794,32 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Additionally, $\iG$ is dense by \cref{lem:sg-pp-dense}.
   As $\iG\op$ has finite products, it is an algebraic theory.
   Now, it suffices to show that $\iG\op$ axiomatizes $\iC$, i.e., $\Alg(\iG\op) \eqv \iC$.
-  Let $\iota : \iG \into \iC$ be the inclusion functor and $\yon_{\iG} : \iC \to \CSet^{\iG\op}$ be the restricted Yoneda embedding along $\iota$.
-  This is right adjoint to the left Kan extension $\iota^{*}$.
-  Composing $\yon_{\iG}$ with the localizer in \cref{cor:alg-reflective} yields $y^{*}\yon_{\iG} : \iC \to \Alg(\iG\op)$.
-  We show that this functor is an equivalence.
-  % https://q.uiver.app/#q=WzAsNCxbMSwwLCJcXGlHIl0sWzMsMCwiXFxpQyJdLFsyLDEsIlxcQ1NldF57XFxpR1xcb3B9Il0sWzAsMSwiXFxBbGcoXFxpR1xcb3ApIl0sWzAsMSwiXFxpb3RhIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMCwyLCJcXHlvbiIsMV0sWzEsMiwiXFx5b25fe1xcaUd9Il0sWzAsMywieSIsMl0sWzIsMywieV57Kn0iXSxbNywyLCJcXGlkX3t5fSIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMH19XV0=
+  Consider the restricted Yoneda embedding $\yon_{\iG}$.
+  Indeed, it defines a functor $\yon_{\iG} : \iC \to \Alg(\iG\op)$.
+  By \cref{lem:realization}, $\yon_{\iG}$ is fully faithful.
+  It suffices to show that $\yon_{\iG}$ is essentially surjective on objects.
+  To this end, we show that $\yon_{\iG}\iota^{*}$ is naturally isomorphic to the identity, where $\iota^{*}$ is the unique extension in \cref{thm:alg-free-cocompletion}.
+  Clearly, $\id$ is the essentially unique extension from $\Alg(\iG\op)$ to itself.
+  Since $\iota^{*}$ preserves sifted colimits, if $\yon_{\iG}$ also preserves sifted colimits, then $\yon_{\iG}\iota^{*}$ constitutes an extension, and by uniqueness $\yon_{\iG}\iota^{*} \iso \id$.
+  % https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXGlDIl0sWzAsMCwiXFxpRyJdLFsxLDEsIlxcQWxnKFxcaUdcXG9wKSJdLFs0LDAsIlxcQWxnKFxcaUdcXG9wKSJdLFsxLDAsIlxcaW90YSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsMiwieSIsMl0sWzIsMCwiXFxpb3RhXnsqfSIsMV0sWzAsMywiXFx5b25fe1xcaUd9Il0sWzIsMywiXFxpZCIsMl1d
   \[\begin{tikzcd}
-      & \iG && \iC \\
-      {\Alg(\iG\op)} && {\CSet^{\iG\op}}
-      \arrow["\iota", hook, from=1-2, to=1-4]
-      \arrow["\yon"{description}, from=1-2, to=2-3]
-      \arrow["{\yon_{\iG}}", from=1-4, to=2-3]
-      \arrow[""{name=0, anchor=center, inner sep=0}, "y"', from=1-2, to=2-1]
-      \arrow["{y^{*}}", from=2-3, to=2-1]
-      \arrow["{\id_{y}}"', shorten <=9pt, Rightarrow, from=0, to=2-3]
+      \iG && \iC && {\Alg(\iG\op)} \\
+      & {\Alg(\iG\op)}
+      \arrow["\iota", hook, from=1-1, to=1-3]
+      \arrow["y"', from=1-1, to=2-2]
+      \arrow["{\iota^{*}}"{description}, from=2-2, to=1-3]
+      \arrow["{\yon_{\iG}}", from=1-3, to=1-5]
+      \arrow["\id"', from=2-2, to=1-5]
     \end{tikzcd}\]
-  First, we show that $y^{*}\yon_{\iG}$ is essentially surjective on objects.
-  Clearly, $\id_{\Alg(\iG\op)}$ is the essentially unique extension along $y$ in \cref{thm:alg-free-cocompletion}.
-  As we have $y^{*}\yon_{\iG}\iota^{*}y = y^{*}\yon_{\iG}\iota = y$, if we can show that $y^{*}\yon_{\iG}\iota^{*}$ preserves sifted colimit, then $y^{*}\yon_{\iG}\iota^{*} \iso \id$.
-  Since $y^{*}$ and $\iota^{*}$ are left adjoints, it suffices to show that $\yon_{\iG}$ preserves sifted colimits.
-  As $\iG$ consists of perfectly presentable objects and colimits are computed pointwise, we have
+  Consider an arbitrary sifted colimit in $\iC$, we have
   \[
-    \yon_{\iG}(\colim D)(G) = \iC(\iota G, \colim D) \iso \colim\iC(\iota G,D\blank) \iso (\colim\yon_{\iG}D)(G)
+    \yon_{\iD}(\colim_{\iS}D) = \iC(\blank, \colim_{\iS}D)
   \]
-  Now, we show that $y^{*}\yon_{\iG}$ is fully faithful.
-  For any $c \in \iC$, we have
+  As $\iG$ consists of perfectly presentable objects, we have for each $G \in \iG$
   \[
-    y^{*}\yon_{\iG}c = y^{*}\iC(\iota\blank, c) \iso \iC(\iota\blank, c)
+    \iC(G,\colim_{\iS}D) \iso \colim_{\iS}\iC(G,D\blank) = \colim_{\iS}\yon_{\iG}D(G)
   \]
-  as $y^{*}$ is a localizer.
-  Indeed, the functor $\iC(\iota\blank, c)$ is an algebra.
-  Thus, it suffices to show how to lift each homomorphism $\alpha : \iC(\iota\blank, c) \to \iC(\iota\blank, c')$ to a unique morphism $a : c \to c'$.
-  Let $\chat := \coprod_{(G,g) \in \iG \dn c}G$ and $\ctil := \colim_{(G,g) \in \iG \dn c}G$
-  As $\iG$ is dense, every object $c \in \iC$ can be expressed as $\ctil$.
-  In particular, $\chat \in \iG$ and $\ctil$ is a sifted colimit because $\iG$ is closed under coproducts.
-  Consider $\alpha_{\chat}(\ev_{c}) : \chat \to c'$.
-  The whisker $\alpha(\ev_{c}) \cdot \beta$, where $\beta$ is the coproduct cocone, yields a cocone under $\dom$ with nadir $\ctil'$.
-  % https://q.uiver.app/#q=WzAsNCxbMCwxLCJcXGRvbSJdLFsyLDAsIlxcY2hhdCJdLFsyLDEsIlxcY3RpbCJdLFs0LDEsIlxcY3RpbCciXSxbMCwyLCIiLDIseyJsZXZlbCI6Mn1dLFswLDEsIlxcZ2FtbWEiLDAseyJsZXZlbCI6Mn1dLFsxLDMsIlxcYWxwaGEoXFxldl97Y30pIl0sWzIsMywiIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
-  \[\begin{tikzcd}
-      && \chat \\
-      \dom && \ctil && {\ctil'}
-      \arrow[Rightarrow, from=2-1, to=2-3]
-      \arrow["\beta", Rightarrow, from=2-1, to=1-3]
-      \arrow["{\alpha(\ev_{c})}", from=1-3, to=2-5]
-      \arrow[dashed, from=2-3, to=2-5]
-    \end{tikzcd}\]
-  Thus, there is a unique morphism $\atil : \ctil \to \ctil'$ that determines the required morphism $a : c \to c'$ whose image under $\iota^{*}\yon_{\iG}$ is essentially $\alpha$.
+  Thus, $\yon_{\iG}(\colim_{\iS}D) \iso \colim_{\iS}\yon_{\iG}D$.
 \end{proof}
 
 \section{Algebraic functors}

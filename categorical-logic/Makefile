@@ -1,6 +1,6 @@
-.PHONY: all clean update
+law: lawvere.tex
+	latexmk -synctex=1 -pdf -shell-escape lawvere.tex
 
-TEMPLATEPATH=../basictex/
 
 all: paper.tex
 	latexmk -synctex=1 -pdf -shell-escape paper.tex
@@ -29,11 +29,3 @@ clean:
 	  *.diagnose \
 	  *.kaux \
 	  .\#*.tex
-
-update:
-	@echo
-	@echo "Updating decls.tex in basictex"
-	cp ./decls.tex $(TEMPLATEPATH)decls.tex
-	@echo "Pushing changes to github"
-	@echo
-	cd $(TEMPLATEPATH) && git add ./decls.tex && git commit -m "Edited decls.tex" && git push origin master

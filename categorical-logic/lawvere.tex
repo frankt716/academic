@@ -437,20 +437,24 @@
   As $\CSet^{\iG\op}$ is complete, so is $\iC$.
 \end{proof}
 
-\section{Lawvere Theory}
-\label{sec:lawvere-theory}
+\section{Algebraic theories and algebraic categories}
+\label{sec:algebraic-theories-and-algebraic-categories}
+
+An algebraic theory can be presented as a set of terms satisfying some equations.
+We can view these terms as morphisms in a category, and composition as substitution.
+Familiar algebraic theories, such as the theory of groups, are single sorted, but there is no reason to restrict to single sorted theories.
 
 \begin{defn}
-  A \emph{Lawvere theory} is a small category $\cT$ with finite products.
+  An \emph{algebraic theory} is a small category $\cT$ with finite products.
 \end{defn}
 
 \begin{defn}
-  The category of \emph{algebras} $\Alg(\cT)$ of a given Lawvere theory $\cT$ is the full subcategory $\CSet^{\cT}$ spanned by finite-product preserving functors.
+  Let $\cT$ be an algebraic theory, we define the category of \emph{algebras} $\Alg(\cT)$ as the full subcategory $\CSet^{\cT}$ spanned by finite-product preserving functors.
   A \emph{homomorphism} between two algebras is a natural transformation.
 \end{defn}
 
 \begin{defn}
-  A category is said to be \emph{algebraic} if it is equivalent to $\Alg(\cT)$ for some Lawvere theory $\cT$.
+  A category is said to be \emph{algebraic} if it is equivalent to $\Alg(\cT)$ for some algebraic theory $\cT$.
 \end{defn}
 
 \begin{thm}
@@ -612,6 +616,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
     y : \cT\op \to \Alg(\cT),\quad~t \mapsto \cT(t,\blank)
   \]
   is a free cocompletion of $\cT\op$ under sifted colimits.
+  Additionally, if a cocompletion $G : \cT\op \to \iE$ preserves coproducts, then the essentially unique extension admits a right adjoint.
 \end{thm}
 \begin{proof}
   For any functor $G : \cT\op \to \iE$ where $\iE$ has sifted colimits, we define $G^{*}$ as the left Kan extension of $G$ along $\yon$.
@@ -649,6 +654,8 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
                                        &\iso \iE(\colim_{s \in \iS}G^{*}\iota D(s), e)
   \end{align}
   As the isomorphism holds for any $e \in \iE$, $G^{*}\iota(\colim D) \iso \colim G^{*}\iota D$ by the Yoneda lemma.
+  If $G$ preserves finite coproducts, then $Re = \iE(G\blank, e)$ is an algebra.
+  Thus, $\CSet^{\cT}(\colim_{s \in \iS} \iota D(s), Re) \iso \Alg(\cT)(\colim_{s \in \iS} \iota D(s), Re)$.
 \end{proof}
 
 \begin{cor}
@@ -829,6 +836,52 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Let $\cT_{1}$ and $\cT_{2}$ be algebraic theories.
   A \emph{morphism of algebraic theories} is a finite product preserving functor $M : \cT_{1} \to \cT_{2}$.
 \end{defn}
+
+\begin{defn}
+  Let $M : \cT_{1} \to \cT_{2}$ be a morphism of algebraic theories.
+  We define a functor
+  \[
+    \Alg(M) : \Alg(\cT_{2}) \to \Alg(\cT_{1}),\quad~G \mapsto G \circ M
+  \]
+  by precomposition.
+\end{defn}
+
+\begin{thm}\label{thm:algebraic-functor-left-adjoint}
+  Let $M : \cT_{1} \to \cT_{2}$ be a morphism of algebraic theories.
+  $\Alg(M)$ has a left adjoint $M^{*} : \Alg(\cT_{1}) \to \Alg(\cT_{2})$.
+\end{thm}
+\begin{proof}
+  Take $M^{*}$ to be the essentially unique extension of $y^{2}M\op$ along $y_{1}$.
+  As $y_{2}M\op$ preserves finite coproducts, it admits a right adjoint by \cref{thm:alg-free-cocompletion}.
+  % https://q.uiver.app/#q=WzAsMyxbMiwyLCJcXEFsZyhcXGNUX3sxfSkiXSxbMiwwLCJcXEFsZyhcXGNUX3syfSkiXSxbMCwwLCJcXGNUX3sxfVxcb3AiXSxbMiwxLCJ5X3syfU1cXG9wIl0sWzEsMCwiXFxBbGcoTSkiLDAseyJvZmZzZXQiOi0yfV0sWzAsMSwiIiwwLHsib2Zmc2V0IjotMn1dLFsyLDAsInlfezF9IiwyXSxbNSw0LCIiLDAseyJsZXZlbCI6MSwic3R5bGUiOnsibmFtZSI6ImFkanVuY3Rpb24ifX1dXQ==
+  \[\begin{tikzcd}
+      {\cT_{1}\op} && {\Alg(\cT_{2})} \\
+      \\
+      && {\Alg(\cT_{1})}
+      \arrow["{y_{2}M\op}", from=1-1, to=1-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{R}", shift left=2, from=1-3, to=3-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, shift left=2, from=3-3, to=1-3]
+      \arrow["{y_{1}}"', from=1-1, to=3-3]
+      \arrow["\dashv"{anchor=center}, draw=none, from=1, to=0]
+    \end{tikzcd}\]
+  It suffices to show that $R \iso \Alg(M)$.
+  $R$ is defined by $G \mapsto \Alg(\cT_{2})(y_{2}M\op\blank, G)$.
+  The Yoneda lemma provides for each $t \in \cT_{1}$ a natural isomorphism
+  \[
+    \Alg(\cT_{2})(y_{2}M\op t, G) = \Alg(\cT_{2})(\cT_{2}(\blank, Mt), G) \iso GMt
+  \]
+  These natural isomorphisms assemble into a natural isomorphism $R \iso \Alg(\cT_{2})$.
+\end{proof}
+
+\begin{cor}
+  Let $M : \cT_{1} \to \cT_{2}$ be a morphism of algebraic theories.
+  $\Alg(M)$ preserves limits and sifted colimits.
+\end{cor}
+\begin{proof}
+  As $\Alg(M)$ is a right adjoint by \cref{thm:algebraic-functor-left-adjoint}, it preserves limits.
+  Now, it suffices to show that $G \mapsto \Alg(\cT_{2})(y_{2}M\op\blank, G)$ preserves sifted colimits.
+  This follows immediate from that $y_{2}M\op t$ is a representable algebra for each $t \in \cT_{1}$ and representable algebras are perfectly presentable by \cref{thm:represented-functors-perfectly-presentable}.
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{lawvere}

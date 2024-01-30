@@ -1,0 +1,103 @@
+nat : type.
+z : nat.
+s : nat -> nat.
+%name nat N.
+
+even : nat -> type.
+even/z : even z.
+even/s : even (s (s N)) <- even N.
+
+%solve - : even (s (s z)).
+
+even2 : nat -> type.
+odd : nat -> type.
+even2/z : even2 z.
+even2/s : even2 (s N) <- odd N.
+odd/s : odd (s N) <- even2 N.
+
+even-then-even2
+   : even N -> even2 N -> type.
+%mode even-then-even2 +Deven -Deven2.
+
+even-then-even2/z
+   : even-then-even2 even/z even2/z.
+
+even-then-even2/s
+   : even-then-even2 (even/s N) (even2/s (odd/s Deven2))
+      <- even-then-even2 N (Deven2).
+
+%worlds () (even-then-even2 _ _).
+%total D (even-then-even2 D _).
+
+%%%% EXERCISE 1: Prove the other direction.
+
+even2-then-even
+   : even2 N -> even N -> type.
+%mode even2-then-even +Deven2 -Deven.
+
+even2-then-even/z
+   : even2-then-even even2/z even/z.
+
+even2-then-even/s
+   : even2-then-even (even2/s (odd/s Deven2)) (even/s Deven)
+      <- even2-then-even Deven2 Deven.
+
+%worlds () (even2-then-even _ _).
+%total D (even2-then-even D _).
+
+
+%%%% EXERCISE 2:
+% Add a new constant "bogus : nat." to the top of the file,
+% right after the case for successor (s).
+% What happens? Why?
+% Ans: Nothing because it just says the type nat has a 
+% constant named bogus.
+% Now add it to the bottom of the file. What happens?
+% Ans: Freezing violation: constant bogus
+%      extends type family nat
+
+%%%% EXERCISE 3 (BONUS): 
+% Prove that every nat is even or odd.
+% Here's some starter code.
+
+even-or-odd : nat -> type.
+eo/e : even-or-odd N <- even N.
+eo/o : even-or-odd N <- odd N.
+
+
+% Prove the following lemma:
+eo-succ : even-or-odd N -> even-or-odd (s N) -> type.
+%mode eo-succ +D -D'.
+
+eo-succ/e
+   : eo-succ (eo/e Deven) (eo/o (odd/s Deven2))
+      <- even-then-even2 Deven Deven2.
+
+eo-succ/o
+   : eo-succ (eo/o (odd/s Deven2)) (eo/e (even/s Deven))
+      <- even2-then-even Deven2 Deven.
+
+%worlds () (eo-succ _ _).
+%total D (eo-succ D _).
+
+% Then prove the main theorem.
+every-nat-eo : {N : nat} even-or-odd N -> type.
+%mode every-nat-eo +N -D.
+
+every-nat-eo/z
+   : every-nat-eo z (eo/e even/z).
+
+every-nat-eo/s
+   : every-nat-eo (s N) Deos
+      <- every-nat-eo N Deo
+      <- eo-succ Deo Deos.
+
+%worlds () (every-nat-eo _ _).
+%total N (every-nat-eo N _).
+
+
+%%%% EXERCISE 3.5 (BONUS):
+% Why did we have to use the lemma?
+% Because we have even-or-odd n but we need even-or-odd (s n)
+% What happens if we try to do the proof without it?
+% We end up having to prove odd z

@@ -887,6 +887,48 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   A functor between algebraic categories is \emph{algebraic} if it preserves limits and sifted colimits.
 \end{defn}
 
+\begin{thm}
+  A functor between algebraic categories is algebraic if and only if it has a left adjoint and preserves sifted colimits.
+\end{thm}
+\begin{proof}
+  The if direction is evident as right adjoints preserve limits.
+  Assume that $F : \Alg(\cT) \to \Alg(\cS)$ is algebraic.
+  We show that $F$ satisfies the solution set condition with respect to representable algebras.
+  In other words,
+  \[
+    \Alg(\cS)(\cS(s,\blank),F\blank) : \Alg(\cT) \to \CSet
+  \]
+  is representable for all $s \in \cS$.
+  Once we have this result, then for any algebra $H \in \Alg(\cS)$, we have
+  \begin{align}
+    \Alg(\cS)(H, F\blank) &\iso \Alg(\cS)(\colim \cS(s, \blank), F\blank)\\
+                          &\iso \lim\Alg(\cS)(\cS(s, \blank), F\blank)\\
+                          &\iso \lim\Alg(\cT)(B_{s}, \blank)\\
+                          &\iso \Alg(\cT)(\colim B_{s}, \blank)
+  \end{align}
+  That is, the representing objects are formed by sifted colimits.
+
+  We now show the required result.
+  Since $F$ preserves limits, it suffices to check the solution set condition for each $\cS(s,\blank) \in \Alg(\cS)$.
+  As each $G \in \Alg(\cS)$ is a sifted colimit that $F$ preserves and $\cS(s,\blank)$ is perfectly presentable, $\Alg(\cS)(\cS(s,\blank),FG)$ is a colimit in $\CSet$.
+  Thus, every $\alpha : \cS(s,\blank) \to FG$ lies in the image of some inclusion morphism $F\sigma_{t,\mu} \circ \blank$, where $\sigma$ is the colimiting cocone of $G$.
+  Thus, every $\alpha$ factors as follows
+  % https://q.uiver.app/#q=WzAsMyxbMCwyLCJcXGNTKHMsXFxibGFuaykiXSxbMiwyLCJGRyJdLFsyLDAsIkYoXFxjVCh0LFxcYmxhbmspKSJdLFswLDEsIlxcYWxwaGEiLDJdLFsyLDEsIkZcXHNpZ21hX3sodCxcXG11KX0iXSxbMCwyLCJcXGdhbW1hIl1d
+  \[\begin{tikzcd}
+      && {F(\cT(t,\blank))} \\
+      \\
+      {\cS(s,\blank)} && FG
+      \arrow["\alpha"', from=3-1, to=3-3]
+      \arrow["{F\sigma_{(t,\mu)}}", from=1-3, to=3-3]
+      \arrow["\gamma", from=3-1, to=1-3]
+    \end{tikzcd}\]
+  This suggests that we take the set
+  \[
+    \Phi := \bigcup_{t \in \cT}\Set{\gamma : \cS(s,\blank) \to F(\cT(t,\blank))}
+  \]
+  as the solution set.
+\end{proof}
+
 \bibliographystyle{alpha}
 \bibliography{lawvere}
 

@@ -829,6 +829,43 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Thus, $\yon_{\iG}(\colim_{\iS}D) \iso \colim_{\iS}\yon_{\iG}D$.
 \end{proof}
 
+\section{Canonical theories}
+\label{sec:canonical-theories}
+
+\begin{defn}
+  Given an idempotent morphism $f : c \to c$, a \emph{splitting} is a section-retraction factorization of $f$.
+  A category is said to be \emph{idempotent-complete} if every idempotent admits a splitting.
+\end{defn}
+
+\begin{defn}
+  Let $\iC$ be a category.
+  We define the category $\Idem(\iC)$ of idempotent morphisms as follows:
+  \begin{itemize}
+  \item[] Objects: idempotent morphisms of $\iC$.
+  \item[] Morphisms: a morphism between two idempotents $f : c \to c$ and $g : d \to d$ is a morphism $h : c \to d$ such that the following diagram commutes in $\iC$:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJjIl0sWzAsMiwiYyJdLFsyLDAsImQiXSxbMiwyLCJkIl0sWzAsMSwiZiIsMl0sWzIsMywiZyJdLFswLDIsImgiXSxbMSwzLCJoIiwyXSxbMCwzLCJoIiwxXV0=
+    \[\begin{tikzcd}
+	c && d \\
+	\\
+	c && d
+	\arrow["f"', from=1-1, to=3-1]
+	\arrow["g", from=1-3, to=3-3]
+	\arrow["h", from=1-1, to=1-3]
+	\arrow["h"', from=3-1, to=3-3]
+	\arrow["h"{description}, from=1-1, to=3-3]
+      \end{tikzcd}\]
+  \end{itemize}
+  The identity on an object $f : c \to c$ is just the identity $\id_{c}$ in $\iC$.
+  Composition is inherited from $\iC$.
+\end{defn}
+
+\begin{lem}
+  For any category $\iC$, $\Idem(\iC)$ is idempotent complete.
+\end{lem}
+\begin{proof}
+  
+\end{proof}
+
 \section{Algebraic functors}
 \label{sec:algebraic-functors}
 
@@ -883,11 +920,21 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   This follows immediate from that $y_{2}M\op t$ is a representable algebra for each $t \in \cT_{1}$ and representable algebras are perfectly presentable by \cref{thm:represented-functors-perfectly-presentable}.
 \end{proof}
 
+\begin{eg}
+  As $\dN$ is a strong generator of $\CSet$ consisting of perfectly presentable objects and closed under coproducts, we have
+  \[
+    \Alg(\dN\op) \eqv \CSet
+  \]
+  Let $\cT$ be an algebraic theory and $\iota : \dN\op \to \cT$ be a morphism of theories.
+  Then the induced functor $\Alg(\iota) : \Alg(\cT) \to \CSet$ gives the forgetful functor.
+  By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a left adjoint.
+\end{eg}
+
 \begin{defn}
   A functor between algebraic categories is \emph{algebraic} if it preserves limits and sifted colimits.
 \end{defn}
 
-\begin{thm}
+\begin{thm}\label{thm:alg-functors-left-adjoint}
   A functor between algebraic categories is algebraic if and only if it has a left adjoint and preserves sifted colimits.
 \end{thm}
 \begin{proof}
@@ -927,6 +974,46 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
     \Phi := \bigcup_{t \in \cT}\Set{\gamma : \cS(s,\blank) \to F(\cT(t,\blank))}
   \]
   as the solution set.
+\end{proof}
+
+\begin{thm}[Syntax and semantics duality]
+  The functor
+  \[
+    \Alg : \CTh_{c}\op \to \CAlg,\quad~\cT \mapsto \Alg(\cT)
+  \]
+  is a biequivalence.
+\end{thm}
+\begin{proof}
+  Every algebraic category $\iC$ is equivalent to $\Alg(\cT)$ for some algebraic theory $\cT$.
+  Then the idempotent completion of $\cT$ yields a canonical theory for $\iC$.
+  Now, we need to show that every morphism of theories $\cT \to \cT'$ induces an algebraic functor $\Alg(\cT') \to \Alg(\cT)$ up to natural isomorphism and vice-versa.
+  That is, we need to show that the functor
+  \[
+    \Alg_{\cT_{1},\cT_{2}} : \CTh_{c}(\cT_{1},\cT_{2}) \to \CAlg(\Alg(\cT_{2}), \Alg(\cT_{1}))
+  \]
+  is an equivalence.
+  Let $M,N : \cT_{1} \toto \cT_{2}$ be any two theory morphisms.
+  We need to show that any natural transformation $\lambda : \Alg(M) \to \Alg(N)$ lifts to a unique natural transformation $\alpha : M \to N$.
+  For each $t \in \cT_{1}$, we can extract the following component:
+  \[
+    \lambda_{\cT_{2}(Mt,\blank),t} : \cT_{2}(Mt, Mt) \to \cT_{2}(Mt, Nt)
+  \]
+  Thus, we take
+  \[
+    \alpha_{t} := \lambda_{\cT_{2}(Mt,\blank),t}(\id_{Mt})
+  \]
+  For any $G \in \Alg(\cT_{2})$, the component $(\Alg_{\cT_{1},\cT_{2}}(\alpha))_{G}$ is defined by the following whiskered composition:
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGNUX3sxfSJdLFsyLDAsIlxcY1RfezJ9Il0sWzQsMCwiXFxDU2V0Il0sWzAsMSwiIiwyLHsiY3VydmUiOi0yfV0sWzAsMSwiIiwwLHsiY3VydmUiOjJ9XSxbMSwyLCJHIl0sWzMsNCwiXFxhbHBoYSIsMix7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XV0=
+  \[\begin{tikzcd}
+      {\cT_{1}} && {\cT_{2}} && \CSet
+      \arrow[""{name=0, anchor=center, inner sep=0}, curve={height=-12pt}, from=1-1, to=1-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, curve={height=12pt}, from=1-1, to=1-3]
+      \arrow["G", from=1-3, to=1-5]
+      \arrow["\alpha"', shorten <=3pt, shorten >=3pt, Rightarrow, from=0, to=1]
+    \end{tikzcd}\]
+  For all $t \in \cT_{1}$, we have $(\Alg_{\cT_{1},\cT_{2}}(\alpha))_{G,t} = G(\alpha_{t}) = G(\lambda_{\cT(Mt,\blank),t}(\id_{Mt}))$.
+  The Yoneda lemma now says $\alpha$ is the only natural transformation whose image under $\Alg_{\cT_{1},\cT_{2}}$ is $\lambda$.
+  Thus, $\Alg_{\cT_{1},\cT_{2}}$ is fully faithful.
 \end{proof}
 
 \bibliographystyle{alpha}

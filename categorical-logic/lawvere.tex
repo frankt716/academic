@@ -611,12 +611,12 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
 \end{proof}
 
 \begin{thm}\label{thm:alg-free-cocompletion}
-  For every Lawvere theory $\cT$, the functor
+  For every algebraic theory $\cT$, the functor
   \[
     y : \cT\op \to \Alg(\cT),\quad~t \mapsto \cT(t,\blank)
   \]
   is a free cocompletion of $\cT\op$ under sifted colimits.
-  Additionally, if a cocompletion $G : \cT\op \to \iE$ preserves coproducts, then the essentially unique extension admits a right adjoint.
+  Additionally, if $G : \cT\op \to \iE$ preserves coproducts, then the essentially unique extension admits a right adjoint.
 \end{thm}
 \begin{proof}
   For any functor $G : \cT\op \to \iE$ where $\iE$ has sifted colimits, we define $G^{*}$ as the left Kan extension of $G$ along $\yon$.
@@ -833,37 +833,68 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
 \label{sec:canonical-theories}
 
 \begin{defn}
+  An object $c \in \iC$ is \emph{tiny} if
+  \[
+    \iC(c,\blank) : \iC \to \CSet
+  \]
+  preserves all colimits.
+\end{defn}
+
+\begin{lem}
+  Any retract of a tiny object is tiny.
+\end{lem}
+\begin{proof}
+  Let $r : c \to c'$ be a retraction with section $s : c' \to c$.
+  Consider the following split coequalizer:
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJjIl0sWzIsMCwiYyJdLFs0LDAsImMnIl0sWzAsMSwic3IiLDAseyJvZmZzZXQiOi0xfV0sWzAsMSwiXFxpZCIsMix7Im9mZnNldCI6MX1dLFsxLDIsInIiLDAseyJvZmZzZXQiOi0xfV0sWzIsMSwicyIsMCx7Im9mZnNldCI6LTF9XSxbMSwwLCJcXGlkIiwwLHsiY3VydmUiOi0yfV1d
+  \[\begin{tikzcd}
+      c && c && {c'}
+      \arrow["sr", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["r", shift left, from=1-3, to=1-5]
+      \arrow["s", shift left, from=1-5, to=1-3]
+      \arrow["\id", curve={height=-12pt}, from=1-3, to=1-1]
+    \end{tikzcd}\]
+  As split coequalizers are absolute coequalizers, the followings are coequalizers:
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXGlDKGMsXFxjb2xpbVxcYmxhbmspIl0sWzIsMCwiXFxpQyhjLFxcY29saW1cXGJsYW5rKSJdLFs0LDAsIlxcaUMoYycsXFxjb2xpbVxcYmxhbmspIl0sWzAsMiwiXFxjb2xpbVxcaUMoYyxcXGJsYW5rKSJdLFsyLDIsIlxcY29saW1cXGlDKGMsXFxibGFuaykiXSxbNCwyLCJcXGNvbGltXFxpQyhjJyxcXGJsYW5rKSJdLFswLDEsIlxcaUMoc3IsXFxjb2xpbVxcYmxhbmspIiwwLHsib2Zmc2V0IjotMX1dLFswLDEsIlxcaWQiLDIseyJvZmZzZXQiOjF9XSxbMSwyLCJcXGlDKHIsXFxjb2xpbVxcYmxhbmspIl0sWzMsNCwiXFxjb2xpbVxcaUMoc3IsXFxibGFuaykiLDAseyJvZmZzZXQiOi0xfV0sWzMsNCwiXFxpZCIsMix7Im9mZnNldCI6MX1dLFs0LDUsIlxcY29saW1cXGlDKHIsXFxibGFuaykiXV0=
+  \[\begin{tikzcd}
+      {\iC(c,\colim\blank)} && {\iC(c,\colim\blank)} && {\iC(c',\colim\blank)} \\
+      \\
+      {\colim\iC(c,\blank)} && {\colim\iC(c,\blank)} && {\colim\iC(c',\blank)}
+      \arrow["{\iC(sr,\colim\blank)}", shift left, from=1-1, to=1-3]
+      \arrow["\id"', shift right, from=1-1, to=1-3]
+      \arrow["{\iC(r,\colim\blank)}", from=1-3, to=1-5]
+      \arrow["{\colim\iC(sr,\blank)}", shift left, from=3-1, to=3-3]
+      \arrow["\id"', shift right, from=3-1, to=3-3]
+      \arrow["{\colim\iC(r,\blank)}", from=3-3, to=3-5]
+    \end{tikzcd}\]
+  $\iC(c',\colim\blank)$ and $\colim\iC(c',\blank)$ are colimits of isomorphic diagrams since $\iC(c,\blank)$ preserves any colimit.
+  It follows that $\iC(c',\colim\blank) \iso \colim\iC(c',\blank)$.
+\end{proof}
+
+\begin{defn}
   Given an idempotent morphism $f : c \to c$, a \emph{splitting} is a section-retraction factorization of $f$.
   A category is said to be \emph{idempotent-complete} if every idempotent admits a splitting.
 \end{defn}
 
 \begin{defn}
-  Let $\iC$ be a category.
-  We define the category $\Idem(\iC)$ of idempotent morphisms as follows:
+  An algebraic theory is said to be \emph{canonical} if it is idempotent complete.
+\end{defn}
+
+\begin{defn}
+  Let $\iC$ be a category, define a category $\Idem(\iC)$ as follows:
   \begin{itemize}
-  \item[] Objects: idempotent morphisms of $\iC$.
-  \item[] Morphisms: a morphism between two idempotents $f : c \to c$ and $g : d \to d$ is a morphism $h : c \to d$ such that the following diagram commutes in $\iC$:
-    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJjIl0sWzAsMiwiYyJdLFsyLDAsImQiXSxbMiwyLCJkIl0sWzAsMSwiZiIsMl0sWzIsMywiZyJdLFswLDIsImgiXSxbMSwzLCJoIiwyXSxbMCwzLCJoIiwxXV0=
-    \[\begin{tikzcd}
-	c && d \\
-	\\
-	c && d
-	\arrow["f"', from=1-1, to=3-1]
-	\arrow["g", from=1-3, to=3-3]
-	\arrow["h", from=1-1, to=1-3]
-	\arrow["h"', from=3-1, to=3-3]
-	\arrow["h"{description}, from=1-1, to=3-3]
-      \end{tikzcd}\]
+  \item[] Objects: $(c \in \iC, f : c \to c)$, where $f$ is an idempotent in $\iC$.
   \end{itemize}
-  The identity on an object $f : c \to c$ is just the identity $\id_{c}$ in $\iC$.
-  Composition is inherited from $\iC$.
 \end{defn}
 
 \begin{lem}
-  For any category $\iC$, $\Idem(\iC)$ is idempotent complete.
+  Let $\cT$ be an algebraic theory.
+  The Yoneda embedding $\yon : \cT \to \Alg(\cT\op)_{pp}$ is an idempotent completion of $\cT$, where $\Alg(\cT\op)_{pp}$ is the full subcategory of $\Alg(\cT\op)$ spanned by perfectly presentable algebras.
 \end{lem}
 \begin{proof}
-  
+  By \cref{thm:alg-pp-ret}, $\Alg(\cT\op)_{pp}$ consists of retracts of representable algebras.
+  \todo{}
 \end{proof}
 
 \section{Algebraic functors}
@@ -1014,6 +1045,29 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   For all $t \in \cT_{1}$, we have $(\Alg_{\cT_{1},\cT_{2}}(\alpha))_{G,t} = G(\alpha_{t}) = G(\lambda_{\cT(Mt,\blank),t}(\id_{Mt}))$.
   The Yoneda lemma now says $\alpha$ is the only natural transformation whose image under $\Alg_{\cT_{1},\cT_{2}}$ is $\lambda$.
   Thus, $\Alg_{\cT_{1},\cT_{2}}$ is fully faithful.
+
+  \todo{Fix this proof}
+  Now, let $U : \Alg(\cT_{2}) \to \Alg(\cT_{1})$ be an algebraic functor.
+  By \cref{thm:alg-functors-left-adjoint}, it has a left adjoint $F : \Alg(\cT_{1}) \to \Alg(\cT_{2})$.
+  Thus,
+  \[
+    \Alg(\cT_{2})(F(\cT_{1}(t,\blank)), \blank) \iso \Alg(\cT_{1})(\cT_{1}(t,\blank), \blank)
+  \]
+  Since $\cT_{1}(t,\blank)$ is perfectly presentable, the functor on the right preserves sifted colimits.
+  The natural isomorphism then implies that $F(\cT_{1}(t,\blank))$ is a perfectly presentable object in $\Alg(\cT_{2})$.
+  Since $\cT_{2}$ is Cauchy complete, $F(\cT_{1}(t,\blank)) \iso \cT_{2}(t', \blank)$ for some $t' \in \cT_{2}$.
+  Thus, we define $M : t \mapsto t'$.
+  The Yoneda lemma defines an action on morphisms as follows
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJGKFxcY1RfezF9KHRfezF9LFxcYmxhbmspKSJdLFswLDIsIkYoXFxjVF97MX0odF97Mn0sXFxibGFuaykpIl0sWzIsMCwiXFxjVF97Mn0odF97MX0nLFxcYmxhbmspIl0sWzIsMiwiXFxjVF97Mn0odF97Mn0nLFxcYmxhbmspIl0sWzEsMCwiXFxpc28iXSxbMSwyLCJcXGlzbyJdLFswLDEsIkYoZlxcY2lyYyBcXGJsYW5rKSIsMl0sWzIsMywiIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+  \[\begin{tikzcd}
+      {F(\cT_{1}(t_{1},\blank))} & \iso & {\cT_{2}(t_{1}',\blank)} \\
+      \\
+      {F(\cT_{1}(t_{2},\blank))} & \iso & {\cT_{2}(t_{2}',\blank)}
+      \arrow["{F(f\circ \blank)}"', from=1-1, to=3-1]
+      \arrow[dashed, from=1-3, to=3-3]
+    \end{tikzcd}\]
+  Note that a natural transformation $\cT_{2}(t_{1}',\blank) \to \cT_{2}(t_{2}',\blank)$ corresponds to a morphism $t_{2}' \to t_{1}'$.
+  Thus, we have a functor $M : \cT_{1}\op \to \cT_{2}\op$.
 \end{proof}
 
 \bibliographystyle{alpha}

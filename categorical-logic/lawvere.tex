@@ -840,7 +840,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   preserves all colimits.
 \end{defn}
 
-\begin{lem}
+\begin{lem}\label{lem:tiny-retract-tiny}
   Any retract of a tiny object is tiny.
 \end{lem}
 \begin{proof}
@@ -872,7 +872,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   It follows that $\iC(c',\colim\blank) \iso \colim\iC(c',\blank)$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:representable-tiny}
   Let $\iC$ be a small category.
   Every representable functor is a tiny object in $\CSet^{\iC}$.
 \end{thm}
@@ -911,7 +911,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Thus, $T$ is a retract of some representable functor.
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:cauchy-complete-tiny-representable}
   If $\iC$ is Cauchy complete, then every tiny object in $\CSet^{\iC}$ is representable.
 \end{thm}
 \begin{proof}
@@ -1088,7 +1088,6 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   The Yoneda lemma now says $\alpha$ is the only natural transformation whose image under $\Alg_{\cT_{1},\cT_{2}}$ is $\lambda$.
   Thus, $\Alg_{\cT_{1},\cT_{2}}$ is fully faithful.
 
-  \todo{Fix this proof}
   Now, let $U : \Alg(\cT_{2}) \to \Alg(\cT_{1})$ be an algebraic functor.
   By \cref{thm:alg-functors-left-adjoint}, it has a left adjoint $F : \Alg(\cT_{1}) \to \Alg(\cT_{2})$.
   Thus,
@@ -1097,19 +1096,41 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   \]
   Since $\cT_{1}(t,\blank)$ is perfectly presentable, the functor on the right preserves sifted colimits.
   The natural isomorphism then implies that $F(\cT_{1}(t,\blank))$ is a perfectly presentable object in $\Alg(\cT_{2})$.
-  Since $\cT_{2}$ is Cauchy complete, $F(\cT_{1}(t,\blank)) \iso \cT_{2}(t', \blank)$ for some $t' \in \cT_{2}$.
-  Thus, we define $M : t \mapsto t'$.
-  The Yoneda lemma defines an action on morphisms as follows
-  % https://q.uiver.app/#q=WzAsNixbMCwwLCJGKFxcY1RfezF9KHRfezF9LFxcYmxhbmspKSJdLFswLDIsIkYoXFxjVF97MX0odF97Mn0sXFxibGFuaykpIl0sWzIsMCwiXFxjVF97Mn0odF97MX0nLFxcYmxhbmspIl0sWzIsMiwiXFxjVF97Mn0odF97Mn0nLFxcYmxhbmspIl0sWzEsMCwiXFxpc28iXSxbMSwyLCJcXGlzbyJdLFswLDEsIkYoZlxcY2lyYyBcXGJsYW5rKSIsMl0sWzIsMywiIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+  By \cref{thm:alg-pp-ret}, \cref{thm:representable-tiny,lem:tiny-retract-tiny}, $F(\cT_{1}(t,\blank))$ is a tiny object.
+  Since $\cT_{2}$ is Cauchy complete, $F(\cT_{1}(t,\blank))$ is representable by \cref{thm:cauchy-complete-tiny-representable}, i.e., $F(\cT_{1}(t,\blank)) \iso \cT_{2}(t',\blank)$ for some $t' \in \cT_{2}$.
+
+  This yields an action on objects $M : \ob\cT_{1} \to \ob\cT_{2}$ defined by $M : t \mapsto t'$.
+  We can extend this mapping to a functor by the Yoneda lemma.
+  Any morphism $f : t_{1} \to t_{2}$ in $\cT_{1}$ induces a morphism $\alpha : \cT_{2}(Mt_{2},\blank) \to \cT_{2}(Mt_{1},\blank)$ as follows
+  % https://q.uiver.app/#q=WzAsNixbMiwwLCJGKFxcY1RfezF9KHRfezJ9LFxcYmxhbmspKSJdLFsyLDIsIkYoXFxjVF97MX0odF97MX0sXFxibGFuaykpIl0sWzAsMCwiXFxjVF97Mn0oTXRfezJ9LFxcYmxhbmspIl0sWzEsMCwiXFxpc28iXSxbMSwyLCJcXGlzbyJdLFswLDIsIlxcY1RfezJ9KE10X3sxfSxcXGJsYW5rKSJdLFswLDEsIkYoXFxibGFuayBcXGNpcmMgZikiXSxbMiw1LCJcXGFscGhhIiwyXV0=
   \[\begin{tikzcd}
-      {F(\cT_{1}(t_{1},\blank))} & \iso & {\cT_{2}(t_{1}',\blank)} \\
+      {\cT_{2}(Mt_{2},\blank)} & \iso & {F(\cT_{1}(t_{2},\blank))} \\
       \\
-      {F(\cT_{1}(t_{2},\blank))} & \iso & {\cT_{2}(t_{2}',\blank)}
-      \arrow["{F(f\circ \blank)}"', from=1-1, to=3-1]
-      \arrow[dashed, from=1-3, to=3-3]
+      {\cT_{2}(Mt_{1},\blank)} & \iso & {F(\cT_{1}(t_{1},\blank))}
+      \arrow["{F(\blank \circ f)}", from=1-3, to=3-3]
+      \arrow["\alpha"', from=1-1, to=3-1]
     \end{tikzcd}\]
-  Note that a natural transformation $\cT_{2}(t_{1}',\blank) \to \cT_{2}(t_{2}',\blank)$ corresponds to a morphism $t_{2}' \to t_{1}'$.
-  Thus, we have a functor $M : \cT_{1}\op \to \cT_{2}\op$.
+  By the Yoneda lemma, $\alpha$ corresponds to a morphism $Mt_{1} \to Mt_{2}$.
+  By construction, the diagram commutes up to a natural isomorphism.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNUX3sxfVxcb3AiXSxbMCwyLCJcXGNUX3syfVxcb3AiXSxbMiwwLCJcXEFsZyhcXGNUX3sxfSkiXSxbMiwyLCJcXEFsZyhcXGNUX3syfSkiXSxbMiwzLCJGIl0sWzAsMSwiTSIsMl0sWzAsMiwieV97MX0iXSxbMSwzLCJ5X3syfSIsMl1d
+  \[\begin{tikzcd}
+      {\cT_{1}\op} && {\Alg(\cT_{1})} \\
+      \\
+      {\cT_{2}\op} && {\Alg(\cT_{2})}
+      \arrow["F", from=1-3, to=3-3]
+      \arrow["M"', from=1-1, to=3-1]
+      \arrow["{y_{1}}", from=1-1, to=1-3]
+      \arrow["{y_{2}}"', from=3-1, to=3-3]
+    \end{tikzcd}\]
+  $y_{1}$ preserves finite coproducts, $F$ preserves colimits because $F \adj U$, and $y_{2}$ reflects finite coproducts.
+  Thus, $M$ preserves finite coproducts.
+  As coproducts are products in the opposite category, $M : \cT_{1} \to \cT_{2}$ preserves finite products.
+  Thus, $M$ is a theory morphism.
+  It remains to show that $\Alg(M) \iso U$.
+  By \cref{thm:algebraic-functor-left-adjoint} has a left adjoint (computed as a left Kan extension) making the same square commute.
+  Thus, it follows that $F \adj \Alg(M)$.
+  The uniqueness of adjoints then implies that $U \iso \Alg(M)$.
+  Thus, $\Alg_{\cT_{1},\cT_{2}}$ is essentially surjective.
 \end{proof}
 
 \bibliographystyle{alpha}

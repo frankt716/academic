@@ -993,16 +993,6 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   This follows immediate from that $y_{2}M\op t$ is a representable algebra for each $t \in \cT_{1}$ and representable algebras are perfectly presentable by \cref{thm:represented-functors-perfectly-presentable}.
 \end{proof}
 
-\begin{eg}
-  As $\dN$ is a strong generator of $\CSet$ consisting of perfectly presentable objects and closed under coproducts, we have
-  \[
-    \Alg(\dN\op) \eqv \CSet
-  \]
-  Let $\cT$ be an algebraic theory and $\iota : \dN\op \to \cT$ be a morphism of theories.
-  Then the induced functor $\Alg(\iota) : \Alg(\cT) \to \CSet$ gives the forgetful functor.
-  By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a left adjoint.
-\end{eg}
-
 \begin{defn}
   A functor between algebraic categories is \emph{algebraic} if it preserves limits and sifted colimits.
 \end{defn}
@@ -1132,6 +1122,13 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   The uniqueness of adjoints then implies that $U \iso \Alg(M)$.
   Thus, $\Alg_{\cT_{1},\cT_{2}}$ is essentially surjective.
 \end{proof}
+
+\begin{eg}
+  The category $\CFinSet\op$ is a canonical theory of $\CSet$.
+  Let $\cT$ be an algebraic theory and $\iota : \CFinSet\op \to \cT$ be a theory morphism.
+  Then the induced functor $\Alg(\iota) : \Alg(\cT) \to \CSet$ gives the forgetful functor.
+  By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a free functor.
+\end{eg}
 
 \bibliographystyle{alpha}
 \bibliography{lawvere}

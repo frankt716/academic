@@ -1130,6 +1130,36 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a free functor.
 \end{eg}
 
+\section{Locally finitely presentable categories}
+\label{sec:locally-finitely-presentable-categories}
+
+\begin{defn}
+  A \emph{directed colimit} is a colimit whose scheme is a directed poset $(I,\leq)$.
+\end{defn}
+
+\begin{lem}
+  For any filtered category $\iD$, there is a directed poset $\iD_{0}$ and a cofinal functor $H : \iD_{0} \to \iD$.
+\end{lem}
+\begin{proof}
+  Consider $\iD \times \omega$, where $\omega$ is the poset category on natural numbers ordered by the usual linear order.
+  \todo{}
+\end{proof}
+
+\begin{defn}
+  A category $\iC$ is \emph{locally finitely presentable} if it is cocomplete and there is a set $A$ of finitely presentable objects such that every object $c \in \iC$ is a filtered colimit of objects in $A$.
+\end{defn}
+
+\begin{thm}
+  A category $\iC$ is locally finitely presentable iff it is cocomplete and has a strong generator formed by finitely presentable objects.
+\end{thm}
+\begin{proof}
+  Suppose that $\iC$ is locally finitely presentable.
+  Then there is a set $A$ of objects so that every object $c \in \iC$ is isomorphic to $\colim_{\iota \dn c}\iota$.
+  As every colimit can be constructed as a regular quotient of coproducts of the same shape, we conclude that the canonical morphism $e_{c} : \coprod_{\iota \dn c}\iota \to c$ is a regular epimorphism, which implies that $e_{c}$ is extremal.
+
+  Conversely, suppose that $\iC$ is cocomplete and has a strong generator formed by finitely presentable objects.
+\end{proof}
+
 \bibliographystyle{alpha}
 \bibliography{all}
 

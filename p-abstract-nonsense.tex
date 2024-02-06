@@ -12,11 +12,10 @@
 \usecolortheme{rose}
 \setbeamertemplate{navigation symbols}{}
 
-\title{}
-\author[author]{author\inst{1} \and coauthor\inst{2}}
-\institute{\inst{1} (affiliation)
-\and \inst{2} (coauthor affiliation)}
-\date{}
+\title{Abstract nonsense}
+\author[Frank T]{Frank Tsai\inst{1}}
+\institute{\inst{1} (SUNY at Buffalo)}
+\date{\today}
 
 \AtBeginSection[]
 {
@@ -30,6 +29,39 @@
 \begin{frame}
   \maketitle
 \end{frame}
+
+\section{Categories}
+\label{sec:categories}
+
+\begin{frame}{Categories}
+  \begin{block}{Category}
+    A \emph{category} $\iC$ consists of the following data:
+    \begin{itemize}
+    \item A collection of \emph{objects} $\ob\iC$.
+    \item For any objects $a, b \in \ob\iC$, a collection of \emph{morphisms} $\hom(a,b)$.
+    \item For any object $a \in \ob\iC$, an \emph{identity} morphism $\id_{a} \in \hom(a,a)$.
+    \item For any morphisms $f \in \hom(b,c)$ and $g \in \hom(a,b)$, a \emph{composite} morphism $f \circ g \in \hom(a,c)$.
+    \end{itemize}
+    Subject to the following requirements:
+    \begin{itemize}
+    \item Composition is associative, i.e., $(f \circ g) \circ h = f \circ (g \circ h)$.
+    \item Identity is unital, i.e., $f \circ \id = \id \circ f = f$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Functors}
+\label{sec:functors}
+
+\section{Natural transformations}
+\label{sec:natural-transformations}
+
+\section{Representability}
+\label{sec:representability}
+
+\section{Limits and colimits}
+\label{sec:limits-and-colimits}
+
 
 
 \end{document}

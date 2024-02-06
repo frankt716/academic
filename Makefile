@@ -10,6 +10,10 @@ default:
 categorical-logic: categorical-logic.tex
 	$(LATEX) categorical-logic.tex
 
+.PHONY: p-abstract-nonsense
+p-abstract-nonsense: p-abstract-nonsense.tex
+	$(LATEX) p-abstract-nonsense.tex
+
 .PHONY: clean
 clean:
 	@rm -rf *.aux \#*\# *.log *.bbl *.out *~ *.pdf *.dvi \

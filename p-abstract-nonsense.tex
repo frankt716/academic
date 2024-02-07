@@ -30,24 +30,59 @@
   \maketitle
 \end{frame}
 
+\section{Motivation}
+\label{sec:motivation}
+
 \section{Categories}
 \label{sec:categories}
 
 \begin{frame}{Categories}
-  \begin{block}{Category}
-    A \emph{category} $\iC$ consists of the following data:
-    \begin{itemize}
-    \item A collection of \emph{objects} $\ob\iC$.
-    \item For any objects $a, b \in \ob\iC$, a collection of \emph{morphisms} $\hom(a,b)$.
-    \item For any object $a \in \ob\iC$, an \emph{identity} morphism $\id_{a} \in \hom(a,a)$.
-    \item For any morphisms $f \in \hom(b,c)$ and $g \in \hom(a,b)$, a \emph{composite} morphism $f \circ g \in \hom(a,c)$.
-    \end{itemize}
-    Subject to the following requirements:
-    \begin{itemize}
-    \item Composition is associative, i.e., $(f \circ g) \circ h = f \circ (g \circ h)$.
-    \item Identity is unital, i.e., $f \circ \id = \id \circ f = f$.
-    \end{itemize}
-  \end{block}
+  A \emph{category} consists of...\\\vspace{1em}
+  \begin{onlyenv}<1>
+    A collection of \emph{objects}.
+    % https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzMsMywiXFxidWxsZXQiXSxbNCwxLCJcXGJ1bGxldCJdLFs2LDIsIlxcYnVsbGV0Il0sWzUsMCwiXFxidWxsZXQiXSxbMiwyLCJcXGJ1bGxldCJdXQ==
+    \[\begin{tikzcd}
+	\&\& \bullet \&\&\& \bullet \\
+	\&\&\&\& \bullet \\
+	\bullet \&\& \bullet \&\&\&\& \bullet \\
+	\&\&\& \bullet
+      \end{tikzcd}\]
+  \end{onlyenv}
+  \begin{onlyenv}<2>
+    A collection of \emph{morphisms}.
+    % https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzMsMywiXFxidWxsZXQiXSxbNCwxLCJcXGJ1bGxldCJdLFs2LDIsIlxcYnVsbGV0Il0sWzUsMCwiXFxidWxsZXQiXSxbMiwyLCJcXGJ1bGxldCJdLFsxLDBdLFswLDNdLFsxLDNdLFs2LDIsIiIsMCx7ImN1cnZlIjotMn1dLFs2LDIsIiIsMix7ImN1cnZlIjoyfV1d
+    \[\begin{tikzcd}
+	\&\& \bullet \&\&\& \bullet \\
+	\&\&\&\& \bullet \\
+	\bullet \&\& \bullet \&\&\&\& \bullet \\
+	\&\&\& \bullet
+	\arrow[from=3-1, to=1-3]
+	\arrow[from=1-3, to=2-5]
+	\arrow[from=3-1, to=2-5]
+	\arrow[curve={height=-12pt}, from=3-3, to=4-4]
+	\arrow[curve={height=12pt}, from=3-3, to=4-4]
+      \end{tikzcd}\]
+  \end{onlyenv}
+  \begin{onlyenv}<3>
+    A specified \emph{identity} morphism for each object.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwxLCJnIl0sWzEsMiwiZiJdXQ==
+    \[\begin{tikzcd}
+	a
+	\arrow[loop above, from=1-1, to=1-1]{}{\id_{a}}
+      \end{tikzcd}\]
+  \end{onlyenv}
+  \begin{onlyenv}<4>
+    A specified \emph{composite} morphism for any two composable morphisms.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwxLCJnIl0sWzEsMiwiZiJdXQ==
+    \[\begin{tikzcd}
+	\bullet \&\& \bullet \\
+	\\
+	\&\& \bullet
+	\arrow[from=1-1, to=1-3]{}{f}
+	\arrow[from=1-3, to=3-3]{}{g}
+        \arrow[from=1-1, to=3-3]{}[swap]{f \circ g}
+      \end{tikzcd}\]
+  \end{onlyenv}
 \end{frame}
 
 \section{Functors}

@@ -1130,20 +1130,16 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a free functor.
 \end{eg}
 
-\section{Locally finitely presentable categories}
-\label{sec:locally-finitely-presentable-categories}
+\section{Accessible categories}
+\label{sec:accessible-categories}
 
 \begin{defn}
-  A \emph{directed colimit} is a colimit whose scheme is a directed poset $(I,\leq)$.
+  Let $\lambda$ be a regular cardinal.
+  A category $\iC$ is $\lambda$-accessible if it has $\lambda$-filtered colimits and it has a set $A$ of $\lambda$-presentable objects such that every object is a $\lambda$-filtered colimit of objects from $A$.
 \end{defn}
 
-\begin{lem}
-  For any filtered category $\iD$, there is a directed poset $\iD_{0}$ and a cofinal functor $H : \iD_{0} \to \iD$.
-\end{lem}
-\begin{proof}
-  Consider $\iD \times \omega$, where $\omega$ is the poset category on natural numbers ordered by the usual linear order.
-  \todo{}
-\end{proof}
+\section{Locally finitely presentable categories}
+\label{sec:locally-finitely-presentable-categories}
 
 \begin{defn}
   A category $\iC$ is \emph{locally finitely presentable} if it is cocomplete and there is a set $A$ of finitely presentable objects such that every object $c \in \iC$ is a filtered colimit of objects in $A$.
@@ -1153,12 +1149,67 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   A category $\iC$ is locally finitely presentable iff it is cocomplete and has a strong generator formed by finitely presentable objects.
 \end{thm}
 \begin{proof}
-  Suppose that $\iC$ is locally finitely presentable.
-  Then there is a set $A$ of objects so that every object $c \in \iC$ is isomorphic to $\colim_{\iota \dn c}\iota$.
-  As every colimit can be constructed as a regular quotient of coproducts of the same shape, we conclude that the canonical morphism $e_{c} : \coprod_{\iota \dn c}\iota \to c$ is a regular epimorphism, which implies that $e_{c}$ is extremal.
-
-  Conversely, suppose that $\iC$ is cocomplete and has a strong generator formed by finitely presentable objects.
+  \todo{}
 \end{proof}
+
+\begin{defn}
+  A diagram $D : \iD \to \iC$ is finite if its scheme $\iD$ has finitely many morphisms.
+\end{defn}
+
+\begin{lem}
+  Every finite colimit of finitely presentable objects is finitely presentable.
+\end{lem}
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\section{Orthogonality classes}
+\label{sec:orthogonality-classes}
+
+\begin{defn}
+  An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for every morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following triangle commutes:
+  % https://q.uiver.app/#q=WzAsMyxbMCwxLCJkIl0sWzIsMSwiZCciXSxbMSwwLCJjIl0sWzAsMSwibSIsMl0sWzAsMiwiZiJdLFsxLDIsImYnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+  \[\begin{tikzcd}
+      & c \\
+      d && {d'}
+      \arrow["m"', from=2-1, to=2-3]
+      \arrow["f", from=2-1, to=1-2]
+      \arrow["{f'}"', dashed, from=2-3, to=1-2]
+    \end{tikzcd}\]
+\end{defn}
+
+\begin{defn}
+  For each class $\cM$ of objects in a category $\iC$, we denote by $\cM^{\bot}$ the full subcategory of $\iC$ spanned by objects orthogonal to each morphism $m \in \cM$.
+  A full subcategory of $\iC$ is an \emph{orthogonality class} if it is $\cM^{\bot}$ for some class of morphisms $\cM$.
+\end{defn}
+
+\begin{eg}
+  Let $\iC$ be a small category.
+  Orthogonality in $\CSet^{\iC\op}$ expresses the preservation of specified limits in $\iC$ (i.e., colimits in $\iC\op$).
+  % https://q.uiver.app/#q=WzAsMyxbMiwxLCJcXGlDKGMsIFxcYmxhbmspIFxcdGltZXMgXFxpQyhjJywgXFxibGFuaykiXSxbMCwxLCJcXGlDKGMgKyBjJyxcXGJsYW5rKSJdLFsxLDAsIkYiXSxbMSwwLCJtIiwyXSxbMCwyLCJGYyBcXHRpbWVzIEZjJyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsIkYoYyBcXHRpbWVzIGMnKSJdXQ==
+  \[\begin{tikzcd}
+      & F \\
+      {\iC(c + c',\blank)} && {\iC(c, \blank) \times \iC(c', \blank)}
+      \arrow["m"', from=2-1, to=2-3]
+      \arrow["{Fc \times Fc'}"', dashed, from=2-3, to=1-2]
+      \arrow["{F(c \times c')}", from=2-1, to=1-2]
+    \end{tikzcd}\]
+  where $m$ is the canonical isomorphism.
+  Note that a coproduct in $\iC\op$ is a product in $\iC$.
+  The orthogonality class $\Set{m}^{\bot}$ is the full subcategory of $\CSet^{\iC}$ spanned by functors preserving this product.
+\end{eg}
+
+\begin{thm}[Representation theorem]
+  Let $\lambda$ be a regular cardinal.
+  For each category $\iC$, the following are equivalent:
+  \begin{enumerate}
+  \item $\iC$ is locally $\lambda$-presentable.
+  \item $\iC$ is equivalent to $\Cont_{\lambda}\iA$ for some small category $\iA$.
+  \item $\iC$ is equivalent to a $\lambda$-orthogonality class in $\CSet^{\iA}$ for some small category $\iA$.
+  \item $\iC$ is equivalent to a full and reflective subcategory of $\CSet^{\iA}$ closed under $\lambda$-directed colimits for some small category $\iA$.
+  \item $\iC$ is a $\lambda$-free cocompletion of a small category $\iA$.
+  \end{enumerate}
+\end{thm}
 
 \bibliographystyle{alpha}
 \bibliography{all}

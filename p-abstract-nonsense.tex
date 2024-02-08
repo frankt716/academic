@@ -24,14 +24,20 @@
   \end{frame}
 }
 
+\setbeamercolor{emph}{fg=blue}
+\renewcommand<>{\emph}[1]{%
+  {\usebeamercolor[fg]{emph}\only#2{\itshape}#1}%
+}
+
+\renewcommand<>{\bf}[1]{%
+  {\usebeamercolor[fg]{emph}\only#2{\bfseries}#1}%
+}
+
 \begin{document}
 
 \begin{frame}
   \maketitle
 \end{frame}
-
-\section{Motivation}
-\label{sec:motivation}
 
 \section{Categories}
 \label{sec:categories}
@@ -40,53 +46,143 @@
   A \emph{category} consists of...\\\vspace{1em}
   \begin{onlyenv}<1>
     A collection of \emph{objects}.
-    % https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzMsMywiXFxidWxsZXQiXSxbNCwxLCJcXGJ1bGxldCJdLFs2LDIsIlxcYnVsbGV0Il0sWzUsMCwiXFxidWxsZXQiXSxbMiwyLCJcXGJ1bGxldCJdXQ==
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMiwwLCJcXGJ1bGxldCJdXQ==
     \[\begin{tikzcd}
-	\&\& \bullet \&\&\& \bullet \\
-	\&\&\&\& \bullet \\
-	\bullet \&\& \bullet \&\&\&\& \bullet \\
-	\&\&\& \bullet
+	\bullet \&\& \bullet \\
+	\\
+	\bullet \&\& \bullet
       \end{tikzcd}\]
   \end{onlyenv}
   \begin{onlyenv}<2>
     A collection of \emph{morphisms}.
     % https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzMsMywiXFxidWxsZXQiXSxbNCwxLCJcXGJ1bGxldCJdLFs2LDIsIlxcYnVsbGV0Il0sWzUsMCwiXFxidWxsZXQiXSxbMiwyLCJcXGJ1bGxldCJdLFsxLDBdLFswLDNdLFsxLDNdLFs2LDIsIiIsMCx7ImN1cnZlIjotMn1dLFs2LDIsIiIsMix7ImN1cnZlIjoyfV1d
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMiwwLCJcXGJ1bGxldCJdLFswLDMsIiIsMCx7ImN1cnZlIjotMX1dLFswLDMsIiIsMix7ImN1cnZlIjoxfV0sWzMsMl0sWzAsMl1d
     \[\begin{tikzcd}
-	\&\& \bullet \&\&\& \bullet \\
-	\&\&\&\& \bullet \\
-	\bullet \&\& \bullet \&\&\&\& \bullet \\
-	\&\&\& \bullet
-	\arrow[from=3-1, to=1-3]
-	\arrow[from=1-3, to=2-5]
-	\arrow[from=3-1, to=2-5]
-	\arrow[curve={height=-12pt}, from=3-3, to=4-4]
-	\arrow[curve={height=12pt}, from=3-3, to=4-4]
+	\bullet \&\& \bullet \\
+	\\
+	\bullet \&\& \bullet
+	\arrow[curve={height=-6pt}, from=1-1, to=1-3]
+	\arrow[curve={height=6pt}, from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-1, to=3-3]
+        \arrow[loop above, from=1-1, to=1-1]
+        \arrow[loop left, from=1-1, to=1-1]
+        \arrow[loop above, from=1-3, to=1-3]
+        \arrow[loop below, from=3-1, to=3-1]
+        \arrow[loop below, from=3-3, to=3-3]
       \end{tikzcd}\]
   \end{onlyenv}
   \begin{onlyenv}<3>
     A specified \emph{identity} morphism for each object.
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwxLCJnIl0sWzEsMiwiZiJdXQ==
     \[\begin{tikzcd}
-	a
-	\arrow[loop above, from=1-1, to=1-1]{}{\id_{a}}
+	\bullet \&\& \bullet \\
+	\\
+	\bullet \&\& \bullet
+	\arrow[curve={height=-6pt}, from=1-1, to=1-3]
+	\arrow[curve={height=6pt}, from=1-1, to=1-3]
+	\arrow[from=1-3, to=3-3]
+	\arrow[from=1-1, to=3-3]
+        \arrow[loop above, from=1-1, to=1-1]{}{\id}
+        \arrow[loop left, from=1-1, to=1-1]
+        \arrow[loop above, from=1-3, to=1-3]{}{\id}
+        \arrow[loop below, from=3-1, to=3-1]{}{\id}
+        \arrow[loop below, from=3-3, to=3-3]{}{\id}
       \end{tikzcd}\]
   \end{onlyenv}
   \begin{onlyenv}<4>
     A specified \emph{composite} morphism for any two composable morphisms.
-    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGJ1bGxldCJdLFsyLDAsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMCwxLCJnIl0sWzEsMiwiZiJdXQ==
     \[\begin{tikzcd}
 	\bullet \&\& \bullet \\
 	\\
-	\&\& \bullet
-	\arrow[from=1-1, to=1-3]{}{f}
+	\bullet \&\& \bullet
+	\arrow[curve={height=-6pt}, from=1-1, to=1-3]{}{f}
+	\arrow[curve={height=6pt}, from=1-1, to=1-3]
 	\arrow[from=1-3, to=3-3]{}{g}
-        \arrow[from=1-1, to=3-3]{}[swap]{f \circ g}
+	\arrow[from=1-1, to=3-3]{}[swap]{g \circ f}
+        \arrow[loop above, from=1-1, to=1-1]
+        \arrow[loop left, from=1-1, to=1-1]
+        \arrow[loop above, from=1-3, to=1-3]
+        \arrow[loop below, from=3-1, to=3-1]
+        \arrow[loop below, from=3-3, to=3-3]
       \end{tikzcd}\]
   \end{onlyenv}
 \end{frame}
 
+\begin{frame}{Categories}
+  These data are subject to the following requirements:
+  \begin{itemize}
+  \item \bf{Associativity}: $f \circ (g \circ h) = (f \circ g) \circ h$.
+  \item \bf{Unitality}: $\id \circ f = f = f \circ \id$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item $\mathsf{Set}$
+        \begin{itemize}
+        \item sets
+        \item functions
+        \item identity functions
+        \item function composition
+        \end{itemize}
+      \item $\mathsf{Grp}$
+        \begin{itemize}
+        \item groups
+        \item group homomorphisms
+        \item identity functions
+        \item function composition
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item $\mathcal{M}$
+        \begin{itemize}
+        \item a single abstract object
+        \item elements of the monoid $\mathcal{M}$
+        \item the identity element
+        \item monoid multiplication
+        \end{itemize}
+      \item $(P,\leq)$
+        \begin{itemize}
+        \item elements of $P$
+        \item $a \to b$ iff $a \leq b$
+        \item reflexivity of $\leq$
+        \item transitivity of $\leq$
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \section{Functors}
 \label{sec:functors}
+
+\begin{frame}{Functors}
+  Let $\iC$ and $\iD$ be categories.
+  A \emph{functor} $F : \iC \to \iD$ consists of
+  \begin{itemize}
+  \item an \emph{action on objects}: each object of $\iC$ is mapped to an object of $\iD$.
+  \item an \emph{action on morphisms}: each morphism $c \to c'$ is mapped to a morphism $Fc \to Fc'$.
+  \end{itemize}
+  subject to the following requirements:
+  \begin{itemize}
+  \item $F(\id_{a}) = \id_{Fa}$.
+  \item $F(f \circ g) = Ff \circ Fg$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{itemize}
+  \item A functor between posets $(P, \leq_{P})$ and $(Q, \leq_{Q})$ encodes an order-preserving function
+  \item The forgetful functor $U : \mathsf{Grp} \to \mathsf{Set}$ mapping each group to its underlying set and each group homomorphism to its underlying function.
+  \item The free functor $F : \mathsf{Set} \to \mathsf{Grp}$ mapping each set $S$ to the free group generated by $S$ and each function $f$ to a group homomorphism induced by $f$.
+  \item The cofree functor $I : \mathsf{Set} \to \mathsf{Top}$ that equips each set with the indiscrete topology.
+  \item The forgetful functor $\iota : \mathsf{Ab} \to \mathsf{Grp}$ that forgets the ``abelianness'' of an abelian group.
+  \end{itemize}
+\end{frame}
 
 \section{Natural transformations}
 \label{sec:natural-transformations}

@@ -16,6 +16,18 @@
 \section{Preliminaries}
 \label{sec:preliminaries}
 
+\todo{%
+  \begin{enumerate}
+  \item Study accessible categories. (look up inductive objects and pure subobjects).
+  \item Prove the representation theorem.
+  \item Study locally presentable categories.
+  \item Prove the representation theorem.
+  \item Redefine algebraic categories in terms of a more abstract condition. (This should simplify a lot of proofs).
+  \item Re-prove the representation theorem for algebraic categories (currently algebraic categories are defined in terms of a representation).
+  \item Study sketches.
+  \end{enumerate}
+}
+
 \begin{defn}
   Let $\iC$ be a small category and let $S : \iC \to \CSet$ be a functor that maps each object $c \in \iC$ to the singleton set and each morphism to the identity function.
   The \emph{connected component} of $\iC$ is $\colim S$.
@@ -782,6 +794,7 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   \item $\iC$ is algebraic.
   \item $\iC$ is cocomplete and has a set $\iG$ of perfectly presentable objects such that every object of $\iC$ is a sifted colimit of objects of $\iG$.
   \item $\iC$ is cocomplete and has a strong generator $\iG$ consisting of perfectly presentable objects.
+  \item \todo{$\iC$ is cocomplete and has a dense generator $\iG$ consisting of perfectly presentable objects.}
   \end{enumerate}
 \end{thm}
 \begin{proof}

@@ -39,6 +39,20 @@
   \maketitle
 \end{frame}
 
+\begin{frame}{Motivation}
+  \begin{itemize}
+  \item<1-> mathematics developed in set theory
+  \item<2-> structured sets \& functions preserving those structures
+  \item<3-> lots of similar constructions across a wide range of theories: \emph{products}, \emph{coproducts}, \emph{free algebras}, etc
+  \item<4-> category theory provides an elegant language for these constructions
+  \end{itemize}
+  \begin{uncoverenv}<4->
+    \begin{block}{Thesis}
+      Category theory provides a unifying framework for mathematics
+    \end{block}
+  \end{uncoverenv}
+\end{frame}
+
 \section{Categories}
 \label{sec:categories}
 
@@ -254,11 +268,11 @@
   \begin{block}{Fact}
     $\mathsf{Set}(1, S) \iso \id_{\mathsf{Set}}(S) = S$.
   \end{block}
-  \pause
-  The identity functor on $\mathsf{Set}$ is \emph{represented} by the singleton set.
-  
-  \pause
-  Every element of a set $S$ corresponds to a unique function from the singleton set to $S$.
+  \begin{itemize}
+  \item<2-> The identity functor on $\mathsf{Set}$ is \emph{represented} by the singleton set
+  \item<3-> To understand $S$, it suffices to understand all functions from the singleton set to $S$
+  \item<4-> Every element of a set $S$ corresponds to a unique function from the singleton set to $S$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Graph coloring}
@@ -273,11 +287,29 @@
   \begin{block}{Fact}
     $\mathsf{Graph}(G,K_{n}) \iso n\text{-Color}(G)$.
   \end{block}
-  \pause
-  $n\text{-Color}$ is \emph{represented} by the complete graph $K_{n}$.
+  \begin{itemize}
+  \item<2-> $n\text{-Color}$ is \emph{represented} by the complete graph $K_{n}$
+  \item<3-> To understand the set of all $n$-colorings of $G$, it suffices to understand the set of all graph homomorphisms from $G$ to $K_{n}$
+  \item<4-> Every $n$-coloring on a graph $G$ determines a graph homomorphism $G \to K_{n}$
+  \end{itemize}
+\end{frame}
 
-  \pause
-  To understand the set of all $n$-colorings of $G$, it suffices to understand the set of all graph homomorphisms from $G$ to $K_{n}$.
+\begin{frame}{Powerset}
+  \begin{itemize}
+  \item[] $\mathcal{P} : \mathsf{Set} \to \mathsf{Set}$
+    \begin{itemize}
+    \item[] action on objects: $S \mapsto \mathcal{P}(S)$
+    \item[] action on morphisms: magic
+    \end{itemize}
+  \end{itemize}
+  \begin{block}{Fact}
+    $\mathsf{Set}(S,\mathbb{B}) \iso \mathcal{P}(S)$, where $\mathbb{B}$ is the two point set (Boolean values).
+  \end{block}
+  \begin{itemize}
+  \item<2-> The powerset functor is \emph{represented} by the two point set
+  \item<3-> To understand the powerset, it suffices to understand all \emph{characteristic functions} (Boolean functions)
+  \item<4-> Every subset is uniquely determined by a characteristic function.
+  \end{itemize}
 \end{frame}
 
 \section{Limits and colimits}

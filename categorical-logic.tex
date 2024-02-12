@@ -29,6 +29,12 @@
 }
 
 \begin{defn}
+  Let $F : \iC \to \iD$ and $G : \iT \to \iC$ be functors.
+  $F$ has \emph{arity} $G$ if $F \iso \lan_{G}FG$.
+  If $\iT$ is small, then $F$ is said to have \emph{small arity}.
+\end{defn}
+
+\begin{defn}
   Let $\iC$ be a small category and let $S : \iC \to \CSet$ be a functor that maps each object $c \in \iC$ to the singleton set and each morphism to the identity function.
   The \emph{connected component} of $\iC$ is $\colim S$.
 \end{defn}
@@ -1145,6 +1151,42 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   By \cref{thm:algebraic-functor-left-adjoint}, this functor admits a free functor.
 \end{eg}
 
+\section{Orthogonality classes}
+\label{sec:orthogonality-classes}
+
+\begin{defn}
+  An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for every morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following triangle commutes:
+  % https://q.uiver.app/#q=WzAsMyxbMCwxLCJkIl0sWzIsMSwiZCciXSxbMSwwLCJjIl0sWzAsMSwibSIsMl0sWzAsMiwiZiJdLFsxLDIsImYnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+  \[\begin{tikzcd}
+      & c \\
+      d && {d'}
+      \arrow["m"', from=2-1, to=2-3]
+      \arrow["f", from=2-1, to=1-2]
+      \arrow["{f'}"', dashed, from=2-3, to=1-2]
+    \end{tikzcd}\]
+\end{defn}
+
+\begin{defn}
+  For each class $\cM$ of objects in a category $\iC$, we denote by $\cM^{\bot}$ the full subcategory of $\iC$ spanned by objects orthogonal to each morphism $m \in \cM$.
+  A full subcategory of $\iC$ is an \emph{orthogonality class} if it is $\cM^{\bot}$ for some class of morphisms $\cM$.
+\end{defn}
+
+\begin{eg}
+  Let $\iC$ be a small category.
+  Orthogonality in $\CSet^{\iC}$ expresses the preservation of specified limits in $\iC$ (i.e., colimits in $\iC\op$).
+  % https://q.uiver.app/#q=WzAsMyxbMiwxLCJcXGlDKGMsIFxcYmxhbmspIFxcdGltZXMgXFxpQyhjJywgXFxibGFuaykiXSxbMCwxLCJcXGlDKGMgKyBjJyxcXGJsYW5rKSJdLFsxLDAsIkYiXSxbMSwwLCJtIiwyXSxbMCwyLCJGYyBcXHRpbWVzIEZjJyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsIkYoYyBcXHRpbWVzIGMnKSJdXQ==
+  \[\begin{tikzcd}
+      & F \\
+      {\iC(c + c',\blank)} && {\iC(c, \blank) \times \iC(c', \blank)}
+      \arrow["m"', from=2-1, to=2-3]
+      \arrow["{Fc \times Fc'}"', dashed, from=2-3, to=1-2]
+      \arrow["{F(c \times c')}", from=2-1, to=1-2]
+    \end{tikzcd}\]
+  where $m$ is the canonical isomorphism.
+  Note that a coproduct in $\iC\op$ is a product in $\iC$.
+  The orthogonality class $\Set{m}^{\bot}$ is the full subcategory of $\CSet^{\iC}$ spanned by functors preserving this product.
+\end{eg}
+
 \section{Accessible categories}
 \label{sec:accessible-categories}
 
@@ -1219,14 +1261,16 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
 
 \begin{lem}
   Let $\iC$ be a $\lambda$-accessible category and $\iP$ be the full subcategory of $\iC$ spanned by $\lambda$-presentable objects.
-  $\iP$ is essentially small.
+  $\iP$ is essentially a set.
 \end{lem}
 \begin{proof}
-  \todo{}
+  As $\iC$ has a dense set $A$ of $\lambda$-presentable objects, it has a set worth of subobjects.
+  Indeed, every $\lambda$-presentable object is a subobject of some object in $A$.
+  Thus, $\iP$ is essentially a set.
 \end{proof}
 
 \begin{notn}
-  Let $\iC$ be a $\lambda$-accessible category, we write $\Pres_{\lambda}\iC$ for the full subcategory of $\iC$ spanned by $\lambda$-presentable objects.
+  Let $\iC$ be a $\lambda$-accessible category, we write $\Pres_{\lambda}\iC$ for the full subcategory of $\iC$ spanned by a chosen set of representatives of $\lambda$-presentable objects.
 \end{notn}
 
 \begin{defn}
@@ -1249,6 +1293,70 @@ This would make sense because if we could define this Kan extension, then this e
   Let $F : \iA \to \iE$ be a free cocompletion of $\iA$ under $\lambda$-filtered colimits.
 \end{proof}
 
+\section{Pure subobjects}
+\label{sec:pure-subobjects}
+
+\begin{defn}
+  A morphism $f : c \to d$ is \emph{pure} if for any presentable objects $c'$ and $d'$ and any commutative diagram, $u$ factors through $f'$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJhJyJdLFsyLDAsImInIl0sWzAsMiwiYSJdLFsyLDIsImIiXSxbMiwzLCJmIiwyXSxbMCwxLCJmJyJdLFswLDIsInUiLDJdLFsxLDMsInYiXSxbMSwyLCJcXHViYXIiLDFdXQ==
+  \[\begin{tikzcd}
+      {a'} && {b'} \\
+      \\
+      a && b
+      \arrow["f"', from=3-1, to=3-3]
+      \arrow["{f'}", from=1-1, to=1-3]
+      \arrow["u"', from=1-1, to=3-1]
+      \arrow["v", from=1-3, to=3-3]
+      \arrow["\ubar"{description}, from=1-3, to=3-1]
+    \end{tikzcd}\]
+\end{defn}
+
+\begin{thm}
+  Let $\iC$ be a category.
+  \begin{enumerate}
+  \item Pure morphisms are closed under composition.
+  \item If $g \circ f$ is pure then $f$ is pure.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  1. Let $f$ and $g$ be pure.
+  For any arbitrary commutative diagram, where $a'$ and $c'$ are presentable, $u \circ f$ yields the blue square, which then yields the red square as $g$ is pure. 
+  % https://q.uiver.app/#q=WzAsNSxbMCwwLCJhJyJdLFsyLDAsImMnIl0sWzAsMiwiYSJdLFsyLDIsImMiXSxbMSwyLCJiIl0sWzAsMSwiaCciLDAseyJjb2xvdXIiOlszMDAsNjAsNjBdfSxbMzAwLDYwLDYwLDFdXSxbMCwyLCJ1IiwyLHsiY29sb3VyIjpbMCw2MCw2MF19LFswLDYwLDYwLDFdXSxbMSwzLCJ2IiwwLHsiY29sb3VyIjpbMjQwLDYwLDYwXX0sWzI0MCw2MCw2MCwxXV0sWzIsNCwiZiIsMix7ImNvbG91ciI6WzAsNjAsNjBdfSxbMCw2MCw2MCwxXV0sWzQsMywiZyIsMix7ImNvbG91ciI6WzI0MCw2MCw2MF19LFsyNDAsNjAsNjAsMV1dLFswLDQsIiIsMSx7ImNvbG91ciI6WzI0MCw2MCw2MF19XSxbMSw0LCIiLDEseyJjb2xvdXIiOlswLDYwLDYwXX1dXQ==
+  \[\begin{tikzcd}
+      {a'} && {c'} \\
+      \\
+      a & b & c
+      \arrow["h", color={rgb,255:red,214;green,92;blue,214}, from=1-1, to=1-3]
+      \arrow["u"', color={rgb,255:red,214;green,92;blue,92}, from=1-1, to=3-1]
+      \arrow["v", color={rgb,255:red,92;green,92;blue,214}, from=1-3, to=3-3]
+      \arrow["f"', color={rgb,255:red,214;green,92;blue,92}, from=3-1, to=3-2]
+      \arrow["g"', color={rgb,255:red,92;green,92;blue,214}, from=3-2, to=3-3]
+      \arrow[color={rgb,255:red,92;green,92;blue,214}, from=1-1, to=3-2]
+      \arrow[color={rgb,255:red,214;green,92;blue,92}, from=1-3, to=3-2]
+    \end{tikzcd}\]
+  The purity of $f$ then yields the required morphism.
+
+  2. For any commutative diagram where $a'$ and $b'$ are presentable, consider the following diagram
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJhJyJdLFsxLDAsImInIl0sWzAsMiwiYSJdLFsyLDIsImMiXSxbMSwyLCJiIl0sWzIsMCwiYiciXSxbMCwxLCJoIl0sWzAsMiwidSIsMl0sWzIsNCwiZiIsMl0sWzQsMywiZyIsMl0sWzEsNCwidiJdLFsxLDUsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzUsMywiZyBcXGNpcmMgdiJdXQ==
+  \[\begin{tikzcd}
+      {a'} & {b'} & {b'} \\
+      \\
+      a & b & c
+      \arrow["h", from=1-1, to=1-2]
+      \arrow["u"', from=1-1, to=3-1]
+      \arrow["f"', from=3-1, to=3-2]
+      \arrow["g"', from=3-2, to=3-3]
+      \arrow["v", from=1-2, to=3-2]
+      \arrow[Rightarrow, no head, from=1-2, to=1-3]
+      \arrow["{g \circ v}", from=1-3, to=3-3]
+    \end{tikzcd}\]
+  The purity of $g \circ f$ yields the required morphism.
+\end{proof}
+
+\begin{thm}
+  Every pure morphism in an accessible category is a monomorphism.
+\end{thm}
+
 \section{Locally finitely presentable categories}
 \label{sec:locally-finitely-presentable-categories}
 
@@ -1263,64 +1371,12 @@ This would make sense because if we could define this Kan extension, then this e
   \todo{}
 \end{proof}
 
-\begin{defn}
-  A diagram $D : \iD \to \iC$ is finite if its scheme $\iD$ has finitely many morphisms.
-\end{defn}
-
 \begin{lem}
   Every finite colimit of finitely presentable objects is finitely presentable.
 \end{lem}
 \begin{proof}
   \todo{}
 \end{proof}
-
-\section{Orthogonality classes}
-\label{sec:orthogonality-classes}
-
-\begin{defn}
-  An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for every morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following triangle commutes:
-  % https://q.uiver.app/#q=WzAsMyxbMCwxLCJkIl0sWzIsMSwiZCciXSxbMSwwLCJjIl0sWzAsMSwibSIsMl0sWzAsMiwiZiJdLFsxLDIsImYnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
-  \[\begin{tikzcd}
-      & c \\
-      d && {d'}
-      \arrow["m"', from=2-1, to=2-3]
-      \arrow["f", from=2-1, to=1-2]
-      \arrow["{f'}"', dashed, from=2-3, to=1-2]
-    \end{tikzcd}\]
-\end{defn}
-
-\begin{defn}
-  For each class $\cM$ of objects in a category $\iC$, we denote by $\cM^{\bot}$ the full subcategory of $\iC$ spanned by objects orthogonal to each morphism $m \in \cM$.
-  A full subcategory of $\iC$ is an \emph{orthogonality class} if it is $\cM^{\bot}$ for some class of morphisms $\cM$.
-\end{defn}
-
-\begin{eg}
-  Let $\iC$ be a small category.
-  Orthogonality in $\CSet^{\iC\op}$ expresses the preservation of specified limits in $\iC$ (i.e., colimits in $\iC\op$).
-  % https://q.uiver.app/#q=WzAsMyxbMiwxLCJcXGlDKGMsIFxcYmxhbmspIFxcdGltZXMgXFxpQyhjJywgXFxibGFuaykiXSxbMCwxLCJcXGlDKGMgKyBjJyxcXGJsYW5rKSJdLFsxLDAsIkYiXSxbMSwwLCJtIiwyXSxbMCwyLCJGYyBcXHRpbWVzIEZjJyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsIkYoYyBcXHRpbWVzIGMnKSJdXQ==
-  \[\begin{tikzcd}
-      & F \\
-      {\iC(c + c',\blank)} && {\iC(c, \blank) \times \iC(c', \blank)}
-      \arrow["m"', from=2-1, to=2-3]
-      \arrow["{Fc \times Fc'}"', dashed, from=2-3, to=1-2]
-      \arrow["{F(c \times c')}", from=2-1, to=1-2]
-    \end{tikzcd}\]
-  where $m$ is the canonical isomorphism.
-  Note that a coproduct in $\iC\op$ is a product in $\iC$.
-  The orthogonality class $\Set{m}^{\bot}$ is the full subcategory of $\CSet^{\iC}$ spanned by functors preserving this product.
-\end{eg}
-
-\begin{thm}[Representation theorem]
-  Let $\lambda$ be a regular cardinal.
-  For each category $\iC$, the following are equivalent:
-  \begin{enumerate}
-  \item $\iC$ is locally $\lambda$-presentable.
-  \item $\iC$ is equivalent to $\Cont_{\lambda}\iA$ for some small category $\iA$.
-  \item $\iC$ is equivalent to a $\lambda$-orthogonality class in $\CSet^{\iA}$ for some small category $\iA$.
-  \item $\iC$ is equivalent to a full and reflective subcategory of $\CSet^{\iA}$ closed under $\lambda$-directed colimits for some small category $\iA$.
-  \item $\iC$ is a $\lambda$-free cocompletion of a small category $\iA$.
-  \end{enumerate}
-\end{thm}
 
 \bibliographystyle{alpha}
 \bibliography{all}

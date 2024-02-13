@@ -41,10 +41,10 @@
 
 \begin{frame}{Motivation}
   \begin{itemize}
-  \item<1-> mathematics developed in set theory
-  \item<2-> structured sets \& functions preserving those structures
-  \item<3-> lots of similar constructions across a wide range of theories: \emph{products}, \emph{coproducts}, \emph{free algebras}, etc
-  \item<4-> category theory provides an elegant language for these constructions
+  \item<1-> Mathematics developed in set theory
+  \item<2-> Structured sets \& functions preserving those structures
+  \item<3-> Lots of similar constructions across a wide range of theories: \emph{products}, \emph{coproducts}, \emph{free algebras}, etc
+  \item<4-> Category theory provides an elegant language for these constructions
   \end{itemize}
   \begin{uncoverenv}<4->
     \begin{block}{Thesis}
@@ -257,6 +257,16 @@
 \section{Representability}
 \label{sec:representability}
 
+\begin{frame}{Universality}
+  \begin{itemize}
+  \item<1-> Product group is the ``most efficient'' group so that the projections are group homomorphisms
+  \item<2-> Quotient topology is the ``most efficient'' topology so that the quotient map is continuous
+  \item<3-> The Sierpi\'{n}ski space is the ``most efficient'' topological space equipped with an open set
+  \item<4-> The complete graph $K_{n}$ is the ``most efficient'' $n$-colorable graph
+  \item<5-> Boolean values form the ``most efficient'' set that distinguishes subsets
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Identity functor on Set}
   \begin{itemize}
   \item[] $\id_{\mathsf{Set}} : \mathsf{Set} \to \mathsf{Set}$
@@ -363,7 +373,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Limit}
   Each cone with submit $c$ corresponds to a unique morphism $c \to \lim D$.
   % https://q.uiver.app/#q=WzAsNSxbMCwyLCJcXGJ1bGxldCJdLFsyLDIsIlxcYnVsbGV0Il0sWzEsMywiXFxidWxsZXQiXSxbMSwxLCJcXGxpbSBEIl0sWzEsMCwiYyJdLFswLDJdLFsyLDFdLFswLDFdLFszLDAsIiIsMix7ImNvbG91ciI6WzAsNjAsNjBdfV0sWzMsMiwiIiwyLHsiY29sb3VyIjpbMCw2MCw2MF19XSxbMywxLCIiLDIseyJjb2xvdXIiOlswLDYwLDYwXX1dLFs0LDAsIiIsMix7ImN1cnZlIjoyLCJjb2xvdXIiOlsyNDAsNjAsNjBdfV0sWzQsMiwiIiwyLHsiY3VydmUiOi0zLCJjb2xvdXIiOlsyNDAsNjAsNjBdfV0sWzQsMSwiIiwyLHsiY3VydmUiOi0yLCJjb2xvdXIiOlsyNDAsNjAsNjBdfV0sWzQsMywiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
   \[\begin{tikzcd}
@@ -416,6 +426,16 @@
   \item<2-> commutativity expresses $\beta$-law: $\pi_{1}(a,b) = a$ and $\pi_{2}(a,b) = b$.
   \item<4-> uniqueness expresses $\eta$-law: $\texttt{pair} = (\pi_{1}~\texttt{pair}, \pi_{2}~\texttt{pair})$.
   \item<5-> a function into a pair is equivalently a pair of functions into each individual component.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{itemize}
+  \item<1-> $\mathsf{Set}$: Cartesian products
+  \item<2-> $\mathsf{Grp}$: direct products
+  \item<3-> $\mathsf{Top}$: product topology
+  \item<4-> $(P,\leq)$: least upper bound (meet)
+  \item<5-> $\mathsf{Typ}$: product types
   \end{itemize}
 \end{frame}
 
@@ -520,6 +540,16 @@
   \item<2-> commutativity expresses $\beta$-law: $a = [a, b]\iota_{1}$ and $b = [a, b]\iota_{2}$.
   \item<4-> uniqueness expresses $\eta$-law: $\texttt{var} = [\texttt{var}~\iota_{1}, \texttt{var}~\iota_{2}]$.
   \item<5-> a function out of a coproduct is equivalently a \bf{pair} of functions out of each component.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{itemize}
+  \item<1-> $\mathsf{Set}$: disjoint union
+  \item<2-> $\mathsf{Grp}$: free products (confusingly)
+  \item<3-> $\mathsf{Top}$: disjoint union topology
+  \item<4-> $(P,\leq)$: greatest lower bound (join)
+  \item<5-> $\mathsf{Typ}$: coproduct types
   \end{itemize}
 \end{frame}
 

@@ -1290,7 +1290,28 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
 \begin{proof}
   As $\iota$ is dense, its corresponding restricted Yoneda embedding $\yon_{\iota}$ is fully faithful.
   It remains to show that $\yon_{\iota}$ preserves $\lambda$-filtered colimits.
+  Let $\colim D$ be any $\lambda$-filtered colimit.
+  Then $\yon_{\iota}(\colim D) = \iC(\iota\blank, \colim D)$.
+  Then for any $a \in \Pres_{\lambda}(\iC)$, we have
+  \[
+    \iC(a, \colim D) \iso \colim\iC(a, D\blank)
+  \]
+  These isomorphisms assemble into a natural isomorphism $\iC(\iota\blank, \colim D) \iso \colim_{j}\iC(\iota\blank, Dj)$.
 \end{proof}
+
+\begin{rmk}
+  In a $\lambda$-accessible category, every object is a $\lambda$-filtered colimit of objects in $\Pres_{\lambda}(\iC)$ that $\lambda_{\iota}$ preserves.
+  Thus, $\yon_{\iota}(c)$ is a $\lambda$-filtered colimit in $\Psh(\Pres_{\lambda}(\iC)\op)$.
+\end{rmk}
+
+\begin{defn}
+  Let $\iC$ be a $\lambda$-accessible category.
+  We define the category of \emph{ind-objects} $\Ind(\iC)$ as the full subcategory spanned by $\colim_{(a,f) \in (\iota \dn c)}\iC(\iota\blank, a)$ for $c \in \iC$.
+\end{defn}
+
+\begin{rmk}
+  The restricted Yoneda embedding $\yon_{\iota} : \iC \to \Ind(\iC)$ is clearly an equivalence of categories.
+\end{rmk}
 
 \section{Orthogonality classes}
 \label{sec:orthogonality-classes}

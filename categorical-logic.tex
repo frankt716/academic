@@ -1299,20 +1299,36 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   These isomorphisms assemble into a natural isomorphism $\iC(\iota\blank, \colim D) \iso \colim_{j}\iC(\iota\blank, Dj)$.
 \end{proof}
 
-\todo{Check this observation, although we know that every accessible category is an inductive system}
-
 \begin{rmk}
-  In a $\lambda$-accessible category, every object is a $\lambda$-filtered colimit of objects in $\Pres_{\lambda}(\iC)$ that $\lambda_{\iota}$ preserves.
-  Thus, $\yon_{\iota}(c)$ is a $\lambda$-filtered colimit in $\Psh(\Pres_{\lambda}(\iC)\op)$.
+  Let $\iC$ be a $\lambda$-accessible category and set $\iA = \Pres_{\lambda}(\iC)$.
+  Every object $c \in \iC$ is a $\lambda$-filtered colimit that $\yon_{\iota}$ preserves, we can upgrade $\yon_{\iota}$ to an equivalence by restricting its codomain.
+  Consider the image of $\yon_{\iota}$,
+  \[
+    \yon_{\iota}(c) \iso \colim_{(a, f) \in (\iota \dn c)}\yon_{\iota}\iota\Pi(a, f) \iso \colim_{(a, f) \in (\iota \dn c)}\iC(\iota\blank, a) = \colim_{(a, f) \in (\iota \dn c)}\iA(\blank, a)
+  \]
+  We set the \emph{category of ind-objects} $\Ind(\iA)$ as the full subcategory spanned by $\lambda$-filtered colimits of hom-functors in $\Psh(\iA\op)$.
+  This ensures that $\yon_{\iota}$ remains fully faithful, and clearly, $\yon_{\iota}$ is now essentially surjective on objects.
+  Thus, $\iC \eqv \Ind(\iA)$.
 \end{rmk}
 
-\begin{defn}
-  Let $\iC$ be a $\lambda$-accessible category.
-  We define the category of \emph{ind-objects} $\Ind(\iC)$ as the full subcategory spanned by $\colim_{(a,f) \in (\iota \dn c)}\iC(\iota\blank, a)$ for $c \in \iC$.
-\end{defn}
+\begin{thm}
+  For each functor $F : \iA \to \CSet$, where $\iA$ is small, the following conditions are equivalent:
+  \begin{enumerate}
+  \item $F$ is a $\lambda$-filtered colimit of hom-functors in $\Psh(\iA)$.
+  \item $\lan_{\yon}F$ preserves $\lambda$-small limits.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \todo{}
+\end{proof}
 
 \begin{rmk}
-  The restricted Yoneda embedding $\yon_{\iota} : \iC \to \Ind(\iC)$ is clearly an equivalence of categories.
+  Since $\yon$ is a free cocompletion of $\iA$, every cocontinuous functor $F^{*} : \Psh(\iA\op) \to \CSet$ that preserves $\lambda$-small limits determines an essentially unique functor $F : \iA \to \CSet$ that is a $\lambda$-filtered colimit of representables.
+  This suggests that every $\lambda$-accessible category can be sketched by a (potentially illegitimate) sketch $(\Psh(\iA\op), L, C)$, where
+  \begin{itemize}
+  \item $L$ consists of all $\lambda$-small limits.
+  \item $C$ consists of all colimits.
+  \end{itemize}
 \end{rmk}
 
 \section{Orthogonality classes}

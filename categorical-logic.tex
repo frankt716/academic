@@ -16,18 +16,6 @@
 \section{Preliminaries}
 \label{sec:preliminaries}
 
-\todo{%
-  \begin{enumerate}
-  \item Study accessible categories. (look up inductive objects and pure subobjects).
-  \item Prove the representation theorem.
-  \item Study locally presentable categories.
-  \item Prove the representation theorem.
-  \item Redefine algebraic categories in terms of a more abstract condition. (This should simplify a lot of proofs).
-  \item Re-prove the representation theorem for algebraic categories (currently algebraic categories are defined in terms of a representation).
-  \item Study sketches.
-  \end{enumerate}
-}
-
 \begin{defn}
   Let $F : \iC \to \iD$ and $G : \iT \to \iC$ be functors.
   $F$ has \emph{arity} $G$ if $F \iso \lan_{G}FG$.
@@ -1369,6 +1357,11 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   Conversely, if $F^{*}$ preserves $\lambda$-small limits and colimits, then its domain restriction preserves $\lambda$-small limits of representables and canonical colimits.
   Thus, it is a model of the sketch above.
 \end{proof}
+
+\begin{rmk}
+  If $\iC$ is locally $\lambda$-presentable, then it is a reflective subcategory.
+  We can upgrade the adjunction to an equivalence by restricting the codomain of $\yon_{\iota}$ to $\Cont_{\lambda}(\iA\op,\CSet)$.
+\end{rmk}
 
 \bibliographystyle{alpha}
 \bibliography{all}

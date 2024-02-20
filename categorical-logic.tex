@@ -1324,7 +1324,6 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   If a category $\iC$ is $\lambda$-accessible, then it is sketchable by a small sketch.
 \end{thm}
 \begin{proof}
-  \todo{Clean up this proof}
   Let $\iC$ be a $\lambda$-accessible category and set $\iA = \Pres_{\lambda}(\iC)$.
   We need to reduce $(\Psh(\iA\op),L,C)$ to a small sketch.
   We want each model $G$ of the new sketch to correspond to a cocontinuous functor $F^{*}$ that preserves $\lambda$-small limits.
@@ -1362,6 +1361,149 @@ Indeed, every algebra can be expressed as a colimit of represented algebras.
   If $\iC$ is locally $\lambda$-presentable, then it is a reflective subcategory.
   We can upgrade the adjunction to an equivalence by restricting the codomain of $\yon_{\iota}$ to $\Cont_{\lambda}(\iA\op,\CSet)$.
 \end{rmk}
+
+\section{Elephant}
+\label{sec:elephant}
+
+\begin{lem}\label{lem:lc-pullbacks}
+  A category $\iC$ is locally cartesian iff it has pullbacks.
+\end{lem}
+\begin{proof}
+  Suppose that $\iC$ has pullbacks.
+  For any $c \in \iC$, the identity $\id_{c} : c \to c$ is the terminal object of $\iC/c$.
+  As products in $\iC/c$ are constructed as pullbacks that $\iC$ admits, $\iC/c$ is cartesian.
+  Conversely, suppose that $\iC$ is locally cartesian.
+  As the projection functor $\Pi : \iC/c \to \iC$ preserves pullbacks for all $c \in \iC$, we may construct pullbacks of $\iC$ in the slice category.
+  Given $f : a \to c$ and $g : b \to c$, we form the following pullback in $\iC/c$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJmIl0sWzIsMiwiXFxpZF97Y30iXSxbMiwwLCJnIl0sWzAsMCwiXFxidWxsZXQiXSxbMCwxLCIhIiwyXSxbMiwxLCIhIl0sWzMsMF0sWzMsMl0sWzMsMSwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+  \[\begin{tikzcd}
+      \bullet && g \\
+      \\
+      f && {\id_{c}}
+      \arrow["{!}"', from=3-1, to=3-3]
+      \arrow["{!}", from=1-3, to=3-3]
+      \arrow[from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+  Then $\Pi$ maps this pullback to the desired pullback in $\iC$.
+\end{proof}
+
+Let $\iC$ be a category and $f : c \to d$ be a morphism.
+By unfolding the definition of slice category, we see that $\iC/c$ is isomorphic to the slice category $(\iC/d)/f$.
+Thus, the forgetful functor induces the functor $\Sigma_{f} : \iC/c \to \iC/d$ defined by $g \mapsto fg$.
+
+\begin{lem}
+  $\iC$ is locally cartesian iff $\Sigma_{f}$ has a right adjoint $f^{*}$ for any morphism $f \in \iC$.
+\end{lem}
+\begin{proof}
+  Suppose that $\iC$ has pullbacks (c.f., \cref{lem:lc-pullbacks}).
+  Right adjoints need to satisfy the natural isomorphism
+  \[
+    \iC/d(fg, h) \iso \iC/c(g, f^{*}(h))
+  \]
+  Thus, we define $f^{*}(h)$ to be the pullback of $h$ along $f$.
+  The universal property of pullbacks ensures the required isomorphism.
+  % https://q.uiver.app/#q=WzAsNSxbMSwzLCJjIl0sWzMsMywiZCJdLFszLDEsImEiXSxbMSwxLCJcXGJ1bGxldCJdLFswLDAsIlxcYnVsbGV0Il0sWzIsMSwiaCJdLFswLDEsImYiLDJdLFszLDAsImZeeyp9KGgpIiwyXSxbMywyXSxbNCwwLCJnIiwyLHsiY3VydmUiOjN9XSxbNCwyLCIiLDIseyJjdXJ2ZSI6LTN9XSxbNCwzLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+  \[\begin{tikzcd}
+      \bullet \\
+      & \bullet && a \\
+      \\
+      & c && d
+      \arrow["h", from=2-4, to=4-4]
+      \arrow["f"', from=4-2, to=4-4]
+      \arrow["{f^{*}(h)}"', from=2-2, to=4-2]
+      \arrow[from=2-2, to=2-4]
+      \arrow["g"', curve={height=18pt}, from=1-1, to=4-2]
+      \arrow[curve={height=-18pt}, from=1-1, to=2-4]
+      \arrow[dashed, from=1-1, to=2-2]
+    \end{tikzcd}\]
+  Conversely, if $\Sigma_{f}$ admits a right adjoint for any $f \in \iC$ then the counit of the adjunction makes the following square commute.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJjIl0sWzIsMiwiZCJdLFsyLDAsImEiXSxbMCwwLCJcXGJ1bGxldCJdLFsyLDEsImgiXSxbMCwxLCJmIiwyXSxbMywwLCJmXnsqfShoKSIsMl0sWzMsMiwiXFxlcHNpbG9uIl1d
+  \[\begin{tikzcd}
+      \bullet && a \\
+      \\
+      c && d
+      \arrow["h", from=1-3, to=3-3]
+      \arrow["f"', from=3-1, to=3-3]
+      \arrow["{f^{*}(h)}"', from=1-1, to=3-1]
+      \arrow["\epsilon", from=1-1, to=1-3]
+    \end{tikzcd}\]
+  The universal property of adjunction implies that this square is a pullback.
+\end{proof}
+
+Recall that $f^{*} : \iC/d \to \iC/c$ is constructed as pullbacks in $\iC$.
+As monomorphisms are pullback stable, this functor maps a subobject of $d$ to a subobject of $c$.
+That is, $f^{*} : \iC/d \to \iC/c$ restricts to a functor $f^{*} : \Sub(d) \to \Sub(c)$.
+
+\begin{defn}
+  Let $\iC$ be a category.
+  The \emph{image} of a morphism $f : c \to d$ is the subobject $\img f$ so that
+  \[
+    \img f \leq g \text{ iff there is a morphism } f \to g \text{ in } \iC/c
+  \]
+  In fact, such a morphism is unique because $g$ is a monomorphism.
+  Then we say that a category \emph{has images} if the inclusion functor $\Sub(c) \to \iC/c$ has a left adjoint for all $c \in \iC$.
+\end{defn}
+
+\begin{lem}
+  Let $\iC$ be a category.
+  The following are equivalent:
+  \begin{enumerate}
+  \item $\iC$ has images.
+  \item If $\iC$ has pullbacks, then for each morphism $f : c \to d$ of $\iC$, the pullback functor $f^{*} : \Sub(d) \to \Sub(c)$ has a left adjoint $\exists_{f}$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  If $\iC$ has images, then define $\exists_{f}$ as the composite
+  \[
+    \Sub(c) \xrightarrow{\iota_{c}} \iC/c \xrightarrow{\Sigma_{f}} \iC/d \xrightarrow{\img} \Sub(d)
+  \]
+  As $\Sigma_{f}$ and $\img$ are left adjoints and $f^{*}$ is a restriction along the inclusion functors.
+  It follows that $\exists_{f} \adj f^{*}$.
+  Conversely, if $\exists_{f} \adj f^{*}$, then $\exists_{f}(\id_{c})$ is the image of $f$.
+\end{proof}
+
+\section{Topos theory}
+\label{sec:topos-theory}
+
+\todo{Talk about the basic intuition}
+\todo{If we think in terms of posets, the condition says $d$ has a subcover.}
+\begin{defn}
+  Let $\iC$ be a small category.
+  A \emph{coverage} on $\iC$ is a function assigning to each object $c \in \iC$ a collection $T(c)$ of \emph{$T$-covering families} $(f_{i} : c_{i} \to c)_{i \in I}$ of morphisms such that if $(f_{i} : c_{i} \to c)_{i \in I}$ is a $T$-covering family and $g : d \to c$ is a morphism, then there is a $T$-covering family $(h_{j} : d_{j} \to d)_{j \in J}$ so that each $gh_{j}$ factors through some $f_{i}$.
+\end{defn}
+
+\begin{defn}
+  A \emph{site} is a category equipped with a coverage.
+\end{defn}
+
+\todo{This condition expresses that the open sets can be glued together along the boundaries.}
+\begin{defn}
+  Let $F : \iC\op \to \CSet$ be a functor and $(f_{i} : c_{i} \to c)_{i \in I}$ be a family of morphisms.
+  A family of elements $(s_{i} \in F(c_{i}))_{i \in I}$ is \emph{compatible} if for any equal parallel pair of morphisms such as the following
+  % https://q.uiver.app/#q=WzAsNCxbMSwyLCJkIl0sWzAsMSwiY197aX0iXSxbMiwxLCJjX3tqfSJdLFsxLDAsImMiXSxbMSwzLCJmX3tpfSJdLFsyLDMsImZfe2p9IiwyXSxbMCwxLCJnIl0sWzAsMiwiaCIsMl1d
+  \[\begin{tikzcd}
+      & c \\
+      {c_{i}} && {c_{j}} \\
+      & d
+      \arrow["{f_{i}}", from=2-1, to=1-2]
+      \arrow["{f_{j}}"', from=2-3, to=1-2]
+      \arrow["g", from=3-2, to=2-1]
+      \arrow["h"', from=3-2, to=2-3]
+    \end{tikzcd}\]
+  then $F(g)(s_{i}) = F(h)(s_{j})$.
+\end{defn}
+
+\begin{defn}
+  A functor $F : \iC\op \to \CSet$ is a \emph{$T$-sheaf} if for any $T$-covering family $(f_{i} : c_{i} \to c)_{i \in I}$ and any compatible family of elements $(s_{i} \in F(c_{i}))_{i \in I}$, there is a unique $s \in F(c)$ so that $F(f_{i})(s) = s_{i}$ for all $i \in I$.
+  We write $\Sh(\iC,T)$ for the full subcategory of $\Psh(\iC\op)$ spanned by $T$-sheaves.
+  We omit $T$ as necessary.
+\end{defn}
+
+\begin{lem}
+  If $(\iC, T)$ is a site, then $\Sh(\iC)$ is a topos.
+\end{lem}
 
 \bibliographystyle{alpha}
 \bibliography{all}

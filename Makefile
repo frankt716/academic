@@ -6,6 +6,9 @@ default:
 	@echo "% This target does nothing %"
 	@echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 
+.PHONY: algebraic-theories-and-sketches.tex
+	$(LATEX) algebraic-theories-and-sketches.tex
+
 .PHONY: categorical-logic
 categorical-logic: categorical-logic.tex
 	$(LATEX) categorical-logic.tex

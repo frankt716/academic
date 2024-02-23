@@ -8,25 +8,16 @@
 \maketitle
 \tableofcontents
 
-\section{Warning}
-\label{sec:warning}
-
-Everything written here is based on my current (limited) knowledge of categorical logic.
-Some content written herein is purely my own speculation and is by no means authoritative.
-This document is expected to contain a lot of errors.
-
 \section{Introduction}
 \label{sec:introduction}
 
-The categorification of algebraic theories allow us to study them in a presentation-independent way.
+The categorification of algebraic theories enabled us to investigate these theories in a presentation-invariant way.
 Algebraic theories are precisely categories with finite products.
 We think of the objects of such a category as sorts and morphisms as terms.
-Identities and composition correspond to variables and substitution, respectively.
-Equations are internalized as the diagonal subobject.
-Given two algebraic theories $\cT$ and $\cT'$, a model of $\cT$ in $\cT'$ is a finite-product preserving functor $M : \cT \to \cT'$.
-This ensures that products of sorts in $\cT$ are interpreted (sensibly) as products of sorts in $\cT'$.
-Moreover, this ensures that equations are preserved.
-Then, a homomorphism from $M$ to $M'$ is precisely a natural transformation $\alpha : M \To M'$.
+Equations are internalized as the diagonal subobjects.
+Given two algebraic theories $\cT$ and $\cT'$, a model of $\cT$ in $\cT'$ is a finite-product preserving functor $M : \cT \to \cT'$, ensuring that products of sorts in $\cT$ are interpreted (sensibly) as products of sorts in $\cT'$.
+Additionally, this also ensures that equations are preserved.
+Unsurprisingly, a homomorphism from $M$ to $M'$ is precisely a natural transformation $\alpha : M \To M'$.
 % https://q.uiver.app/#q=WzAsNCxbMiwwLCJNcyJdLFswLDIsIk1zIl0sWzIsMiwiTShzIFxcdGltZXMgcykiXSxbNCwyLCJNKHMpIl0sWzIsMSwiXFxwaV97MX0iXSxbMiwzLCJcXHBpX3syfSIsMl0sWzAsMSwiXFxpZCIsMl0sWzAsMywiXFxpZCJdLFswLDIsIk1cXERlbHRhIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9LCJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
 \[\begin{tikzcd}
     && Ms \\
@@ -39,13 +30,10 @@ Then, a homomorphism from $M$ to $M'$ is precisely a natural transformation $\al
     \arrow["M\Delta"{description}, dashed, tail, from=1-3, to=3-3]
   \end{tikzcd}\]
 
-Category with finite products, finite-product preserving functors, and natural transformations form the doctrine of algebraic theories $\CAlg$.
-The slice $\CAlg/\CSet$ recovers the classical set-theoretic models.
-Explicitly, this slice has set-theoretic models, compatible theory morphisms, and natural transformations between them.
-In fact, for any algebraic theory $\cT$, the hom-category $\CAlg(\cT,\CSet)$, i.e., the category of set-theoretic models, is equivalent to a cocomplete category with a strong generator comprised of perfectly presentable objects.
-
-We can generalize this viewpoint: theories can be internalized in a sufficiently structured category.
-Then a model of a theory in another theory is a functor preserving those structures.
+Algebraic theories together with their models and homomorphisms between them assemble into a 2-category $\CAlg$.
+For any (small) algebraic theory $\cT$, the hom-category $\CAlg(\cT,\CSet)$, i.e., the category of set-theoretic models, is equivalent to a cocomplete category with a strong generator comprised of perfectly presentable objects, i.e., a variety.
+We can generalize this viewpoint: theories (of some kind) are categories with sufficient structures.
+A model of a theory in another theory (of the same kind) is a functor preserving those structures.
 The goal of this writeup is to develop this idea in more detail.
 
 \section{Hyperdoctrine}
@@ -110,7 +98,7 @@ Naturality expresses that these models are compatible with substitutions.
     \arrow["{\lambda_{c'}}"', from=3-1, to=3-3]
   \end{tikzcd}\]
 
-Quantifiers can be characterized as adjoints, too.
+Weighted quantifiers can be characterized as adjoints, too.
 Given a term $f : c \to d$, the formula $\exists_{f}\varphi$ ought to be the smallest formula so that $\varphi \leq (\exists_{f}\varphi)[f]$.
 Similarly, the formula $\forall_{f}\varphi$ ought to be the largest formula so that $(\forall_{f}\varphi)[f] \leq \varphi$.
 That is, we need the following adjoints:
@@ -126,6 +114,50 @@ That is, we need the following adjoints:
     \arrow["\dashv"{anchor=center}, draw=none, from=0, to=2]
   \end{tikzcd}\]
 Indeed, in the powerset doctrine $\cP : \CSet\op \to \CPos$, the existential quantifier and the universal quantifier are given by the direct image $f_{*}$ and the fiber image $f_{!}$, respectively.
+
+The powerset doctrine factors through the contravariant powerset functor in a canonical way because every powerset has a canonical poset structure given by the inclusion relation.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGlEIl0sWzIsMCwiXFxDU2V0XFxvcCJdLFsxLDIsIlxcQ1BvcyJdLFszLDIsIlxcQ1NldCJdLFswLDIsIlxcY0QiLDJdLFswLDEsIk0iXSxbMSwzLCJcXGNQIl0sWzIsM10sWzEsMiwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsMSwiXFxsYW1iZGEiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6MTB9fV1d
+\[\begin{tikzcd}
+    \iU\op && \CSet\op \\
+    \\
+    & \CPos && \CSet
+    \arrow[""{name=0, anchor=center, inner sep=0}, "\cU"', from=1-1, to=3-2]
+    \arrow["M", from=1-1, to=1-3]
+    \arrow["\cP", from=1-3, to=3-4]
+    \arrow[from=3-2, to=3-4]
+    \arrow[dashed, from=1-3, to=3-2]
+    \arrow["\lambda", shorten <=5pt, shorten >=5pt, Rightarrow, from=0, to=1-3]
+  \end{tikzcd}\]
+Thus, we may identify a model of a doctrine as a natural transformation (of some kind) between presheaves.
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlEXFxvcCJdLFsyLDAsIlxcQ1NldFxcb3AiXSxbMiwyLCJcXENTZXQiXSxbMCwxXSxbMSwyXSxbMCwyLCJcXGNEIiwyXSxbNSwxLCJcXGxhbWJkYSIsMix7InNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjoxMH19XV0=
+\[\begin{tikzcd}
+    \iU\op && \CSet\op \\
+    \\
+    && \CSet
+    \arrow[from=1-1, to=1-3]
+    \arrow[from=1-3, to=3-3]
+    \arrow[""{name=0, anchor=center, inner sep=0}, "\cU"', from=1-1, to=3-3]
+    \arrow["\lambda"', shorten <=3pt, shorten >=3pt, Rightarrow, from=0, to=1-3]
+  \end{tikzcd}\]
+Given a natural transformation $\lambda : \cU \To \tilde{\cU}$ between presheaves, we may think of $\cU$ as a presheaf of ``witnesses'' and $\tilde{\cU}$ as a presheaf of ``types.''
+By the Yoneda lemma, each type $A \in \tilde{\cU}(\Gamma)$ can be identified with a natural transformation $A : \iU(\blank, \Gamma) \To \cU$.
+If we additionally require that the pullback of $A$ along $\lambda$ is representable, then the two projections correspond to a term $\Gamma.A \to \Gamma$ in the theory $\iU$ and a witness $t \in \cU(\Gamma.A)$, respectively.
+% https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXGNVIl0sWzIsMiwiXFx0aWxkZXtcXGNVfSJdLFswLDIsIlxceW9uXFxHYW1tYSJdLFswLDAsIlxceW9uXFxHYW1tYS5BIl0sWzAsMSwiXFxsYW1iZGEiXSxbMiwxLCJBIiwyXSxbMywyXSxbMywwLCJ0Il0sWzMsMSwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+\[\begin{tikzcd}
+    {\yon\Gamma.A} && \cU \\
+    \\
+    \yon\Gamma && {\tilde{\cU}}
+    \arrow["\lambda", from=1-3, to=3-3]
+    \arrow["A"', from=3-1, to=3-3]
+    \arrow[from=1-1, to=3-1]
+    \arrow["t", from=1-1, to=1-3]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+  \end{tikzcd}\]
+
+\section{Sheaves}
+\label{sec:sheaves}
+
+
 
 \bibliographystyle{alpha}
 \bibliography{all}

@@ -157,7 +157,91 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
 \section{Sheaves}
 \label{sec:sheaves}
 
+Recall that a topology is a set consisting of open sets closed under arbitrary unions and finite intersections.
+Thus, set inclusion gives a natural poset structure on a topology.
 
+\begin{defn}
+  A \emph{frame} is a poset equipped with
+  \begin{itemize}
+  \item Arbitrary joins ($\bigvee$)
+  \item Finite meets ($\wedge$)
+  \end{itemize}
+  so that the infinitary distributive law is satisfied:
+  \[
+    a \wedge \left(\bigvee_{i \in I}b_{i}\right) = \bigvee_{i \in I}a \wedge b_{i}
+  \]
+  A \emph{frame homomorphism} is an order-preserving function that also preserves all arbitrary joins and finite meets.
+\end{defn}
+
+Now, recall that a function $f : X \to Y$ is continuous if its inverse image restricts to a function $f^{*} : \cO(Y) \to \cO(X)$.
+That is, if $y \subseteq Y$ is open, then $f\inv(y)$ is open in $X$.
+Observe that $f^{*}$ is a frame homomorphism.
+It appears that a frame contains sufficient structure to recover topological information.
+
+\begin{defn}
+  A \emph{locale} is a frame.
+  A \emph{continuous function} $f : X \to Y$ between locales is a frame homomorphism $f^{*} : \cO(Y) \to \cO(X)$.
+  That is, the category of locales is the dual of that of frames.
+\end{defn}
+
+Given a topological space (or locale) $X$, we wish to attach information to opens so that we have a sensible notion of restrictions.
+This assignment is given by a presheaf $F : \cO(X)\op \to \CSet$.
+Additionally, we want global elements to be uniquely determined by local ones, so we demand
+\begin{itemize}
+\item Locality: For any two sections $s, t \in F(\cU_{1} \cup \cU_{2})$, if $s|_{\cU_{i}} = t|_{\cU_{i}}$ for $i = 1, 2$, then $s = t$.
+\item Gluing: Given $s_{1} \in F(\cU_{1})$ and $s_{2} \in F(\cU_{2})$.
+  If $s_{1}|_{\cU_{1} \cap \cU_{2}} = s_{2}|_{\cU_{1} \cap \cU_{2}}$, then there is $s \in F(\cU_{1} \cup \cU_{2})$ so that $s|_{\cU_{1}} = s_{1}$ and $s|_{\cU_{2}} = s_{2}$.
+\end{itemize}
+These two conditions can be expressed in a pullback diagram.
+% https://q.uiver.app/#q=WzAsNSxbMSwxLCJGKFxcY1VfezF9IFxcY3VwIFxcY1VfezJ9KSJdLFsxLDMsIkYoXFxjVV97MX0pIl0sWzMsMSwiRihcXGNVX3syfSkiXSxbMywzLCJGKFxcY1VfezF9IFxcY2FwIFxcY1VfezJ9KSJdLFswLDAsIlxcYnVsbGV0Il0sWzAsMV0sWzEsM10sWzIsM10sWzAsMl0sWzQsMSwiIiwwLHsiY3VydmUiOjJ9XSxbNCwyLCIiLDAseyJjdXJ2ZSI6LTJ9XSxbNCwwLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwzLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+\[\begin{tikzcd}
+    \bullet \\
+    & {F(\cU_{1} \cup \cU_{2})} && {F(\cU_{2})} \\
+    \\
+    & {F(\cU_{1})} && {F(\cU_{1} \cap \cU_{2})}
+    \arrow[from=2-2, to=4-2]
+    \arrow[from=4-2, to=4-4]
+    \arrow[from=2-4, to=4-4]
+    \arrow[from=2-2, to=2-4]
+    \arrow[curve={height=12pt}, from=1-1, to=4-2]
+    \arrow[curve={height=-12pt}, from=1-1, to=2-4]
+    \arrow[dashed, from=1-1, to=2-2]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=4-4]
+  \end{tikzcd}\]
+
+\todo{Talk about limits and colimits in $\cO(X)$.}
+\begin{defn}\label{def:sheaf}
+  A \emph{sheaf} (of sets) over a topological space (or locale) $X$ is a functor
+  \[
+    F : \cO(X)\op \to \CSet
+  \]
+  preserving the pushouts of opens.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNVX3sxfSBcXGNhcCBcXGNVX3syfSJdLFswLDIsIlxcY1VfezF9Il0sWzIsMCwiXFxjVV97Mn0iXSxbMiwyLCJcXGNVX3sxfSBcXGN1cCBcXGNVX3syfSJdLFswLDFdLFswLDJdLFsyLDNdLFsxLDNdLFszLDAsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  \[\begin{tikzcd}
+      {\cU_{1} \cap \cU_{2}} && {\cU_{2}} \\
+      \\
+      {\cU_{1}} && {\cU_{1} \cup \cU_{2}}
+      \arrow[from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow[from=1-3, to=3-3]
+      \arrow[from=3-1, to=3-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+    \end{tikzcd}\]
+  Concisely, a sheaf is a presheaf that preserves finite limits in $\cO(X)\op$.
+\end{defn}
+
+\todo{Talk about orthogonality}
+An immediate consequence of \cref{def:sheaf} is that the category of sheaves $\Sh(X)$ is sketchable by a limit sketch.
+Thus, the inclusion functor $\Sh(X) \into \Psh(\cO(X))$ admits a lex left adjoint.
+% https://q.uiver.app/#q=WzAsMixbMiwwLCJcXFBzaChcXGNPKFgpKSJdLFswLDAsIlxcU2goWCkiXSxbMSwwLCIiLDEseyJvZmZzZXQiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMSwiXFx0ZXh0e3NoZWFmaWZ5fSIsMix7Im9mZnNldCI6Mn1dLFszLDIsIiIsMSx7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
+\[\begin{tikzcd}
+    {\Sh(X)} && {\Psh(\cO(X))}
+    \arrow[""{name=0, anchor=center, inner sep=0}, shift right=2, hook, from=1-1, to=1-3]
+    \arrow[""{name=1, anchor=center, inner sep=0}, "{\text{sheafify}}"', shift right=2, from=1-3, to=1-1]
+    \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=0]
+  \end{tikzcd}\]
+
+Now, given a continuous function $f : X \to Y$, 
 
 \bibliographystyle{alpha}
 \bibliography{all}

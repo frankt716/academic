@@ -315,7 +315,7 @@ The infinitary distributive law implies that the reflector is lex.
 
 \begin{rmk}
   We can equivalently phrase \cref{def:topos} in a nonelementary way.
-  Conditions \ref{def:topos-pullbacks} and \ref{def:topos-terminal} demand that $\cE$ is finitely complete, while condition \ref{def:topos-exponential} demands that $\cE$ has power objects, and thus all exponentials.
+  Conditions \ref{def:topos-pullbacks} and \ref{def:topos-terminal} demand that $\cE$ is finitely complete, while condition \ref{def:topos-exponential} demands that $\cE$ has power objects, and thus all exponentials (c.f., \cref{thm:topos-has-exponentials}).
   In other words, a topos is a category with finite limits, exponentials, and a subobject classifier.
 \end{rmk}
 
@@ -373,12 +373,41 @@ The infinitary distributive law implies that the reflector is lex.
   We say that $s$ is an \emph{extension} of the predicate $\varphi$ and the element $[\varphi]$ \emph{names} the predicate $\varphi$.
 \end{defn}
 
-\begin{eg}
+\begin{eg}\label{eg:singleton-predicate}
   The diagonal map $\Delta_{a} : a \to a \times a$ is always a monomorphism.
   Thus, in a topos, $\Delta_{a}$ is classified by the equality predicate $\delta_{a} : a \times a \to \Omega$, which is named by the global element $[\delta_{a}] : a \to Pa$.
   As it turns out, the name $[\delta_{a}]$ is a monomorphism itself.
   Thus, it is classified by a predicate $\sigma_{a} : Pa \to \Omega$, called the \emph{singleton} predicate.
 \end{eg}
+
+\begin{thm}\label{thm:topos-has-exponentials}
+  Every topos has exponentials.
+\end{thm}
+\begin{proof}
+  Let consider how exponentials are constructed in $\CSet$.
+  The exponential $B^{A}$ is the homset $\CSet(A, B)$.
+  Each function $f : A \to B$ may be presented as a graph $G_{f} \subseteq B \times A$.
+  Thus, $B^{A}$ ought to be a subset of the powerset $P(B \times A)$.
+  Given a subset $G \subseteq B \times A$ and $a \in A$, we define a subset of $B$ as follows.
+  \[
+    u(G, a) = \Set{b \mid (b, a) \in G}
+  \]
+  This corresponds to the name $[\in_{B \times A}] : P(B \times A) \times A \to PB$.
+  $G$ is a graph whenever $u(G,a)$ is a singleton set for all $a \in A$.
+  The predicate ``$u(G,a)$ is a singleton set'' is the morphism $\sigma_{B}[\in_{B \times A}] : P(B \times A) \times A \to \Omega$, whose name is $[\sigma_{B}[\in_{B \times A}]] : P(B \times A) \to PA$ (c.f., \cref{eg:singleton-predicate}).
+  Now, we can construct $B^{A}$ as the following pullback.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJQKEIgXFx0aW1lcyBBKSJdLFswLDAsIkJee0F9Il0sWzIsMiwiUEEiXSxbMiwwLCIxIl0sWzEsMCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFswLDIsIltcXHNpZ21hX3tCfVtcXGluX3tCIFxcdGltZXMgQX1dXSIsMl0sWzMsMiwiW3Rfe0F9XSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMSwzXSxbMSwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+      {B^{A}} && 1 \\
+      \\
+      {P(B \times A)} && PA
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow["{[\sigma_{B}[\in_{B \times A}]]}"', from=3-1, to=3-3]
+      \arrow["{[t_{A}]}", tail, from=1-3, to=3-3]
+      \arrow[from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+\end{proof}
 
 \begin{thm}
   In a topos, every monomorphism is an equalizer and every mono and epi morphism is an isomorphism.

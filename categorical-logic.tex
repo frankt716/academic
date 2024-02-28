@@ -293,74 +293,65 @@ The infinitary distributive law implies that the reflector is lex.
 \section{Elementary topoi}
 \label{sec:elementary-topoi}
 
-\begin{defn}
-  An (elementary) \emph{topos} is a cartesian closed category with finite limits and a subobject classifier.
+\begin{defn}[Elementary form]\label{def:topos}
+  An (elementary) \emph{topos} $\cE$ is a category with
+  \begin{enumerate}
+  \item\label{def:topos-pullbacks} Pullbacks;
+  \item\label{def:topos-terminal} A terminal object $1$;
+  \item A subobject classifier $\Omega$;
+  \item\label{def:topos-exponential} To each object $a$ an object $Pa$ and a morphism $\in_{a} : Pa \times a \to \Omega$ so that for any $f : b \times a \to \Omega$, there is a unique morphism $g : b \to Pa$ so that $g \times \id$ factors $f$ through $\in_{a}$.
+    % https://q.uiver.app/#q=WzAsNSxbMiwxLCJhIFxcdGltZXMgUGEiXSxbMSwyLCJcXE9tZWdhIl0sWzAsMSwiYiBcXHRpbWVzIGEiXSxbMCwwLCJiIl0sWzIsMCwiUGEiXSxbMCwxLCJcXGluX3thfSJdLFsyLDEsImYiLDJdLFsyLDAsImcgXFx0aW1lcyBcXGlkIl0sWzMsNCwiZyIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+    \[\begin{tikzcd}
+	b && Pa \\
+	{b \times a} && {Pa \times a} \\
+	& \Omega
+	\arrow["{\in_{a}}", from=2-3, to=3-2]
+	\arrow["f"', from=2-1, to=3-2]
+	\arrow["{g \times \id}", from=2-1, to=2-3]
+	\arrow["g", dashed, from=1-1, to=1-3]
+      \end{tikzcd}\]
+  \end{enumerate}
 \end{defn}
 
-Let $\cE$ be a topos.
-We write $PA$ for the exponential $\Omega^{A}$.
-Let $\in_{A}$ be the subobject classified by the evaluation map $\ev_{A}$.
-If $\cE = \CSet$, this is just the membership relation.
-% https://q.uiver.app/#q=WzAsNCxbMCwyLCJQQSBcXHRpbWUgQSJdLFsyLDIsIlxcT21lZ2EiXSxbMiwwLCIxIl0sWzAsMCwiXFxpbl97QX0iXSxbMiwxLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsMSwiXFxldl97QX0iLDJdLFszLDAsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMywyXV0=
-\[\begin{tikzcd}
-    {\in_{A}} && 1 \\
-    \\
-    {PA \times A} && \Omega
-    \arrow[tail, from=1-3, to=3-3]
-    \arrow["{\ev_{A}}"', from=3-1, to=3-3]
-    \arrow[tail, from=1-1, to=3-1]
-    \arrow[from=1-1, to=1-3]
-  \end{tikzcd}\]
-Now, any subobject $R \mono B \times A$, which we think of as a relation from $B$ to $A$, is classified by a unique morphism $r'$.
-% https://q.uiver.app/#q=WzAsNCxbMCwwLCJSIl0sWzAsMiwiQiBcXHRpbWVzIEEiXSxbMiwyLCJcXE9tZWdhIl0sWzIsMCwiMSJdLFszLDIsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMSwyLCJyJyIsMl0sWzAsMSwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFswLDNdXQ==
-\[\begin{tikzcd}
-    R && 1 \\
-    \\
-    {B \times A} && \Omega
-    \arrow[tail, from=1-3, to=3-3]
-    \arrow["{r'}"', from=3-1, to=3-3]
-    \arrow[tail, from=1-1, to=3-1]
-    \arrow[from=1-1, to=1-3]
-  \end{tikzcd}\]
-Since $\cE(B \times A, \Omega) \iso \cE(B, PA)$, $r$ corresponds to a (unique) morphism $r : B \to PA$ so that $\ev_{A} \circ (r \times \id) = r'$.
-By the pasting lemma, the left square of the following diagram is a pullback.
-% https://q.uiver.app/#q=WzAsNixbMiwwLCJcXGluX3tBfSJdLFsyLDIsIlBBIFxcdGltZXMgQSJdLFs0LDIsIlxcT21lZ2EiXSxbNCwwLCIxIl0sWzAsMiwiQiBcXHRpbWVzIEEiXSxbMCwwLCJSIl0sWzMsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsxLDIsIlxcZXZfe0F9IiwyXSxbMCwxLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsM10sWzQsMSwiciBcXHRpbWVzIFxcaWQiLDJdLFs1LDQsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbNSwwXV0=
-\[\begin{tikzcd}
-    R && {\in_{A}} && 1 \\
-    \\
-    {B \times A} && {PA \times A} && \Omega
-    \arrow[tail, from=1-5, to=3-5]
-    \arrow["{\ev_{A}}"', from=3-3, to=3-5]
-    \arrow[tail, from=1-3, to=3-3]
-    \arrow[from=1-3, to=1-5]
-    \arrow["{r \times \id}"', from=3-1, to=3-3]
-    \arrow[tail, from=1-1, to=3-1]
-    \arrow[from=1-1, to=1-3]
-  \end{tikzcd}\]
+\begin{rmk}
+  We can equivalently phrase \cref{def:topos} in nonelementary form.
+  Conditions \ref{def:topos-pullbacks} and \ref{def:topos-terminal} demand that $\cE$ is finitely complete, while condition \ref{def:topos-exponential} demands that $\cE$ has power objects, and thus all exponentials.
+\end{rmk}
 
-\begin{defn}
-  Let $\cE$ be a cartesian category.
-  A \emph{power object} of an object $A$ is an object $PA$ equipped with a subobject $\in_{A} \mono PA \times A$ so that for any subobject $R \mono B \times A$, there is a unique morphism $r : B \to PA$ so that the following square is a pullback.
-  % https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXGluX3tBfSJdLFsyLDIsIlBBIFxcdGltZXMgQSJdLFswLDIsIkIgXFx0aW1lcyBBIl0sWzAsMCwiUiJdLFswLDEsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwxLCJyIFxcdGltZXMgXFxpZCIsMl0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFszLDBdXQ==
+\begin{rmk}
+  The assignment $P : \ob\cE \to \ob\cE$ can be uniquely extended to a functor.
+  Extending $P$ to a functor means that for any $c$, the following isomorphism has to be natural in $a$.
+  \[
+    \cE(c, Pa) \iso \cE(c \times a, \Omega)
+  \]
+  That is, for any $h : a \to b$, the following diagram must commute.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNFKFBiLFBhKSJdLFsyLDAsIlxcY0UoUGIgXFx0aW1lcyBhLCBcXE9tZWdhKSJdLFsyLDIsIlxcY0UoUGIgXFx0aW1lcyBiLCBcXE9tZWdhKSJdLFswLDIsIlxcY0UoUGIsIFBiKSJdLFswLDEsIlxcaXNvIiwzLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMiwiXFxpc28iLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMiwxLCJcXGJsYW5rIFxcY2lyYyAoXFxpZCBcXHRpbWVzIGgpIiwyXSxbMywwLCJQaCBcXGNpcmMgXFxibGFuayJdXQ==
   \[\begin{tikzcd}
-      R && {\in_{A}} \\
+      {\cE(Pb,Pa)} && {\cE(Pb \times a, \Omega)} \\
       \\
-      {B \times A} && {PA \times A}
-      \arrow[tail, from=1-3, to=3-3]
-      \arrow["{r \times \id}"', from=3-1, to=3-3]
-      \arrow[tail, from=1-1, to=3-1]
-      \arrow[from=1-1, to=1-3]
+      {\cE(Pb, Pb)} && {\cE(Pb \times b, \Omega)}
+      \arrow["\iso"{marking, allow upside down}, draw=none, from=1-1, to=1-3]
+      \arrow["\iso"{marking, allow upside down}, draw=none, from=3-1, to=3-3]
+      \arrow["{\blank \circ (\id \times h)}"', from=3-3, to=1-3]
+      \arrow["{Ph \circ \blank}", from=3-1, to=1-1]
     \end{tikzcd}\]
-  The morphism $r : B \to PA$ is called the \emph{name} of the relation $R$.
-\end{defn}
-In fact, every cartesian category equipped with power objects is a topos.
+  The transpose of $\id_{Pb}$ is $\in_{b}$.
+  Thus, $Ph$ must be the transpose of $\in_{b}(\id \times h)$.
+  Namely, it is the unique morphism given by the universal property of power objects.
+  % https://q.uiver.app/#q=WzAsMyxbMCwyLCJQYSBcXHRpbWVzIGEiXSxbMiwyLCJcXE9tZWdhIl0sWzAsMCwiUGIgXFx0aW1lcyBhIl0sWzAsMSwiXFxpbl97YX0iLDJdLFsyLDEsIlxcaW5fe2J9KFxcaWQgXFx0aW1lcyBoKSJdLFsyLDAsIlBoIFxcdGltZXMgXFxpZCIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+  \[\begin{tikzcd}
+      {Pb \times a} \\
+      \\
+      {Pa \times a} && \Omega
+      \arrow["{\in_{a}}"', from=3-1, to=3-3]
+      \arrow["{\in_{b}(\id \times h)}", from=1-1, to=3-3]
+      \arrow["{Ph \times \id}"', dashed, from=1-1, to=3-1]
+    \end{tikzcd}\]
+\end{rmk}
 
-\begin{defn}
-  Let $\cE$ and $\cF$ be topoi.
-  A functor $F : \cE \to \cF$ is said to be \emph{logical} if it preserves exponentials and subobject classifier.
-  Equivalently, $F$ is logical if it preserves finite limits and power objects.
-  That is, the name $\phi_{A} : FPA \to PFA$ of the relation $F(\in_{A})$ is an isomorphism for all $A \in \cE$.
-\end{defn}
+\begin{eg}
+  When $\cE = \CSet$, the functor $P : \CSet\op \to \CSet$ is just the usual (contravariant) powerset functor.
+\end{eg}
 
 \bibliographystyle{alpha}
 \bibliography{all}

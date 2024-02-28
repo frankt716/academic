@@ -314,6 +314,12 @@ The infinitary distributive law implies that the reflector is lex.
 \end{defn}
 
 \begin{rmk}
+  A topos, such as $\CSet$, is a ``good'' universe for mathematics.
+  In $\CSet$, we make the foundational commitment that $\CSet(A, B)$ is a set and that the ``powerset'' $P(A)$ is a set.
+  As it turns out, assuming either one is sufficient to construct the other.
+\end{rmk}
+
+\begin{rmk}
   We can equivalently phrase \cref{def:topos} in a nonelementary way.
   Conditions \ref{def:topos-pullbacks} and \ref{def:topos-terminal} demand that $\cE$ is finitely complete, while condition \ref{def:topos-exponential} demands that $\cE$ has power objects, and thus all exponentials (c.f., \cref{thm:topos-has-exponentials}).
   In other words, a topos is a category with finite limits, exponentials, and a subobject classifier.
@@ -350,6 +356,12 @@ The infinitary distributive law implies that the reflector is lex.
     \end{tikzcd}\]
 \end{rmk}
 
+\begin{rmk}
+  Indeed, the power object functor $P : \cE\op \to \cE$ is monadic.
+  As monadic functors create limits and $\cE$ has finite limits by definition, $\cE\op$ has finite limits.
+  Thus, $\cE$ is finitely cocomplete.
+\end{rmk}
+
 \begin{eg}
   When $\cE = \CSet$, the functor $P : \CSet\op \to \CSet$ is just the usual (contravariant) powerset functor.
 \end{eg}
@@ -372,6 +384,11 @@ The infinitary distributive law implies that the reflector is lex.
   Let $r : s \mono a \times b$ be a subobject with the corresponding characteristic morphism $\varphi : a \times b \to \Omega$ and global element $[\varphi] : b \to Pa$.
   We say that $s$ is an \emph{extension} of the predicate $\varphi$ and the element $[\varphi]$ \emph{names} the predicate $\varphi$.
 \end{defn}
+
+\begin{eg}
+  In $\CSet$, a relation $R \subseteq X \times Y$ can be equally viewed as a truth functional (predicate) $\varphi : X \times Y \to 2$.
+  The name of this predicate is a function $[\varphi] : Y \to PX$ that maps each $y \in Y$ to a subset of $X$ for which $R(x, y)$ holds for all $x$ in that subset.
+\end{eg}
 
 \begin{eg}\label{eg:singleton-predicate}
   The diagonal map $\Delta_{a} : a \to a \times a$ is always a monomorphism.
@@ -407,6 +424,8 @@ The infinitary distributive law implies that the reflector is lex.
       \arrow[from=1-1, to=1-3]
       \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
     \end{tikzcd}\]
+  Note that this construction can be done in any topos.
+  \todo{Verify that $B^{A}$ is an exponential.}
 \end{proof}
 
 \begin{thm}
@@ -414,13 +433,18 @@ The infinitary distributive law implies that the reflector is lex.
 \end{thm}
 \begin{proof}
   Let $t_{b} := t \circ !_{b}$.
-  The existence of a subobject classifier immediately implies that $m$ is a equalizer of $t_{b}$ and $\chi_{m}$.
+  The existence of a subobject classifier immediately implies that $m$ is an equalizer of $t_{b}$ and $\chi_{m}$.
   The second half of the theorem follows immediately.
 \end{proof}
 
 \begin{cor}
   Every topos is balanced.
 \end{cor}
+
+\begin{defn}
+  Let $\cE$ and $\cF$ be topoi.
+  A \emph{logical functor} $F : \cE \to \cF$ is a functor that preserves finite limits, the subobject classifier, and exponentials.
+\end{defn}
 
 \bibliographystyle{alpha}
 \bibliography{all}

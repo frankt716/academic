@@ -290,88 +290,56 @@ This implies that the inclusion functor has small arity and therefore admits a l
 \section{Sheaves}
 \label{sec:sheaves}
 
-Recall that a topology is a set of open sets closed under arbitrary unions and finite intersections.
-Thus, set inclusion gives a natural poset structure on a topology.
-
 \begin{defn}
-  A \emph{frame} is a poset equipped with
-  \begin{itemize}
-  \item Arbitrary joins ($\bigvee$)
-  \item Finite meets ($\wedge$)
-  \end{itemize}
-  so that the infinitary distributive law is satisfied:
-  \[
-    a \wedge \left(\bigvee_{i \in I}b_{i}\right) = \bigvee_{i \in I}a \wedge b_{i}
-  \]
-  A \emph{frame homomorphism} is an order-preserving function that also preserves all arbitrary joins and finite meets.
-\end{defn}
-
-Now, recall that a function $f : X \to Y$ is continuous if its inverse image restricts to a function $f^{*} : \cO(Y) \to \cO(X)$.
-That is, if $y \subseteq Y$ is open, then $f\inv(y)$ is open in $X$.
-Observe that $f^{*}$ is a frame homomorphism.
-It appears that a frame contains sufficient structure to recover some topological information.
-
-\begin{defn}
-  A \emph{locale} is a frame.
-  A \emph{continuous function} $f : X \to Y$ between locales is a frame homomorphism $f^{*} : \cO(Y) \to \cO(X)$.
-  That is, the category of locales is the dual of that of frames.
-\end{defn}
-
-Given a topological space (or locale) $X$, we wish to construct geometric objects based on the open sets so that they respect the inclusion relation.
-This construction can be encoded as a functor $F : \cO(X)\op \to \CSet$.
-Additionally, we want objects to be uniquely determined by its constituents.
-Thus, we impose the following conditions.
-\begin{itemize}
-\item Locality: For any two sections $s, t \in F(\cU_{1} \cup \cU_{2})$, if $s|_{\cU_{i}} = t|_{\cU_{i}}$ for $i = 1, 2$, then $s = t$.
-\item Gluing: Given $s_{1} \in F(\cU_{1})$ and $s_{2} \in F(\cU_{2})$.
-  If $s_{1}|_{\cU_{1} \cap \cU_{2}} = s_{2}|_{\cU_{1} \cap \cU_{2}}$, then there is $s \in F(\cU_{1} \cup \cU_{2})$ so that $s|_{\cU_{1}} = s_{1}$ and $s|_{\cU_{2}} = s_{2}$.
-\end{itemize}
-These two conditions can be expressed in a pullback diagram.
-% https://q.uiver.app/#q=WzAsNSxbMSwxLCJGKFxcY1VfezF9IFxcY3VwIFxcY1VfezJ9KSJdLFsxLDMsIkYoXFxjVV97MX0pIl0sWzMsMSwiRihcXGNVX3syfSkiXSxbMywzLCJGKFxcY1VfezF9IFxcY2FwIFxcY1VfezJ9KSJdLFswLDAsIlxcYnVsbGV0Il0sWzAsMV0sWzEsM10sWzIsM10sWzAsMl0sWzQsMSwiIiwwLHsiY3VydmUiOjJ9XSxbNCwyLCIiLDAseyJjdXJ2ZSI6LTJ9XSxbNCwwLCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwzLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
-\[\begin{tikzcd}
-    \bullet \\
-    & {F(\cU_{1} \cup \cU_{2})} && {F(\cU_{2})} \\
-    \\
-    & {F(\cU_{1})} && {F(\cU_{1} \cap \cU_{2})}
-    \arrow[from=2-2, to=4-2]
-    \arrow[from=4-2, to=4-4]
-    \arrow[from=2-4, to=4-4]
-    \arrow[from=2-2, to=2-4]
-    \arrow[curve={height=12pt}, from=1-1, to=4-2]
-    \arrow[curve={height=-12pt}, from=1-1, to=2-4]
-    \arrow[dashed, from=1-1, to=2-2]
-    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=4-4]
-  \end{tikzcd}\]
-
-\begin{defn}\label{def:sheaf}
-  A \emph{sheaf} (of sets) over a topological space (or locale) $X$ is a functor
-  \[
-    F : \cO(X)\op \to \CSet
-  \]
-  preserving the pushouts of opens.
-  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGNVX3sxfSBcXGNhcCBcXGNVX3syfSJdLFswLDIsIlxcY1VfezF9Il0sWzIsMCwiXFxjVV97Mn0iXSxbMiwyLCJcXGNVX3sxfSBcXGN1cCBcXGNVX3syfSJdLFswLDFdLFswLDJdLFsyLDNdLFsxLDNdLFszLDAsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  Let $X$ be a topological space.
+  A \emph{sheaf} (of sets) is a presheaf $F : \cO(X)\op \to \CSet$ satisfying the \emph{sheaf condition}: For any open cover $U = \bigcup_{i}U_{i}$, the following diagram is an equalizer.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJGKFUpIl0sWzIsMCwiXFxwcm9kX3tpfUYoVV97aX0pIl0sWzQsMCwiXFxwcm9kX3tpLGp9RihVX3tpfSBcXGNhcCBVX3tqfSkiXSxbMCwxXSxbMSwyLCJwIiwwLHsib2Zmc2V0IjotMX1dLFsxLDIsInEiLDIseyJvZmZzZXQiOjF9XV0=
   \[\begin{tikzcd}
-      {\cU_{1} \cap \cU_{2}} && {\cU_{2}} \\
-      \\
-      {\cU_{1}} && {\cU_{1} \cup \cU_{2}}
-      \arrow[from=1-1, to=3-1]
+      {F(U)} && {\prod_{i}F(U_{i})} && {\prod_{i,j}F(U_{i} \cap U_{j})}
       \arrow[from=1-1, to=1-3]
-      \arrow[from=1-3, to=3-3]
+      \arrow["p", shift left, from=1-3, to=1-5]
+      \arrow["q"', shift right, from=1-3, to=1-5]
+    \end{tikzcd}\]
+  The morphisms $p$ and $q$ are the canonical ones specified by morphisms of the form $F(U_{i} \cap U_{j} \subseteq U_{k})$ composed with an appropriate projection.
+  % https://q.uiver.app/#q=WzAsNyxbMCwyLCJGKFUpIl0sWzIsMiwiXFxwcm9kX3tpfUYoVV97aX0pIl0sWzQsMiwiXFxwcm9kX3tpLGp9RihVX3tpfSBcXGNhcCBVX3tqfSkiXSxbMiwwLCJGKFVfe2l9KSJdLFsyLDQsIkYoVV97an0pIl0sWzQsMCwiRihVX3tpfSBcXGNhcCBVX3tqfSkiXSxbNCw0LCJGKFVfe2l9IFxcY2FwIFVfe2p9KSJdLFswLDFdLFsxLDIsInAiLDAseyJvZmZzZXQiOi0xfV0sWzEsMiwicSIsMix7Im9mZnNldCI6MX1dLFsxLDMsIlxccGlfe2l9Il0sWzAsMywiRihVX3tpfSBcXHN1YnNldGVxIFUpIl0sWzEsNCwiXFxwaV97an0iLDJdLFswLDQsIkYoVV97an0gXFxzdWJzZXRlcSBVKSIsMl0sWzIsNSwiXFxwaV97aSxqfSIsMl0sWzIsNiwiXFxwaV97aSxqfSJdLFszLDUsIkYoVV97aX0gXFxjYXAgVV97an0gXFxzdWJzZXRlcSBVX3tpfSkiXSxbNCw2LCJGKFVfe2l9IFxcY2FwIFVfe2p9IFxcc3Vic2V0ZXEgVV97an0pIiwyXV0=
+  \[\begin{tikzcd}
+      && {F(U_{i})} && {F(U_{i} \cap U_{j})} \\
+      \\
+      {F(U)} && {\prod_{i}F(U_{i})} && {\prod_{i,j}F(U_{i} \cap U_{j})} \\
+      \\
+      && {F(U_{j})} && {F(U_{i} \cap U_{j})}
       \arrow[from=3-1, to=3-3]
-      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+      \arrow["p", shift left, from=3-3, to=3-5]
+      \arrow["q"', shift right, from=3-3, to=3-5]
+      \arrow["{\pi_{i}}", from=3-3, to=1-3]
+      \arrow["{F(U_{i} \subseteq U)}", from=3-1, to=1-3]
+      \arrow["{\pi_{j}}"', from=3-3, to=5-3]
+      \arrow["{F(U_{j} \subseteq U)}"', from=3-1, to=5-3]
+      \arrow["{\pi_{i,j}}"', from=3-5, to=1-5]
+      \arrow["{\pi_{i,j}}", from=3-5, to=5-5]
+      \arrow["{F(U_{i} \cap U_{j} \subseteq U_{i})}", from=1-3, to=1-5]
+      \arrow["{F(U_{i} \cap U_{j} \subseteq U_{j})}"', from=5-3, to=5-5]
     \end{tikzcd}\]
 \end{defn}
 
-An immediate consequence of \cref{def:sheaf} is that the category of sheaves $\Sh(X)$ is sketchable by a limit sketch.
-Thus, the inclusion functor $\Sh(X) \into \Psh(\cO(X))$ admits a left adjoint.
-% https://q.uiver.app/#q=WzAsMixbMiwwLCJcXFBzaChcXGNPKFgpKSJdLFswLDAsIlxcU2goWCkiXSxbMSwwLCIiLDEseyJvZmZzZXQiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzAsMSwiXFx0ZXh0e3NoZWFmaWZ5fSIsMix7Im9mZnNldCI6Mn1dLFszLDIsIiIsMSx7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
-\[\begin{tikzcd}
-    {\Sh(X)} && {\Psh(\cO(X))}
-    \arrow[""{name=0, anchor=center, inner sep=0}, shift right=2, hook, from=1-1, to=1-3]
-    \arrow[""{name=1, anchor=center, inner sep=0}, "{\text{sheafify}}"', shift right=2, from=1-3, to=1-1]
-    \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=0]
-  \end{tikzcd}\]
-The infinitary distributive law implies that the reflector is lex.
+\begin{defn}
+  Let $X$ be a topological space.
+  We define the category of sheaves $\Sh(X)$ as the full subcategory of $\Psh(\cO(X))$ spanned by sheaves.
+\end{defn}
+
+\begin{thm}
+  For any topological space $X$, there is an isomorphism
+  \[
+    \Theta : \cO(X) \otto \Sub_{\Sh(X)}(1) : \Psi
+  \]
+\end{thm}
+\begin{proof}
+  We construct the two order-preserving functions as follows:
+  \begin{itemize}
+  \item[($\Theta$)] For each open set $O$, $\Theta(O)$ is the represented subsheaf $\Hom(\blank, O)$ of the terminal sheaf $1$.
+  \item[($\Psi$)] For each subsheaf $F$ of the terminal sheaf, $\Psi(F)$ is the open set $\bigcup\Set{O \in \cO(X) \mid F(O) = 1}$, i.e., it is the union of all open sets $O$ so that $F(O)$ is the singleton set.
+  \end{itemize}
+\end{proof}
 
 \section{Elementary topoi}
 \label{sec:elementary-topoi}

@@ -11,7 +11,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The categorification of algebraic theories enabled us to investigate these theories in a presentation-invariant way.
+Category theory has enabled us to investigate algebraic theories in a presentation-invariant way.
 Algebraic theories are precisely categories with finite products.
 We think of the objects of such a category as sorts and morphisms as terms.
 Equations are internalized as the diagonal subobjects.
@@ -35,6 +35,89 @@ For any (small) algebraic theory $\cT$, the hom-category $\CAlg(\cT,\CSet)$, i.e
 We can generalize this viewpoint: theories (of some kind) are categories with sufficient structures.
 A model of a theory in another theory (of the same kind) is a functor preserving those structures.
 The goal of this writeup is to develop this idea in more detail.
+
+\section{Yoneda and cantor}
+\label{sec:yoneda-and-cantor}
+
+\begin{cons}[Archetypal Grothendieck construction]\label{cons:archetypal-grothendieck-construction}
+  Let $X$ be a set.
+  There is a bijection between the powerset $P(X)$ and the set of all truth functionals over $X$.
+  \[
+    \Theta : P(X) \otto 2^{X} : \Psi
+  \]
+  \begin{itemize}
+  \item[$\Theta$:] For each subset $S \subseteq X$, $\Theta(S)$ is the characteristic function of $X$, mapping elements in $S$ to $1$ and everything else to $0$.
+  \item[$\Psi$:] For each truth functional $\phi : X \to 2$, $\Psi(\phi)$ is the inverse image $\phi\inv(1)$.
+  \end{itemize}
+\end{cons}
+
+\begin{rmk}
+  The map $\Psi$ in \cref{cons:archetypal-grothendieck-construction} can be described as a pullback.
+  % https://q.uiver.app/#q=WzAsNCxbMiwwLCIxIl0sWzIsMiwiMiJdLFswLDIsIlgiXSxbMCwwLCJcXHZhcnBoaVxcaW52KDEpIl0sWzAsMSwidCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwxLCJcXHZhcnBoaSIsMl0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFszLDBdLFszLDEsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  \[\begin{tikzcd}
+      {\varphi\inv(1)} && 1 \\
+      \\
+      X && 2
+      \arrow["t", tail, from=1-3, to=3-3]
+      \arrow["\varphi"', from=3-1, to=3-3]
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+  Indeed, $\varphi\inv(1)$ is the largest (w.r.t. inclusion) subset of $X$ so that $\varphi$ evaluates to $1$ everywhere.
+\end{rmk}
+
+\begin{rmk}
+  In $\CSet$, we make the foundational commitment that $\CSet(A, B)$ is a set and that the powerset $P(A)$ is in fact a set.
+  As it turns out, assuming either one is sufficient to construct the other.
+\end{rmk}
+
+\begin{rmk}
+  The set $P(X)$ has a canonical poset structure given by the set inclusion relation.
+  In fact, $P(X)$ equipped with set inclusion is a complete Boolean algebra.
+  Thus, the powerset functor $P : \CSet\op \to \CSet$ may be equally regarded as a functor $P : \CSet\op \to \CPos$, sending each set to its powerset ordered by inclusion.
+\end{rmk}
+
+\begin{rmk}
+  The two point set has a unique nontrivial poset structure $\Set{0 \leq 1}$.
+  We can define a poset structure on truth functionals by transporting the poset structure defined on the powersets along the Grothendieck construction.
+  \[
+    \chi_{X} \leq \chi_{Y} \text{ iff } X \subseteq Y
+  \]
+  This is the usual pointwise poset structure.
+\end{rmk}
+
+We can classify subsets of a given set $X$.
+We can classify $X$-indexed families (i.e., functions $f : Y \to X$), too.
+These families assemble into the slice construction $\CSet/X$.
+
+\begin{cons}[Discrete Grothendieck construction]
+  Let $X$ be a set construed as a discrete category.
+  There is an equivalence of categories.
+  \[
+    \Theta : \CSet/X \otto \CSet^{X} : \Psi
+  \]
+  \begin{itemize}
+  \item[$\Theta$:] For each function $f : Y \to X$, $\Theta(f)$ is the functor that sends each $x \in X$ to the inverse image $f\inv(x)$.
+  \item[$\Psi$:] For each functor $\varphi : X \to \CSet$, $\Psi(\varphi)$ is the canonical map $\coprod_{x \in X}\varphi(x) \to X$
+  \end{itemize}
+\end{cons}
+
+\begin{rmk}
+  Indeed, $\Psi$ can be phrased in terms of pullback.
+  % https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXENTZXRfeyp9Il0sWzIsMiwiXFxDU2V0Il0sWzAsMiwiWCJdLFswLDAsIlxcY29wcm9kX3t4IFxcaW4gWH1cXHZhcnBoaSh4KSJdLFswLDFdLFsyLDEsIlxcdmFycGhpIiwyXSxbMywyXSxbMywwXSxbMywxLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+      {\coprod_{x \in X}\varphi(x)} && {\CSet_{*}} \\
+      \\
+      X && \CSet
+      \arrow[from=1-3, to=3-3]
+      \arrow["\varphi"', from=3-1, to=3-3]
+      \arrow[from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+  $\coprod_{x \in X}\varphi(x) \to X$ is the ``largest'' family so that $\varphi$ produces a witness everywhere.
+\end{rmk}
 
 \section{Hyperdoctrine}
 \label{sec:hyperdoctrine}
@@ -314,12 +397,6 @@ The infinitary distributive law implies that the reflector is lex.
 \end{defn}
 
 \begin{rmk}
-  A topos, such as $\CSet$, is a ``good'' universe for mathematics.
-  In $\CSet$, we make the foundational commitment that $\CSet(A, B)$ is a set and that the ``powerset'' $P(A)$ is a set.
-  As it turns out, assuming either one is sufficient to construct the other.
-\end{rmk}
-
-\begin{rmk}
   We can equivalently phrase \cref{def:topos} in a nonelementary way.
   Conditions \ref{def:topos-pullbacks} and \ref{def:topos-terminal} demand that $\cE$ is finitely complete, while condition \ref{def:topos-exponential} demands that $\cE$ has power objects, and thus all exponentials (c.f., \cref{thm:topos-has-exponentials}).
   In other words, a topos is a category with finite limits, exponentials, and a subobject classifier.
@@ -445,6 +522,14 @@ The infinitary distributive law implies that the reflector is lex.
   Let $\cE$ and $\cF$ be topoi.
   A \emph{logical functor} $F : \cE \to \cF$ is a functor that preserves finite limits, the subobject classifier, and exponentials.
 \end{defn}
+
+\begin{thm}
+  For any object $A$ in a topos $\cE$, the power object $PA$ is an internal Heyting algebra.
+  Additionally, for any morphism $k : A \to B$ in $\cE$, the induced map $Pk : PB \to PA$ is a homomorphism of internal Heyting algebras.
+\end{thm}
+\begin{proof}
+  \todo{}
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

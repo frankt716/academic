@@ -240,6 +240,9 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
 \section{Orthogonality}
 \label{sec:orthogonality}
 
+\todo{Talk about its relationship to universal arrows.}
+\todo{Ivan's notes: topics in category theory 2018}
+
 \begin{defn}
   An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for each morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following diagram commutes.
   % https://q.uiver.app/#q=WzAsMyxbMCwwLCJkIl0sWzIsMCwiZCciXSxbMSwxLCJjIl0sWzAsMSwibSJdLFswLDIsImYiLDJdLFsxLDIsImYnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
@@ -252,40 +255,6 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
     \end{tikzcd}\]
   For a class $\cM$ of morphisms in a category $\iC$, we write $\cM^{\bot}$ for the full subcategory of $\iC$ spanned by objects orthogonal to each $m \in \cM$.
 \end{defn}
-
-The sketch condition can be transformed into an orthogonality problem.
-Recall that a model of a given limit sketch $S = (\iC, L)$ is a functor $F : \iC \to \CSet$ preserving limits in $L$.
-Now, given a limit diagram $D : \iE \to \iC$ (equivalently, a colimit in $\iC\op$) in $L$, there is a canonical natural transformation $\delta_{D} : \colim\yon D \To \yon\colim D$.
-% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlFIl0sWzIsMCwiXFxpQ1xcb3AiXSxbNCwwLCJcXFBzaChcXGlDXFxvcCkiXSxbMCwxLCJEIl0sWzEsMiwiXFx5b24iXV0=
-\[\begin{tikzcd}
-    \iE && \iC\op && {\Psh(\iC\op)}
-    \arrow["D", from=1-1, to=1-3]
-    \arrow["\yon", from=1-3, to=1-5]
-  \end{tikzcd}\]
-A functor $F : \iC \to \CSet$ preserves the limit diagram $D$ if and only if it is orthogonal to $\delta_{D}$.
-Thus, $\Mod(S)$ is the orthogonal class $\Set{\delta_{D} \mid D \in L}^{\bot}$.
-In fact, this is a reflective subcategory.
-As this orthogonal class admits a limit sketch, it is locally presentable.
-Thus, the inclusion functor $\cM^{\bot} \into \Psh(\iC\op)$ is naturally isomorphic to the Kan extension of its restriction along $\iota$.
-% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXFByZXMoXFxjTV57XFxib3R9KSJdLFsyLDAsIlxcY01ee1xcYm90fSJdLFs0LDAsIlxcUHNoKFxcaUNcXG9wKSJdLFsyLDIsIlxcY01ee1xcYm90fSJdLFswLDMsIlxcaW90YSIsMl0sWzAsMSwiXFxpb3RhIl0sWzEsMiwiRiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzMsMiwiXFxsYW5fe1xcaW90YX1GXFxpb3RhIiwyXSxbMywxLCJcXGlzbyIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
-\[\begin{tikzcd}
-    {\Pres(\cM^{\bot})} && {\cM^{\bot}} && {\Psh(\iC\op)} \\
-    \\
-    && {\cM^{\bot}}
-    \arrow["\iota"', from=1-1, to=3-3]
-    \arrow["\iota", from=1-1, to=1-3]
-    \arrow[hook, from=1-3, to=1-5]
-    \arrow["{\lan_{\iota}\iota}"', from=3-3, to=1-5]
-    \arrow["\iso"{marking, allow upside down}, draw=none, from=3-3, to=1-3]
-  \end{tikzcd}\]
-This implies that the inclusion functor has small arity and therefore admits a left adjoint.
-
-\begin{thm}
-  If $\cM$ is a pullback stable class of morphisms in $\iC$, then $\cM^{\bot}$ is reflective and the reflector is lex.
-\end{thm}
-\begin{proof}
-  \todo{}
-\end{proof}
 
 \section{Sheaves}
 \label{sec:sheaves}
@@ -540,11 +509,6 @@ This implies that the inclusion functor has small arity and therefore admits a l
 \section{Grothendieck topologies}
 \label{sec:grothendieck-topologies}
 
-\begin{rmk}
-  A sieve is a generalization of right ideal.
-  Roughly, it is a set of morphisms with a common codomain and is closed under precomposition.
-\end{rmk}
-
 \begin{defn}
   A \emph{Grothendieck topology} on a category $\iC$ is a function $J$ assigning to each object $c$ a collection $J(c)$ of covering sieves on $c$ so that
   \begin{enumerate}
@@ -553,6 +517,12 @@ This implies that the inclusion functor has small arity and therefore admits a l
   \item (Local character) If $R$ is a covering sieve on $c$ and $S$ is another sieve on $c$ such that for all $f : d \to c \in R$, the pullback sieve $f^{*}S$ covers $d$, then $S$ covers $c$.
   \end{enumerate}
 \end{defn}
+
+\begin{rmk}
+  Stability means the assignment $J$ extends to a functor $J : \iC\op \to \CSet$, i.e., an object in the presheaf category $\Psh(\iC)$.
+  The subobject classifier $\Omega$ in $\Psh(\iC)$ is the functor $\Sub(\yon\blank)$ sending each $c \in \iC$ to the set of sieves on $c$.
+  Thus, $J$ (a functor sending each $c$ to a set of covering sieves on $c$) is a subobject of $\Omega$.
+\end{rmk}
 
 \section{Lawvere-Tierney topologies}
 \label{sec:lawvere-tierney-topologies}
@@ -571,7 +541,7 @@ This implies that the inclusion functor has small arity and therefore admits a l
       \arrow["j"', from=1-3, to=2-4]
       \arrow["\wedge", from=1-5, to=1-6]
       \arrow["\wedge"', from=2-5, to=2-6]
-      \arrow["j"', from=1-5, to=2-5]
+      \arrow["j \times j"', from=1-5, to=2-5]
       \arrow["j", from=1-6, to=2-6]
     \end{tikzcd}\]
 \end{defn}
@@ -628,8 +598,82 @@ This implies that the inclusion functor has small arity and therefore admits a l
       \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-3, to=3-5]
     \end{tikzcd}\]
 
-  Now suppose that $j$ is a topology, then
+  Now suppose that $j$ is a topology.
+  The closure properties are can be proved by the following abstract nonsense.
+  \begin{mathpar}
+    % https://q.uiver.app/#q=WzAsNixbMSwyLCJCIl0sWzIsMiwiXFxPbWVnYSJdLFszLDIsIlxcT21lZ2EiXSxbMywxLCIxIl0sWzEsMSwiXFxBYmFyIl0sWzAsMCwiQSJdLFswLDEsIlxcY2hpX3tBfSIsMl0sWzEsMiwiaiIsMl0sWzMsMiwidCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbNCwwLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzQsM10sWzUsMywiIiwwLHsiY3VydmUiOi0yfV0sWzUsMCwiIiwwLHsiY3VydmUiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMywxLCJ0IiwyXSxbNSw0LCIiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNCwyLCIiLDAseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+    \begin{tikzcd}
+      A \\
+      & \Abar && 1 \\
+      & B & \Omega & \Omega
+      \arrow["{\chi_{A}}"', from=3-2, to=3-3]
+      \arrow["j"', from=3-3, to=3-4]
+      \arrow["t", tail, from=2-4, to=3-4]
+      \arrow[tail, from=2-2, to=3-2]
+      \arrow[from=2-2, to=2-4]
+      \arrow[curve={height=-12pt}, from=1-1, to=2-4]
+      \arrow[curve={height=12pt}, tail, from=1-1, to=3-2]
+      \arrow["t"', from=2-4, to=3-3]
+      \arrow[dashed, from=1-1, to=2-2]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=3-4]
+    \end{tikzcd}\and
+    % https://q.uiver.app/#q=WzAsNyxbMSwxLCJcXEFiYXIiXSxbMSwyLCJCIl0sWzIsMiwiXFxPbWVnYSJdLFszLDIsIlxcT21lZ2EiXSxbMywxLCIxIl0sWzQsMiwiXFxPbWVnYSJdLFswLDAsIlxcb3ZlcmxpbmV7XFxBYmFyfSJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMSwyLCJcXGNoaV97QX0iLDJdLFsyLDMsImoiLDJdLFs0LDMsInQiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsNF0sWzMsNSwiaiIsMl0sWzIsNSwiaiIsMix7ImN1cnZlIjozfV0sWzYsMSwiIiwyLHsiY3VydmUiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbNCw1LCJ0IiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFs2LDQsIiIsMCx7ImN1cnZlIjotMn1dLFs2LDAsIlxcaXNvIiwzLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+    \begin{tikzcd}
+      {\overline{\Abar}} \\
+      & \Abar && 1 \\
+      & B & \Omega & \Omega & \Omega
+      \arrow[tail, from=2-2, to=3-2]
+      \arrow["{\chi_{A}}"', from=3-2, to=3-3]
+      \arrow["j"', from=3-3, to=3-4]
+      \arrow["t", tail, from=2-4, to=3-4]
+      \arrow[from=2-2, to=2-4]
+      \arrow["j"', from=3-4, to=3-5]
+      \arrow["j"', curve={height=18pt}, from=3-3, to=3-5]
+      \arrow[curve={height=12pt}, tail, from=1-1, to=3-2]
+      \arrow["t", tail, from=2-4, to=3-5]
+      \arrow[curve={height=-12pt}, from=1-1, to=2-4]
+      \arrow["\iso"{marking, allow upside down}, draw=none, from=1-1, to=2-2]
+    \end{tikzcd}\and
+    % https://q.uiver.app/#q=WzAsNixbMSwxLCJcXG92ZXJsaW5le0EgXFxjYXAgQn0iXSxbMSwyLCJDIl0sWzMsMiwiXFxPbWVnYSJdLFszLDEsIjEiXSxbMCwwLCJcXEFiYXIgXFxjYXAgXFxCYmFyIl0sWzAsMiwiQyJdLFswLDEsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwzXSxbMywyLCJ0IiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsxLDIsImpcXHdlZGdlKFxcY2hpX3tBfSxcXGNoaV97Qn0pIl0sWzQsNSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFs0LDMsIiIsMix7ImN1cnZlIjotMX1dLFs1LDIsIlxcd2VkZ2UoalxcY2hpX3tBfSxqXFxjaGlfe0J9KSIsMix7ImN1cnZlIjoyfV0sWzQsMCwiXFxpc28iLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMSw1LCIiLDMseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+    \begin{tikzcd}
+      {\Abar \cap \Bbar} \\
+      & {\overline{A \cap B}} && 1 \\
+      C & C && \Omega
+      \arrow[tail, from=2-2, to=3-2]
+      \arrow[from=2-2, to=2-4]
+      \arrow["t", tail, from=2-4, to=3-4]
+      \arrow["{j\wedge(\chi_{A},\chi_{B})}", from=3-2, to=3-4]
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[curve={height=-6pt}, from=1-1, to=2-4]
+      \arrow["{\wedge(j\chi_{A},j\chi_{B})}"', curve={height=12pt}, from=3-1, to=3-4]
+      \arrow["\iso"{marking, allow upside down}, draw=none, from=1-1, to=2-2]
+      \arrow[Rightarrow, no head, from=3-2, to=3-1]
+    \end{tikzcd}
+  \end{mathpar}
+  Conversely, if $j$ induces a closure operation with the above properties, then the diagrams above show that $j$ must be a topology.
 \end{proof}
+
+\begin{defn}
+  Let $\cE$ be a topos equipped with a topology.
+  We say that a subobject $A$ of $B$ is \emph{dense} in $B$ if $\Abar = B$ and that it is \emph{closed} when $\Abar = A$.
+\end{defn}
+
+\begin{defn}
+  Let $\cE$ be a topos equipped with a topology $j$.
+  A \emph{$j$-sheaf} is an object $F$ so that for every dense monomorphism $m : A \mono B$, 
+\end{defn}
+
+\section{Locales}
+\label{sec:locales}
+
+\begin{defn}
+  A \emph{frame} is a lattice with arbitrary joins and finite meets satisfying the infinitary distributive law.
+  A \emph{frame homomorphism} is an order-preserving function that preserves infinite joins and finite meets.
+\end{defn}
+
+\begin{defn}
+  The category of locales $\CLoc$ is the opposite of the category of frames $\CFrm$.
+\end{defn}
 
 \bibliographystyle{alpha}
 \bibliography{all}

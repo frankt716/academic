@@ -540,12 +540,96 @@ This implies that the inclusion functor has small arity and therefore admits a l
 \section{Grothendieck topologies}
 \label{sec:grothendieck-topologies}
 
+\begin{rmk}
+  A sieve is a generalization of right ideal.
+  Roughly, it is a set of morphisms with a common codomain and is closed under precomposition.
+\end{rmk}
 
+\begin{defn}
+  A \emph{Grothendieck topology} on a category $\iC$ is a function $J$ assigning to each object $c$ a collection $J(c)$ of covering sieves on $c$ so that
+  \begin{enumerate}
+  \item For any object $c$, the maximal sieve is in $J(c)$.
+  \item (Stability) If $S$ is a sieve that covers $c$ and $g : d \to c$ is any morphism, then the pullback sieve $g^{*}S$ covers $d$.
+  \item (Local character) If $R$ is a covering sieve on $c$ and $S$ is another sieve on $c$ such that for all $f : d \to c \in R$, the pullback sieve $f^{*}S$ covers $d$, then $S$ covers $c$.
+  \end{enumerate}
+\end{defn}
 
 \section{Lawvere-Tierney topologies}
 \label{sec:lawvere-tierney-topologies}
 
+\begin{defn}\label{def:lawvere-tierney-topology}
+  A \emph{Lawvere-Tierney topology} (topology for short) on a topos $\cE$ is a morphism $j : \Omega \to \Omega$ satisfying
+  % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIlxcT21lZ2EiXSxbMSwxLCJcXE9tZWdhIl0sWzIsMCwiXFxPbWVnYSJdLFszLDAsIlxcT21lZ2EiXSxbMywxLCJcXE9tZWdhIl0sWzQsMCwiXFxPbWVnYSBcXHRpbWVzIFxcT21lZ2EiXSxbNSwwLCJcXE9tZWdhIl0sWzUsMSwiXFxPbWVnYSJdLFs0LDEsIlxcT21lZ2EgXFx0aW1lcyBcXE9tZWdhIl0sWzAsMSwidCJdLFsxLDIsImoiXSxbMCwyLCJ0IiwyXSxbMyw0LCJqIl0sWzQsNSwiaiJdLFszLDUsImoiLDJdLFs2LDcsIlxcd2VkZ2UiXSxbOSw4LCJcXHdlZGdlIiwyXSxbNiw5LCJqIiwyXSxbNyw4LCJqIl1d
+  \[\begin{tikzcd}
+      1 & \Omega & \Omega & \Omega & {\Omega \times \Omega} & \Omega \\
+      & \Omega && \Omega & {\Omega \times \Omega} & \Omega
+      \arrow["t", from=1-1, to=1-2]
+      \arrow["j", from=1-2, to=2-2]
+      \arrow["t"', from=1-1, to=2-2]
+      \arrow["j", from=1-3, to=1-4]
+      \arrow["j", from=1-4, to=2-4]
+      \arrow["j"', from=1-3, to=2-4]
+      \arrow["\wedge", from=1-5, to=1-6]
+      \arrow["\wedge"', from=2-5, to=2-6]
+      \arrow["j"', from=1-5, to=2-5]
+      \arrow["j", from=1-6, to=2-6]
+    \end{tikzcd}\]
+\end{defn}
 
+\begin{rmk}
+  The morphism $j : \Omega \to \Omega$ classifies a subobject of $\Omega$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJKIl0sWzIsMCwiMSJdLFsyLDIsIlxcT21lZ2EiXSxbMCwyLCJcXE9tZWdhIl0sWzMsMiwiaiIsMl0sWzEsMiwidCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwxXSxbMCwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsMiwiIiwxLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+  \[\begin{tikzcd}
+      J && 1 \\
+      \\
+      \Omega && \Omega
+      \arrow["j"', from=3-1, to=3-3]
+      \arrow["t", tail, from=1-3, to=3-3]
+      \arrow[from=1-1, to=1-3]
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+  Thus, we can phrase \cref{def:lawvere-tierney-topology} in terms of this subobject.
+\end{rmk}
+
+\begin{defn}
+  Let $\cE$ be a topos equipped with a topology $j$.
+  Let $A$ be a subobject of $B$ classified by $\chi_{A}$.
+  The composite $j \circ \chi_{A}$ determines another subobject $\Abar$ of $B$, which we call the \emph{closure} of $A$.
+\end{defn}
+
+\begin{thm}
+  Let $\cE$ be a topos, a morphism $j : \Omega \to \Omega$ induces an operator $E \mapsto \Ebar$ on the subobjects of each object $E$ of $\cE$ natural in its argument in the sense that for any $f : A \to B$ in $\cE$ and any subobject $C$ of $B$, one has
+  \[
+    f^{*}(\Cbar) = \overline{f^{*}C}
+  \]
+  Moreover, $j$ is a topology if and only if the operator satisfies
+  \begin{mathpar}
+    A \subseteq \Abar \and \overline{\Abar} = \Abar \and \overline{A \cap B} = \Abar \cap \Bbar
+  \end{mathpar}
+  for all objects.
+\end{thm}
+\begin{proof}
+  By definition, $f^{*}(\Cbar)$ is the pullback of $\Cbar$ along $f$.
+  Thus, $f^{*}(\Cbar)$ is a subobject classified by $j \circ \chi_{C} \circ f$, which by definition classifies the subobject $\overline{f^{*}C}$.
+  % https://q.uiver.app/#q=WzAsNixbMiwwLCJcXENiYXIiXSxbMiwyLCJCIl0sWzQsMiwiXFxPbWVnYSJdLFs0LDAsIjEiXSxbMCwyLCJBIl0sWzAsMCwiZl57Kn0oXFxDYmFyKSJdLFswLDEsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMSwyLCJqIFxcY2lyYyBcXGNoaV97Q30iLDJdLFszLDIsInQiXSxbMCwzXSxbNCwxLCJmIiwyXSxbNSw0LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzUsMF0sWzUsMSwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+  \[\begin{tikzcd}
+      {f^{*}(\Cbar)} && \Cbar && 1 \\
+      \\
+      A && B && \Omega
+      \arrow[tail, from=1-3, to=3-3]
+      \arrow["{j \circ \chi_{C}}"', from=3-3, to=3-5]
+      \arrow["t", from=1-5, to=3-5]
+      \arrow[from=1-3, to=1-5]
+      \arrow["f"', from=3-1, to=3-3]
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-3, to=3-5]
+    \end{tikzcd}\]
+
+  Now suppose that $j$ is a topology, then
+\end{proof}
 
 \bibliographystyle{alpha}
 \bibliography{all}

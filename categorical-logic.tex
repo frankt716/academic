@@ -533,6 +533,72 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   A \emph{logical functor} $F : \cE \to \cF$ is a functor that preserves finite limits, the subobject classifier, and exponentials.
 \end{defn}
 
+\begin{defn}
+  Let $\cE$ and $\cF$ be topoi.
+  A \emph{geometric morphism} $f : \cF \to \cE$ consists of a pair of functors
+  % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXGNGIl0sWzIsMCwiXFxjRSJdLFswLDEsImZfeyp9IiwyLHsiY3VydmUiOjJ9XSxbMSwwLCJmXnsqfSIsMix7ImN1cnZlIjoyfV0sWzMsMiwiIiwyLHsibGV2ZWwiOjEsInN0eWxlIjp7Im5hbWUiOiJhZGp1bmN0aW9uIn19XV0=
+  \[\begin{tikzcd}
+      \cF && \cE
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{f_{*}}"', curve={height=12pt}, from=1-1, to=1-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{f^{*}}"', curve={height=12pt}, from=1-3, to=1-1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=1, to=0]
+    \end{tikzcd}\]
+  such that $f^{*}$ preserves finite limits.
+  The functor $f_{*}$ is called the \emph{direct image} of $f$ and $f^{*}$ is the \emph{inverse image} of $f$.
+  If $f$ and $g$ are geometric morphism, a \emph{geometric transformation} $\alpha : f \to g$ is a natural transformation $f^{*} \To g^{*}$.
+\end{defn}
+
+\begin{defn}
+  We write $\CTopoi$ for the 2-category of topoi, geometric morphisms, and geometric transformations.
+\end{defn}
+
+\begin{eg}\label{eg:geometric-morphisms-between-presheaves}
+  Let $F : \iC \to \iD$ be a functor between small categories.
+  The functor $f^{*}$ defined by precomposition has a left and right adjoints.
+  The right Kan extension is the direct image, while $f^{*}$ is the inverse image.
+  % https://q.uiver.app/#q=WzAsMixbMCwwLCJcXFBzaChcXGlEKSJdLFsyLDAsIlxcUHNoKFxcaUMpIl0sWzAsMSwiZl57Kn0iLDAseyJvZmZzZXQiOi0yfV0sWzEsMCwiXFxyYW5fe2Z9IiwwLHsib2Zmc2V0IjotMn1dLFsyLDMsIiIsMix7ImxldmVsIjoxLCJzdHlsZSI6eyJuYW1lIjoiYWRqdW5jdGlvbiJ9fV1d
+  \[\begin{tikzcd}
+      {\Psh(\iD)} && {\Psh(\iC)}
+      \arrow[""{name=0, anchor=center, inner sep=0}, "{f^{*}}", shift left=2, from=1-1, to=1-3]
+      \arrow[""{name=1, anchor=center, inner sep=0}, "{\ran_{f}}", shift left=2, from=1-3, to=1-1]
+      \arrow["\dashv"{anchor=center, rotate=-90}, draw=none, from=0, to=1]
+    \end{tikzcd}\]
+  Thus, the assignment $\iC \mapsto \Psh(\iC)$ can be extended to a pseudofunctor $\CCat \to \CTopoi$.
+\end{eg}
+
+\begin{defn}
+  A geometric morphism $f : \cF \to \cE$ is \emph{essential} if the inverse image $f^{*} : \cE \to \cF$ has a left adjoint.
+  We write $f_{!}$ for the left adjoint of $f^{*}$.
+\end{defn}
+
+\begin{lem}
+  Let $\iC$ and $\iD$ be small categories such that $\iD$ is Cauchy-complete.
+  Then every essential geometric morphism $f : \Psh(\iC) \to \Psh(\iD)$ is induced by a functor $\iC \to \iD$.
+\end{lem}
+\begin{proof}
+  Let $g : \iC \to \iD$ be a functor.
+  By \cref{eg:geometric-morphisms-between-presheaves}, this functor induces an essential geometric morphism defined by precomposition.
+
+  Conversely, let $f$ be an essential geometric morphism.
+  We want to show that $f$ is induced by a functor $g : \iC \to \iD$ by precomposition.
+  Note that representable functors are perfectly presentable in the presheaf category and $f^{*}$ preserves colimits.
+  Owing to the following natural isomorphism,
+  \[
+    \Psh(\iD)(f_{!}\iC(\blank, c), \blank) \iso \Psh(\iC)(\iC(\blank,c), f^{*}\blank)
+  \]
+  we see that $\Psh(\iD)(f_{!}\iC(\blank, c), \blank)$ preserves sifted colimits.
+  Thus, $f_{!}\iC(\blank,c)$ is perfectly presentable and therefore it is a retract of a representable.
+  Since $\iD$ is Cauchy-complete, $f_{!}\iC(\blank, c)$ is representable.
+  Thus, $f_{!}$ restricts along the Yoneda embedding to a functor $f_{0} : \iC \to \iD$.
+  Indeed, $f$ is induced by $f_{0}$.
+  \begin{align}
+    f^{*}(F)(c) &\iso \Psh(\iC)(\iC(\blank, c), f^{*}F)\\
+                &\iso \Psh(\iD)(f_{!}\iC(\blank, c), F)\\
+                &\iso \Psh(\iD)(\iD(\blank, f_{0}c), F)\\
+                &\iso F(f_{0}c)
+  \end{align}
+\end{proof}
+
 \section{Grothendieck topologies}
 \label{sec:grothendieck-topologies}
 

@@ -571,6 +571,8 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   We write $f_{!}$ for the left adjoint of $f^{*}$.
 \end{defn}
 
+\todo{It appears a lot of the ``dirty work'' we did for algebraic theories can be nicely explained by examples in Elephant A.4.1.}
+
 \begin{lem}
   Let $\iC$ and $\iD$ be small categories such that $\iD$ is Cauchy-complete.
   Then every essential geometric morphism $f : \Psh(\iC) \to \Psh(\iD)$ is induced by a functor $\iC \to \iD$.
@@ -595,7 +597,7 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
     f^{*}(F)(c) &\iso \Psh(\iC)(\iC(\blank, c), f^{*}F)\\
                 &\iso \Psh(\iD)(f_{!}\iC(\blank, c), F)\\
                 &\iso \Psh(\iD)(\iD(\blank, f_{0}c), F)\\
-                &\iso F(f_{0}c)
+                &\iso Ff_{0}c
   \end{align}
 \end{proof}
 
@@ -661,7 +663,7 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   The composite $j \circ \chi_{A}$ determines another subobject $\Abar$ of $B$, which we call the \emph{closure} of $A$.
 \end{defn}
 
-\begin{thm}
+\begin{thm}\label{thm:closure-operator-in-topos}
   Let $\cE$ be a topos, a morphism $j : \Omega \to \Omega$ induces an operator $E \mapsto \Ebar$ on the subobjects of each object $E$ of $\cE$ natural in its argument in the sense that for any $f : A \to B$ in $\cE$ and any subobject $C$ of $B$, one has
   \[
     f^{*}(\Cbar) = \overline{f^{*}C}
@@ -753,8 +755,103 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
 
 \begin{defn}
   Let $\cE$ be a topos equipped with a topology $j$.
-  A \emph{$j$-sheaf} is an object $F$ so that for every dense monomorphism $m : A \mono B$, 
+  A \emph{$j$-sheaf} is an object $F$ so that for every dense monomorphism $m : A \mono B$ and any morphism $f' : A \to F$, $m$ factors through $f'$ uniquely.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzAsMiwiQiJdLFsyLDAsIkMiXSxbMCwxLCJtIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFswLDIsImYiXSxbMSwyLCIiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+  \[\begin{tikzcd}
+      A && F \\
+      \\
+      B
+      \arrow["m"', tail, from=1-1, to=3-1]
+      \arrow["f'", from=1-1, to=1-3]
+      \arrow[dashed, from=3-1, to=1-3]
+    \end{tikzcd}\]
+  An object is $j$-separated if $m$ factors through $f'$ in at most one way.
+  The category $\Sh_{j}(\cE)$ is the full subcategory of $\cE$ spanned by $j$-sheaves.
 \end{defn}
+
+\begin{rmk}
+  When $\cE$ is a locally presentable category, then $\Sh_{j}(\cE)$ is an orthogonal class $\cM^{\bot}$, where $\cM$ is the class of all dense monomorphisms.
+  If $\cM$ is small, then $\Sh_{j}(\cM)$ is reflective, and if additionally $\cM$ is pullback stable, then $\Sh_{j}(\cM)$ is lex reflective.
+\end{rmk}
+
+\todo{These theorems are proved for more general categories in elephant.}
+
+Now we record some facts about topos equipped with a topology.
+
+\begin{lem}
+  Let $\cE$ be a topos equipped with a topology $j$.
+  If $m : A \mono B$ is dense, then there is a bijection between closed subobjects of $A$ and those of $B$.
+\end{lem}
+\begin{proof}
+  Let $B'$ be a closed subobject of $B$, then $m^{*}(B')$ is a subobject of $A$ and moreover $\overline{m^{*}(B')} = m^{*}(\overline{B'}) = m^{*}(B')$.
+  Conversely, let $A'$ be a closed subobject of $A$.
+  Then $\overline{A'} \subseteq \Abar = B$, and clearly $\Abar$ is closed.
+  Since dense monomorphisms are pullback stable, the projection $m^{*}(C) \mono C$ is dense for any closed subobject $C$ of $B$.
+  Thus, we have
+  \begin{mathpar}
+    m^{*}(\overline{A'}) = \overline{m^{*}(\overline{A'})} = \overline{A'} = A'\and
+    \overline{m^{*}(B')} = B'
+  \end{mathpar}
+  This proves that the two mappings form a bijection.
+\end{proof}
+
+\begin{lem}
+  In a topos $\cE$ equipped with a topology $j$, let $\Omega_{j}$ be the equalizer of $\id_{\Omega}$ and $j$.
+  $\Omega_{j}$ is a $j$-sheaf.
+\end{lem}
+\begin{proof}
+  Let $m : A \mono B$ be any dense monomorphism and $f' : A \to \Omega_{j}$ be any morphism.
+  $f'$ corresponds to a closed subobject $A'$ of $A$ given by the composite $kf'$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE9tZWdhX3tqfSJdLFswLDEsIkEiXSxbMSwwLCJcXE9tZWdhIl0sWzIsMCwiXFxPbWVnYSJdLFsxLDAsImYnIl0sWzAsMiwiayIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwzLCIiLDAseyJvZmZzZXQiOi0xfV0sWzIsMywiIiwwLHsib2Zmc2V0IjoxfV0sWzEsMiwiXFxjaGlfe0EnfSIsMl1d
+  \[\begin{tikzcd}
+      {\Omega_{j}} & \Omega & \Omega \\
+      A
+      \arrow["{f'}", from=2-1, to=1-1]
+      \arrow["k", tail, from=1-1, to=1-2]
+      \arrow[shift left, from=1-2, to=1-3]
+      \arrow[shift right, from=1-2, to=1-3]
+      \arrow["{\chi_{A'}}"', from=2-1, to=1-2]
+    \end{tikzcd}\]
+  The subobject $A'$ is a subobject in $B$ by the composite $mA'$.
+  Let $B' := \overline{A'}$.
+  Then clearly, $B'$ is closed in $B$.
+  Thus, there is a unique morphism $B \to \Omega_{j}$ so that the following diagram commutes.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE9tZWdhX3tqfSJdLFswLDEsIkIiXSxbMSwwLCJcXE9tZWdhIl0sWzIsMCwiXFxPbWVnYSJdLFsxLDAsInUiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJrIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsyLDMsIiIsMCx7Im9mZnNldCI6LTF9XSxbMiwzLCIiLDAseyJvZmZzZXQiOjF9XSxbMSwyLCJcXGNoaV97Qid9IiwyXV0=
+  \[\begin{tikzcd}
+      {\Omega_{j}} & \Omega & \Omega \\
+      B
+      \arrow["u", dashed, from=2-1, to=1-1]
+      \arrow["k", tail, from=1-1, to=1-2]
+      \arrow[shift left, from=1-2, to=1-3]
+      \arrow[shift right, from=1-2, to=1-3]
+      \arrow["{\chi_{B'}}"', from=2-1, to=1-2]
+    \end{tikzcd}\]
+  To show that $um = f'$, it suffices to show $kum = kf'$, which is equivalent to showing $\chi_{B'}m = \chi_{A'}$.
+  Since $m$ is dense $A' \iso B'$.
+  The desired equality follows at once.
+  % https://q.uiver.app/#q=WzAsNixbMCwwLCJBJyJdLFsyLDAsIkInIl0sWzAsMiwiQSJdLFsyLDIsIkIiXSxbNCwyLCJcXE9tZWdhIl0sWzQsMCwiMSJdLFsyLDMsIm0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsxLDMsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwxLCJcXGlzbyIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDMsIiIsMyx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dLFs1LDQsIiIsMyx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMSw1XSxbMyw0LCJcXGNoaV97Qid9IiwyXSxbMiw0LCJcXGNoaV97QSd9IiwyLHsiY3VydmUiOjN9XV0=
+  \[\begin{tikzcd}
+      {A'} && {B'} && 1 \\
+      \\
+      A && B && \Omega
+      \arrow["m"', tail, from=3-1, to=3-3]
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[tail, from=1-3, to=3-3]
+      \arrow["\iso"{marking, allow upside down}, draw=none, from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+      \arrow[tail, from=1-5, to=3-5]
+      \arrow[from=1-3, to=1-5]
+      \arrow["{\chi_{B'}}"', from=3-3, to=3-5]
+      \arrow["{\chi_{A'}}"', curve={height=18pt}, from=3-1, to=3-5]
+    \end{tikzcd}\]
+\end{proof}
+
+\todo{%
+  \begin{enumerate}
+  \item Prove $\Sh_{j}(\cE)$ is a lex reflection of $\cE$.
+  \item Prove that $\Sh_{j}(\cE)$ is a topos.
+  \end{enumerate}
+}
 
 \section{Locales}
 \label{sec:locales}

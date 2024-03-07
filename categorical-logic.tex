@@ -391,8 +391,7 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   \begin{enumerate}
   \item\label{def:topos-pullbacks} Pullbacks;
   \item\label{def:topos-terminal} A terminal object $1$;
-  \item A subobject classifier $\Omega$;
-  \item\label{def:topos-exponential} To each object $a$ an object $Pa$ and a morphism $\in_{a} : Pa \times a \to \Omega$ so that for any $f : b \times a \to \Omega$, there is a unique morphism $g : b \to Pa$ so that $g \times \id$ factors $f$ through $\in_{a}$.
+  \item\label{def:topos-exponential} To each object $a$ an object $Pa$ and a morphism $\in_{a} : Pa \times a \to P1$ so that for any $f : b \times a \to P1$, there is a unique morphism $g : b \to Pa$ so that $g \times \id$ factors $f$ through $\in_{a}$.
     % https://q.uiver.app/#q=WzAsNSxbMiwxLCJhIFxcdGltZXMgUGEiXSxbMSwyLCJcXE9tZWdhIl0sWzAsMSwiYiBcXHRpbWVzIGEiXSxbMCwwLCJiIl0sWzIsMCwiUGEiXSxbMCwxLCJcXGluX3thfSJdLFsyLDEsImYiLDJdLFsyLDAsImcgXFx0aW1lcyBcXGlkIl0sWzMsNCwiZyIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
     \[\begin{tikzcd}
 	b && Pa \\
@@ -405,6 +404,10 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
       \end{tikzcd}\]
   \end{enumerate}
 \end{defn}
+
+\begin{rmk}
+  The power object $P1$ is the subobject classifier.
+\end{rmk}
 
 \begin{rmk}
   We can phrase \cref{def:topos} in a nonelementary way.
@@ -559,6 +562,7 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   In a topos, every monomorphism is an equalizer and every mono and epi morphism is an isomorphism.
 \end{thm}
 \begin{proof}
+  The second statement follows from the first.
   Let $\Omega_{t}$ be the equalizer of $\id_{\Omega}$ and $t!_{\Omega}$.
   % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXE9tZWdhX3t0fSJdLFsyLDAsIlxcT21lZ2EiXSxbNCwwLCJcXE9tZWdhIl0sWzEsMiwidCFfe1xcT21lZ2F9IiwwLHsib2Zmc2V0IjotMX1dLFsxLDIsIlxcaWRfe1xcT21lZ2F9IiwyLHsib2Zmc2V0IjoxfV0sWzAsMSwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dXQ==
   \[\begin{tikzcd}
@@ -636,7 +640,7 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
 
   Conversely, let $f$ be an essential geometric morphism.
   We want to show that $f$ is induced by a functor $g : \iC \to \iD$ by precomposition.
-  Note that representable functors are perfectly presentable in the presheaf category and $f^{*}$ preserves colimits.
+  Note that representable functors are tiny in the presheaf category and $f^{*}$ preserves colimits.
   Owing to the following natural isomorphism,
   \[
     \Psh(\iD)(f_{!}\iC(\blank, c), \blank) \iso \Psh(\iC)(\iC(\blank,c), f^{*}\blank)
@@ -654,23 +658,99 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   \end{align}
 \end{proof}
 
-\section{Grothendieck topologies}
-\label{sec:grothendieck-topologies}
+\begin{lem}\label{lem:cartesian-closed-iff-pullbacks}
+  A category $\iC$ is locally cartesian iff it has pullbacks.
+\end{lem}
+\begin{proof}
+  Let $c \in \iC$ be any object.
+  The forgetful functor $\Pi : \iC/c \to \iC$ preserves (and creates) connected limits.
+  Thus, $\iC/c$ has pullbacks whenever $\iC$ does.
+  Since $\iC/c$ has a terminal object, it is finitely complete if $\iC$ has pullbacks.
+  Conversely, if $\iC$ is locally cartesian, then pullbacks in $\iC$ can be constructed as products in a slice $\iC/c$ for some $c \in \iC$.
+\end{proof}
 
-\begin{defn}
-  A \emph{Grothendieck topology} on a category $\iC$ is a function $J$ assigning to each object $c$ a collection $J(c)$ of covering sieves on $c$ so that
-  \begin{enumerate}
-  \item For any object $c$, the maximal sieve is in $J(c)$.
-  \item (Stability) If $S$ is a sieve that covers $c$ and $g : d \to c$ is any morphism, then the pullback sieve $g^{*}S$ covers $d$.
-  \item (Local character) If $R$ is a covering sieve on $c$ and $S$ is another sieve on $c$ such that for all $f : d \to c \in R$, the pullback sieve $f^{*}S$ covers $d$, then $S$ covers $c$.
-  \end{enumerate}
-\end{defn}
+\begin{cor}\label{cor:topos-locally-cartesian}
+  Every topos is locally cartesian.
+\end{cor}
 
 \begin{rmk}
-  Stability means the assignment $J$ extends to a functor $J : \iC\op \to \CSet$, i.e., an object in the presheaf category $\Psh(\iC)$.
-  The subobject classifier $\Omega$ in $\Psh(\iC)$ is the functor $\Sub(\yon\blank)$ sending each $c \in \iC$ to the set of sieves on $c$.
-  Thus, $J$ (a functor sending each $c$ to a set of covering sieves on $c$) is a subobject of $\Omega$.
+  Let $\iC$ be a category and $f : a \to b$ be a morphism of $\iC$.
+  By unfolding the definition of slice category, we see that $\iC/a \iso (\iC/b)/f$.
+  Thus, there is a canonical functor $\Sigma_{f} : \iC/a \to \iC/b$ given by the forgetful functor $\Pi : (\iC/b)/f \iso \iC/a \to \iC/b$.
+  Explicitly, $\Sigma_{f} : g \mapsto fg$.
 \end{rmk}
+
+\begin{lem}
+  A category $\iC$ is locally cartesian closed iff $\Sigma_{f}$ has a right adjoint $f^{*}$ for all $f$.
+\end{lem}
+\begin{proof}
+  By \cref{lem:cartesian-closed-iff-pullbacks}, being locally cartesian closed is the same as having pullbacks.
+  If $\iC$ has pullbacks, then take $f^{*}$ to be the pullback functor.
+  The universal property of pullbacks implies that $\Sigma_{f} \adj f^{*}$.
+  % https://q.uiver.app/#q=WzAsNSxbMSwzLCJhIl0sWzMsMywiYiJdLFszLDEsImMiXSxbMSwxLCJcXGJ1bGxldCJdLFswLDAsIlxcYnVsbGV0Il0sWzAsMSwiZiIsMl0sWzIsMSwiaCJdLFszLDAsImZeeyp9aCIsMl0sWzMsMl0sWzQsMCwiZyIsMix7ImN1cnZlIjoyfV0sWzQsMiwiIiwyLHsiY3VydmUiOi0yfV0sWzQsMywiIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMSwiIiwyLHsic3R5bGUiOnsibmFtZSI6ImNvcm5lciJ9fV1d
+  \[\begin{tikzcd}
+      \bullet \\
+      & \bullet && c \\
+      \\
+      & a && b
+      \arrow["f"', from=4-2, to=4-4]
+      \arrow["h", from=2-4, to=4-4]
+      \arrow["{f^{*}h}"', from=2-2, to=4-2]
+      \arrow[from=2-2, to=2-4]
+      \arrow["g"', curve={height=12pt}, from=1-1, to=4-2]
+      \arrow[curve={height=-12pt}, from=1-1, to=2-4]
+      \arrow[dashed, from=1-1, to=2-2]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=2-2, to=4-4]
+    \end{tikzcd}\]
+  Conversely, if $\Sigma_{f} \adj f^{*}$ for all $f$, then we can define pullbacks as follows.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJhIl0sWzIsMiwiYiJdLFsyLDAsImMiXSxbMCwwLCJcXGJ1bGxldCJdLFswLDEsImYiLDJdLFsyLDEsImgiXSxbMywwLCJmXnsqfWgiLDJdLFszLDIsIlxcZXBzaWxvbl97aH0iXSxbMywxLCIiLDIseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+      \bullet && c \\
+      \\
+      a && b
+      \arrow["f"', from=3-1, to=3-3]
+      \arrow["h", from=1-3, to=3-3]
+      \arrow["{f^{*}h}"', from=1-1, to=3-1]
+      \arrow["{\epsilon_{h}}", from=1-1, to=1-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+    \end{tikzcd}\]
+\end{proof}
+
+\begin{cor}
+  Let $\cE$ be a topos.
+  $\Sigma_{f}$ has a right adjoint $f^{*}$ for all morphisms $f$ in $\cE$.
+\end{cor}
+
+\begin{notn}
+  In a topos, we write $\Sigma_{B}$ for $\Sigma_{!_{B}} : \cE/B \to \cE/1 \iso \cE$ and $B^{*}$ for $!_{B}^{*} : \cE/1 \iso \cE \to \cE/B$.
+\end{notn}
+
+\begin{thm}
+  Let $\cE$ be a topos and $B$ be an object of $\cE$.
+  Then $\cE/B$ is a topos, and the pullback functor $B^{*} : \cE \to \cE/B$ is logical.
+\end{thm}
+\begin{proof}
+  Since every topos is locally cartesian (c.f., \cref{cor:topos-locally-cartesian}), it suffices to construct power objects for $\cE/B$.
+  First, for each object $A \in \cE$, we claim that $B^{*}(PA)$ equipped with the relation $B^{*}(\in_{A})$ is a power object of $B^{*}A$ in $\cE/B$.
+\end{proof}
+
+% \section{Grothendieck topologies}
+% \label{sec:grothendieck-topologies}
+
+% \begin{defn}
+%   A \emph{Grothendieck topology} on a category $\iC$ is a function $J$ assigning to each object $c$ a collection $J(c)$ of covering sieves on $c$ so that
+%   \begin{enumerate}
+%   \item For any object $c$, the maximal sieve is in $J(c)$.
+%   \item (Stability) If $S$ is a sieve that covers $c$ and $g : d \to c$ is any morphism, then the pullback sieve $g^{*}S$ covers $d$.
+%   \item (Local character) If $R$ is a covering sieve on $c$ and $S$ is another sieve on $c$ such that for all $f : d \to c \in R$, the pullback sieve $f^{*}S$ covers $d$, then $S$ covers $c$.
+%   \end{enumerate}
+% \end{defn}
+
+% \begin{rmk}
+%   Stability means the assignment $J$ extends to a functor $J : \iC\op \to \CSet$, i.e., an object in the presheaf category $\Psh(\iC)$.
+%   The subobject classifier $\Omega$ in $\Psh(\iC)$ is the functor $\Sub(\yon\blank)$ sending each $c \in \iC$ to the set of sieves on $c$.
+%   Thus, $J$ (a functor sending each $c$ to a set of covering sieves on $c$) is a subobject of $\Omega$.
+% \end{rmk}
 
 \section{Lawvere-Tierney topologies}
 \label{sec:lawvere-tierney-topologies}
@@ -681,7 +761,7 @@ A sheaf (of sets) is an assignment $\cO(X)\op \to \CSet$ so that a global sectio
 Note that the subobject classifier in $\Psh(\cO(X))$ is the functor $\Sub\yon : \cO(X)\op \to \CSet$, assigning to each open set $U$ the set of all subfunctors $R \subseteq \cO(X)(\blank, U)$.
 By definition, $\cO(X)(V,U) = 1$ if $V \subseteq U$, so $R(V) = 1$ necessarily implies that $V \subseteq U$, i.e., $\cO(X)(V, U) = 1$.
 If additionally $V' \subseteq V$, then $R(V') = 1$ because we have $R(V) \to R(V')$.
-Thus, we can view $R$ as a filter on $U$, i.e., a set of downward closed open subsets of $U$.
+Thus, we can view $R$ as a filter on $U$, i.e., a downward closed set of open subsets of $U$.
 
 A family $\Set{U_{i}}_{i \in I}$ is an open cover of $U$ if $\bigcup_{i \in I}U_{i} = U$.
 To formalize this idea, we define a natural transformation
@@ -706,7 +786,7 @@ The pullback of $t : 1 \to \Omega$ along $j$ determines a subobject $J$.
     \arrow[from=1-1, to=1-3]
     \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
   \end{tikzcd}\]
-By evaluating each functor at the open set $U$ yields a pullback in $\CSet$, which is the fiber product of the functions $j_{U}$ and $t_{U}$, so the pullback is nothing but the set
+By evaluating each functor at a given open set $U$ yields a pullback in $\CSet$, which is the fiber product of the functions $j_{U}$ and $t_{U}$, so the pullback is nothing but the set
 \[
   J(U) = \Set{R \mono \Omega(U) \mid j_{U}(R) = U}
 \]

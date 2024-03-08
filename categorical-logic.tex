@@ -1205,6 +1205,61 @@ Now we record some facts about topos equipped with a topology.
   \item Every injective in $\Sh_{j}(\cE)$ is injective in $\cE$.
   \item A morphism $m : A \to B$ in a topos is monic iff every morphism from $A$ to an injective factors through $m$.
   \end{enumerate}
+  For any monomorphism $A \mono B$ and any injective sheaf $I$, we have the following diagram.
+  % https://q.uiver.app/#q=WzAsNSxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkxBIl0sWzIsMiwiTEIiXSxbMSwzLCJJIl0sWzAsMSwiaCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwyLCJcXGV0YV97QX0iLDJdLFsxLDMsIlxcZXRhX3tCfSJdLFsyLDMsIkxoIl0sWzIsNCwiZiIsMl0sWzMsNCwiZyIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFswLDRdLFsxLDRdXQ==
+  \[\begin{tikzcd}
+      A && B \\
+      \\
+      LA && LB \\
+      & I
+      \arrow["h", tail, from=1-1, to=1-3]
+      \arrow["{\eta_{A}}"', from=1-1, to=3-1]
+      \arrow["{\eta_{B}}", from=1-3, to=3-3]
+      \arrow["Lh", from=3-1, to=3-3]
+      \arrow["f"', from=3-1, to=4-2]
+      \arrow["g", dashed, from=3-3, to=4-2]
+      \arrow[from=1-1, to=4-2]
+      \arrow[from=1-3, to=4-2]
+    \end{tikzcd}\]
+  Universality of $\eta_{A}$ demands that $f$ factors $g$ through $Lh$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiTEEiXSxbMiwyLCJJIl0sWzMsMSwiTEIiXSxbMCwxLCJcXGV0YV97QX0iXSxbMCwyLCJmXFxldGFfe0F9IiwyXSxbMSwyLCJmIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMywiTGgiXSxbMywyLCJnIl0sWzYsMywiIiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwfSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+  \[\begin{tikzcd}
+      A && LA \\
+      &&& LB \\
+      && I
+      \arrow["{\eta_{A}}", from=1-1, to=1-3]
+      \arrow["{f\eta_{A}}"', from=1-1, to=3-3]
+      \arrow[""{name=0, anchor=center, inner sep=0}, "f"', dashed, from=1-3, to=3-3]
+      \arrow["Lh", from=1-3, to=2-4]
+      \arrow["g", from=2-4, to=3-3]
+      \arrow[shorten <=5pt, Rightarrow, no head, from=0, to=2-4]
+    \end{tikzcd}\]
+  Thus, $Lh$ is a monomorphism.
+  Now, consider the following pushout in $\cE$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIFxcY2FwIEIiXSxbMCwyLCJBIl0sWzIsMCwiQiJdLFsyLDIsIkEgXFxjdXAgQiJdLFswLDEsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwzLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzAsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsxLDMsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMywwLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+  \[\begin{tikzcd}
+      {A \cap B} && B \\
+      \\
+      A && {A \cup B}
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[tail, from=1-3, to=3-3]
+      \arrow[tail, from=1-1, to=1-3]
+      \arrow[tail, from=3-1, to=3-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+    \end{tikzcd}\]
+  $L$ as a left adjoint preserves colimits and additionally it preserves monomorphisms so we have the following pushout in $\Sh_{j}(\cE)$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJMKEEgXFxjYXAgQikiXSxbMCwyLCJMQSJdLFsyLDAsIkxCIl0sWzIsMiwiTChBIFxcY3VwIEIpIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsyLDMsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwyLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzEsMywiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFszLDAsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+  \[\begin{tikzcd}
+      {L(A \cap B)} && LB \\
+      \\
+      LA && {L(A \cup B)}
+      \arrow[tail, from=1-1, to=3-1]
+      \arrow[tail, from=1-3, to=3-3]
+      \arrow[tail, from=1-1, to=1-3]
+      \arrow[tail, from=3-1, to=3-3]
+      \arrow["\lrcorner"{anchor=center, pos=0.125, rotate=180}, draw=none, from=3-3, to=1-1]
+    \end{tikzcd}\]
+  But this pushout is also a pullback, so $L(A \cap B) \iso LA \cap LB$.
 \end{proof}
 
 \todo{%

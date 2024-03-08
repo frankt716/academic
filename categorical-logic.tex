@@ -1178,8 +1178,34 @@ Now we record some facts about topos equipped with a topology.
 
 \begin{thm}
   Let $\cE$ be a topos equipped with a topology $j$.
+  $\Sh_{j}(\cE)$ is a topos.
+\end{thm}
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{lem}\label{lem:reflector-finite-product-preserving-exponential-ideal}
+  Let $\cE$ be a topos and $\cL$ be a reflective subcategory of $\cE$.
+  Then the reflector $L$ preserves finite products iff $\cL$ is an exponential ideal in $\cE$.
+\end{lem}
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\begin{thm}
+  Let $\cE$ be a topos equipped with a topology $j$.
   The sheafification functor $L : \cE \to \Sh_{j}(\cE)$ preserves finite limits.
 \end{thm}
+\begin{proof}
+  First, observe that $\Sh_{j}(\cE)$ is an exponential ideal in $\cE$.
+  By \cref{lem:reflector-finite-product-preserving-exponential-ideal}, $L$ preserves finite products.
+  It suffices to show that $L$ preserves binary intersections of subobjects. \todo{Justify this.}
+  To this end, we show that $L$ preserves monomorphisms, which makes use of the following facts.
+  \begin{enumerate}
+  \item Every injective in $\Sh_{j}(\cE)$ is injective in $\cE$.
+  \item A morphism $m : A \to B$ in a topos is monic iff every morphism from $A$ to an injective factors through $m$.
+  \end{enumerate}
+\end{proof}
 
 \todo{%
   \begin{enumerate}

@@ -766,6 +766,58 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
   \todo{I forgot to construct exponentials.}
 \end{proof}
 
+\begin{defn}
+  In a category $\iC$, an object $c$ is \emph{injective} when for every monomorphism $m : d \mono d'$ in $\iC$, every morphism $f : d \to c$ can be extended to a morphism $f' : d' \to c$ so that $f = f'm$.
+\end{defn}
+
+\begin{thm}\label{thm:subobject-classifier-injective}
+  In a topos $\cE$, the subobject classifier is injective.
+\end{thm}
+\begin{proof}
+  Let $m : d \mono d'$ and $f : d \to \Omega$.
+  The morphism $f$ determines a pullback square in $\cE$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJkIl0sWzIsMiwiXFxPbWVnYSJdLFswLDAsImMiXSxbMiwwLCIxIl0sWzAsMSwiZiIsMl0sWzIsMCwiaCIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwzXSxbMywxLCJ0IiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dXQ==
+  \[\begin{tikzcd}
+      c && 1 \\
+      \\
+      d && \Omega
+      \arrow["f"', from=3-1, to=3-3]
+      \arrow["h"', tail, from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["t", tail, from=1-3, to=3-3]
+    \end{tikzcd}\]
+  The composite $mh : c \mono d'$ is a subobject of $d'$ classified by a morphism $g : d' \to \Omega$.
+  % https://q.uiver.app/#q=WzAsNCxbMCwyLCJkJyJdLFsyLDIsIlxcT21lZ2EiXSxbMCwwLCJjIl0sWzIsMCwiMSJdLFswLDEsImciLDJdLFsyLDAsIm1oIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFsyLDNdLFszLDEsInQiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV1d
+  \[\begin{tikzcd}
+      c && 1 \\
+      \\
+      {d'} && \Omega
+      \arrow["g"', from=3-1, to=3-3]
+      \arrow["mh"', tail, from=1-1, to=3-1]
+      \arrow[from=1-1, to=1-3]
+      \arrow["t", tail, from=1-3, to=3-3]
+    \end{tikzcd}\]
+  As $gm$ and $f$ classify the same subobject of $d$, the universal property of subobject classifiers demands that $gm = f$.
+\end{proof}
+
+\begin{cor}
+  In a topos $\cE$, every power object $PA$ is injective.
+\end{cor}
+\begin{proof}
+  For any monomorphism $m : d \to d'$ and any morphism $f : d \to PA$, consider the transpose $f^{\dagger} : A \times d \to \Omega$.
+  By \cref{thm:subobject-classifier-injective}, $f^{\dagger}$ extends to a morphism $g^{\dagger} : A \times d' \to \Omega$.
+  % https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXE9tZWdhIl0sWzAsMCwiQSBcXHRpbWVzIGQiXSxbMCwyLCJBIFxcdGltZXMgZCciXSxbMSwwLCJmXntcXGRhZ2dlcn0iXSxbMSwyLCJcXGlkX3tBfSBcXHRpbWVzIG0iLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtb25vIn19fV0sWzIsMCwiZ157XFxkYWdnZXJ9IiwyXV0=
+  \[\begin{tikzcd}
+      {A \times d} && \Omega \\
+      \\
+      {A \times d'}
+      \arrow["{f^{\dagger}}", from=1-1, to=1-3]
+      \arrow["{\id_{A} \times m}"', tail, from=1-1, to=3-1]
+      \arrow["{g^{\dagger}}"', from=3-1, to=1-3]
+    \end{tikzcd}\]
+  Thus, $g : d' \to PA$ is the required extension of $f$.
+\end{proof}
+
 % \section{Grothendieck topologies}
 % \label{sec:grothendieck-topologies}
 

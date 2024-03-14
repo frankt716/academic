@@ -12,6 +12,8 @@
 \label{sec:introduction}
 
 Any category $\iC$ with finite products has enough structure to define internal groups.
+In fact, to define the group identity and group multiplication, we need a terminal object and binary products, implying the existence of all finite products.
+Below is the usual presentation of the theory of groups.
 \begin{mathpar}
   \vdash e : G \and x : G \vdash x\inv : G \and x, y : G \vdash m(x, y) : G \and x : G \vdash m(e, x) = x : G%
   \and x : G \vdash m(x, e) = x : G \and x : G \vdash m(x, x\inv) = e : G \and x : G \vdash m(x\inv, x) = e : G%
@@ -50,11 +52,10 @@ The axioms of the theory of groups can be expressed in terms of the following co
     \arrow["{m \times \id_{G}}", from=1-1, to=1-3]
   \end{tikzcd}
 \end{mathpar}
-The first diagram, for instance, says that for any generalized element $g$ of $G$, $m(\id_{G},e)g = g$.
-Group operations can be nested (e.g., $(e,e,e,e) : G \times G \times G \times G$) to create implicit operations, and the finite product structure of $\iC$ enables it.
+The first diagram, for instance, says that for any generalized element $g$ of $G$, $m(g,e) = g$.
 
 A finite-product preserving functor $\iC \to \iD$ maps internal groups of $\iC$ to those of $\iD$.
-In fact, there is a generic category $\cG$ such that finite-product preserving functors $\cG \to \iC$ correspond uniquely to internal groups of $\iC$.
+In fact, there is a generic category $\cG$ such that finite-product preserving functors $\cG \to \iC$ correspond to internal groups of $\iC$.
 When $\iC = \CSet$, an internal group is just a group in the usual sense.
 
 The category $\CFin\op$, intuitively speaking, demands no operations and axioms, so a finite-product preserving functor $\iota : \CFin\op \to \iC$ is just an object in $\iC$.
@@ -69,6 +70,27 @@ Then the composite $\CFin\op \xto{\iota} \cG \to \CSet$ is the underlying set of
     \arrow["\eqv"{marking, allow upside down}, draw=none, from=2-3, to=1-3]
     \arrow["{\iota^{*}}", from=1-1, to=1-3]
   \end{tikzcd}\]
+
+The forgetful functor encodes a great deal of information about groups.
+Let us consider a natural transformations $\alpha : U \To U$.
+For any two groups $G$ and $G'$ and any group homomorphism $f : G \to G'$, the following diagram commutes.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJVRyJdLFsyLDAsIlVHIl0sWzAsMiwiVUcnIl0sWzIsMiwiVUcnIl0sWzAsMSwiXFxhbHBoYV97R30iXSxbMiwzLCJcXGFscGhhX3tHJ30iLDJdLFswLDIsIlVmIiwyXSxbMSwzLCJVZiJdXQ==
+\[\begin{tikzcd}
+    UG && UG \\
+    \\
+    {UG'} && {UG'}
+    \arrow["{\alpha_{G}}", from=1-1, to=1-3]
+    \arrow["{\alpha_{G'}}"', from=3-1, to=3-3]
+    \arrow["Uf"', from=1-1, to=3-1]
+    \arrow["Uf", from=1-3, to=3-3]
+  \end{tikzcd}\]
+The means that the data of $\alpha$ is just an (implicit) $1$-ary group operation.
+In general, a natural transformation $U^{m} \To U^{n}$ encodes an $n$-tuple of $m$-ary group operation.
+
+Now, suppose that $\cT$ is a geometric theory and $f : \cE \to \cF$ is a geometric morphism between Grothendieck topoi.
+Then a model of $\cT$ in $\cF$ yields a model of $\cT$ in $\cE$ via the inverse image functor $f^{*} : \cF \to \cE$ since it is cocontinuous and left exact (preserves the interpretation of $\bigvee$, $\wedge$, and other connectives).
+Is there a classifying Grothendieck topos $\cG[\cT]$ such that each geometric morphism $\cE \to \cG[\cT]$ corresponds to a model of $\cT$ in $\cE$?
+This has been answered positively.
 
 \section{Yoneda and cantor}
 \label{sec:yoneda-and-cantor}

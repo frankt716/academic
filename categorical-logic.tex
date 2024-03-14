@@ -11,7 +11,64 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\todo{Rewrite intro.}
+Any category $\iC$ with finite products has enough structure to define internal groups.
+\begin{mathpar}
+  \vdash e : G \and x : G \vdash x\inv : G \and x, y : G \vdash m(x, y) : G \and x : G \vdash m(e, x) = x : G%
+  \and x : G \vdash m(x, e) = x : G \and x : G \vdash m(x, x\inv) = e : G \and x : G \vdash m(x\inv, x) = e : G%
+  \and x, y, z : G \vdash m(m(x,y),z) = m(x,m(y,z)) : G
+\end{mathpar}
+The axioms of the theory of groups can be expressed in terms of the following commutative diagrams.
+\begin{mathpar}
+  % https://q.uiver.app/#q=WzAsNCxbNCwwLCJHIl0sWzIsMCwiRyBcXHRpbWVzIEciXSxbMiwxLCJHIl0sWzAsMCwiRyJdLFswLDEsImUgXFx0aW1lcyBcXGlkX3tHfSIsMl0sWzEsMiwibSJdLFswLDIsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMSwiXFxpZF97R30gXFx0aW1lcyBlIl0sWzMsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+  \begin{tikzcd}
+    G && {G \times G} && G \\
+    && G
+    \arrow["{(e,\id_{G})}"', from=1-5, to=1-3]
+    \arrow["m", from=1-3, to=2-3]
+    \arrow[Rightarrow, no head, from=1-5, to=2-3]
+    \arrow["{(\id_{G}, e)}", from=1-1, to=1-3]
+    \arrow[Rightarrow, no head, from=1-1, to=2-3]
+  \end{tikzcd} \and%
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIl0sWzIsMCwiRyBcXHRpbWVzIEciXSxbNCwwLCJHIl0sWzIsMSwiRyJdLFswLDEsIihcXGlkX3tHfSwoKVxcaW52KSJdLFsyLDEsIigoKVxcaW52LCBcXGlkX3tHfSkiLDJdLFsxLDMsIm0iXSxbMCwzLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+  \begin{tikzcd}
+    G && {G \times G} && G \\
+    && G
+    \arrow["{(\id_{G},()\inv)}", from=1-1, to=1-3]
+    \arrow["{(()\inv, \id_{G})}"', from=1-5, to=1-3]
+    \arrow["m", from=1-3, to=2-3]
+    \arrow[Rightarrow, no head, from=1-1, to=2-3]
+    \arrow[Rightarrow, no head, from=1-5, to=2-3]
+  \end{tikzcd} \and%
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIFxcdGltZXMgRyBcXHRpbWVzIEciXSxbMCwyLCJHIFxcdGltZXMgRyJdLFsyLDAsIkcgXFx0aW1lcyBHIl0sWzIsMiwiRyJdLFsxLDMsIm0iLDJdLFsyLDMsIm0iXSxbMCwxLCJcXGlkX3tHfSBcXHRpbWVzIG0iLDJdLFswLDIsIm0gXFx0aW1lcyBcXGlkX3tHfSJdXQ==
+  \begin{tikzcd}
+    {G \times G \times G} && {G \times G} \\
+    \\
+    {G \times G} && G
+    \arrow["m"', from=3-1, to=3-3]
+    \arrow["m", from=1-3, to=3-3]
+    \arrow["{\id_{G} \times m}"', from=1-1, to=3-1]
+    \arrow["{m \times \id_{G}}", from=1-1, to=1-3]
+  \end{tikzcd}
+\end{mathpar}
+The first diagram, for instance, says that for any generalized element $g$ of $G$, $m(\id_{G},e)g = g$.
+Group operations can be nested (e.g., $(e,e,e,e) : G \times G \times G \times G$) to create implicit operations, and the finite product structure of $\iC$ enables it.
+
+A finite-product preserving functor $\iC \to \iD$ maps internal groups of $\iC$ to those of $\iD$.
+In fact, there is a generic category $\cG$ such that finite-product preserving functors $\cG \to \iC$ correspond uniquely to internal groups of $\iC$.
+When $\iC = \CSet$, an internal group is just a group in the usual sense.
+
+The category $\CFin\op$, intuitively speaking, demands no operations and axioms, so a finite-product preserving functor $\iota : \CFin\op \to \iC$ is just an object in $\iC$.
+Thus, a finite-product preserving functor $\CFin\op \to \CSet$ is just a set.
+When $\iC = \cG$, the functor $\iota$ picks out the generic group object.
+Then the composite $\CFin\op \xto{\iota} \cG \to \CSet$ is the underlying set of the generic group object, so precomposition with $\iota$ is the forgetful functor $U : \CGrp \to \CSet$.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE1vZF97XFxDU2V0fShcXGNHKSJdLFsyLDAsIlxcTW9kX3tcXENTZXR9KFxcQ0Zpblxcb3ApIl0sWzAsMSwiXFxDR3JwIl0sWzIsMSwiXFxDU2V0Il0sWzIsMCwiXFxlcXYiLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywxLCJcXGVxdiIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcaW90YV57Kn0iXV0=
+\[\begin{tikzcd}
+    {\Mod_{\CSet}(\cG)} && {\Mod_{\CSet}(\CFin\op)} \\
+    \CGrp && \CSet
+    \arrow["\eqv"{marking, allow upside down}, draw=none, from=2-1, to=1-1]
+    \arrow["\eqv"{marking, allow upside down}, draw=none, from=2-3, to=1-3]
+    \arrow["{\iota^{*}}", from=1-1, to=1-3]
+  \end{tikzcd}\]
 
 \section{Yoneda and cantor}
 \label{sec:yoneda-and-cantor}
@@ -1387,10 +1444,6 @@ Now we record some facts about topos equipped with a topology.
 \label{sec:classifying-topoi}
 
 \todo{Elephant B4.2.}
-
-\todo{Idea: Given a mathematical theory $\cT$, is there a generic model of this theory?}
-\todo{Precise meaning of this question: is there a Grothendieck topos $\cE[\cT]$ and a model $M$ of $\cT$ in $\cE[\cT]$ so that, for every Grothendieck topos $\cF$, the models of $\cT$ in $\cF$ are exactly $f^{*}(M)$, for all geometric morphisms $f : \cF \to \cE[\cT]$?}
-
 \paragraph{Achtung.} In this section, topos means Grothendieck topos.
 \paragraph{Achtung.} I don't have a coherent story for this section yet.
 

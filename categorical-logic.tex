@@ -11,8 +11,8 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Any category $\iC$ with finite products has enough structure to define internal groups.
-In fact, to define the group identity and group multiplication, we need a terminal object and binary products, implying the existence of all finite products.
+To define group identity and group multiplication in a category, we need a terminal object and binary products, implying the existence of all finite products.
+This suggests that we can define an internal group in a category with finite products.
 Below is the usual presentation of the theory of groups.
 \begin{mathpar}
   \vdash e : G \and x : G \vdash x\inv : G \and x, y : G \vdash m(x, y) : G \and x : G \vdash m(e, x) = x : G%
@@ -54,22 +54,17 @@ The axioms of the theory of groups can be expressed in terms of the following co
 \end{mathpar}
 The first diagram, for instance, says that for any generalized element $g$ of $G$, $m(g,e) = g$.
 
-A finite-product preserving functor $\iC \to \iD$ maps an internal group of $\iC$ to an internal group of $\iD$.
+For any two categories $\iC$ and $\iD$ with finite products, a finite-product preserving functor $\iC \to \iD$ maps an internal group of $\iC$ to an internal group of $\iD$.
 In fact, there is a generic category $\cG$ such that finite-product preserving functors $\cG \to \iC$ correspond to internal groups of $\iC$.
 When $\iC = \CSet$, an internal group is just a group in the usual sense.
 
 The category $\CFin\op$, intuitively speaking, demands no operations and axioms, so a finite-product preserving functor $\iota : \CFin\op \to \iC$ is just an object in $\iC$.
 Thus, a finite-product preserving functor $\CFin\op \to \CSet$ is just a set.
 When $\iC = \cG$, the functor $\iota$ picks out the generic group object.
-Then the composite $\CFin\op \xto{\iota} \cG \to \CSet$ is the underlying set of the generic group object, so precomposition with $\iota$ is the forgetful functor $U : \CGrp \to \CSet$.
-% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXE1vZF97XFxDU2V0fShcXGNHKSJdLFsyLDAsIlxcTW9kX3tcXENTZXR9KFxcQ0Zpblxcb3ApIl0sWzAsMSwiXFxDR3JwIl0sWzIsMSwiXFxDU2V0Il0sWzIsMCwiXFxlcXYiLDMseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywxLCJcXGVxdiIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDEsIlxcaW90YV57Kn0iXV0=
-\[\begin{tikzcd}
-    {\Mod_{\CSet}(\cG)} && {\Mod_{\CSet}(\CFin\op)} \\
-    \CGrp && \CSet
-    \arrow["\eqv"{marking, allow upside down}, draw=none, from=2-1, to=1-1]
-    \arrow["\eqv"{marking, allow upside down}, draw=none, from=2-3, to=1-3]
-    \arrow["{\iota^{*}}", from=1-1, to=1-3]
-  \end{tikzcd}\]
+Then the composite $\CFin\op \xto{\iota} \cG \to \CSet$ is the underlying set of the generic group object, so precomposition with $\iota$ yields the forgetful functor $U : \CGrp \to \CSet$.
+\[
+  \CGrp \eqv \Mod_{\CSet}(\cG) \xto{\iota^{*}} \Mod_{\CSet}(\CFin\op) \eqv \CSet
+\]
 
 The forgetful functor encodes a great deal of information about groups.
 Let us consider a natural transformations $\alpha : U \To U$.
@@ -84,122 +79,140 @@ For any two groups $G$ and $G'$ and any group homomorphism $f : G \to G'$, the f
     \arrow["Uf"', from=1-1, to=3-1]
     \arrow["Uf", from=1-3, to=3-3]
   \end{tikzcd}\]
-The means that the data of $\alpha$ is just an (implicit) $1$-ary group operation.
+This means that the data of $\alpha$ is just an (implicit) $1$-ary group operation.
 In general, a natural transformation $U^{m} \To U^{n}$ encodes an $n$-tuple of $m$-ary group operation.
 
 Now, suppose that $\cT$ is a geometric theory and $f : \cE \to \cF$ is a geometric morphism between Grothendieck topoi.
 Then a model of $\cT$ in $\cF$ yields a model of $\cT$ in $\cE$ via the inverse image functor $f^{*} : \cF \to \cE$ since it is cocontinuous and left exact (preserves the interpretation of $\bigvee$, $\wedge$, and other connectives).
-Is there a classifying Grothendieck topos $\cG[\cT]$ such that each geometric morphism $\cE \to \cG[\cT]$ corresponds to a model of $\cT$ in $\cE$?
-This has been answered positively.
+It is natural to wonder whether there is a Grothendieck topos $\cC_{\cT}$ such that each geometric morphism $\cE \to \cC_{\cT}$ corresponds to a model of $\cT$ in $\cE$.
+The answer to this question is yes.
+Every geometric theory is classified by a category of sheaves over a site.
 
-\section{Yoneda and cantor}
-\label{sec:yoneda-and-cantor}
+% \section{Yoneda and cantor}
+% \label{sec:yoneda-and-cantor}
 
-\begin{cons}[Archetypal Grothendieck construction]\label{cons:archetypal-grothendieck-construction}
-  Let $X$ be a set.
-  There is a bijection between the powerset $P(X)$ and the set of all truth functionals over $X$.
-  \[
-    \Theta : P(X) \otto 2^{X} : \Psi
-  \]
-  \begin{itemize}
-  \item[$\Theta$:] For each subset $S \subseteq X$, $\Theta(S)$ is the characteristic function of $X$, mapping elements in $S$ to $1$ and everything else to $0$.
-  \item[$\Psi$:] For each truth functional $\phi : X \to 2$, $\Psi(\phi)$ is the inverse image $\phi\inv(1)$.
-  \end{itemize}
-\end{cons}
+% \begin{cons}[Archetypal Grothendieck construction]\label{cons:archetypal-grothendieck-construction}
+%   Let $X$ be a set.
+%   There is a bijection between the powerset $P(X)$ and the set of all truth functionals over $X$.
+%   \[
+%     \Theta : P(X) \otto 2^{X} : \Psi
+%   \]
+%   \begin{itemize}
+%   \item[$\Theta$:] For each subset $S \subseteq X$, $\Theta(S)$ is the characteristic function of $X$, mapping elements in $S$ to $1$ and everything else to $0$.
+%   \item[$\Psi$:] For each truth functional $\phi : X \to 2$, $\Psi(\phi)$ is the inverse image $\phi\inv(1)$.
+%   \end{itemize}
+% \end{cons}
 
-\begin{rmk}
-  The map $\Psi$ in \cref{cons:archetypal-grothendieck-construction} can be described as a pullback.
-  % https://q.uiver.app/#q=WzAsNCxbMiwwLCIxIl0sWzIsMiwiMiJdLFswLDIsIlgiXSxbMCwwLCJcXHZhcnBoaVxcaW52KDEpIl0sWzAsMSwidCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwxLCJcXHZhcnBoaSIsMl0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFszLDBdLFszLDEsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
-  \[\begin{tikzcd}
-      {\varphi\inv(1)} && 1 \\
-      \\
-      X && 2
-      \arrow["t", tail, from=1-3, to=3-3]
-      \arrow["\varphi"', from=3-1, to=3-3]
-      \arrow[tail, from=1-1, to=3-1]
-      \arrow[from=1-1, to=1-3]
-      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
-    \end{tikzcd}\]
-  Indeed, $\varphi\inv(1)$ is the largest (w.r.t. inclusion) subset of $X$ so that $\varphi$ evaluates to $1$ everywhere.
-\end{rmk}
+% \begin{rmk}
+%   The map $\Psi$ in \cref{cons:archetypal-grothendieck-construction} can be described as a pullback.
+%   % https://q.uiver.app/#q=WzAsNCxbMiwwLCIxIl0sWzIsMiwiMiJdLFswLDIsIlgiXSxbMCwwLCJcXHZhcnBoaVxcaW52KDEpIl0sWzAsMSwidCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMiwxLCJcXHZhcnBoaSIsMl0sWzMsMiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFszLDBdLFszLDEsIiIsMSx7InN0eWxlIjp7Im5hbWUiOiJjb3JuZXIifX1dXQ==
+%   \[\begin{tikzcd}
+%       {\varphi\inv(1)} && 1 \\
+%       \\
+%       X && 2
+%       \arrow["t", tail, from=1-3, to=3-3]
+%       \arrow["\varphi"', from=3-1, to=3-3]
+%       \arrow[tail, from=1-1, to=3-1]
+%       \arrow[from=1-1, to=1-3]
+%       \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+%     \end{tikzcd}\]
+%   Indeed, $\varphi\inv(1)$ is the largest (w.r.t. inclusion) subset of $X$ so that $\varphi$ evaluates to $1$ everywhere.
+% \end{rmk}
 
-\begin{rmk}
-  In $\CSet$, we make the foundational commitment that $\CSet(A, B)$ is a set and that the powerset $P(A)$ is in fact a set.
-  As it turns out, assuming either one is sufficient to construct the other.
-\end{rmk}
+% \begin{rmk}
+%   In $\CSet$, we make the foundational commitment that $\CSet(A, B)$ is a set and that the powerset $P(A)$ is in fact a set.
+%   As it turns out, assuming either one is sufficient to construct the other.
+% \end{rmk}
 
-\begin{rmk}
-  The set $P(X)$ has a canonical poset structure given by the set inclusion relation.
-  In fact, $P(X)$ equipped with set inclusion is a complete Boolean algebra.
-  Thus, the powerset functor $P : \CSet\op \to \CSet$ may be equally regarded as a functor $P : \CSet\op \to \CPos$, sending each set to its powerset ordered by inclusion.
-\end{rmk}
+% \begin{rmk}
+%   The set $P(X)$ has a canonical poset structure given by the set inclusion relation.
+%   In fact, $P(X)$ equipped with set inclusion is a complete Boolean algebra.
+%   Thus, the powerset functor $P : \CSet\op \to \CSet$ may be equally regarded as a functor $P : \CSet\op \to \CPos$, sending each set to its powerset ordered by inclusion.
+% \end{rmk}
 
-\begin{rmk}
-  The two point set has a unique nontrivial poset structure $\Set{0 \leq 1}$.
-  We can define a poset structure on truth functionals by transporting the poset structure defined on the powersets along the Grothendieck construction.
-  \[
-    \chi_{X} \leq \chi_{Y} \text{ iff } X \subseteq Y
-  \]
-  This is the usual pointwise poset structure.
-\end{rmk}
+% \begin{rmk}
+%   The two point set has a unique nontrivial poset structure $\Set{0 \leq 1}$.
+%   We can define a poset structure on truth functionals by transporting the poset structure defined on the powersets along the Grothendieck construction.
+%   \[
+%     \chi_{X} \leq \chi_{Y} \text{ iff } X \subseteq Y
+%   \]
+%   This is the usual pointwise poset structure.
+% \end{rmk}
 
-We can classify subsets of a given set $X$.
-We can classify $X$-indexed families (i.e., functions $f : Y \to X$), too.
-These families assemble into the slice construction $\CSet/X$.
+% We can classify subsets of a given set $X$.
+% We can classify $X$-indexed families (i.e., functions $f : Y \to X$), too.
+% These families assemble into the slice construction $\CSet/X$.
 
-\begin{cons}[Discrete Grothendieck construction]
-  Let $X$ be a set construed as a discrete category.
-  There is an equivalence of categories.
-  \[
-    \Theta : \CSet/X \otto \CSet^{X} : \Psi
-  \]
-  \begin{itemize}
-  \item[$\Theta$:] For each function $f : Y \to X$, $\Theta(f)$ is the functor that sends each $x \in X$ to the inverse image $f\inv(x)$.
-  \item[$\Psi$:] For each functor $\varphi : X \to \CSet$, $\Psi(\varphi)$ is the canonical map $\coprod_{x \in X}\varphi(x) \to X$
-  \end{itemize}
-\end{cons}
+% \begin{cons}[Discrete Grothendieck construction]
+%   Let $X$ be a set construed as a discrete category.
+%   There is an equivalence of categories.
+%   \[
+%     \Theta : \CSet/X \otto \CSet^{X} : \Psi
+%   \]
+%   \begin{itemize}
+%   \item[$\Theta$:] For each function $f : Y \to X$, $\Theta(f)$ is the functor that sends each $x \in X$ to the inverse image $f\inv(x)$.
+%   \item[$\Psi$:] For each functor $\varphi : X \to \CSet$, $\Psi(\varphi)$ is the canonical map $\coprod_{x \in X}\varphi(x) \to X$
+%   \end{itemize}
+% \end{cons}
 
-\begin{rmk}
-  Indeed, $\Psi$ can be phrased in terms of pullback.
-  % https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXENTZXRfeyp9Il0sWzIsMiwiXFxDU2V0Il0sWzAsMiwiWCJdLFswLDAsIlxcY29wcm9kX3t4IFxcaW4gWH1cXHZhcnBoaSh4KSJdLFswLDFdLFsyLDEsIlxcdmFycGhpIiwyXSxbMywyXSxbMywwXSxbMywxLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
-  \[\begin{tikzcd}
-      {\coprod_{x \in X}\varphi(x)} && {\CSet_{*}} \\
-      \\
-      X && \CSet
-      \arrow[from=1-3, to=3-3]
-      \arrow["\varphi"', from=3-1, to=3-3]
-      \arrow[from=1-1, to=3-1]
-      \arrow[from=1-1, to=1-3]
-      \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
-    \end{tikzcd}\]
-  $\coprod_{x \in X}\varphi(x) \to X$ is the ``largest'' family so that $\varphi$ produces a witness everywhere.
-\end{rmk}
+% \begin{rmk}
+%   Indeed, $\Psi$ can be phrased in terms of pullback.
+%   % https://q.uiver.app/#q=WzAsNCxbMiwwLCJcXENTZXRfeyp9Il0sWzIsMiwiXFxDU2V0Il0sWzAsMiwiWCJdLFswLDAsIlxcY29wcm9kX3t4IFxcaW4gWH1cXHZhcnBoaSh4KSJdLFswLDFdLFsyLDEsIlxcdmFycGhpIiwyXSxbMywyXSxbMywwXSxbMywxLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+%   \[\begin{tikzcd}
+%       {\coprod_{x \in X}\varphi(x)} && {\CSet_{*}} \\
+%       \\
+%       X && \CSet
+%       \arrow[from=1-3, to=3-3]
+%       \arrow["\varphi"', from=3-1, to=3-3]
+%       \arrow[from=1-1, to=3-1]
+%       \arrow[from=1-1, to=1-3]
+%       \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+%     \end{tikzcd}\]
+%   $\coprod_{x \in X}\varphi(x) \to X$ is the ``largest'' family so that $\varphi$ produces a witness everywhere.
+% \end{rmk}
 
 \section{Hyperdoctrine}
 \label{sec:hyperdoctrine}
 
-The internal logic of a Heyting (or Boolean) algebra is intuitionistic (or classical) propositional logic.
-Each sort of a given theory is equipped with a poset of propositions, in which $\varphi \leq \psi$ means $\varphi$ entails $\psi$.
-For simplicity, let us assume a single sorted theory with no function symbols.
-Let us recall Tarski's definition:
-\begin{enumerate}
-\item The unique sort is a set $S$.
-\item A proposition variable is a subset of $S$.
-\item $\top$ is the entire set $S$.
-\item $\bot$ is the empty set $\varnothing$.
-\item $\varphi \wedge \psi$ is the intersection $\varphi \cap \psi$.
-\item $\varphi \vee \psi$ is the union $\varphi \cup \psi$.
-\item $\varphi \To \psi$ is the exponential $\psi^{\varphi}$, i.e., the largest element so that $\psi^{\varphi} \wedge \varphi \leq \psi$.
-\end{enumerate}
+For simplicity, let us assume a single-sorted 1-st order theory $\cT$ with no function symbols.
+Then a $\cT$-structure in $\CSet$ consists of a set $S$ for the unique sort of $\cT$, and a subset of $S^{n}$ for each relation symbol of arity $n$.
+For each $n$, we call the set $S^{n}$ a \emph{context} and use uppercase Greek letters ($\Gamma$, $\Delta$, etc.) to denote contexts.
+An element of the powerset $P(S^{n})$ is a formula in $n$ variables.
+For each context $\Gamma$, the powerset $P(\Gamma)$ has a natural poset structure (ordered by entailment), in which logical connectives can be interpreted by their universal properties as follows.
+\todo{A few words on Lindenbaum-Tarski algebra may be warranted.}
+\begin{multicols}{2}
+  \begin{itemize}
+  \item $\top$ is interpreted as the top element.
+  \item $\bot$ is interpreted as the bottom element.
+  \item $\neg \varphi$ is interpreted as the largest element $\overline{\varphi}$ such that $\overline{\varphi} \cap \varphi \leq 0$.
+  \item $\varphi \wedge \psi$ is interpreted as the meet $\varphi \cap \psi$.
+  \item $\varphi \vee \psi$ is interpreted as the join $\varphi \cup \psi$.
+  \item $\varphi \imp \psi$ is interpreted as the exponential $\psi^{\varphi}$, i.e., the largest element such that $\psi^{\varphi} \cap \varphi \leq \psi$.
+  \item $\exists x.\,\varphi$ is interpreted as the left adjoint to the inverse image $\pi_{x}^{*}$.
+  \item $\forall x.\,\varphi$ is interpreted as the right adjoint to the inverse image $\pi_{x}^{*}$.
+  \end{itemize}
+\end{multicols}
+The interpretation of existential quantifier is required to satisfy the Beck-Chevalley and the Frobenius conditions, corresponding to natural logical laws.
+We do not spell out the details here.
 
-Essentially, propositions live in a poset with sufficient structure: various logical connectives correspond to various universal constructions.
-As a model of a theory $\cT$ in another theory $\cT'$ has to preserve entailment, we expect it to be a function $M : \cT \to \cT'$ preserving relevant structures.
+\begin{defn}
+  Given a $\cT$-structure $M$, we say that $M$ \emph{satisfies} a sequent $\varphi \vdash_{\Gamma} \psi$ if $\varphi \leq \psi$ in $P(\Gamma)$.
+  If every axiom of $\cT$ is satisfied in $M$, we call $M$ a $\cT$-model.
+\end{defn}
 
-Generalizing this to multisorted theories is straightforward.
-Each sort of the theory has a poset of propositions.
-In the presence of nontrivial terms, we need to specify how propositions in context interact with substitutions.
-For example, given a proposition in the context $d$, i.e., $\vdash_{d} \varphi$, substitution by a term $f : c \to d$ ought to produce a proposition in the context $c$, i.e., $\vdash_{c} \varphi[f]$.
-Of course, we expect substitution to satisfy $\varphi[f][g] = \varphi[g \circ f]$ and $\varphi[\id] = \varphi$.
+Given a function $f : S^{n} \to S^{m}$, consider the inverse image function $f^{*} : P(S^{m}) \to P(S^{n})$.
+This function sends a formula $\varphi$ in $m$ variables to a formula in $n$ variables suggested by the following pullback.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJmXnsqfVxcdmFycGhpIl0sWzAsMiwiU157bn0iXSxbMiwyLCJTXnttfSJdLFsyLDAsIlxcdmFycGhpIl0sWzEsMiwiZiIsMl0sWzMsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibW9ubyJ9fX1dLFswLDEsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1vbm8ifX19XSxbMCwzXSxbMCwyLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XV0=
+\[\begin{tikzcd}
+    {f^{*}\varphi} && \varphi \\
+    \\
+    {S^{n}} && {S^{m}}
+    \arrow["f"', from=3-1, to=3-3]
+    \arrow[tail, from=1-3, to=3-3]
+    \arrow[tail, from=1-1, to=3-1]
+    \arrow[from=1-1, to=1-3]
+    \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+  \end{tikzcd}\]
 
 \begin{defn}
   A \emph{doctrine} is a functor $\cC : \iC\op \to \CPos$, where $\CPos$ is some suitable category of posets.
@@ -293,51 +306,51 @@ If we additionally require that the pullback of $A$ along $\lambda$ is represent
     \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
   \end{tikzcd}\]
 
-\section{Calculus of fractions and orthogonality}
-\label{sec:calculus-of-fractions-and-orthogonality}
-\todo{Ivan's notes: topics in category theory 2018}
+% \section{Calculus of fractions and orthogonality}
+% \label{sec:calculus-of-fractions-and-orthogonality}
+% \todo{Ivan's notes: topics in category theory 2018}
 
-\begin{defn}
-  Let $\iC$ be a category and $\cW$ be a class of morphisms (to be inverted) of $\iC$.
-  The \emph{localization of $\iC$ with respect to $\cW$} is a category $\iC[\cW\inv]$ equipped with a localization functor $L : \iC \to \iC[\cW\inv]$ such that
-  \begin{itemize}
-  \item $Lw$ is an isomorphism for all $w \in \cW$.
-  \item $L$ is universal with respect to this property, i.e., if $F : \iC \to \iD$ is a functor that maps each$w \in \cW$ to an isomorphism, then there is a unique functor $i : \iC[\cW\inv] \to \iD$ so that $iL \iso F$.
-  \end{itemize}
-\end{defn}
+% \begin{defn}
+%   Let $\iC$ be a category and $\cW$ be a class of morphisms (to be inverted) of $\iC$.
+%   The \emph{localization of $\iC$ with respect to $\cW$} is a category $\iC[\cW\inv]$ equipped with a localization functor $L : \iC \to \iC[\cW\inv]$ such that
+%   \begin{itemize}
+%   \item $Lw$ is an isomorphism for all $w \in \cW$.
+%   \item $L$ is universal with respect to this property, i.e., if $F : \iC \to \iD$ is a functor that maps each$w \in \cW$ to an isomorphism, then there is a unique functor $i : \iC[\cW\inv] \to \iD$ so that $iL \iso F$.
+%   \end{itemize}
+% \end{defn}
 
-\begin{thm}
-  $\iC[\cW\inv]$ and $L$ exist for any category $\iC$ and any class of morphisms $\cW$.
-\end{thm}
-\begin{proof}
-  Since $\cW$ are morphisms to be inverted, we formally add their inverses.
-  Let $\iG$ be a graph whose vertices are objects of $\iC$ and morphisms are morphisms of $\iC$ and formal inverses of $w \in \cW$.
-  Now, take the free category $F\iG$ generated the graph $\iG$.
-  Explicitly, the morphisms of $F\iG$ are tuples of morphisms of $\iC \cup \cW\inv$.
-  To enforce invertibility and universal property, we quotient the category $F\iG$ by the relation $\sim$ generated by the following equations
-  \begin{itemize}
-  \item $()_{c} = (\id_{c})$.
-  \item $(g, f) = (gf)$ whenever the composition makes sense.
-  \item $(w, w\inv) = ()_{\cod(w)}$.
-  \item $(w\inv, w) = ()_{\dom(w)}$.
-  \end{itemize}
-  We take $\iC[\cW\inv] := F\iG/\sim$, and $L : \iC \to \iC[\cW\inv]$ is defined as the composite $\iC \into F\iG \epi \iC[\cW\inv]$.
-  By construction, $Lw$ is an isomorphism for all $w \in \cW$.
-  The universality of this construction is inherited from the universal property of the quotient category construction.
-\end{proof}
+% \begin{thm}
+%   $\iC[\cW\inv]$ and $L$ exist for any category $\iC$ and any class of morphisms $\cW$.
+% \end{thm}
+% \begin{proof}
+%   Since $\cW$ are morphisms to be inverted, we formally add their inverses.
+%   Let $\iG$ be a graph whose vertices are objects of $\iC$ and morphisms are morphisms of $\iC$ and formal inverses of $w \in \cW$.
+%   Now, take the free category $F\iG$ generated the graph $\iG$.
+%   Explicitly, the morphisms of $F\iG$ are tuples of morphisms of $\iC \cup \cW\inv$.
+%   To enforce invertibility and universal property, we quotient the category $F\iG$ by the relation $\sim$ generated by the following equations
+%   \begin{itemize}
+%   \item $()_{c} = (\id_{c})$.
+%   \item $(g, f) = (gf)$ whenever the composition makes sense.
+%   \item $(w, w\inv) = ()_{\cod(w)}$.
+%   \item $(w\inv, w) = ()_{\dom(w)}$.
+%   \end{itemize}
+%   We take $\iC[\cW\inv] := F\iG/\sim$, and $L : \iC \to \iC[\cW\inv]$ is defined as the composite $\iC \into F\iG \epi \iC[\cW\inv]$.
+%   By construction, $Lw$ is an isomorphism for all $w \in \cW$.
+%   The universality of this construction is inherited from the universal property of the quotient category construction.
+% \end{proof}
 
-\begin{defn}
-  An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for each morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following diagram commutes.
-  % https://q.uiver.app/#q=WzAsMyxbMCwwLCJkIl0sWzIsMCwiZCciXSxbMSwxLCJjIl0sWzAsMSwibSJdLFswLDIsImYiLDJdLFsxLDIsImYnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
-  \[\begin{tikzcd}
-      d && {d'} \\
-      & c
-      \arrow["m", from=1-1, to=1-3]
-      \arrow["f"', from=1-1, to=2-2]
-      \arrow["{f'}", dashed, from=1-3, to=2-2]
-    \end{tikzcd}\]
-  For a class $\cM$ of morphisms in a category $\iC$, we write $\cM^{\bot}$ for the full subcategory of $\iC$ spanned by objects orthogonal to each $m \in \cM$.
-\end{defn}
+% \begin{defn}
+%   An object $c$ is \emph{orthogonal} to a morphism $m : d \to d'$ if for each morphism $f : d \to c$, there is a unique morphism $f' : d' \to c$ so that the following diagram commutes.
+%   % https://q.uiver.app/#q=WzAsMyxbMCwwLCJkIl0sWzIsMCwiZCciXSxbMSwxLCJjIl0sWzAsMSwibSJdLFswLDIsImYiLDJdLFsxLDIsImYnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+%   \[\begin{tikzcd}
+%       d && {d'} \\
+%       & c
+%       \arrow["m", from=1-1, to=1-3]
+%       \arrow["f"', from=1-1, to=2-2]
+%       \arrow["{f'}", dashed, from=1-3, to=2-2]
+%     \end{tikzcd}\]
+%   For a class $\cM$ of morphisms in a category $\iC$, we write $\cM^{\bot}$ for the full subcategory of $\iC$ spanned by objects orthogonal to each $m \in \cM$.
+% \end{defn}
 
 \section{Sheaves}
 \label{sec:sheaves}

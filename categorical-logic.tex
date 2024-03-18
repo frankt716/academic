@@ -12,7 +12,7 @@
 \label{sec:introduction}
 
 To define group identity and group multiplication in a category, we need a terminal object and binary products, implying the existence of all finite products.
-This suggests that we can define an internal group in a category with finite products.
+Indeed, internal groups can be defined in a category with finite products.
 Below is the usual presentation of the theory of groups.
 \begin{mathpar}
   \vdash e : G \and x : G \vdash x\inv : G \and x, y : G \vdash m(x, y) : G \and x : G \vdash m(e, x) = x : G%
@@ -58,10 +58,9 @@ For any two categories $\iC$ and $\iD$ with finite products, a finite-product pr
 In fact, there is a generic category $\cG$ such that finite-product preserving functors $\cG \to \iC$ correspond to internal groups of $\iC$.
 When $\iC = \CSet$, an internal group is just a group in the usual sense.
 
-The category $\CFin\op$, intuitively speaking, demands no operations and axioms, so a finite-product preserving functor $\iota : \CFin\op \to \iC$ is just an object in $\iC$.
-Thus, a finite-product preserving functor $\CFin\op \to \CSet$ is just a set.
-When $\iC = \cG$, the functor $\iota$ picks out the generic group object.
-Then the composite $\CFin\op \xto{\iota} \cG \to \CSet$ is the underlying set of the generic group object, so precomposition with $\iota$ yields the forgetful functor $U : \CGrp \to \CSet$.
+The category $\CFin\op$, intuitively speaking, demands no operations and axioms, so a finite-product preserving functor $\iota : \CFin\op \to \iC$ corresponds to an object of $\iC$.
+When $\iC = \cG$, the (unique) functor $\iota$ correspond to the generic group object.
+Then the composite $\CFin\op \xto{\iota} \cG \xto{G} \CSet$ is the underlying set of the group $G$, so precomposition with $\iota$ yields the forgetful functor $U : \CGrp \to \CSet$.
 \[
   \CGrp \eqv \Mod_{\CSet}(\cG) \xto{\iota^{*}} \Mod_{\CSet}(\CFin\op) \eqv \CSet
 \]
@@ -86,7 +85,7 @@ Now, suppose that $\cT$ is a geometric theory and $f : \cE \to \cF$ is a geometr
 Then a model of $\cT$ in $\cF$ yields a model of $\cT$ in $\cE$ via the inverse image functor $f^{*} : \cF \to \cE$ since it is cocontinuous and left exact (preserves the interpretation of $\bigvee$, $\wedge$, and other connectives).
 It is natural to wonder whether there is a Grothendieck topos $\cC_{\cT}$ such that each geometric morphism $\cE \to \cC_{\cT}$ corresponds to a model of $\cT$ in $\cE$.
 The answer to this question is yes.
-Every geometric theory is classified by a category of sheaves over a site.
+Every geometric theory is classified by a category of sheaves over a syntactic site.
 
 % \section{Yoneda and cantor}
 % \label{sec:yoneda-and-cantor}
@@ -174,36 +173,15 @@ Every geometric theory is classified by a category of sheaves over a site.
 \section{Hyperdoctrine}
 \label{sec:hyperdoctrine}
 
-We adopt the ``syntax-free'' approach in which one considers a ``formula'' of a theory $\cT$ abstractly as an element in a poset, and $\cT(\Gamma)$ as the poset of $\cT$-axioms and their logical consequences over the context $\Gamma$.
-This bypasses issues such as $\alpha$-equivalence that the syntactic approach must address.
-\todo{A few words on the Lindenbaum-Tarski algebra for a propositional theory may be warranted.}
-Logical connectives are interpreted by their universal properties as follows.
-\begin{multicols}{2}
-  \begin{itemize}
-  \item $\top$ is interpreted as the top element.
-  \item $\bot$ is interpreted as the bottom element.
-  \item $\neg \varphi$ is interpreted as the largest element $\overline{\varphi}$ such that $\overline{\varphi} \cap \varphi \leq 0$.
-  \item $\varphi \wedge \psi$ is interpreted as the meet $\varphi \cap \psi$.
-  \item $\varphi \vee \psi$ is interpreted as the join $\varphi \cup \psi$.
-  \item $\varphi \imp \psi$ is interpreted as the exponential $\psi^{\varphi}$, i.e., the largest element such that $\psi^{\varphi} \cap \varphi \leq \psi$.
-  \item $\exists x.\,\varphi$ is interpreted as the left adjoint to the inverse image $\pi_{x}^{*}$.
-  \item $\forall x.\,\varphi$ is interpreted as the right adjoint to the inverse image $\pi_{x}^{*}$.
-  \end{itemize}
-\end{multicols}
-The interpretation of existential quantifier is required to satisfy the Beck-Chevalley and the Frobenius conditions, corresponding to natural logical laws.
-We do not spell out the details here.
-
-To implement substitution, we assign to each context morphism $f : \Gamma \to \Delta$ a substitution $f^{*} : \cT(\Delta) \to \cT(\Gamma)$ function.
-This assignment has to satisfy the expected equations: $g^{*}f^{*} = (fg)^{*}$ and $\id^{*} = \id$.
-In other words, the assignment is functorial.
-
-\todo{This definition looks like a $\CPos$-indexed topos.}
-\todo{Elephant B.}
 \begin{defn}
-  Let $\iC$ be a finitely complete category considered as the category of contexts and context morphisms.
-  A \emph{doctrine} is a functor $\cT : \iC\op \to \CPos$, where $\CPos$ is some suitable category of posets.
+  A \emph{(primitive) doctrine} is a functor $\cT : \iC\op \to \CPos$, where $\CPos$ is some suitable category of posets.
 \end{defn}
 
+In a doctrine $\cT : \iC\op \to \CPos$, the category $\iC$ is the category of contexts and context morphisms.
+The functor maps each context $\Gamma$ to the Lindenbaum-Tarski algebra over $\Gamma$.
+Each context morphism $f : \Gamma \to \Delta$ induces contravariantly a substitution operation $f^{*} : \cT(\Delta) \to \cT(\Gamma)$ satisfying the expected equations: $\id^{*} = \id$ and $g^{*}f^{*} = (fg)^{*}$.
+
+The mathematical intuition of such a construct is explained in the following example.
 \begin{eg}
   Consider the powerset doctrine, denoted as $\cP : \CSet\op \to \CPos$, obtained via the contravariant powerset functor $P : \CSet\op \to \CSet$ by equipping the subobject classifier $\Set{f, t}$ of $\CSet$ with the only nontrivial poset structure.
 
@@ -253,10 +231,30 @@ In other words, the assignment is functorial.
   \end{mathpar}
 \end{eg}
 
-\begin{defn}\label{def:model-of-doctrine}
+The choice of the codomain of a doctrine depends on what logical connectives we wish to interpret.
+We may also demand that the domain has finite products, finite limits, etc.
+\begin{multicols}{2}
+  \begin{itemize}
+  \item $\top$ is interpreted as the top element.
+  \item $\bot$ is interpreted as the bottom element.
+  \item $\neg \varphi$ is interpreted as the largest element $\overline{\varphi}$ such that $\overline{\varphi} \cap \varphi \leq 0$.
+  \item $\varphi \wedge \psi$ is interpreted as the meet $\varphi \cap \psi$.
+  \item $\varphi \vee \psi$ is interpreted as the join $\varphi \cup \psi$.
+  \item $\varphi \imp \psi$ is interpreted as the exponential $\psi^{\varphi}$, i.e., the largest element such that $\psi^{\varphi} \cap \varphi \leq \psi$.
+  \item $\exists x.\,\varphi$ is interpreted as the left adjoint to the inverse image $\pi_{x}^{*}$.
+  \item $\forall x.\,\varphi$ is interpreted as the right adjoint to the inverse image $\pi_{x}^{*}$.
+  \end{itemize}
+\end{multicols}
+The interpretation of existential quantifier is required to satisfy the Beck-Chevalley and the Frobenius conditions, corresponding to natural logical laws.
+We do not spell out the details here.
+
+\begin{rmk}
+  Let us assume that the category of contexts has at least finite products.
+\end{rmk}
+\begin{defn}\label{def:morphism-of-doctrine}
   A \emph{morphism} of doctrines $\cS \to \cT$ consists of the following data. 
   \begin{itemize}
-  \item A finitely continuous functor $M : \iC \to \iD$.
+  \item A finite-product preserving functor $M : \iC \to \iD$.
   \item A natural transformation $\lambda : \cS \To \cT \circ M\op$.
   \end{itemize}
   % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXGlDXFxvcCJdLFsyLDAsIlxcaURcXG9wIl0sWzEsMSwiXFxDUG9zIl0sWzAsMSwiTVxcb3AiXSxbMCwyLCJcXGNDIiwyXSxbMSwyLCJcXGNEIl0sWzQsMSwiXFxsYW1iZGEiLDEseyJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6MTB9fV1d
@@ -269,6 +267,19 @@ In other words, the assignment is functorial.
       \arrow["\lambda"{description}, shorten <=4pt, shorten >=4pt, Rightarrow, from=0, to=1-3]
     \end{tikzcd}\]
 \end{defn}
+
+Let us unpack \cref{def:morphism-of-doctrine}.
+Let $\Gamma := (x : A, y : B) \in \iC$ be a context.
+Then $M$ essentially maps this context to $(x : MA, y : MB) \in \iD$.
+Each component of the natural transformation $\lambda$ is an entailment preserving function.
+Thus, a sequent $\varphi \vdash_{\Gamma} \psi$ in $S(\Gamma)$ is mapped to a sequent $\lambda_{\Gamma}\varphi \vdash_{M\Gamma} \lambda_{\Gamma}\psi$ in $\cT(M\Gamma)$.
+Naturality demands that this data is compatible with substitutions.
+
+\begin{eg}
+  Let us consider a morphism of doctrines $(M, \lambda) : \cT \to \cP$, where $\cT : \CFin \to \CPos$ ($(\CFin\op)\op = \CFin$) and $\cP : \CSet\op \to \CPos$ is the powerset doctrine.
+  We know that a finite-product preserving functor $\CFin\op \to \CSet$ corresponds to a set.
+  This gives the underlying set of the given single-sorted theory $\cT$ (encoded as a doctrine).
+\end{eg}
 
 \subsection{The category of elements of a doctrine}
 \label{sec:the-category-of-elements-of-a-doctrine}

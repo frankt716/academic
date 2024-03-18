@@ -174,7 +174,7 @@ Every geometric theory is classified by a category of sheaves over a syntactic s
 \label{sec:hyperdoctrine}
 
 \begin{defn}
-  A \emph{(primitive) doctrine} is a functor $\cT : \iC\op \to \CPos$, where $\CPos$ is some suitable category of posets.
+  A \emph{(primitive) doctrine} is a functor $\cT : \iC\op \to \CPos$, where $\CPos$ is a suitable category of posets.
 \end{defn}
 
 In a doctrine $\cT : \iC\op \to \CPos$, the category $\iC$ is the category of contexts and context morphisms.
@@ -276,18 +276,24 @@ Thus, a sequent $\varphi \vdash_{\Gamma} \psi$ in $S(\Gamma)$ is mapped to a seq
 Naturality demands that this data is compatible with substitutions.
 
 \begin{eg}
-  Let us consider a morphism of doctrines $(M, \lambda) : \cT \to \cP$, where $\cT : \CFin \to \CPos$ ($(\CFin\op)\op = \CFin$) and $\cP : \CSet\op \to \CPos$ is the powerset doctrine.
+  Let us consider a morphism of doctrines $(M, \lambda) : \cT \to \cP$, where $\cT : \CFin \to \CPos$ (note that $(\CFin\op)\op = \CFin$) and $\cP : \CSet\op \to \CPos$ is the powerset doctrine.
   We know that a finite-product preserving functor $\CFin\op \to \CSet$ corresponds to a set.
-  This gives the underlying set of the given single-sorted theory $\cT$ (encoded as a doctrine).
+  This is the underlying set of the given single-sorted theory $\cT$ (encoded as a doctrine).
+  The component $\lambda_{\Gamma}$ maps a sequent $\varphi \vdash_{\Gamma} \psi$ to the inclusion $\lambda_{\Gamma}\varphi \subseteq_{M\Gamma} \lambda_{\Gamma}\psi$.
+  This data is just a $\cT$-model in $\CSet$ in the usual sense.
 \end{eg}
+
+\begin{rmk}
+  It makes sense to talk about the models of a given theory $\cT : \iC\op \to \CPos$ in a (Grothendieck) topos $\cE$ whose subobject classifier $\Omega$ is an internal poset of the appropriate kind.
+\end{rmk}
 
 \subsection{The category of elements of a doctrine}
 \label{sec:the-category-of-elements-of-a-doctrine}
 
-The category of elements of a doctrine $\cT : \iC\op \to \CPos$ consists of
+The category of elements of a doctrine $\cT : \iC\op \to \CPos$ consists of the following data.
 \begin{itemize}
-\item[] \textbf{(Objects)} an object is a pair $(\Gamma, \varphi)$ where $\Gamma \in \iC$ and $\varphi \in \cT(\Gamma)$.
-\item[] \textbf{(Morphisms)} a morphism $(\Gamma, \varphi) \to (\Delta, \psi)$ is a context morphism $f : \Gamma \to \Delta$ so that $f^{*}\psi = \varphi$.
+\item[] \textbf{(Objects)}: An object is a pair $(\Gamma, \varphi)$ where $\Gamma \in \iC$ and $\varphi \in \cT(\Gamma)$.
+\item[] \textbf{(Morphisms)}: A morphism $(\Gamma, \varphi) \to (\Delta, \psi)$ is a context morphism $f : \Gamma \to \Delta$ such that $f^{*}\psi = \varphi$.
 \end{itemize}
 
 % The powerset doctrine factors through the contravariant powerset functor in a canonical way because every powerset has a canonical poset structure given by the inclusion relation.

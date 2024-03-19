@@ -15,9 +15,9 @@ To define group identity and group multiplication in a category, we need a termi
 Indeed, internal groups can be defined in a category with finite products.
 Below is the usual presentation of the theory of groups.
 \begin{mathpar}
-  \vdash e : G \and x : G \vdash x\inv : G \and x, y : G \vdash m(x, y) : G \and x : G \vdash m(e, x) = x : G%
-  \and x : G \vdash m(x, e) = x : G \and x : G \vdash m(x, x\inv) = e : G \and x : G \vdash m(x\inv, x) = e : G%
-  \and x, y, z : G \vdash m(m(x,y),z) = m(x,m(y,z)) : G
+  \vdash e : G \and \vdash_{x : G} x\inv : G \and \vdash_{x, y : G} m(x, y) : G \and \vdash_{x : G} m(e, x) = x%
+  \and \vdash_{x : G} m(x, e) = x \and \vdash_{x : G} m(x, x\inv) = e \and \vdash_{x : G} m(x\inv, x) = e%
+  \and \vdash_{x, y, z : G} m(m(x,y),z) = m(x,m(y,z))
 \end{mathpar}
 The axioms of the theory of groups can be expressed in terms of the following commutative diagrams.
 \begin{mathpar}
@@ -275,6 +275,14 @@ Each component of the natural transformation $\lambda$ is an entailment preservi
 Thus, a sequent $\varphi \vdash_{\Gamma} \psi$ in $S(\Gamma)$ is mapped to a sequent $\lambda_{\Gamma}\varphi \vdash_{M\Gamma} \lambda_{\Gamma}\psi$ in $\cT(M\Gamma)$.
 Naturality demands that this data is compatible with substitutions.
 
+\begin{eg}
+  Let us consider a morphism of doctrines $(M, \lambda) : \cT \to \cP$, where $\cT : \CFin \to \CPos$ (note that $(\CFin\op)\op = \CFin$) and $\cP : \CSet\op \to \CPos$ is the powerset doctrine.
+  We know that a finite-product preserving functor $\CFin\op \to \CSet$ corresponds to a set.
+  This is the underlying set of the given single-sorted theory $\cT$ (encoded as a doctrine).
+  The component $\lambda_{\Gamma}$ maps each theorem in $\cT(\Gamma)$ to a subset of $M(\Gamma)$, preserving the entailment relation.
+  This data is just a $\cT$-model in $\CSet$ in the usual sense.
+\end{eg}
+
 % The powerset doctrine factors through the contravariant powerset functor in a canonical way because every powerset has a canonical poset structure given by the inclusion relation.
 % % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGlEIl0sWzIsMCwiXFxDU2V0XFxvcCJdLFsxLDIsIlxcQ1BvcyJdLFszLDIsIlxcQ1NldCJdLFswLDIsIlxcY0QiLDJdLFswLDEsIk0iXSxbMSwzLCJcXGNQIl0sWzIsM10sWzEsMiwiIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsMSwiXFxsYW1iZGEiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MTAsInRhcmdldCI6MTB9fV1d
 % \[\begin{tikzcd}
@@ -359,6 +367,14 @@ Naturality demands that this data is compatible with substitutions.
 %     \end{tikzcd}\]
 %   For a class $\cM$ of morphisms in a category $\iC$, we write $\cM^{\bot}$ for the full subcategory of $\iC$ spanned by objects orthogonal to each $m \in \cM$.
 % \end{defn}
+
+\section{Indexed categories and fibrations}
+\label{sec:indexed-categories-and-fibrations}
+
+\begin{defn}
+  A $2$-category consists of 0-cells, 1-cells, and 2-cells equipped with the following structure:
+  
+\end{defn}
 
 \section{Sheaves}
 \label{sec:sheaves}

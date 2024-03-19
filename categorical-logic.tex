@@ -429,9 +429,12 @@ Naturality demands that this data is compatible with substitutions.
   We write $\CCAT$ for the informal (meta) 2-category of categories, functors, and natural transformations.
 \end{notn}
 
-In a 2-category, we do not expect 1-cells to commute on the nose because we have additional (higher dimensional) structure (2-cells) to encode the relationships between 1-cells.
-Thus, it is more reasonable to expect that 1-cells commute up to chosen coherent 2-isomorphisms.
-Coherence conditions ensure that any two 2-cells with the same source and target constructed by pasting the chosen 2-isomorphisms together are equal, i.e., a 2-cell $f \To g$ composed of the chosen 2-isomorphisms can be regarded as a chosen notion of equality (a property) between $f$ and $g$.
+In a 2-category, 1-cells do not have to commute on the nose.
+We have higher dimensional structure (2-cells) to encode the relationships between 1-cells.
+Indeed, we can now choose a 2-isomorphism and regard it as a notion of equality between 1-cells.
+However, the price to pay is that we need to specify coherence conditions for the chosen notion of equality (2-isomorphisms).
+As equalities are properties, any two ``proofs'' of the same equality ought to be the same.
+Coherence conditions ensure that any two 2-cells with the same source and target constructed by pasting the chosen 2-isomorphisms together are equal.
 
 \begin{rmk}
   We require associativity to hold strictly, rather than up to a chosen coherent 2-isomorphism.
@@ -439,7 +442,7 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 
 \begin{defn}
   Let $\iC$ and $\iD$ be 2-categories.
-  A pseudofunctor (2-functor) $F : \iC \to \iD$ consists of the following data.
+  A \emph{pseudofunctor} (2-functor) $F : \iC \to \iD$ consists of the following data.
   \begin{itemize}
   \item A mapping $A \mapsto FA$ from 0-cells of $\iC$ to 0-cells of $\iD$.
   \item A mapping $f \mapsto Ff$ from 1-cells of $\iC$ to 1-cells of $\iD$.
@@ -533,6 +536,119 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 	\arrow["\alpha", shorten <=3pt, shorten >=3pt, Rightarrow, from=0, to=1]
 	\arrow["\beta", shorten <=3pt, shorten >=3pt, Rightarrow, from=2, to=3]
       \end{tikzcd}\]
+  \end{itemize}
+\end{defn}
+
+\begin{defn}
+  Let $(F, \phi), (G, \psi) : \iC \toto \iD$ be two 2-functors.
+  A \emph{2-natural transformation} $\alpha : (F, \phi) \To (G, \psi)$ assigns to each 0-cell $c$ of $\iC$ a morphism $\alpha_{c} : Fc \to Gc$ of $\iD$ and to each 1-cell $f : c \to c'$ a 2-isomorphism $\eta_{f}$ filling the following diagram.
+  % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYyJdLFsyLDAsIkdjIl0sWzAsMiwiRmMnIl0sWzIsMiwiR2MnIl0sWzAsMiwiRmYiLDJdLFswLDEsIlxcYWxwaGFfe2N9Il0sWzIsMywiXFxhbHBoYV97Yyd9IiwyXSxbMSwzLCJHZiJdLFsxLDIsIlxcZXRhX3tmfSIsMSx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH0sImxldmVsIjoyfV1d
+  \[\begin{tikzcd}
+      Fc && Gc \\
+      \\
+      {Fc'} && {Gc'}
+      \arrow["Ff"', from=1-1, to=3-1]
+      \arrow["{\alpha_{c}}", from=1-1, to=1-3]
+      \arrow["{\alpha_{c'}}"', from=3-1, to=3-3]
+      \arrow["Gf", from=1-3, to=3-3]
+      \arrow["{\eta_{f}}"{description}, shorten <=11pt, shorten >=11pt, Rightarrow, from=1-3, to=3-1]
+    \end{tikzcd}\]
+  The chosen 2-isomorphisms are required to be compatible with $\phi$ and $\psi$.
+  \begin{itemize}
+  \item Compatibility with composition: for any composable pair of morphisms $(f,g)$ in $\iC$, the following pasting diagrams are equal.
+    \begin{mathpar}
+      % https://q.uiver.app/#q=WzAsNixbMCwxLCJGYyJdLFswLDMsIkdjIl0sWzIsMCwiRmMnIl0sWzIsMiwiR2MnIl0sWzQsMSwiRmMnJyJdLFs0LDMsIkdjJyciXSxbMCwxLCJcXGFscGhhX3tjfSIsMl0sWzIsMywiXFxhbHBoYV97Yyd9IiwyXSxbNCw1LCJcXGFscGhhX3tjJyd9Il0sWzAsMiwiRmYiXSxbMiw0LCJGZyJdLFsxLDMsIkdmIl0sWzMsNSwiR2ciXSxbMSwyLCJcXGV0YV97Zn0iLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6NDAsInRhcmdldCI6NDB9LCJsZXZlbCI6Mn1dLFszLDQsIlxcZXRhX3tnfSIsMCx7InNob3J0ZW4iOnsic291cmNlIjo0MCwidGFyZ2V0Ijo0MH0sImxldmVsIjoyfV0sWzEsNSwiRyhnZikiLDJdLFszLDE1LCJcXHBzaV97ZixnfSIsMix7InNob3J0ZW4iOnsidGFyZ2V0IjoyMH19XV0=
+      \begin{tikzcd}
+        && {Fc'} \\
+        Fc &&&& {Fc''} \\
+        && {Gc'} \\
+        Gc &&&& {Gc''}
+        \arrow["{\alpha_{c}}"', from=2-1, to=4-1]
+        \arrow["{\alpha_{c'}}"', from=1-3, to=3-3]
+        \arrow["{\alpha_{c''}}", from=2-5, to=4-5]
+        \arrow["Ff", from=2-1, to=1-3]
+        \arrow["Fg", from=1-3, to=2-5]
+        \arrow["Gf", from=4-1, to=3-3]
+        \arrow["Gg", from=3-3, to=4-5]
+        \arrow["{\eta_{f}}", shorten <=28pt, shorten >=28pt, Rightarrow, from=4-1, to=1-3]
+        \arrow["{\eta_{g}}", shorten <=19pt, shorten >=19pt, Rightarrow, from=3-3, to=2-5]
+        \arrow[""{name=0, anchor=center, inner sep=0}, "{G(gf)}"', from=4-1, to=4-5]
+        \arrow["{\psi_{f,g}}"', shorten >=3pt, Rightarrow, from=3-3, to=0]
+      \end{tikzcd} \and%
+      % https://q.uiver.app/#q=WzAsNSxbMCwxLCJGYyJdLFswLDMsIkdjIl0sWzIsMCwiRmMnIl0sWzQsMSwiRmMnJyJdLFs0LDMsIkdjJyciXSxbMCwxLCJcXGFscGhhX3tjfSIsMl0sWzMsNCwiXFxhbHBoYV97YycnfSJdLFswLDIsIkZmIl0sWzIsMywiRmciXSxbMSw0LCJHKGdmKSIsMl0sWzAsMywiRihnZikiLDJdLFsxLDMsIlxcZXRhX3tnZn0iLDIseyJzaG9ydGVuIjp7InNvdXJjZSI6NDAsInRhcmdldCI6NDB9LCJsZXZlbCI6Mn1dLFsyLDEwLCJcXHBoaV97ZixnfSIsMCx7InNob3J0ZW4iOnsidGFyZ2V0IjoyMH19XV0=
+      \begin{tikzcd}
+	&& {Fc'} \\
+	Fc &&&& {Fc''} \\
+	\\
+	Gc &&&& {Gc''}
+	\arrow["{\alpha_{c}}"', from=2-1, to=4-1]
+	\arrow["{\alpha_{c''}}", from=2-5, to=4-5]
+	\arrow["Ff", from=2-1, to=1-3]
+	\arrow["Fg", from=1-3, to=2-5]
+	\arrow["{G(gf)}"', from=4-1, to=4-5]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{F(gf)}"', from=2-1, to=2-5]
+	\arrow["{\eta_{gf}}"', shorten <=45pt, shorten >=45pt, Rightarrow, from=4-1, to=2-5]
+	\arrow["{\phi_{f,g}}", shorten >=3pt, Rightarrow, from=1-3, to=0]
+      \end{tikzcd}
+    \end{mathpar}
+  \item Compatibility with identity: for any object $c$ of $\iC$, the following pasting diagrams are equal.
+    \begin{mathpar}
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYyJdLFswLDIsIkdjIl0sWzIsMCwiRmMiXSxbMiwyLCJHYyJdLFswLDIsIkYoXFxpZF97Y30pIiwyXSxbMSwzLCJHKFxcaWRfe2N9KSIsMl0sWzAsMSwiXFxhbHBoYV97Y30iLDJdLFsyLDMsIlxcYWxwaGFfe2N9Il0sWzAsMiwiXFxpZF97RmN9IiwwLHsiY3VydmUiOi0zfV0sWzEsMiwiXFxldGFfe1xcaWRfe2N9fSIsMCx7InNob3J0ZW4iOnsic291cmNlIjo0MCwidGFyZ2V0Ijo0MH0sImxldmVsIjoyfV0sWzgsNCwiXFxwaGlfe2N9IiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dXQ==
+      \begin{tikzcd}
+	Fc && Fc \\
+	\\
+	Gc && Gc
+	\arrow[""{name=0, anchor=center, inner sep=0}, "{F(\id_{c})}"', from=1-1, to=1-3]
+	\arrow["{G(\id_{c})}"', from=3-1, to=3-3]
+	\arrow["{\alpha_{c}}"', from=1-1, to=3-1]
+	\arrow["{\alpha_{c}}", from=1-3, to=3-3]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "{\id_{Fc}}", curve={height=-18pt}, from=1-1, to=1-3]
+	\arrow["{\eta_{\id_{c}}}", shorten <=22pt, shorten >=22pt, Rightarrow, from=3-1, to=1-3]
+	\arrow["{\phi_{c}}", shorten <=2pt, shorten >=2pt, Rightarrow, from=1, to=0]
+      \end{tikzcd} \and%
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYyJdLFswLDIsIkdjIl0sWzIsMCwiRmMiXSxbMiwyLCJHYyJdLFswLDIsIlxcaWRfe0ZjfSJdLFsxLDMsIlxcaWRfe0ZjfSJdLFswLDEsIlxcYWxwaGFfe2N9IiwyXSxbMiwzLCJcXGFscGhhX3tjfSJdLFsxLDMsIkcoXFxpZF97Y30pIiwyLHsiY3VydmUiOjN9XSxbMSwyLCJcXGlvdGFfe1xcYWxwaGFfe2N9fSIsMCx7InNob3J0ZW4iOnsic291cmNlIjo0MCwidGFyZ2V0Ijo0MH0sImxldmVsIjoyfV0sWzUsOCwiXFxwc2lfe2N9IiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dXQ==
+      \begin{tikzcd}
+        Fc && Fc \\
+        \\
+        Gc && Gc
+        \arrow["{\id_{Fc}}", from=1-1, to=1-3]
+        \arrow[""{name=0, anchor=center, inner sep=0}, "{\id_{Fc}}", from=3-1, to=3-3]
+        \arrow["{\alpha_{c}}"', from=1-1, to=3-1]
+        \arrow["{\alpha_{c}}", from=1-3, to=3-3]
+        \arrow[""{name=1, anchor=center, inner sep=0}, "{G(\id_{c})}"', curve={height=18pt}, from=3-1, to=3-3]
+        \arrow["{\iota_{\alpha_{c}}}", shorten <=22pt, shorten >=22pt, Rightarrow, from=3-1, to=1-3]
+        \arrow["{\psi_{c}}", shorten <=2pt, shorten >=2pt, Rightarrow, from=0, to=1]
+      \end{tikzcd}
+    \end{mathpar}
+  \item Naturality: for any 2-cell $\beta : f \To g$ in $\iC$, the following pasting diagrams are equal.
+    \begin{mathpar}
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYyJdLFswLDIsIkdjIl0sWzIsMCwiRmMnIl0sWzIsMiwiR2MnIl0sWzAsMSwiXFxhbHBoYV97Y30iLDJdLFsyLDMsIlxcYWxwaGFfe2MnfSJdLFswLDIsIkZnIiwyXSxbMSwzLCJHZyIsMl0sWzEsMiwiXFxldGFfe2d9IiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjQwLCJ0YXJnZXQiOjQwfSwibGV2ZWwiOjJ9XSxbMCwyLCJGZiIsMCx7ImN1cnZlIjotM31dLFs5LDYsIkZcXGJldGEiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV1d
+      \begin{tikzcd}
+	Fc && {Fc'} \\
+	\\
+	Gc && {Gc'}
+	\arrow["{\alpha_{c}}"', from=1-1, to=3-1]
+	\arrow["{\alpha_{c'}}", from=1-3, to=3-3]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "Fg"', from=1-1, to=1-3]
+	\arrow["Gg"', from=3-1, to=3-3]
+	\arrow["{\eta_{g}}"', shorten <=22pt, shorten >=22pt, Rightarrow, from=3-1, to=1-3]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "Ff", curve={height=-18pt}, from=1-1, to=1-3]
+	\arrow["F\beta", shorten <=2pt, shorten >=2pt, Rightarrow, from=1, to=0]
+      \end{tikzcd} \and%
+      % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYyJdLFswLDIsIkdjIl0sWzIsMCwiRmMnIl0sWzIsMiwiR2MnIl0sWzAsMSwiXFxhbHBoYV97Y30iLDJdLFsyLDMsIlxcYWxwaGFfe2MnfSJdLFswLDIsIkZmIl0sWzEsMywiR2YiXSxbMSwyLCJcXGV0YV97Zn0iLDIseyJzaG9ydGVuIjp7InNvdXJjZSI6NDAsInRhcmdldCI6NDB9LCJsZXZlbCI6Mn1dLFsxLDMsIkdnIiwyLHsiY3VydmUiOjN9XSxbNyw5LCJHXFxiZXRhIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dXQ==
+      \begin{tikzcd}
+	Fc && {Fc'} \\
+	\\
+	Gc && {Gc'}
+	\arrow["{\alpha_{c}}"', from=1-1, to=3-1]
+	\arrow["{\alpha_{c'}}", from=1-3, to=3-3]
+	\arrow["Ff", from=1-1, to=1-3]
+	\arrow[""{name=0, anchor=center, inner sep=0}, "Gf", from=3-1, to=3-3]
+	\arrow["{\eta_{f}}"', shorten <=22pt, shorten >=22pt, Rightarrow, from=3-1, to=1-3]
+	\arrow[""{name=1, anchor=center, inner sep=0}, "Gg"', curve={height=18pt}, from=3-1, to=3-3]
+	\arrow["G\beta", shorten <=2pt, shorten >=2pt, Rightarrow, from=0, to=1]
+      \end{tikzcd}
+    \end{mathpar}
   \end{itemize}
 \end{defn}
 

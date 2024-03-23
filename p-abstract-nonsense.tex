@@ -15,7 +15,7 @@
 
 \title{Abstract nonsense}
 \author[Frank T]{Frank Tsai\inst{1}}
-\institute{\inst{1} (SUNY at Buffalo)}
+\institute{\inst{1} (Göteborgs universitet)}
 \date{\today}
 
 \AtBeginSection[]
@@ -43,28 +43,39 @@
 \begin{frame}{Motivation}
   Lots of mathematical theories capturing various things
   \begin{columns}[t]
-    \begin{column}<1->{5cm}
+    \begin{column}{5cm}
       \begin{itemize}
       \item[] Topology
       \item Spaces
       \item Continuous functions
-      \item<2-> Product topology, quotient topology, etc
       \end{itemize}
     \end{column}
-    \begin{column}<3->{5cm}
+    \begin{column}{5cm}
       \begin{itemize}
       \item[] Group theory
       \item Symmetries of objects
       \item Symmetry preserving functions
-      \item<4-> Product groups, quotient groups, etc
       \end{itemize}
     \end{column}
   \end{columns}
-  \begin{enumerate}
-  \item<5-> A topological space equipped with a group structure?
-  \item<6-> Translate a topological problem into a problem about groups (e.g., the fundamental group of a space)?
-  \item<7-> A unified framework for various constructions (e.g., products, quotients, etc)?
-  \end{enumerate}
+  \vspace{0.5em}
+  \begin{itemize}
+  \item<2-> The notion of topological groups
+    \begin{itemize}
+    \item Applications in physics and functional analysis
+    \end{itemize}
+  \item<3-> Lots of similar constructions
+    \begin{itemize}
+    \item<4-> Product groups and product topologies
+    \item<5-> Coproduct groups and coproduct topologies
+    \item<6-> Quotient groups and quotient topologies
+    \end{itemize}
+  \end{itemize}
+  \begin{uncoverenv}<7->
+    \begin{block}{Thesis}
+      Category theory as a framework for mathematics
+    \end{block}
+  \end{uncoverenv}
 \end{frame}
 
 \section{Categories}
@@ -76,9 +87,9 @@
     A collection of \emph{objects}.
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMiwwLCJcXGJ1bGxldCJdXQ==
     \[\begin{tikzcd}
-	\bullet \&\& \bullet \\
+	A \&\& B \\
 	\\
-	\bullet \&\& \bullet
+	C \&\& D
       \end{tikzcd}\]
   \end{onlyenv}
   \begin{onlyenv}<2>
@@ -86,9 +97,9 @@
     % https://q.uiver.app/#q=WzAsNyxbMiwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzMsMywiXFxidWxsZXQiXSxbNCwxLCJcXGJ1bGxldCJdLFs2LDIsIlxcYnVsbGV0Il0sWzUsMCwiXFxidWxsZXQiXSxbMiwyLCJcXGJ1bGxldCJdLFsxLDBdLFswLDNdLFsxLDNdLFs2LDIsIiIsMCx7ImN1cnZlIjotMn1dLFs2LDIsIiIsMix7ImN1cnZlIjoyfV1d
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJ1bGxldCJdLFswLDIsIlxcYnVsbGV0Il0sWzIsMiwiXFxidWxsZXQiXSxbMiwwLCJcXGJ1bGxldCJdLFswLDMsIiIsMCx7ImN1cnZlIjotMX1dLFswLDMsIiIsMix7ImN1cnZlIjoxfV0sWzMsMl0sWzAsMl1d
     \[\begin{tikzcd}
-	\bullet \&\& \bullet \\
+	A \&\& B \\
 	\\
-	\bullet \&\& \bullet
+	C \&\& D
 	\arrow[curve={height=-6pt}, from=1-1, to=1-3]
 	\arrow[curve={height=6pt}, from=1-1, to=1-3]
 	\arrow[from=1-3, to=3-3]
@@ -103,9 +114,9 @@
   \begin{onlyenv}<3>
     A specified \emph{identity} morphism for each object.
     \[\begin{tikzcd}
-	\bullet \&\& \bullet \\
+	A \&\& B \\
 	\\
-	\bullet \&\& \bullet
+	C \&\& D
 	\arrow[curve={height=-6pt}, from=1-1, to=1-3]
 	\arrow[curve={height=6pt}, from=1-1, to=1-3]
 	\arrow[from=1-3, to=3-3]
@@ -117,77 +128,116 @@
         \arrow[loop below, from=3-3, to=3-3]{}{\id}
       \end{tikzcd}\]
   \end{onlyenv}
-  \begin{onlyenv}<4>
+  \begin{onlyenv}<4->
     A specified \emph{composite} morphism for any two composable morphisms.
     \[\begin{tikzcd}
-	\bullet \&\& \bullet \\
+	A \&\& B \\
 	\\
-	\bullet \&\& \bullet
+	C \&\& D
 	\arrow[curve={height=-6pt}, from=1-1, to=1-3]{}{f}
 	\arrow[curve={height=6pt}, from=1-1, to=1-3]
 	\arrow[from=1-3, to=3-3]{}{g}
 	\arrow[from=1-1, to=3-3]{}[swap]{g \circ f}
-        \arrow[loop above, from=1-1, to=1-1]
+        \arrow[loop above, from=1-1, to=1-1]{}{\id}
         \arrow[loop left, from=1-1, to=1-1]
-        \arrow[loop above, from=1-3, to=1-3]
-        \arrow[loop below, from=3-1, to=3-1]
-        \arrow[loop below, from=3-3, to=3-3]
+        \arrow[loop above, from=1-3, to=1-3]{}{\id}
+        \arrow[loop below, from=3-1, to=3-1]{}{\id}
+        \arrow[loop below, from=3-3, to=3-3]{}{\id}
       \end{tikzcd}\]
   \end{onlyenv}
-\end{frame}
-
-\begin{frame}{Categories}
-  These data are subject to the following requirements:
-  \begin{itemize}
-  \item \bf{Associativity}: $f \circ (g \circ h) = (f \circ g) \circ h$.
-  \item \bf{Unitality}: $\id \circ f = f = f \circ \id$.
-  \end{itemize}
+  \begin{uncoverenv}<5->
+    These data are subject to the following requirements:
+    \begin{itemize}
+    \item \bf{Associativity}: $f \circ (g \circ h) = (f \circ g) \circ h$.
+    \item \bf{Unitality}: $\id \circ f = f = f \circ \id$.
+    \end{itemize}
+  \end{uncoverenv}
 \end{frame}
 
 \begin{frame}{Examples}
   \begin{columns}
-    \begin{column}{0.5\linewidth}
-      \begin{itemize}
-      \item<1-> $\mathsf{Set}$
+    \begin{onlyenv}<1>
+      \begin{column}{5cm}
         \begin{itemize}
-        \item sets
-        \item functions
-        \item identity functions
-        \item function composition
+        \item[] $\mathsf{Set}$
+        \item Objects are sets
+        \item Morphisms are functions
+        \item Identity morphisms are identity functions
+        \item Composition is function composition
         \end{itemize}
-      \item<2-> $\mathsf{Grp}$
+      \end{column}
+    \end{onlyenv}
+    \begin{onlyenv}<2>
+      \begin{column}{5cm}
         \begin{itemize}
-        \item groups
-        \item group homomorphisms
-        \item identity functions
-        \item function composition
+        \item[] $\mathsf{Grp}$
+        \item Objects are groups
+        \item Morphisms are group homomorphisms
+        \item Identity morphisms are identity functions
+        \item Composition is function composition
         \end{itemize}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\linewidth}
-      \begin{itemize}
-      \item<3-> $(P,\leq)$
+      \end{column}
+    \end{onlyenv}
+    \begin{onlyenv}<3>
+      \begin{column}{5cm}
         \begin{itemize}
-        \item elements of $P$
-        \item $a \to b$ iff $a \leq b$
-        \item reflexivity of $\leq$
-        \item transitivity of $\leq$
+        \item[] $\mathsf{Top}$
+        \item Objects are topological spaces
+        \item Morphisms are continuous functions
+        \item Identity morphisms are identity functions
+        \item Composition is function composition
         \end{itemize}
-      \end{itemize}
-      \begin{itemize}
-      \item<4-> $\cT$
+      \end{column}
+    \end{onlyenv}
+    \begin{onlyenv}<4>
+      \begin{column}{5cm}
         \begin{itemize}
-        \item sorts
-        \item terms
-        \item variables
-        \item substitution
+        \item[] $\mathsf{(P,\leq)}$
+        \item Objects are elements of $P$
+        \item A morphism $A \to B$ represents the fact that $A \leq B$
+        \item Identity morphism is the reflexivity of $\leq$: $A \leq A$ for any element $A$
+        \item Composition is the transitivity of $\leq$: $A \leq B$ and $B \leq C$ implies $A \leq C$
         \end{itemize}
-      \end{itemize}
-    \end{column}
+      \end{column}
+    \end{onlyenv}
+    \begin{onlyenv}<1-3>
+      \begin{column}{5cm}
+        \[\begin{tikzcd}
+            A \&\& B \\
+            \\
+            C \&\& D
+            \arrow[curve={height=-6pt}, from=1-1, to=1-3]{}{f}
+            \arrow[curve={height=6pt}, from=1-1, to=1-3]
+            \arrow[from=1-3, to=3-3]{}{g}
+            \arrow[from=1-1, to=3-3]{}[swap]{g \circ f}
+            \arrow[loop above, from=1-1, to=1-1]{}{\id}
+            \arrow[loop left, from=1-1, to=1-1]
+            \arrow[loop above, from=1-3, to=1-3]{}{\id}
+            \arrow[loop below, from=3-1, to=3-1]{}{\id}
+            \arrow[loop below, from=3-3, to=3-3]{}{\id}
+          \end{tikzcd}\]
+      \end{column}
+    \end{onlyenv}
+    \begin{onlyenv}<4>
+      \begin{column}{5cm}
+        \[\begin{tikzcd}
+            A \&\& B \\
+            \\
+            C \&\& D
+            \arrow[from=1-1, to=1-3]{}{f}
+            \arrow[from=1-3, to=3-3]{}{g}
+            \arrow[from=1-1, to=3-3]{}[swap]{g \circ f}
+            \arrow[loop above, from=1-1, to=1-1]{}{\id}
+            \arrow[loop above, from=1-3, to=1-3]{}{\id}
+            \arrow[loop below, from=3-1, to=3-1]{}{\id}
+            \arrow[loop below, from=3-3, to=3-3]{}{\id}
+          \end{tikzcd}\]
+      \end{column}
+    \end{onlyenv}
   \end{columns}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Example}{Internal groups}
+\begin{frame}{Example}{Internal groups}
   Recall the usual presentation of the theory of groups.
   To specify a group structure on an object $G$ (an \emph{internal group}) is to specify the following data.
   \begin{itemize}
@@ -195,12 +245,16 @@
   \item The group inverse: $()\inv : G \to G$
   \item The group multiplication: $m : G \times G \to G$
   \end{itemize}
-  These data are required to satisfy the following conditions.
+  \pause
+  These data are required to satisfy the group axioms.
   \begin{itemize}
   \item $m(x,e) = x = m(e,x)$
   \item $m(x,x\inv) = e = m(x\inv,x)$
   \item $m(m(x,y),z) = m(x,m(y,z))$
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Example}
   \begin{mathpar}
     % https://q.uiver.app/#q=WzAsNCxbNCwwLCJHIl0sWzIsMCwiRyBcXHRpbWVzIEciXSxbMiwxLCJHIl0sWzAsMCwiRyJdLFswLDEsImUgXFx0aW1lcyBcXGlkX3tHfSIsMl0sWzEsMiwibSJdLFswLDIsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzMsMSwiXFxpZF97R30gXFx0aW1lcyBlIl0sWzMsMiwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
     \begin{tikzcd}
@@ -208,9 +262,9 @@
       \&\& G
       \arrow[from=1-5, to=1-3]{}[swap]{(e,\id_{G})}
       \arrow[from=1-3, to=2-3]{}{m}
-      \arrow[Rightarrow, no head, from=1-5, to=2-3]
+      \arrow[from=1-5, to=2-3]{}{\id_{G}}
       \arrow[from=1-1, to=1-3]{}{{(\id_{G}, e)}}
-      \arrow[Rightarrow, no head, from=1-1, to=2-3]
+      \arrow[from=1-1, to=2-3]{}[swap]{\id_{G}}
     \end{tikzcd} \and%
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIl0sWzIsMCwiRyBcXHRpbWVzIEciXSxbNCwwLCJHIl0sWzIsMSwiRyJdLFswLDEsIihcXGlkX3tHfSwoKVxcaW52KSJdLFsyLDEsIigoKVxcaW52LCBcXGlkX3tHfSkiLDJdLFsxLDMsIm0iXSxbMCwzLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDMsIiIsMix7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
     \begin{tikzcd}
@@ -219,8 +273,8 @@
       \arrow[from=1-1, to=1-3]{}{(\id_{G},()\inv)}
       \arrow[from=1-5, to=1-3]{}[swap]{(()\inv, \id_{G})}
       \arrow[from=1-3, to=2-3]{}{m}
-      \arrow[Rightarrow, no head, from=1-1, to=2-3]
-      \arrow[Rightarrow, no head, from=1-5, to=2-3]
+      \arrow[from=1-1, to=2-3]{}[swap]{\id_{G}}
+      \arrow[from=1-5, to=2-3]{}{\id_{G}}
     \end{tikzcd} \and%
     % https://q.uiver.app/#q=WzAsNCxbMCwwLCJHIFxcdGltZXMgRyBcXHRpbWVzIEciXSxbMCwyLCJHIFxcdGltZXMgRyJdLFsyLDAsIkcgXFx0aW1lcyBHIl0sWzIsMiwiRyJdLFsxLDMsIm0iLDJdLFsyLDMsIm0iXSxbMCwxLCJcXGlkX3tHfSBcXHRpbWVzIG0iLDJdLFswLDIsIm0gXFx0aW1lcyBcXGlkX3tHfSJdXQ==
     \begin{tikzcd}
@@ -235,17 +289,30 @@
   \end{mathpar}
 \end{frame}
 
-\begin{frame}{Observations}
-  \begin{itemize}
-  \item Internal groups can be defined in any category $\iC$ (with sufficient structure)
-  \item An internal group in $\mathsf{Set}$ is just a group in the usual sense
-  \item Many things can be internalized in a category with sufficient structure
-    \begin{itemize}
-    \item Internal monoid
-    \item Internal Heyting algebra
-    \item Internal categories
-    \end{itemize}
-  \end{itemize}
+\begin{frame}{Example}{Internal groups}
+  \begin{columns}
+    \begin{column}{5cm}
+      An internal group in $\mathsf{Set}$ consists of a \emph{set} $A$ and 3 \emph{functions}
+      \begin{itemize}
+      \item group identity $e : 1 \to A$
+      \item group inverse $()\inv : A \to A$
+      \item group multiplication $m : A \times A \to A$
+      \end{itemize}
+      satisfying the group axioms.
+    \end{column}
+    \begin{column}{5cm}
+      An internal group in $\mathsf{Top}$ consists of a \emph{topological space} $A$ and 3 \emph{continuous functions}
+      \begin{itemize}
+      \item group identity $e : 1 \to A$
+      \item group inverse $()\inv : A \to A$
+      \item group multiplication $m : A \times A \to A$
+      \end{itemize}
+      satisfying the group axioms.
+    \end{column}
+  \end{columns}
+  \begin{block}{Observation}
+    An internal group in $\mathsf{Set}$ is a group in the usual sense.
+  \end{block}
 \end{frame}
 
 \section{Functors}
@@ -255,94 +322,150 @@
   Let $\iC$ and $\iD$ be categories.
   A \emph{functor} $F : \iC \to \iD$ consists of the following data.
   \begin{itemize}
-  \item An \emph{action on objects}: each object of $\iC$ is mapped to an object of $\iD$.
-  \item An \emph{action on morphisms}: each morphism $c \to c'$ is mapped to a morphism $Fc \to Fc'$.
+  \item An \emph{action on objects}: each object of $\iC$ is mapped to an object of $\iD$
+  \item An \emph{action on morphisms}: each morphism $c \to c'$ is mapped to a morphism $Fc \to Fc'$
+    \begin{itemize}
+    \item<3-> Suppressed throughout this talk, but it is an \textbf{essential} piece of data of a functor
+    \end{itemize}
   \end{itemize}
-  \pause
-  These data are required to satisfy the following conditions.
-  \begin{itemize}
-  \item $F(\id_{a}) = \id_{Fa}$.
-  \item $F(f \circ g) = Ff \circ Fg$.
-  \end{itemize}
+  \begin{uncoverenv}<2->
+    These data are required to satisfy the following conditions.
+    \begin{itemize}
+    \item $F(\id_{a}) = \id_{Fa}$
+    \item $F(f \circ g) = Ff \circ Fg$
+    \end{itemize}
+  \end{uncoverenv}
 \end{frame}
 
 \begin{frame}{Examples}
   \begin{itemize}
-  \item<1-> The forgetful functor $U : \mathsf{Grp} \to \mathsf{Set}$ mapping each group to its underlying set and each group homomorphism to its underlying function
+  \item<1-> The forgetful functor $U : \mathsf{Grp} \to \mathsf{Set}$ mapping each group to its underlying set
   \item<2-> The free functor $F : \mathsf{Set} \to \mathsf{Grp}$ mapping each set to the free group on that set
   \item<3-> The discrete topology functor $D : \mathsf{Set} \to \mathsf{Top}$ equipping each set with the discrete topology
   \item<4-> The indiscrete topology functor $I : \mathsf{Set} \to \mathsf{Top}$ equipping each set with the indiscrete topology
   \item<5-> The fundamental group functor $\pi_{1} : \mathsf{Top}_{*} \to \mathsf{Grp}$ mapping each pointed space to the group of closed paths in that space
   \item<6-> The functor $\mathsf{Maybe} : \mathsf{Set} \to \mathsf{Set}$ mapping each set $S$ to the underlying set of $S$ freely adjoined with a point
+  \item<7-> The $\mathsf{Grp}(\blank, J) : \mathsf{Grp} \to \mathsf{Set}$ mapping each group $I$ to the set of all group homomorphisms $I \to J$.
   \end{itemize}
 \end{frame}
 
 \section{Universality}
 \label{sec:universality}
 
-\begin{frame}{Universality}
+\begin{frame}{Universality}{Motivating examples}
+  We know what products look like in $\mathsf{Set}$.
+  We can generalize its definition to other categories (e.g., $\mathsf{Grp}$).
+  Let $G$ and $H$ be groups.
+  Their \emph{product} $G \times H$ is a group equipped with 2 group homomorphisms $\pi_{1}$ and $\pi_{2}$.
+  % https://q.uiver.app/#q=WzAsMyxbMSwwLCJHIFxcdGltZXMgSCJdLFswLDEsIkciXSxbMiwxLCJIIl0sWzAsMSwiXFxwaV97MX0iLDJdLFswLDIsIlxccGlfezJ9Il1d
+  \[\begin{tikzcd}
+      \& {G \times H} \\
+      G \&\& H
+      \arrow[from=1-2, to=2-1]{}[swap]{\pi_{1}}
+      \arrow[from=1-2, to=2-3]{}{\pi_{2}}
+    \end{tikzcd}\]
+  \pause
+  We want this solution to be (1) \emph{general} and (2) \emph{efficient}.
+  \begin{enumerate}
+  \item<1-> For any element $g$ of $G$ and any element $h$ of $H$, there is an element $(g,h)$ of $G \times H$ such that $\pi_{1}(g,h) = g$ and $\pi_{2}(g,h) = h$
+  \item<2-> For any element $f$ of $G \times H$, if $\pi_{1}f = g$ and $\pi_{2}f = h$ then $f = (g,h)$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Universality}{Motivating examples}
+  \only<1>{We want this solution to be (1) \emph{general} and (2) \emph{efficient}, expressed diagrammatically:}
+  % https://q.uiver.app/#q=WzAsNCxbMSwxLCJHIFxcdGltZXMgSCJdLFswLDIsIkciXSxbMiwyLCJIIl0sWzEsMCwiSSJdLFswLDEsIlxccGlfezF9Il0sWzAsMiwiXFxwaV97Mn0iLDJdLFszLDEsImYiLDIseyJjdXJ2ZSI6Mn1dLFszLDIsImciLDAseyJjdXJ2ZSI6LTJ9XSxbMywwLCIoZixnKSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+  \[\begin{tikzcd}
+      \& I \\
+      \& {G \times H} \\
+      G \&\& H
+      \arrow[from=2-2, to=3-1]{}{\pi_{1}}
+      \arrow[from=2-2, to=3-3]{}[swap]{\pi_{2}}
+      \arrow[curve={height=12pt}, from=1-2, to=3-1]{}[swap]{g}
+      \arrow[curve={height=-12pt}, from=1-2, to=3-3]{}{h}
+      \arrow[dashed, from=1-2, to=2-2]{}{(g,h)}
+    \end{tikzcd}\]
+  \begin{onlyenv}<2>
+    \begin{block}{Observation}
+      The generality and efficiency conditions can be encoded as an isomorphism (``natural'' in $I$).
+      \[
+        \mathsf{Grp}(I, G \times H) \iso \mathsf{Grp}(I, G) \times \mathsf{Grp}(I, H)
+      \]
+    \end{block}
+  \end{onlyenv}
+\end{frame}
+
+\begin{frame}{Representable functors}
+  A set-valued functor $F : \iC \to \mathsf{Set}$ is \emph{representable} if there is an object $c \in \iC$ and a (natural) isomorphism
+  \[
+    \iC(\blank, c) \iso F\blank
+  \]
+  \begin{center}
+    \textbf{or}
+  \end{center}
+  \[
+    \iC(c, \blank) \iso F\blank
+  \]
+  The object $c$ is called a \emph{representing} object.
+\end{frame}
+
+\begin{frame}{Example: coproducts}
+  In $\mathsf{Set}$, we know what disjoint unions (coproducts) look like.
+  We can generalize this to other categories.
+  The coproduct of two groups $G$ and $H$ is the representing object of the functor $\mathsf{Grp}(G,\blank) \uplus \mathsf{Grp}(H,\blank)$ mapping each group $I$ to the disjoint union of the set of all group homomorphisms $G \to I$ and the set of all group homomorphisms $H \to I$.
+  This is represented by the free product (confusingly).
+  \[
+    \mathsf{Grp}(G + H,\blank) \iso \mathsf{Grp}(G,\blank) \uplus \mathsf{Grp}(H,\blank)
+  \]
+  \begin{uncoverenv}<2->
+    Diagrammatically,
+    % https://q.uiver.app/#q=WzAsNCxbMCwyLCJHIl0sWzEsMSwiRyArIEgiXSxbMiwyLCJIIl0sWzEsMCwiSSJdLFswLDEsIlxcaW90YV97MX0iLDJdLFsyLDEsIlxcaW90YV97Mn0iXSxbMCwzLCJnIiwwLHsiY3VydmUiOi0yfV0sWzIsMywiaCIsMix7ImN1cnZlIjoyfV0sWzEsMywiW2csaF0iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+    \[\begin{tikzcd}
+	\& I \\
+	\& {G + H} \\
+	G \&\& H
+	\arrow[from=3-1, to=2-2]{}[swap]{\iota_{1}}
+	\arrow[from=3-3, to=2-2]{}{\iota_{2}}
+	\arrow[curve={height=-12pt}, from=3-1, to=1-2]{}{g}
+	\arrow[curve={height=12pt}, from=3-3, to=1-2]{}[swap]{h}
+	\arrow[dashed, from=2-2, to=1-2]{}[swap]{[g,h]}
+      \end{tikzcd}\]
+  \end{uncoverenv}
+\end{frame}
+
+\begin{frame}{Example: graph coloring}
+  The functor $n\text{-Color}$ mapping each graph to the set of all $n$-colorings is represented by the complete graph $K_{n}$.
+  \[
+    \mathsf{Graph}(\blank, K_{n}) \iso n\text{-Color}\blank
+  \]
   \begin{itemize}
-  \item<1-> Product group is the ``most efficient'' group so that the projections are group homomorphisms
-  \item<2-> Quotient topology is the ``most efficient'' topology so that the quotient map is continuous
-  \item<3-> The Sierpi\'{n}ski space is the ``most efficient'' topological space equipped with an open set
-  \item<4-> The complete graph $K_{n}$ is the ``most efficient'' $n$-colorable graph
-  \item<5-> Boolean values form the ``most efficient'' set that distinguishes subsets
+  \item<2-> Under this isomorphism, the identity graph homomorphism $\id_{K_{n}} \in \mathsf{Graph}(K_{n},K_{n})$ corresponds to an $n$-coloring in $n\text{-Color}(K_{n})$.
+    This is called the \emph{universal $n$-coloring}.
+  \item<3-> Every graph homomorphism $f : G \to K_{n}$ determines a unique $n$-coloring on $G$ by taking the inverse image $f\inv$ on the universal $n$-coloring.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Identity functor on Set}
+\begin{frame}{Example: powerset}
+  The powerset functor $P : \mathsf{Set} \to \mathsf{Set}$ is represented by the set of truth values.
+  \[
+    \mathsf{Set}(\blank,\dB) \iso P\blank
+  \]
   \begin{itemize}
-  \item[] $\id_{\mathsf{Set}} : \mathsf{Set} \to \mathsf{Set}$
-    \begin{itemize}
-    \item[] action on objects: $S \mapsto S$
-    \item[] action on morphisms: $f \mapsto f$
-    \end{itemize}
-  \end{itemize}
-  \begin{block}{Fact}
-    $\mathsf{Set}(1, S) \iso \id_{\mathsf{Set}}(S) = S$.
-  \end{block}
-  \begin{itemize}
-  \item<2-> The identity functor on $\mathsf{Set}$ is \emph{represented} by the singleton set
-  \item<3-> To understand $S$, it suffices to understand all functions from the singleton set to $S$
-  \item<4-> Every element of a set $S$ corresponds to a unique function from the singleton set to $S$
+  \item<2-> A proposition $\varphi$ is just a function $\varphi : S \to \dB$.
+    Every proposition $\varphi : S \to \dB$ uniquely determines a subset of $S$.
+  \item<3-> Similarly, every subset of $S$ is \emph{classified} by a unique proposition $\varphi : S \to \dB$.
+  \item<4-> The subset classified by $\varphi : S \to \dB$ has a simple description:
+    \[
+      \Set{s \in S \mid \varphi(s) = t}
+    \]
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Graph coloring}
-  Graphs and their homomorphisms form a category $\mathsf{Graph}$.
-  \begin{itemize}
-  \item[] $n\text{-Color} : \mathsf{Graph} \to \mathsf{Set}$
-    \begin{itemize}
-    \item[] action on objects: $G \mapsto$ set of all $n$-colorings
-    \item[] action on morphisms : $f \mapsto$ a consistent recoloring
-    \end{itemize}
-  \end{itemize}
-  \begin{block}{Fact}
-    $\mathsf{Graph}(G,K_{n}) \iso n\text{-Color}(G)$.
-  \end{block}
-  \begin{itemize}
-  \item<2-> $n\text{-Color}$ is \emph{represented} by the complete graph $K_{n}$
-  \item<3-> To understand the set of all $n$-colorings of $G$, it suffices to understand the set of all graph homomorphisms from $G$ to $K_{n}$
-  \item<4-> Every $n$-coloring on a graph $G$ determines a graph homomorphism $G \to K_{n}$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Powerset}
-  \begin{itemize}
-  \item[] $\mathcal{P} : \mathsf{Set} \to \mathsf{Set}$
-    \begin{itemize}
-    \item[] action on objects: $S \mapsto \mathcal{P}(S)$
-    \item[] action on morphisms: magic
-    \end{itemize}
-  \end{itemize}
-  \begin{block}{Fact}
-    $\mathsf{Set}(S,\mathbb{B}) \iso \mathcal{P}(S)$, where $\mathbb{B}$ is the two point set (Boolean values).
-  \end{block}
-  \begin{itemize}
-  \item<2-> The powerset functor is \emph{represented} by the two point set
-  \item<3-> To understand the powerset, it suffices to understand all \emph{characteristic functions} (Boolean functions)
-  \item<4-> Every subset is uniquely determined by a characteristic function.
-  \end{itemize}
+\begin{frame}{Suggested reading}
+  \bibliographystyle{alpha}
+  \bibliography{all}
+  \nocite{riehl:category}
+  \nocite{leinster:cat-thy}
 \end{frame}
 
 \end{document}

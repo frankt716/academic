@@ -664,6 +664,30 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   \todo{}
 \end{proof}
 
+\begin{defn}
+  Let $\dC$ be an internal category in a topos $\cS$, and $p : \cE \to \cS$ be an $\cS$-topos.
+  An \emph{$\dC$-torsor} in $\cE$ is an $\cS$-indexed functor $F : \dC\op \to \dE$ such that the domain of the corresponding discrete fibration $\dF \to p^{*}(\dC)$ is filtered.
+  We write $\CTor(\dC, \cE)$ for the full subcategory of $[\dC\op, \cE]$ whose objects are torsors over $\dC$.
+\end{defn}
+
+\begin{rmk}
+  The usual name for the concept of a torsor is \emph{flat presheaf}.
+\end{rmk}
+
+\begin{thm}[Diaconescu's theorem]
+  Let $\cS$ be a topos, $\dC$ an internal category in $\cS$, and $p : \cE \to \cS$ a geometric morphism.
+  Then there is an equivalence of categories
+  \[
+    \CTopoi/\cS(\cE,[\dC,\cS]) \eqv \CTor(\dC,\cE)
+  \]
+  natural in $\cE$.
+\end{thm}
+\begin{proof}
+  \todo{}
+\end{proof}
+
+\todo{I think the material of Ivan's LN15 lies in Elephant B4.2.}
+
 \section{Sheaves}
 \label{sec:sheaves}
 

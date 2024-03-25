@@ -640,8 +640,34 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   An \emph{$\cS$-indexed natural transformation} is a modification.
 \end{defn}
 
-\section{Fibered categories}
-\label{sec:fibered-categories}
+\begin{notn}
+  We write $\CCAT_{\cS}$ for the meta 2-category of $\cS$-indexed categories.
+\end{notn}
+
+\begin{eg}
+  An obvious $\CSet$-indexed category whose underlying ordinary category is a given category $\iC$ is given by the assignment $I \mapsto \iC^{I}$, where $\iC^{I}$ is the product of $I$ copies of $\iC$.
+  This is called the \emph{na\"ive indexing of $\iC$ over $\CSet$}.
+\end{eg}
+
+\begin{eg}
+  Let $\cS$ be a cartesian category (viewed as a 2-category whose 2-cells are trivial).
+  An $\cS$-indexed category $\dS$ is given by the assignment $I \mapsto \cS/I$ and $x^{*}$ is given by the pullback along $x$.
+  $\dS$ is called the \emph{canonical indexing} over itself.
+\end{eg}
+
+\begin{eg}\label{eg:index-with-functor}
+  Let $F : \iS \to \iC$ be a functor and $\iC$ be cartesian.
+  Then we may form an $\cS$-indexed category $\dC$ by setting $I \mapsto \iC/F(I)$, and $x^{*}$ is the pullback along $F(x)$.
+\end{eg}
+
+\begin{lem}
+  Let $F : \cS \to \cC$ be a functor between cartesian categories, having a right adjoint $R$.
+  Then $R$ has a canonical extension to an $\cS$-indexed functor $\dC \to \dS$, where $\dS$ is the canonical indexing of $\cS$ over itself and $\dC$ is defined as in \cref{eg:index-with-functor}.
+\end{lem}
+\begin{proof}
+  For each object $I$ of $\cS$, take $\alpha_{I} : \iC/F(I) \to \iS/I$ to be the functor $\eta^{*}_{I} \circ R/F(I)$.
+  Clearly, this defines a 2-natural transformation.
+\end{proof}
 
 \begin{rmk}
   The notion of indexed category is not an elementary one.

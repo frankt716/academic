@@ -676,8 +676,32 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 
 \begin{defn}
   Let $\cS$ be a category, and $\dC$ be an indexed category over $\cS$.
-  The \emph{Grothendieck category} $\cG(\dC)$ consists of pairs $(I,A)$ where $I$ is an object of $\cS$ and $A$ is an object of $\iC^{I}$ as objects, and pairs $(x, f)$ where $x : I \to J$ in $\cS$ and $g : A \to x^{*}(B)$ in $\iC^{I}$ as morphisms.
+  The \emph{Grothendieck category} $\cG(\dC)$ consists of pairs $(I,A)$, where $I$ is an object of $\cS$ and $A$ is an object of $\iC^{I}$, as objects, and pairs $(x, f)$, where $x : I \to J$ in $\cS$ and $g : A \to x^{*}(B)$ in $\iC^{I}$, as morphisms.
+  The composite of $(x, f)$ and $(y, g)$ is $(yx, h)$ where $h$ is the composite
+  \[
+    A \xto{f} x^{*}(B) \xto{x^{*}(g)} x^{*}y^{*}(C) \xto{\theta_{x,y}(C)} (yx)^{*}(C)
+  \]
+  Associativity of composition follows from the coherence condition of $\theta$, demanding that the following diagram commutes.
+  % https://q.uiver.app/#q=WzAsNixbMiwwLCJ4XnsqfXleeyp9KEMpIl0sWzIsMywiKHp5eCleeyp9KEQpIl0sWzQsMSwiKHl4KV57Kn0oQykiXSxbNCwzLCIoeXgpXnsqfXpeeyp9KEQpIl0sWzAsMSwieF57Kn15XnsqfXpeeyp9KEQpIl0sWzAsMywieF57Kn0oenkpXnsqfShEKSJdLFswLDJdLFsyLDNdLFszLDFdLFs1LDFdLFswLDRdLFs0LDVdXQ==
+  \[\begin{tikzcd}
+      && {x^{*}y^{*}(C)} \\
+      {x^{*}y^{*}z^{*}(D)} &&&& {(yx)^{*}(C)} \\
+      \\
+      {x^{*}(zy)^{*}(D)} && {(zyx)^{*}(D)} && {(yx)^{*}z^{*}(D)}
+      \arrow[from=1-3, to=2-5]
+      \arrow[from=2-5, to=4-5]
+      \arrow[from=4-5, to=4-3]
+      \arrow[from=4-1, to=4-3]
+      \arrow[from=1-3, to=2-1]
+      \arrow[from=2-1, to=4-1]
+    \end{tikzcd}\]
+  The identity morphism on the object $(I,A)$ is the pair $(\id_{I},\id_{A})$.
+  Since $(\id_{A})^{*}$ is the identity functor, it is clear that the identity morphism is the unit of composition.
 \end{defn}
+
+\begin{rmk}
+  There is an obvious forgetful functor $\Pi : \cG(\dC) \to \cS$.
+\end{rmk}
 
 \begin{rmk}
   The category of elements of a set-valued functor is a special case of the Grothendieck construction.

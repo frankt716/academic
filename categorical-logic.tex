@@ -676,7 +676,7 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 
 \begin{defn}
   Let $\cS$ be a category, and $\dC$ be an indexed category over $\cS$.
-  The \emph{Grothendieck category} $\cG(\dC)$ consists of pairs $(I,A)$, where $I$ is an object of $\cS$ and $A$ is an object of $\iC^{I}$, as objects, and pairs $(x, f)$, where $x : I \to J$ in $\cS$ and $g : A \to x^{*}(B)$ in $\iC^{I}$, as morphisms.
+  The \emph{Grothendieck category} $\cG(\dC)$ consists of pairs $(I,A)$, where $I$ is an object of $\cS$ and $A$ is an object of $\iC^{I}$, as objects, and pairs $(x, f)$, where $x : I \to J$ in $\cS$ and $f : A \to x^{*}(B)$ in $\iC^{I}$, as morphisms.
   The composite of $(x, f)$ and $(y, g)$ is $(yx, h)$ where $h$ is the composite
   \[
     A \xto{f} x^{*}(B) \xto{x^{*}(g)} x^{*}y^{*}(C) \xto{\theta_{x,y}(C)} (yx)^{*}(C)
@@ -703,9 +703,45 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   There is an obvious forgetful functor $\Pi : \cG(\dC) \to \cS$.
 \end{rmk}
 
-\begin{rmk}
+\begin{eg}
   The category of elements of a set-valued functor is a special case of the Grothendieck construction.
+\end{eg}
+
+\begin{rmk}
+  Every morphism in $\cG(\dC)$ can be decomposed as a prone morphism followed by a vertical morphism.
+  % https://q.uiver.app/#q=WzAsOSxbMCwwLCJcXGlDXntJfSJdLFsyLDAsIlxcaUNee0p9Il0sWzAsMiwiQSJdLFswLDQsInheeyp9KEIpIl0sWzIsNCwiQiJdLFswLDYsIkkiXSxbMiw2LCJKIl0sWzQsMywiXFxjRyhcXGRDKSJdLFs0LDYsIlxcY1MiXSxbNSw2LCJ4IiwyXSxbMiw0LCIoeCwgZikiXSxbMiwzLCJmIiwyXSxbMyw0LCIoeCxcXGlkX3t4XnsqfShCKX0pIiwyXV0=
+  \[\begin{tikzcd}
+      {\iC^{I}} && {\iC^{J}} \\
+      \\
+      A \\
+      &&&& {\cG(\dC)} \\
+      {x^{*}(B)} && B \\
+      \\
+      I && J && \cS
+      \arrow["x"', from=7-1, to=7-3]
+      \arrow["{(x, f)}", from=3-1, to=5-3]
+      \arrow["{(\id_{I},f)}"', from=3-1, to=5-1]
+      \arrow["{(x,\id_{x^{*}(B)})}"', from=5-1, to=5-3]
+    \end{tikzcd}\]
 \end{rmk}
+
+\begin{lem}
+  Let $h : U \to V$ be a morphism of $\cG(\dC)$.
+  Then the vertical part of the factorization of $h$ is an isomorphism iff, given any morphism $k : W \to V$ with the same codomain and any factorization $\Pi(k) = \Pi(h)x$ of $\Pi(k)$ through $\Pi(h)$, there is a unique $l : W \to U$ in $\cG(\dC)$ with $\Pi(l) = x$ and $hl = k$.
+\end{lem}
+\begin{proof}
+  Suppose that the vertical part of $h$ is an isomorphism.
+  Since every morphism in $\cG(\dC)$ can be factored, we may assume that $h = (y, f)$, where $f$ is an isomorphism, and $k = (yx, g)$.
+  We set $l = (x, x^{*}(f\inv)g)$.
+  Then $hl = (y, f)(x,x^{*}(f\inv)g) = (yx, x^{*}(f)x^{*}(f\inv)g) = (yx, g)$.
+  For any other morphism with such a property, the prone morphism must be $x$ and the vertical morphism $u$ must satisfy $x^{*}(f)u = g$.
+  Thus, $u = x^{*}(f\inv)g$.
+  
+  Conversely, if $h = (y, f)$ satisfies the given conditions, take $x = \id$ and $k = (y, \id)$.
+  The hypothesis demands that there is a unique $l = (\id, g)$ so that $(y, f)(\id, g) = (y, \id)$.
+  Uniqueness implies that $f$ is monomorphic.
+  This implies that $f$ is an isomorphism because it is also a split epimorphism.
+\end{proof}
 
 \begin{thm}
   The Grothendieck construction yields an equivalence of 2-categories between $\CCAT_{\cS}$ and $\CcFib_{\cS}$.

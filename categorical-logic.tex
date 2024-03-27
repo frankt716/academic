@@ -704,43 +704,82 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 \end{rmk}
 
 \begin{eg}
-  The category of elements of a set-valued functor is a special case of the Grothendieck construction.
+  The category of elements of a set-valued functor is a Grothendieck construction.
 \end{eg}
 
 \begin{rmk}
-  Every morphism in $\cG(\dC)$ can be decomposed as a prone morphism followed by a vertical morphism.
-  % https://q.uiver.app/#q=WzAsOSxbMCwwLCJcXGlDXntJfSJdLFsyLDAsIlxcaUNee0p9Il0sWzAsMiwiQSJdLFswLDQsInheeyp9KEIpIl0sWzIsNCwiQiJdLFswLDYsIkkiXSxbMiw2LCJKIl0sWzQsMywiXFxjRyhcXGRDKSJdLFs0LDYsIlxcY1MiXSxbNSw2LCJ4IiwyXSxbMiw0LCIoeCwgZikiXSxbMiwzLCJmIiwyXSxbMyw0LCIoeCxcXGlkX3t4XnsqfShCKX0pIiwyXV0=
+  Every morphism in $\cG(\dC)$ can be decomposed uniquely as a prone morphism followed by a vertical morphism.
+  % https://q.uiver.app/#q=WzAsMyxbMCwwLCIoSSxBKSJdLFswLDIsIihJLHheeyp9KEIpKSJdLFsyLDIsIihKLEIpIl0sWzEsMiwiKHgsXFxpZF97eF57Kn0oQil9KSIsMl0sWzAsMSwiKFxcaWRfe0l9LGYpIiwyXSxbMCwyLCIoeCxmKSJdXQ==
   \[\begin{tikzcd}
-      {\iC^{I}} && {\iC^{J}} \\
+      {(I,A)} \\
       \\
-      A \\
-      &&&& {\cG(\dC)} \\
-      {x^{*}(B)} && B \\
-      \\
-      I && J && \cS
-      \arrow["x"', from=7-1, to=7-3]
-      \arrow["{(x, f)}", from=3-1, to=5-3]
-      \arrow["{(\id_{I},f)}"', from=3-1, to=5-1]
-      \arrow["{(x,\id_{x^{*}(B)})}"', from=5-1, to=5-3]
+      {(I,x^{*}(B))} && {(J,B)}
+      \arrow["{(x,\id_{x^{*}(B)})}"', from=3-1, to=3-3]
+      \arrow["{(\id_{I},f)}"', from=1-1, to=3-1]
+      \arrow["{(x,f)}", from=1-1, to=3-3]
     \end{tikzcd}\]
 \end{rmk}
 
-\begin{lem}
+\begin{rmk}
+  Up to isomorphism, every horizontal morphism can be described in terms of the forgetful functor $\Pi : \cG(\dC) \to \cS$.
+\end{rmk}
+
+\begin{lem}\label{lem:unique-lifting-of-prone-morphisms}
   Let $h : U \to V$ be a morphism of $\cG(\dC)$.
-  Then the vertical part of the factorization of $h$ is an isomorphism iff, given any morphism $k : W \to V$ with the same codomain and any factorization $\Pi(k) = \Pi(h)x$ of $\Pi(k)$ through $\Pi(h)$, there is a unique $l : W \to U$ in $\cG(\dC)$ with $\Pi(l) = x$ and $hl = k$.
+  Then the vertical part of the factorization of $h$ is an isomorphism iff, for any commutative triangle $\Pi(k) = \Pi(h)x$, $l : W \to U$ is the unique lift of $x$ such that $k = hl$.
+  % https://q.uiver.app/#q=WzAsOCxbMCwwLCJVIl0sWzAsMiwiViJdLFsyLDIsIlciXSxbMCw0LCJJIl0sWzAsNiwiSyJdLFsyLDYsIkoiXSxbMSwzXSxbMSw0XSxbMCwxLCJoIiwyXSxbMiwxLCJrIl0sWzIsMCwibCIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDQsIlxcUGkoaCkiLDJdLFs1LDQsIlxcUGkoaykiXSxbNSwzLCJ4IiwyXSxbNiw3LCJcXG1hcHN0byIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+  \[\begin{tikzcd}
+      U \\
+      \\
+      V && W \\
+      & {} \\
+      I & {} \\
+      \\
+      K && J
+      \arrow["h"', from=1-1, to=3-1]
+      \arrow["k", from=3-3, to=3-1]
+      \arrow["l"', dashed, from=3-3, to=1-1]
+      \arrow["{\Pi(h)}"', from=5-1, to=7-1]
+      \arrow["{\Pi(k)}", from=7-3, to=7-1]
+      \arrow["x"', from=7-3, to=5-1]
+      \arrow["\mapsto"{marking, allow upside down}, draw=none, from=4-2, to=5-2]
+    \end{tikzcd}\]
 \end{lem}
 \begin{proof}
-  Suppose that the vertical part of $h$ is an isomorphism.
-  Since every morphism in $\cG(\dC)$ can be factored, we may assume that $h = (y, f)$, where $f$ is an isomorphism, and $k = (yx, g)$.
-  We set $l = (x, x^{*}(f\inv)g)$.
-  Then $hl = (y, f)(x,x^{*}(f\inv)g) = (yx, x^{*}(f)x^{*}(f\inv)g) = (yx, g)$.
-  For any other morphism with such a property, the prone morphism must be $x$ and the vertical morphism $u$ must satisfy $x^{*}(f)u = g$.
-  Thus, $u = x^{*}(f\inv)g$.
-  
-  Conversely, if $h = (y, f)$ satisfies the given conditions, take $x = \id$ and $k = (y, \id)$.
-  The hypothesis demands that there is a unique $l = (\id, g)$ so that $(y, f)(\id, g) = (y, \id)$.
-  Uniqueness implies that $f$ is monomorphic.
-  This implies that $f$ is an isomorphism because it is also a split epimorphism.
+  Suppose that $h = (y,f)$, where $f$ is an isomorphism.
+  Since $\Pi(k) = \Pi(h)x$, we may assume that $k = (yx,g)$.
+  Then we may take $l = (x, \inv x^{*}(f\inv)g)$.
+  Note that, we have suppressed the coherence isomorphism in the definition of $l$.
+  Clearly, $\Pi(l) = x$.
+  By calculation,
+  \[
+    hl = (y,f)(x, x^{*}(f\inv)g) = (yx, x^{*}(f)x^{*}(f\inv)g) = (yx, g) = k
+  \]
+
+  Conversely, assume that every commutative triangle $\Pi(k) = \Pi(h)x$ has a unique lift, where $h = (y,f)$.
+  Take $k = (y, \id)$ and $x = \id$.
+  Clearly, $\Pi(k) = \Pi(h)\id$.
+  Thus, the unique lift $l$ of $x$ takes the form $(\id, g)$.
+  Note that this means $l$ is a vertical morphism.
+  Since $(y,f)(\id,g) = (y, f\id^{*}(g)) = (y, fg) = (y, \id)$, $fg = \id$.
+  \todo{Figure out how to show $gf = \id$.}
+\end{proof}
+
+\begin{defn}
+  Let $\Pi : \iC \to \iS$ be an arbitrary functor, a \emph{$\Pi$-prone} morphism is any morphism satisfying the condition in \cref{lem:unique-lifting-of-prone-morphisms}, i.e., \todo{}.
+  A \emph{$\Pi$-vertical} morphism is any morphism whose image under $\Pi$ is the identity.
+\end{defn}
+
+\begin{defn}
+  A functor $\Pi : \iC \to \iS$ is a \emph{fibration} if, for any object $A$ of $\iC$ and any morphism $x : I \to \Pi(A)$ in $\iS$, there is a $\Pi$-prone morphism $f : B \to A$ in $\iC$ with $\Pi(f) = x$.
+\end{defn}
+
+\begin{thm}
+  Let $\Pi : \cC \to \cS$ be a fibration, and $\sigma$ be a cleavage for $\Pi$.
+  Then there is an $\cS$-indexed category $\dC : \cS\op \to \CCAT$ sending each object $I$ of $\cS$ to $\cC^{I}$, and such that the Grothendieck construction applied to this indexed category yields a fibration isomorphic (in $\CCAT/\cS$) to $\Pi$.
+\end{thm}
+\begin{proof}
+  \todo{}
 \end{proof}
 
 \begin{thm}

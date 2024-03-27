@@ -727,22 +727,21 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 \begin{lem}\label{lem:unique-lifting-of-prone-morphisms}
   Let $h : U \to V$ be a morphism of $\cG(\dC)$.
   Then the vertical part of the factorization of $h$ is an isomorphism iff, for any commutative triangle $\Pi(k) = \Pi(h)x$, $l : W \to U$ is the unique lift of $x$ such that $k = hl$.
-  % https://q.uiver.app/#q=WzAsOCxbMCwwLCJVIl0sWzAsMiwiViJdLFsyLDIsIlciXSxbMCw0LCJJIl0sWzAsNiwiSyJdLFsyLDYsIkoiXSxbMSwzXSxbMSw0XSxbMCwxLCJoIiwyXSxbMiwxLCJrIl0sWzIsMCwibCIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDQsIlxcUGkoaCkiLDJdLFs1LDQsIlxcUGkoaykiXSxbNSwzLCJ4IiwyXSxbNiw3LCJcXG1hcHN0byIsMyx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dXQ==
+  % https://q.uiver.app/#q=WzAsOCxbMCwyLCJVIl0sWzIsMiwiViJdLFswLDAsIlciXSxbMSwyXSxbMSwzXSxbMCwzLCJLIl0sWzAsNSwiSSJdLFsyLDUsIkoiXSxbMCwxLCJoIiwyXSxbMyw0LCJcXG1hcHN0byIsMyx7ImxhYmVsX3Bvc2l0aW9uIjoxMDAsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFsyLDEsImsiXSxbMiwwLCJsIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzYsNywiXFxQaShoKSIsMl0sWzUsNywiXFxQaShrKSJdLFs1LDYsIngiLDJdXQ==
   \[\begin{tikzcd}
-      U \\
+      W \\
       \\
-      V && W \\
-      & {} \\
-      I & {} \\
+      U & {} & V \\
+      K & {} \\
       \\
-      K && J
-      \arrow["h"', from=1-1, to=3-1]
-      \arrow["k", from=3-3, to=3-1]
-      \arrow["l"', dashed, from=3-3, to=1-1]
-      \arrow["{\Pi(h)}"', from=5-1, to=7-1]
-      \arrow["{\Pi(k)}", from=7-3, to=7-1]
-      \arrow["x"', from=7-3, to=5-1]
-      \arrow["\mapsto"{marking, allow upside down}, draw=none, from=4-2, to=5-2]
+      I && J
+      \arrow["h"', from=3-1, to=3-3]
+      \arrow["\mapsto"{marking, allow upside down, pos=1}, draw=none, from=3-2, to=4-2]
+      \arrow["k", from=1-1, to=3-3]
+      \arrow["l"', dashed, from=1-1, to=3-1]
+      \arrow["{\Pi(h)}"', from=6-1, to=6-3]
+      \arrow["{\Pi(k)}", from=4-1, to=6-3]
+      \arrow["x"', from=4-1, to=6-1]
     \end{tikzcd}\]
 \end{lem}
 \begin{proof}
@@ -766,13 +765,71 @@ Coherence conditions ensure that any two 2-cells with the same source and target
 \end{proof}
 
 \begin{defn}
-  Let $\Pi : \iC \to \iS$ be an arbitrary functor, a \emph{$\Pi$-prone} morphism is any morphism satisfying the condition in \cref{lem:unique-lifting-of-prone-morphisms}, i.e., \todo{}.
+  Let $\Pi : \iC \to \iS$ be an arbitrary functor, a \emph{$\Pi$-prone} morphism is any morphism $h : U \to V$ in $\iC$ such that for any $k : W \to V$ admitting a factorization $\Pi(k) = \Pi(h)x$ in $\iS$ there is a unique lift $l : W \to U$ making the triangle commute as depicted in \cref{lem:unique-lifting-of-prone-morphisms}.
   A \emph{$\Pi$-vertical} morphism is any morphism whose image under $\Pi$ is the identity.
 \end{defn}
 
 \begin{defn}
   A functor $\Pi : \iC \to \iS$ is a \emph{fibration} if, for any object $A$ of $\iC$ and any morphism $x : I \to \Pi(A)$ in $\iS$, there is a $\Pi$-prone morphism $f : B \to A$ in $\iC$ with $\Pi(f) = x$.
 \end{defn}
+
+\begin{lem}\label{lem:prone-morphisms-monic}
+  Let $\Pi : \cC \to \cS$ be a functor.
+  If $h : U \to V$ is prone then $h$ is a weak monomorphism in the sense that $h$ is monomorphic for morphisms satisfying $\Pi(u) = \Pi(u')$.
+\end{lem}
+\begin{proof}
+  Suppose that $hu = hu'$ and that $\Pi(u) = \Pi(u')$.
+  Consider the following commutative triangle.
+  % https://q.uiver.app/#q=WzAsMyxbMCwyLCJVIl0sWzIsMiwiViJdLFswLDAsIlciXSxbMCwxLCJoIiwyXSxbMiwwLCJ1IiwyLHsiY3VydmUiOjJ9XSxbMiwxLCJodSIsMCx7ImN1cnZlIjotMn1dLFsyLDAsInUnIiwwLHsiY3VydmUiOi0yfV1d
+  \[\begin{tikzcd}
+      W \\
+      \\
+      U && V
+      \arrow["h"', from=3-1, to=3-3]
+      \arrow["u"', curve={height=12pt}, from=1-1, to=3-1]
+      \arrow["hu", curve={height=-12pt}, from=1-1, to=3-3]
+      \arrow["{u'}", curve={height=-12pt}, from=1-1, to=3-1]
+    \end{tikzcd}\]
+  Clearly, the image of this triangle under $\Pi$ is a factorization of $\Pi(hu)$ through $\Pi(h)$.
+  Since $h$ is prone, uniqueness implies that $u = u'$.
+\end{proof}
+
+\begin{cor}
+  Prone morphisms are monomorphic for vertical morphisms.
+\end{cor}
+
+\begin{lem}
+  Let $\Pi : \cC \to \cS$ be a functor.
+  \begin{enumerate}
+  \item Let $f : A \to B$ and $g : B \to C$ be morphisms of $\cC$ such that $g$ is prone.
+    Then the composite $gf$ is prone iff $f$ is.
+  \item Given a commutative square
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzAsMiwiQyJdLFsyLDIsIkQiXSxbMiwwLCJCIl0sWzAsMywiZiJdLFswLDEsImciLDJdLFszLDIsImgiXSxbMSwyLCJrIiwyXV0=
+    \[\begin{tikzcd}
+	A && B \\
+	\\
+	C && D
+	\arrow["f", from=1-1, to=1-3]
+	\arrow["g"', from=1-1, to=3-1]
+	\arrow["h", from=1-3, to=3-3]
+	\arrow["k"', from=3-1, to=3-3]
+      \end{tikzcd}\]
+    in $\cC$ such that $k$ is prone and $g$ and $h$ are vertical, then $f$ is prone iff the square is a pullback.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  \begin{enumerate}
+  \item Suppose that the composite $gf$ is prone.
+    Any factorization $\Pi(k) = \Pi(f)x$ can be extended: $\Pi(gk) = \Pi(gf)x$.
+    Since $gf$ is prone, there is a unique lift $l$ such that $gfl = gk$.
+    Since $g$ is prone, we conclude that $fl = k$ (\cref{lem:prone-morphisms-monic}).
+    Conversely, assume that $f$ is prone.
+    Let $\Pi(k) = \Pi(gf)x$ be a factorization.
+    Since $g$ is prone, there is a unique lift so that $gl = k$ and $\Pi(l) = \Pi(f)x$.
+    Since $f$ is prone, this factorization admits a unique lifting too.
+  \item
+  \end{enumerate}
+\end{proof}
 
 \begin{thm}
   Let $\Pi : \cC \to \cS$ be a fibration, and $\sigma$ be a cleavage for $\Pi$.

@@ -804,15 +804,15 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   \item Let $f : A \to B$ and $g : B \to C$ be morphisms of $\cC$ such that $g$ is prone.
     Then the composite $gf$ is prone iff $f$ is.
   \item Given a commutative square
-    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzAsMiwiQyJdLFsyLDIsIkQiXSxbMiwwLCJCIl0sWzAsMywiZiJdLFswLDEsImciLDJdLFszLDIsImgiXSxbMSwyLCJrIiwyXV0=
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkMiXSxbMiwyLCJEIl0sWzIsMywiayIsMl0sWzEsMywiaCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMCwyLCJnIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFswLDEsImYiXV0=
     \[\begin{tikzcd}
 	A && B \\
 	\\
 	C && D
-	\arrow["f", from=1-1, to=1-3]
-	\arrow["g"', from=1-1, to=3-1]
-	\arrow["h", from=1-3, to=3-3]
 	\arrow["k"', from=3-1, to=3-3]
+	\arrow["h", maps to, from=1-3, to=3-3]
+	\arrow["g"', maps to, from=1-1, to=3-1]
+	\arrow["f", from=1-1, to=1-3]
       \end{tikzcd}\]
     in $\cC$ such that $k$ is prone and $g$ and $h$ are vertical, then $f$ is prone iff the square is a pullback.
   \end{enumerate}
@@ -827,9 +827,18 @@ Coherence conditions ensure that any two 2-cells with the same source and target
     Let $\Pi(k) = \Pi(gf)x$ be a factorization.
     Since $g$ is prone, there is a unique lift so that $gl = k$ and $\Pi(l) = \Pi(f)x$.
     Since $f$ is prone, this factorization admits a unique lifting too.
-  \item
+  \item \todo{}
   \end{enumerate}
 \end{proof}
+
+\begin{defn}
+  Let $\Pi : \cC \to \cS$ be a fibration.
+  A \emph{cleavage} $\sigma$ is function assigning to each pair $(A,x)$ with $\cod(x) = \Pi(A)$ a $\Pi$-prone morphism $f$ with $\cod(f) = A$ and $\Pi(f) = x$.
+  A cleavage is said to \emph{split} if it satisfies the compatibility condition.
+  \[
+    \sigma(A, yx) = \sigma(A, y)\sigma(\dom(\sigma(A, y)), x)
+  \]
+\end{defn}
 
 \begin{thm}
   Let $\Pi : \cC \to \cS$ be a fibration, and $\sigma$ be a cleavage for $\Pi$.

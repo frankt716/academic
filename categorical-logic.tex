@@ -840,13 +840,13 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   \]
 \end{defn}
 
-\begin{thm}
-  Let $\Pi : \cC \to \cS$ be a fibration, and $\sigma$ be a cleavage for $\Pi$.
-  Then there is an $\cS$-indexed category $\dC : \cS\op \to \CCAT$ sending each object $I$ of $\cS$ to $\cC^{I}$, and such that the Grothendieck construction applied to this indexed category yields a fibration isomorphic (in $\CCAT/\cS$) to $\Pi$.
-\end{thm}
-\begin{proof}
-  \todo{}
-\end{proof}
+\begin{defn}
+  A \emph{cloven} fibration is a fibration equipped with a cleavage and a \emph{split} fibration is a cloven fibration whose cleavage splits.
+\end{defn}
+
+\begin{rmk}
+  For the fibration $\Pi : \cG(\dC) \to \cS$ arising from an $\cS$-indexed category $\dC$, there is a canonical choice of cleavage given by $\sigma(A, x) = (x,\id_{x^{*}(A)})$.
+\end{rmk}
 
 \begin{thm}
   The Grothendieck construction yields an equivalence of 2-categories between $\CCAT_{\cS}$ and $\CcFib_{\cS}$.

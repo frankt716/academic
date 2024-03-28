@@ -754,7 +754,6 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   \[
     hl = (y,f)(x, x^{*}(f\inv)g) = (yx, x^{*}(f)x^{*}(f\inv)g) = (yx, g) = k
   \]
-
   Conversely, assume that every commutative triangle $\Pi(k) = \Pi(h)x$ has a unique lift, where $h = (y,f)$.
   Take $k = (y, \id)$ and $x = \id$.
   Clearly, $\Pi(k) = \Pi(h)\id$.
@@ -762,6 +761,10 @@ Coherence conditions ensure that any two 2-cells with the same source and target
   Note that this means $l$ is a vertical morphism.
   Since $(y,f)(\id,g) = (y, f\id^{*}(g)) = (y, fg) = (y, \id)$, $fg = \id$.
   \todo{Figure out how to show $gf = \id$.}
+  \todo{%
+    Actually, this lemma doesn't seem that important.
+    The important content is the notion of prone morphisms.%
+  }
 \end{proof}
 
 \begin{defn}
@@ -827,7 +830,28 @@ Coherence conditions ensure that any two 2-cells with the same source and target
     Let $\Pi(k) = \Pi(gf)x$ be a factorization.
     Since $g$ is prone, there is a unique lift so that $gl = k$ and $\Pi(l) = \Pi(f)x$.
     Since $f$ is prone, this factorization admits a unique lifting too.
-  \item \todo{}
+  \item Since $g$ and $h$ are vertical morphisms, $\Pi(f) = \Pi(k)$.
+    Then for any commutative diagram, $\Pi(j) = \Pi(f)\Pi(i)$ is a factorization.
+    If $f$ is prone, then this yields a unique lifting $l$ such that $\Pi(l) = \Pi(i)$ and $fl = j$.
+    % https://q.uiver.app/#q=WzAsNSxbMSwxLCJBIl0sWzMsMSwiQiJdLFsxLDMsIkMiXSxbMywzLCJEIl0sWzAsMCwiRSJdLFsyLDMsImsiLDJdLFsxLDMsImgiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzAsMiwiZyIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMCwxLCJmIl0sWzQsMiwiaSIsMix7ImN1cnZlIjoyfV0sWzQsMSwiaiIsMCx7ImN1cnZlIjotMn1dLFs0LDAsIiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+    \[\begin{tikzcd}
+	E \\
+	& A && B \\
+	\\
+	& C && D
+	\arrow["k"', from=4-2, to=4-4]
+	\arrow["h", maps to, from=2-4, to=4-4]
+	\arrow["g"', maps to, from=2-2, to=4-2]
+	\arrow["f", from=2-2, to=2-4]
+	\arrow["i"', curve={height=12pt}, from=1-1, to=4-2]
+	\arrow["j", curve={height=-12pt}, from=1-1, to=2-4]
+	\arrow["l", dashed, from=1-1, to=2-2]
+      \end{tikzcd}\]
+    Since $\Pi(gl) = \Pi(l) = \Pi(i)$, $kgl = hfl = hj = ki$, and $k$ is prone, $gl = i$.
+    Conversely, suppose that the commutative square is a pullback.
+    For any $j : E \to B$, any factorization $\Pi(j) = \Pi(f)x$ is equally a factorization $\Pi(j) = \Pi(k)x$.
+    Since $k$ is prone, this gives a morphism $i : E \to C$ such that $\Pi(i) = x$ and $ki = hj$.
+    The universal property of pullbacks gives a unique morphism $l : E \to A$ with $\Pi(gl) = \Pi(l) = \Pi(i) = x$ as required.
   \end{enumerate}
 \end{proof}
 
